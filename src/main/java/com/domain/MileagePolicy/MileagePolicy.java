@@ -27,8 +27,8 @@ public class MileagePolicy extends BaseTimeEntity {
    @Column(name = "POINT", nullable = false)
    private Long point;
 
-   @Column(name = "INOUT", nullable = false)
-   private Long inout;
+   @Column(name = "IN_OR_OUT", nullable = false)
+   private Long inOrOut;
 
 
 }
