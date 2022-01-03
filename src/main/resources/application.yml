@@ -1,0 +1,12 @@
+
+spring:
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://20.78.149.80:3306/iac_platform-test?characterEncoding=UTF-8&serverTimezone=UTC
+    username: root
+    password: 211224
+  jpa:
+    show_sql: true
+
+    hibernate:
+      ddl-auto: create
