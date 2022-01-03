@@ -1,5 +1,9 @@
 
 spring:
+  config:
+    activate:
+      on-profile: hyun
+
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
     url: jdbc:mariadb://20.78.149.80:3306/iac_platform-test?characterEncoding=UTF-8&serverTimezone=UTC
@@ -10,3 +14,5 @@ spring:
 
     hibernate:
       ddl-auto: create
+
+---
