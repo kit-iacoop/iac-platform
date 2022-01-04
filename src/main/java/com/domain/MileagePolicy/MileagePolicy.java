@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 @Table(name = "MILEAGE_POLICY", schema = "iac_platform-test")
 public class MileagePolicy extends BaseTimeEntity {
    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "MILEAGE_POLICY_ID", nullable = false)
+   @Column(name = "MILEAGE_POLICY_ID", nullable = false, unique = true)
    private Long mileagePolicyId;
 
    @Column(name = "COLLABORATION_CATEGORY_ID", nullable = false)
@@ -28,7 +28,7 @@ public class MileagePolicy extends BaseTimeEntity {
    private Long point;
 
    @Column(name = "IN_OR_OUT", nullable = false)
-   private Long inOrOut;
+   private String inOrOut;
 
 
 }

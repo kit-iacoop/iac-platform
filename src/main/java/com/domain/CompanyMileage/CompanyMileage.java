@@ -12,10 +12,11 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "COMPANY_MILEAGE", schema = "iac_platform-test")
+@Table(name = "COMPANY_MILEAGE")
 public class CompanyMileage extends BaseTimeEntity {
+
    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "COMPANY_MILEAGE_ID", nullable = false)
+   @Column(name = "COMPANY_MILEAGE_ID", nullable = false, unique = true)
    private Long companyMileageId;
 
    @Column(name = "COMPANY_ACCOUNT_ID", nullable = false)
@@ -29,9 +30,5 @@ public class CompanyMileage extends BaseTimeEntity {
 
    @Column(name = "POINT", nullable = false)
    private Long point;
-
-   @Column(name = "ISSUE_DATE", nullable = false)
-   private java.time.LocalDate issueDate;
-
 
 }

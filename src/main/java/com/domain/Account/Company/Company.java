@@ -3,6 +3,7 @@ package com.domain.Account.Company;
 import com.domain.Account.Account;
 import com.domain.common.BaseTimeEntity;
 
+import com.domain.common.GradeType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -25,8 +26,9 @@ public class Company extends Account {
    @Column(name = "OWNER", nullable = false)
    private String owner;
 
+   @Enumerated
    @Column(name = "GRADE", nullable = false)
-   private String grade;
+   private GradeType grade;
 
    @Column(name = "MILEAGE", nullable = false)
    private Long mileage;

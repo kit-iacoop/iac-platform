@@ -7,18 +7,19 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
 
 @NoArgsConstructor
 @Getter
 @Entity
 @Table(name = "ANNUAL_FEE_REQUEST", schema = "iac_platform-test")
 public class AnnualFeeRequest extends BaseTimeEntity {
+
    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "ANNUAL_FEE_REQUEST_ID", nullable = false)
+   @Column(name = "ANNUAL_FEE_REQUEST_ID", nullable = false, unique = true)
    private Long annualFeeRequestId;
 
-   @Column(name = "OFFICER_ACCOUNT_ID", nullable = false)
+   @Column(name = "OFFICER_ACCOUNT_ID", nullable = true)
    private Long officerAccountId;
 
    @Column(name = "COMPANY_ACCOUNT_ID", nullable = false)
@@ -36,11 +37,11 @@ public class AnnualFeeRequest extends BaseTimeEntity {
    @Column(name = "POINT", nullable = false)
    private Long point;
 
-   @Column(name = "STATUS", nullable = false)
-   private String status;
+   @Column(name = "PAYMENT_STATUS", nullable = false)
+   private PaymentStatus paymentStatus;
 
    @Column(name = "CONFIRM_DATE", nullable = false)
-   private java.time.LocalDate confirmDate;
+   private LocalDate confirmDate;
 
 
 }

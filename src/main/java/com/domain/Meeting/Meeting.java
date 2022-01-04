@@ -31,7 +31,7 @@ public class Meeting extends BaseTimeEntity {
    private String meetingName;
 
    @Column(name = "MEETING_DATE", nullable = false)
-   private java.time.LocalDate meetingDate;
+   private LocalDate meetingDate;
 
    @Column(name = "MEETING_TIME", nullable = false)
    private String meetingTime;
