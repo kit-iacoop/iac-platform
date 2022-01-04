@@ -29,10 +29,10 @@ public class Project extends BaseTimeEntity {
     private Long companyAccountId;
 
     @Column(name = "START_DATE", nullable = false)
-    private Long startDate;
+    private LocalDate startDate;
 
     @Column(name = "END_DATE", nullable = false)
-    private Long endDate;
+    private LocalDate endDate;
 
 
 }

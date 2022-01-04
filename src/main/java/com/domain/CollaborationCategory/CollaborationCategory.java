@@ -26,7 +26,7 @@ public class CollaborationCategory extends BaseTimeEntity {
     private String collaborationName;
 
     @Column(name = "LEVEL", nullable = false)
-    private Long level;
+    private Integer level;
 
 
 }

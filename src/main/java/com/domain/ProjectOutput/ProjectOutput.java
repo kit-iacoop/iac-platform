@@ -2,6 +2,7 @@ package com.domain.ProjectOutput;
 
 import com.domain.common.BaseTimeEntity;
 
+import com.domain.common.CopyrightType;
 import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,8 +24,10 @@ public class ProjectOutput extends BaseTimeEntity {
     @Column(name = "PROJECT_ID", nullable = false)
     private Long projectId;
 
+    // CopyrightType 을 같이 사용해도 문제없을것같음.
+    @Enumerated(EnumType.STRING)
     @Column(name = "OUTPUT_TYPE", nullable = false)
-    private String outputType;
+    private CopyrightType outputType;
 
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
