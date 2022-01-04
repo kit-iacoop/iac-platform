@@ -2,6 +2,7 @@ package com.domain.ProjectProfessor;
 
 import com.domain.Account.Professor.Professor;
 import com.domain.Project.Project;
+import com.domain.Account.Professor.Professor;
 import com.domain.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,9 +23,10 @@ public class ProjectProfessor extends BaseTimeEntity {
     @JoinColumn(name = "PROJECT_ID", nullable = false)
     private Project projectId;
 
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROFESSOR_ACCOUNT_ID", nullable = false)
-    private Professor professorAccountId;
+    private Professor professor;
 
     public void setProjectId(Project projectId) {
         if (this.projectId != null) {
@@ -35,10 +37,10 @@ public class ProjectProfessor extends BaseTimeEntity {
     }
 
     public void setProfessor(Professor professorAccountId) {
-        if (this.professorAccountId != null) {
-            this.professorAccountId.getProjectProfessorList().remove(this);
+        if (this.professor != null) {
+            this.professor.getProjectList().remove(this);
         }
-        this.professorAccountId = professorAccountId;
-        professorAccountId.getProjectProfessorList().add(this);
+        this.professor = professorAccountId;
+        professorAccountId.getProjectList().add(this);
     }
 }

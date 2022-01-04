@@ -3,10 +3,13 @@ package com.domain.CollaboRequestProfessor;
 import com.domain.Account.Professor.Professor;
 import com.domain.CollaboRequest.CollaboRequest;
 import com.domain.common.BaseTimeEntity;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -22,9 +25,9 @@ public class CollaboRequestProfessor extends BaseTimeEntity {
     @JoinColumn(name = "COLLABO_REQUEST_ID", nullable = false)
     private CollaboRequest collaboRequestId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROFESSOR_ACCOUNT_ID", nullable = false)
-    private Professor professorAccountId;
+    private Professor professor;
 
     public void setCollaboRequest(CollaboRequest collaboRequestId) {
         if (this.collaboRequestId != null) {
@@ -35,10 +38,10 @@ public class CollaboRequestProfessor extends BaseTimeEntity {
     }
 
     public void setProfessor(Professor professorAccountId) {
-        if (this.professorAccountId != null) {
-            this.professorAccountId.getCollaboRequestProfessorList().remove(this);
+        if (this.professor != null) {
+            this.professor.getCollaboRequestProfessorList().remove(this);
         }
-        this.professorAccountId = professorAccountId;
+        this.professor = professorAccountId;
         professorAccountId.getCollaboRequestProfessorList().add(this);
     }
 }

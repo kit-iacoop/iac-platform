@@ -1,5 +1,7 @@
 package com.domain.University;
 
+import com.domain.Account.Officer.Officer;
+import com.domain.Account.Professor.Professor;
 import com.domain.common.Address;
 import com.domain.common.BaseTimeEntity;
 
@@ -7,6 +9,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -25,4 +28,11 @@ public class University extends BaseTimeEntity {
    @Embedded
    private Address address;
 
+   @OneToMany(mappedBy = "university", fetch = FetchType.LAZY)
+   private List<Professor> professorList;
+
+   @OneToMany(mappedBy = "university", fetch = FetchType.LAZY)
+   private List<Officer> officer;
+
 }
+

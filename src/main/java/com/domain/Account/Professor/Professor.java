@@ -3,6 +3,10 @@ package com.domain.Account.Professor;
 import com.domain.Account.Account;
 import com.domain.CollaboRequestProfessor.CollaboRequestProfessor;
 import com.domain.ProjectProfessor.ProjectProfessor;
+import com.domain.CollaboRequestProfessor.CollaboRequestProfessor;
+import com.domain.FieldInterest.FieldInterest;
+import com.domain.ProjectProfessor.ProjectProfessor;
+import com.domain.University.University;
 import com.domain.common.BaseTimeEntity;
 
 import lombok.Getter;
@@ -20,8 +24,9 @@ import java.util.List;
 @Entity
 public class Professor extends Account {
 
-    @Column(name = "UNIVERSITY_ID", nullable = false)
-    private Long universityId;
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "UNIVERSITY_ID", nullable = false)
+   private University university;
 
     @Column(name = "OFFICE_LOCATION", nullable = false)
     private String officeLocation;
@@ -29,9 +34,13 @@ public class Professor extends Account {
     @Column(name = "DEPARTMENT", nullable = false)
     private String department;
 
-    @OneToMany(mappedBy = "professorAccountId")
-    List<CollaboRequestProfessor> collaboRequestProfessorList = new ArrayList<>();
+   @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
+   private List<ProjectProfessor> projectList;
 
-    @OneToMany(mappedBy = "professorAccountId")
-    List<ProjectProfessor> projectProfessorList = new ArrayList<>();
+   @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
+   private List<CollaboRequestProfessor> requestProjectList;
+
+   @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
+   private List<FieldInterest> interestedFieldList;
+
 }

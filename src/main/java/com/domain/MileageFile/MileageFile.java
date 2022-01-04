@@ -1,5 +1,6 @@
 package com.domain.MileageFile;
 
+import com.domain.MileageRequest.MileageRequest;
 import com.domain.common.BaseTimeEntity;
 
 import com.domain.common.FileDetails;
@@ -19,8 +20,9 @@ public class MileageFile extends BaseTimeEntity {
    @Column(name = "MILEAGE_FILE_ID", nullable = false, unique = true)
    private Long mileageFileId;
 
-   @Column(name = "MILEAGE_REQUEST_ID", nullable = false)
-   private Long mileageRequestId;
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "MILEAGE_REQUEST_ID", nullable = false)
+   private MileageRequest mileageRequest;
 
    @Embedded
    private FileDetails address;

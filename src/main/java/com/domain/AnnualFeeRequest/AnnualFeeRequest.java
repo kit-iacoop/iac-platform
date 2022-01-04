@@ -1,5 +1,8 @@
 package com.domain.AnnualFeeRequest;
 
+import com.domain.Account.Company.Company;
+import com.domain.Account.Officer.Officer;
+import com.domain.GradePolicy.GradePolicy;
 import com.domain.common.BaseTimeEntity;
 
 import com.domain.common.State;
@@ -20,14 +23,17 @@ public class AnnualFeeRequest extends BaseTimeEntity {
    @Column(name = "ANNUAL_FEE_REQUEST_ID", nullable = false, unique = true)
    private Long annualFeeRequestId;
 
-   @Column(name = "OFFICER_ACCOUNT_ID", nullable = true)
-   private Long officerAccountId;
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "OFFICER_ACCOUNT_ID", nullable = false)
+   private Officer officer;
 
-   @Column(name = "COMPANY_ACCOUNT_ID", nullable = false)
-   private Long companyAccountId;
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "COMPANY_ACCOUNT_ID", nullable = false)
+   private Company company;
 
-   @Column(name = "GRADE_POLICY_ID", nullable = false)
-   private Long gradePolicyId;
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "GRADE_POLICY_ID", nullable = false)
+   private GradePolicy gradePolicy;
 
    @Column(name = "YEAR", nullable = false)
    private Long year;
