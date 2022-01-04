@@ -2,6 +2,7 @@ package com.domain.MileageRequest;
 
 import com.domain.common.BaseTimeEntity;
 
+import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -30,7 +31,7 @@ public class MileageRequest extends BaseTimeEntity {
    private Long achievementCnt;
 
    @Column(name = "STATUS", nullable = false)
-   private Long status;
+   private State status;
 
    @Column(name = "START_DATE", nullable = false)
    private LocalDate startDate;
