@@ -39,9 +39,9 @@ public class CollaboRequestProfessor extends BaseTimeEntity {
 
     public void setProfessor(Professor professorAccountId) {
         if (this.professor != null) {
-            this.professor.getCollaboRequestProfessorList().remove(this);
+            this.professor.getRequestProjectList().remove(this);
         }
         this.professor = professorAccountId;
-        professorAccountId.getCollaboRequestProfessorList().add(this);
+        professorAccountId.getRequestProjectList().add(this);
     }
 }
