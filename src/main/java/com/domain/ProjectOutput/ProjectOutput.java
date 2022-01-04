@@ -2,6 +2,7 @@ package com.domain.ProjectOutput;
 
 import com.domain.common.BaseTimeEntity;
 
+import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,9 +29,9 @@ public class ProjectOutput extends BaseTimeEntity {
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
-    // TODO: enum 형식으로 되어야할듯
+    @Enumerated(EnumType.STRING)
     @Column(name = "STATUS", nullable = false)
-    private String status;
+    private State status;
 
 
 }

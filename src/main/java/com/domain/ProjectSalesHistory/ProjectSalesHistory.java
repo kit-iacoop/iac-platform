@@ -2,6 +2,7 @@ package com.domain.ProjectSalesHistory;
 
 import com.domain.common.BaseTimeEntity;
 
+import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -28,9 +29,8 @@ public class ProjectSalesHistory extends BaseTimeEntity {
     @Column(name = "SALES", nullable = false)
     private Long sales;
 
-    // TODO: enum 형태로 되어야할듯
+    @Enumerated(EnumType.STRING)
     @Column(name = "STATUS", nullable = false)
-    private String status;
-
-
+    private State status;
+    
 }

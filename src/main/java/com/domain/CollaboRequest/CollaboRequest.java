@@ -2,6 +2,7 @@ package com.domain.CollaboRequest;
 
 import com.domain.common.BaseTimeEntity;
 
+import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -40,9 +41,9 @@ public class CollaboRequest extends BaseTimeEntity {
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
-    // TODO: enum 형태로 해야함
+    @Enumerated(EnumType.STRING)
     @Column(name = "STATUS", nullable = false)
-    private String status;
+    private State status;
 
     // TODO: enum 형태로 되어야할것같음
     @Column(name = "REQUEST_TYPE", nullable = false)
