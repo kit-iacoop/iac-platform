@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "SALES_HISTORY_PROOF_FILE", schema = "iac_platform-test")
+@Table(name = "SALES_HISTORY_PROOF_FILE")
 public class SalesHistoryProofFile extends BaseTimeEntity {
    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name = "SALES_HISTORY_PROOF_FILE_ID", nullable = false)

@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "PROOF_FILE", schema = "iac_platform-test")
+@Table(name = "PROOF_FILE")
 public class ProofFile extends BaseTimeEntity {
    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name = "PROOF_FILE_ID", nullable = false)

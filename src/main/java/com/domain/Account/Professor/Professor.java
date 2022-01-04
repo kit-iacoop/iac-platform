@@ -1,22 +1,20 @@
-package com.domain.Profssor;
+package com.domain.Account.Professor;
 
+import com.domain.Account.Account;
 import com.domain.common.BaseTimeEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
+
+@DiscriminatorValue("P")
+@Table(name = "PROFESSOR")
 @Entity
-@Table(name = "PROFSSOR", schema = "iac_platform-test")
-public class Profssor extends BaseTimeEntity {
-   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "ACCOUNT_ID", nullable = false)
-   private Long accountId;
+public class Professor extends Account {
 
    @Column(name = "UNIVERSITY_ID", nullable = false)
    private Long universityId;
@@ -26,6 +24,5 @@ public class Profssor extends BaseTimeEntity {
 
    @Column(name = "DEPARTMENT", nullable = false)
    private String department;
-
 
 }

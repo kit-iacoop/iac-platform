@@ -1,22 +1,20 @@
-package com.domain.Company;
+package com.domain.Account.Company;
 
+import com.domain.Account.Account;
 import com.domain.common.BaseTimeEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
+
+@DiscriminatorValue("C")
+@Table(name = "COMPANY")
 @Entity
-@Table(name = "COMPANY", schema = "iac_platform-test")
-public class Company extends BaseTimeEntity {
-   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "ACCOUNT_ID", nullable = false)
-   private Long accountId;
+public class Company extends Account {
 
    @Column(name = "EMPLOYEE_NUMBER", nullable = false)
    private Long employeeNumber;
@@ -36,8 +34,8 @@ public class Company extends BaseTimeEntity {
    @Column(name = "POINT", nullable = false)
    private Long point;
 
-   @Column(name = "IS_CURRENTIZED", nullable = false)
-   private Long isCurrentized;
+   @Column(name = "CURRENTIZATION_STATUS", nullable = false)
+   private Long currentizationStatus;
 
 
 }
