@@ -40,7 +40,8 @@ public abstract class Account extends BaseTimeEntity {
    @Column(name = "EMAIL", nullable = false, unique = true)
    private String email;
 
+   @Enumerated(EnumType.STRING)
    @Column(name = "STATUS", nullable = false)
-   private String status;
+   private AccountStatus status;
 
 }
