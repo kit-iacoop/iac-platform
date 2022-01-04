@@ -1,5 +1,6 @@
 package com.domain.CollaboRequestProfessor;
 
+import com.domain.Account.Professor.Professor;
 import com.domain.common.BaseTimeEntity;
 
 import lombok.Getter;
@@ -22,8 +23,9 @@ public class CollaboRequestProfessor extends BaseTimeEntity {
     @Column(name = "COLLABO_REQUEST_ID", nullable = false)
     private Long collaboRequestId;
 
-    @Column(name = "PROFESSOR_ACCOUNT_ID", nullable = false)
-    private Long professorAccountId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PROFESSOR_ACCOUNT_ID", nullable = false)
+    private Professor professor;
 
 
 }

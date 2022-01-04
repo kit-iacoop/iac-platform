@@ -1,5 +1,6 @@
 package com.domain.GradePolicy;
 
+import com.domain.AnnualFeeRequest.AnnualFeeRequest;
 import com.domain.common.BaseTimeEntity;
 
 import com.domain.common.GradeType;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -26,5 +28,8 @@ public class GradePolicy extends BaseTimeEntity {
 
    @Column(name = "PRICE", nullable = false)
    private Long price;
+
+   @OneToMany(mappedBy = "gradePolicy",fetch = FetchType.LAZY)
+   private List<AnnualFeeRequest> annualFeeRequest;
 
 }

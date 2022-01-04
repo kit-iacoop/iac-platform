@@ -1,13 +1,18 @@
 package com.domain.Account.Company;
 
 import com.domain.Account.Account;
+import com.domain.AnnualFeeRequest.AnnualFeeRequest;
+import com.domain.CompanyMileage.CompanyMileage;
+import com.domain.MileageRequest.MileageRequest;
 import com.domain.common.BaseTimeEntity;
 
 import com.domain.common.GradeType;
+import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -37,7 +42,14 @@ public class Company extends Account {
    private Long point;
 
    @Column(name = "CURRENTIZATION_STATUS", nullable = false)
-   private Long currentizationStatus;
+   private State currentizationStatus;
 
+   @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+   private List<MileageRequest> mileageRequest;
 
+   @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+   private List<CompanyMileage> mileageList;
+
+   @OneToMany(mappedBy = "company",fetch = FetchType.LAZY)
+   private List<AnnualFeeRequest> annualFeeRequest;
 }

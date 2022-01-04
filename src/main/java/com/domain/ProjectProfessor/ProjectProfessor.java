@@ -1,5 +1,6 @@
 package com.domain.ProjectProfessor;
 
+import com.domain.Account.Professor.Professor;
 import com.domain.common.BaseTimeEntity;
 
 import lombok.Getter;
@@ -22,8 +23,9 @@ public class ProjectProfessor extends BaseTimeEntity {
     @Column(name = "PROJECT_ID", nullable = false)
     private Long projectId;
 
-    @Column(name = "PROFESSOR_ACCOUNT_ID", nullable = false)
-    private Long professorAccountId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "PROFESSOR_ACCOUNT_ID", nullable = false)
+    private Professor professor;
 
 
 }

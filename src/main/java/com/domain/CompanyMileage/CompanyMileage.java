@@ -1,5 +1,7 @@
 package com.domain.CompanyMileage;
 
+import com.domain.Account.Company.Company;
+import com.domain.MileageRequest.MileageRequest;
 import com.domain.common.BaseTimeEntity;
 
 import lombok.Getter;
@@ -19,11 +21,13 @@ public class CompanyMileage extends BaseTimeEntity {
    @Column(name = "COMPANY_MILEAGE_ID", nullable = false, unique = true)
    private Long companyMileageId;
 
-   @Column(name = "COMPANY_ACCOUNT_ID", nullable = false)
-   private Long companyAccountId;
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "COMPANY_ACCOUNT_ID", nullable = false)
+   private Company company;
 
-   @Column(name = "MILEAGE_REQUEST_ID", nullable = false)
-   private Long mileageRequestId;
+   @OneToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "MILEAGE_REQUEST_ID", nullable = false)
+   private MileageRequest mileageRequest;
 
    @Column(name = "MILEAGE", nullable = false)
    private Long mileage;

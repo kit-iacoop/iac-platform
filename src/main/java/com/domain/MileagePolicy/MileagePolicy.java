@@ -1,5 +1,6 @@
 package com.domain.MileagePolicy;
 
+import com.domain.CollaborationCategory.CollaborationCategory;
 import com.domain.common.BaseTimeEntity;
 
 import lombok.Getter;
@@ -18,8 +19,9 @@ public class MileagePolicy extends BaseTimeEntity {
    @Column(name = "MILEAGE_POLICY_ID", nullable = false, unique = true)
    private Long mileagePolicyId;
 
-   @Column(name = "COLLABORATION_CATEGORY_ID", nullable = false)
-   private Long collaborationCategoryId;
+   @OneToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "COLLABORATION_CATEGORY_ID", nullable = false)
+   private CollaborationCategory collaborationCategory;
 
    @Column(name = "MILEAGE", nullable = false)
    private Long mileage;

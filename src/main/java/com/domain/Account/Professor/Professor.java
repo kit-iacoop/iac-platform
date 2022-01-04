@@ -1,12 +1,17 @@
 package com.domain.Account.Professor;
 
 import com.domain.Account.Account;
+import com.domain.CollaboRequestProfessor.CollaboRequestProfessor;
+import com.domain.FieldInterest.FieldInterest;
+import com.domain.ProjectProfessor.ProjectProfessor;
+import com.domain.University.University;
 import com.domain.common.BaseTimeEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -16,13 +21,23 @@ import javax.persistence.*;
 @Entity
 public class Professor extends Account {
 
-   @Column(name = "UNIVERSITY_ID", nullable = false)
-   private Long universityId;
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "UNIVERSITY_ID", nullable = false)
+   private University university;
 
    @Column(name = "OFFICE_LOCATION", nullable = false)
    private String officeLocation;
 
    @Column(name = "DEPARTMENT", nullable = false)
    private String department;
+
+   @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
+   private List<ProjectProfessor> projectList;
+
+   @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
+   private List<CollaboRequestProfessor> requestProjectList;
+
+   @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
+   private List<FieldInterest> interestedFieldList;
 
 }
