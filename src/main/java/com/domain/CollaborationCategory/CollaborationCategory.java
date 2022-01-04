@@ -1,13 +1,10 @@
 package com.domain.CollaborationCategory;
 
 import com.domain.common.BaseTimeEntity;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -19,8 +16,10 @@ public class CollaborationCategory extends BaseTimeEntity {
     @Column(name = "COLLABORATION_CATEGORY_ID", nullable = false)
     private Long collaborationCategoryId;
 
-    @Column(name = "PARENT_CATEGORY_ID")
-    private Long parentCategoryId;
+    // 자기참조 부분. 이렇게 하는게 맞나?
+    @OneToOne
+    @JoinColumn(name = "PARENT_CATEGORY_ID")
+    private CollaborationCategory parentCategoryId;
 
     @Column(name = "COLLABORATION_NAME", nullable = false)
     private String collaborationName;
@@ -28,5 +27,7 @@ public class CollaborationCategory extends BaseTimeEntity {
     @Column(name = "LEVEL", nullable = false)
     private Integer level;
 
-
+    public void setParentCategory(CollaborationCategory parentCategoryId) {
+        this.parentCategoryId = parentCategoryId;
+    }
 }

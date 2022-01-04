@@ -1,13 +1,12 @@
 package com.domain.ProjectProfessor;
 
+import com.domain.Account.Professor.Professor;
+import com.domain.Project.Project;
 import com.domain.common.BaseTimeEntity;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -19,11 +18,27 @@ public class ProjectProfessor extends BaseTimeEntity {
     @Column(name = "PROJECT_PROFESSOR_ID", nullable = false)
     private Long projectProfessorId;
 
-    @Column(name = "PROJECT_ID", nullable = false)
-    private Long projectId;
+    @ManyToOne
+    @JoinColumn(name = "PROJECT_ID", nullable = false)
+    private Project projectId;
 
-    @Column(name = "PROFESSOR_ACCOUNT_ID", nullable = false)
-    private Long professorAccountId;
+    @ManyToOne
+    @JoinColumn(name = "PROFESSOR_ACCOUNT_ID", nullable = false)
+    private Professor professorAccountId;
 
+    public void setProjectId(Project projectId) {
+        if (this.projectId != null) {
+            this.projectId.getProfessorList().remove(this);
+        }
+        this.projectId = projectId;
+        projectId.getProfessorList().add(this);
+    }
 
+    public void setProfessor(Professor professorAccountId) {
+        if (this.professorAccountId != null) {
+            this.professorAccountId.getProjectProfessorList().remove(this);
+        }
+        this.professorAccountId = professorAccountId;
+        professorAccountId.getProjectProfessorList().add(this);
+    }
 }

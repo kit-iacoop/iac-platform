@@ -1,7 +1,12 @@
 package com.domain.CollaboRequest;
 
+import com.domain.Account.Company.Company;
+import com.domain.Account.Officer.Officer;
+import com.domain.CollaboRequestProfessor.CollaboRequestProfessor;
+import com.domain.CollaboRequestTechnique.CollaboRequestTechnique;
+import com.domain.Meeting.Meeting;
+import com.domain.Project.Project;
 import com.domain.common.BaseTimeEntity;
-
 import com.domain.common.RequestType;
 import com.domain.common.State;
 import lombok.Getter;
@@ -9,7 +14,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -21,11 +27,13 @@ public class CollaboRequest extends BaseTimeEntity {
     @Column(name = "COLLABO_REQUEST_ID", nullable = false)
     private Long collaboRequestId;
 
-    @Column(name = "OFFICER_ACCOUNT_ID", nullable = false)
-    private Long officerAccountId;
+    @ManyToOne
+    @JoinColumn(name = "OFFICER_ACCOUNT_ID", nullable = false)
+    private Officer officerAccountId;
 
-    @Column(name = "COMPANY_ACCOUNT_ID", nullable = false)
-    private Long companyAccountId;
+    @ManyToOne
+    @JoinColumn(name = "COMPANY_ACCOUNT_ID", nullable = false)
+    private Company companyAccountId;
 
     @Column(name = "TITLE", nullable = false)
     private String title;
@@ -51,4 +59,35 @@ public class CollaboRequest extends BaseTimeEntity {
     @Column(name = "REQUEST_TYPE", nullable = false)
     private RequestType requestType;
 
+    @OneToMany(mappedBy = "collaboRequestId")
+    private List<CollaboRequestProfessor> collaboRequestProfessorList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "collaboRequestId")
+    private List<CollaboRequestTechnique> collaboRequestTechniqueList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "collaboRequestId")
+    private List<Meeting> meetingList = new ArrayList<>();
+
+    @OneToOne
+    private Project projectId;
+
+    public void setOfficer(Officer officerAccountId) {
+        if (this.officerAccountId != null) {
+            this.officerAccountId.getCollaboRequest().remove(this);
+        }
+        this.officerAccountId = officerAccountId;
+        officerAccountId.getCollaboRequest().add(this);
+    }
+
+    public void setCompany(Company companyAccountId) {
+        if (this.companyAccountId != null) {
+            this.companyAccountId.getCollaboRequest().remove(this);
+        }
+        this.companyAccountId = companyAccountId;
+        companyAccountId.getCollaboRequest().add(this);
+    }
+
+    public void setProjectId(Project projectId) {
+        this.projectId = projectId;
+    }
 }

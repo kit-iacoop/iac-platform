@@ -1,15 +1,16 @@
 package com.domain.ProjectOutput;
 
+import com.domain.Project.Project;
+import com.domain.ProofFile.ProofFile;
 import com.domain.common.BaseTimeEntity;
-
 import com.domain.common.CopyrightType;
 import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -21,8 +22,9 @@ public class ProjectOutput extends BaseTimeEntity {
     @Column(name = "PROJECT_OUTPUT_ID", nullable = false)
     private Long projectOutputId;
 
-    @Column(name = "PROJECT_ID", nullable = false)
-    private Long projectId;
+    @ManyToOne
+    @JoinColumn(name = "PROJECT_ID", nullable = false)
+    private Project projectId;
 
     // CopyrightType 을 같이 사용해도 문제없을것같음.
     @Enumerated(EnumType.STRING)
@@ -36,5 +38,14 @@ public class ProjectOutput extends BaseTimeEntity {
     @Column(name = "STATUS", nullable = false)
     private State status;
 
+    @OneToMany(mappedBy = "projectOutputId")
+    private List<ProofFile> proofFileList = new ArrayList<>();
 
+    public void setProject(Project projectId) {
+        if (this.projectId != null) {
+            this.projectId.getProjectOutputList().remove(this);
+        }
+        this.projectId = projectId;
+        projectId.getProjectOutputList().add(this);
+    }
 }

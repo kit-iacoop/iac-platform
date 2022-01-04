@@ -1,5 +1,6 @@
 package com.domain.MeetingFile;
 
+import com.domain.Meeting.Meeting;
 import com.domain.common.BaseTimeEntity;
 
 import lombok.Getter;
@@ -19,6 +20,10 @@ public class MeetingFile extends BaseTimeEntity {
     @Column(name = "MEETING_FILE_ID", nullable = false)
     private Long meetingFileId;
 
+    @ManyToOne
+    @JoinColumn(name = "MEETING_ID", nullable = false)
+    private Meeting meetingId;
+
     @Column(name = "FILE_TYPE", nullable = false)
     private String fileType;
 
@@ -31,5 +36,11 @@ public class MeetingFile extends BaseTimeEntity {
     @Column(name = "FILE_SIZE", nullable = false)
     private String fileSize;
 
-
+    public void setMeetingId(Meeting meetingId) {
+        if (this.meetingId != null) {
+            this.meetingId.getMeetingFileList().remove(this);
+        }
+        this.meetingId = meetingId;
+        meetingId.getMeetingFileList().add(this);
+    }
 }

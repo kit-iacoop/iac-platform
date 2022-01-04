@@ -1,13 +1,12 @@
 package com.domain.FieldInterest;
 
+import com.domain.Account.Account;
+import com.domain.FieldCategory.FieldCategory;
 import com.domain.common.BaseTimeEntity;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -19,11 +18,27 @@ public class FieldInterest extends BaseTimeEntity {
     @Column(name = "FIELD_INTEREST_ID", nullable = false)
     private Long fieldInterestId;
 
-    @Column(name = "ACCOUNT_ID", nullable = false)
-    private Long accountId;
+    @ManyToOne
+    @JoinColumn(name = "ACCOUNT_ID", nullable = false)
+    private Account accountId;
 
-    @Column(name = "FIELD_CATEGORY_ID", nullable = false)
-    private Long fieldCategoryId;
+    @ManyToOne
+    @JoinColumn(name = "FIELD_CATEGORY_ID", nullable = false)
+    private FieldCategory fieldCategoryId;
 
+    public void setAccount(Account accountId) {
+        if (this.accountId != null) {
+            this.accountId.getFieldInterestList().remove(this);
+        }
+        this.accountId = accountId;
+        accountId.getFieldInterestList().add(this);
+    }
 
+    public void setFieldCategory(FieldCategory fieldCategoryId) {
+        if (this.fieldCategoryId != null) {
+            this.fieldCategoryId.getFieldInterestList().remove(this);
+        }
+        this.fieldCategoryId = fieldCategoryId;
+        fieldCategoryId.getFieldInterestList().add(this);
+    }
 }

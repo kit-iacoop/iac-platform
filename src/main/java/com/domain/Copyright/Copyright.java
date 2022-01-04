@@ -1,14 +1,12 @@
 package com.domain.Copyright;
 
+import com.domain.Account.Account;
 import com.domain.common.BaseTimeEntity;
-
 import com.domain.common.CopyrightType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -20,8 +18,9 @@ public class Copyright extends BaseTimeEntity {
     @Column(name = "COPYRIGHT_ID", nullable = false)
     private Long copyrightId;
 
-    @Column(name = "ACCOUNT_ID", nullable = false)
-    private Long accountId;
+    @ManyToOne
+    @JoinColumn(name = "ACCOUNT_ID", nullable = false)
+    private Account accountId;
 
     @Column(name = "NAME", nullable = false)
     private String name;
@@ -33,5 +32,11 @@ public class Copyright extends BaseTimeEntity {
     @Column(name = "INF_URL", nullable = false)
     private String infUrl;
 
-
+    public void setAccount(Account accountId) {
+        if (this.accountId != null) {
+            this.accountId.getCopyrightList().remove(this);
+        }
+        this.accountId = accountId;
+        accountId.getCopyrightList().add(this);
+    }
 }

@@ -1,14 +1,15 @@
 package com.domain.ProjectSalesHistory;
 
+import com.domain.Project.Project;
+import com.domain.SalesHistoryProofFile.SalesHistoryProofFile;
 import com.domain.common.BaseTimeEntity;
-
 import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -20,8 +21,9 @@ public class ProjectSalesHistory extends BaseTimeEntity {
     @Column(name = "PROJECT_SALES_HISTORY_ID", nullable = false)
     private Long projectSalesHistoryId;
 
-    @Column(name = "PROJECT_ID", nullable = false)
-    private Long projectId;
+    @ManyToOne
+    @JoinColumn(name = "PROJECT_ID", nullable = false)
+    private Project projectId;
 
     @Column(name = "YEAR", nullable = false)
     private String year;
@@ -34,4 +36,14 @@ public class ProjectSalesHistory extends BaseTimeEntity {
     @Column(name = "STATUS", nullable = false)
     private State status;
 
+    @OneToMany
+    private List<SalesHistoryProofFile> proofFileList = new ArrayList<>();
+
+    public void setProjectId(Project projectId) {
+        if (this.projectId != null) {
+            this.projectId.getSalesHistoryList().remove(this);
+        }
+        this.projectId = projectId;
+        projectId.getSalesHistoryList().add(this);
+    }
 }

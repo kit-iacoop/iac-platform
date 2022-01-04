@@ -1,13 +1,14 @@
 package com.domain.FieldCategory;
 
+import com.domain.CollaboRequestTechnique.CollaboRequestTechnique;
+import com.domain.FieldInterest.FieldInterest;
 import com.domain.common.BaseTimeEntity;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -22,11 +23,20 @@ public class FieldCategory extends BaseTimeEntity {
     @Column(name = "CATEGORY_NAME", nullable = false)
     private String categoryName;
 
-    @Column(name = "PARENT_CATEGORY")
-    private String parentCategory;
+    @OneToOne
+    @JoinColumn(name = "PARENT_CATEGORY")
+    private FieldCategory parentCategory;
 
     @Column(name = "LEVEL", nullable = false)
     private Long level;
 
+    @OneToMany(mappedBy = "fieldCategoryId")
+    private List<CollaboRequestTechnique> collaboRequestTechniqueList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "fieldCategoryId")
+    private List<FieldInterest> fieldInterestList = new ArrayList<>();
+
+    public void setFieldCategory(Long fieldCategoryId) {
+        this.fieldCategoryId = fieldCategoryId;
+    }
 }

@@ -1,13 +1,11 @@
 package com.domain.Item;
 
+import com.domain.Account.Company.Company;
 import com.domain.common.BaseTimeEntity;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -19,11 +17,18 @@ public class Item extends BaseTimeEntity {
     @Column(name = "ITEM_ID", nullable = false)
     private Long itemId;
 
-    @Column(name = "COMPANY_ID", nullable = false)
-    private Long companyId;
+    @ManyToOne
+    @JoinColumn(name = "COMPANY_ID", nullable = false)
+    private Company companyId;
 
     @Column(name = "ITEM_NAME", nullable = false)
     private String itemName;
 
-
+    public void setCompany(Company companyId) {
+        if (this.companyId != null) {
+            this.companyId.getItemList().remove(this);
+        }
+        this.companyId = companyId;
+        companyId.getItemList().add(this);
+    }
 }

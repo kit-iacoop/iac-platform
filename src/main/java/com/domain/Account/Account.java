@@ -1,5 +1,8 @@
 package com.domain.Account;
 
+import com.domain.Copyright.Copyright;
+import com.domain.FieldInterest.FieldInterest;
+import com.domain.MeetingAttendant.MeetingAttendant;
 import com.domain.common.Address;
 import com.domain.common.BaseTimeEntity;
 
@@ -9,6 +12,8 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @NoArgsConstructor
@@ -44,5 +49,14 @@ public abstract class Account extends BaseTimeEntity {
    @Enumerated(EnumType.STRING)
    @Column(name = "STATUS", nullable = false)
    private State status;
+
+   @OneToMany(mappedBy = "accountId")
+   private List<Copyright>copyrightList = new ArrayList<>();
+
+   @OneToMany(mappedBy = "accountId")
+   private List<FieldInterest> fieldInterestList=new ArrayList<>();
+
+   @OneToMany(mappedBy = "accountId")
+   private List<MeetingAttendant> meetingAttendantList=new ArrayList<>();
 
 }
