@@ -22,9 +22,8 @@ public class GradePolicy extends BaseTimeEntity {
    @Column(name = "GRADE_POLICY_ID", nullable = false, unique = true)
    private Long gradePolicyId;
 
-   @Enumerated
    @Column(name = "GRADE", nullable = false)
-   private GradeType grade;
+   private String grade;
 
    @Column(name = "PRICE", nullable = false)
    private Long price;

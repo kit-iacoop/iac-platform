@@ -31,9 +31,8 @@ public class Company extends Account {
    @Column(name = "OWNER", nullable = false)
    private String owner;
 
-   @Enumerated
    @Column(name = "GRADE", nullable = false)
-   private GradeType grade;
+   private String grade;
 
    @Column(name = "MILEAGE", nullable = false)
    private Long mileage;
