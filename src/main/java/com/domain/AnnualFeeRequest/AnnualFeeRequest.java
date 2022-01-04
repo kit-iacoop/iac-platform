@@ -2,6 +2,7 @@ package com.domain.AnnualFeeRequest;
 
 import com.domain.common.BaseTimeEntity;
 
+import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -38,7 +39,7 @@ public class AnnualFeeRequest extends BaseTimeEntity {
    private Long point;
 
    @Column(name = "PAYMENT_STATUS", nullable = false)
-   private PaymentStatus paymentStatus;
+   private State paymentStatus;
 
    @Column(name = "CONFIRM_DATE", nullable = false)
    private LocalDate confirmDate;

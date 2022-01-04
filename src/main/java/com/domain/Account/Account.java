@@ -3,6 +3,7 @@ package com.domain.Account;
 import com.domain.common.Address;
 import com.domain.common.BaseTimeEntity;
 
+import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -42,6 +43,6 @@ public abstract class Account extends BaseTimeEntity {
 
    @Enumerated(EnumType.STRING)
    @Column(name = "STATUS", nullable = false)
-   private AccountStatus status;
+   private State status;
 
 }
