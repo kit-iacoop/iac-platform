@@ -18,7 +18,7 @@ import java.time.LocalDate;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Account extends BaseTimeEntity {
 
-   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+   @Id @GeneratedValue(strategy = GenerationType.TABLE) // <union-subclass> 매핑에서 IDENTITY 전략 사용 불가능 한 것으로 보여 불가피하게 TABLE 전략 사용
    @Column(name = "ACCOUNT_ID", nullable = false, unique = true)
    private Long accountId;
 
