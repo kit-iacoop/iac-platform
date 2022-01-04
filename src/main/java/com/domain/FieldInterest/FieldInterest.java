@@ -12,17 +12,18 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "FIELD_INTEREST", schema = "iac_platform-test")
+@Table(name = "FIELD_INTEREST")
 public class FieldInterest extends BaseTimeEntity {
-   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "FIELD_INTEREST_ID", nullable = false)
-   private Long fieldInterestId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "FIELD_INTEREST_ID", nullable = false)
+    private Long fieldInterestId;
 
-   @Column(name = "ACCOUNT_ID", nullable = false)
-   private Long accountId;
+    @Column(name = "ACCOUNT_ID", nullable = false)
+    private Long accountId;
 
-   @Column(name = "FIELD_CATEGORY_ID", nullable = false)
-   private Long fieldCategoryId;
+    @Column(name = "FIELD_CATEGORY_ID", nullable = false)
+    private Long fieldCategoryId;
 
 
 }
