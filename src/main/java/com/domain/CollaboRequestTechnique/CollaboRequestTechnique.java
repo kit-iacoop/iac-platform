@@ -12,17 +12,18 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "COLLABO_REQUEST_TECHNIQUE", schema = "iac_platform-test")
+@Table(name = "COLLABO_REQUEST_TECHNIQUE")
 public class CollaboRequestTechnique extends BaseTimeEntity {
-   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "COLLABO_REQUEST_TECHNIQUE_ID", nullable = false)
-   private Long collaboRequestTechniqueId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "COLLABO_REQUEST_TECHNIQUE_ID", nullable = false)
+    private Long collaboRequestTechniqueId;
 
-   @Column(name = "FIELD_CATEGORY_ID", nullable = false)
-   private Long fieldCategoryId;
+    @Column(name = "FIELD_CATEGORY_ID", nullable = false)
+    private Long fieldCategoryId;
 
-   @Column(name = "COLLABO_REQUEST_ID", nullable = false)
-   private Long collaboRequestId;
+    @Column(name = "COLLABO_REQUEST_ID", nullable = false)
+    private Long collaboRequestId;
 
 
 }

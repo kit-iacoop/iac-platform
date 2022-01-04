@@ -12,20 +12,21 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "COLLABORATION_CATEGORY", schema = "iac_platform-test")
+@Table(name = "COLLABORATION_CATEGORY")
 public class CollaborationCategory extends BaseTimeEntity {
-   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "COLLABORATION_CATEGORY_ID", nullable = false)
-   private Long collaborationCategoryId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "COLLABORATION_CATEGORY_ID", nullable = false)
+    private Long collaborationCategoryId;
 
-   @Column(name = "PARENT_CATEGORY_ID", nullable = false)
-   private Long parentCategoryId;
+    @Column(name = "PARENT_CATEGORY_ID")
+    private Long parentCategoryId;
 
-   @Column(name = "COLLABORATION_NAME", nullable = false)
-   private String collaborationName;
+    @Column(name = "COLLABORATION_NAME", nullable = false)
+    private String collaborationName;
 
-   @Column(name = "LEVEL", nullable = false)
-   private Long level;
+    @Column(name = "LEVEL", nullable = false)
+    private Long level;
 
 
 }

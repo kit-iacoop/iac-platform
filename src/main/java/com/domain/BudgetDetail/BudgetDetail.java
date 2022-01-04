@@ -12,23 +12,24 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "BUDGET_DETAIL", schema = "iac_platform-test")
+@Table(name = "BUDGET_DETAIL")
 public class BudgetDetail extends BaseTimeEntity {
-   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "BUDGET_DETAIL_ID", nullable = false)
-   private Long budgetDetailId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "BUDGET_DETAIL_ID", nullable = false)
+    private Long budgetDetailId;
 
-   @Column(name = "TOTAL", nullable = false)
-   private Long total;
+    @Column(name = "TOTAL", nullable = false)
+    private Long total;
 
-   @Column(name = "HUMAN_COST", nullable = false)
-   private Long humanCost;
+    @Column(name = "HUMAN_COST", nullable = false)
+    private Long humanCost;
 
-   @Column(name = "RESEARCH_ACTIVITY", nullable = false)
-   private Long researchActivity;
+    @Column(name = "RESEARCH_ACTIVITY", nullable = false)
+    private Long researchActivity;
 
-   @Column(name = "INDIRECT_COST", nullable = false)
-   private Long indirectCost;
+    @Column(name = "INDIRECT_COST", nullable = false)
+    private Long indirectCost;
 
 
 }
