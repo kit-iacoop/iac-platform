@@ -3,7 +3,7 @@ package com.domain.GradePolicy;
 import com.domain.AnnualFeeRequest.AnnualFeeRequest;
 import com.domain.common.BaseTimeEntity;
 
-import com.domain.common.GradeType;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 

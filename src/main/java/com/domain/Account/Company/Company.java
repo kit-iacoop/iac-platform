@@ -35,7 +35,6 @@ public class Company extends Account {
     @Column(name = "OWNER", nullable = false)
     private String owner;
 
-    @Enumerated
     @Column(name = "GRADE", nullable = false)
     private String grade;
 
