@@ -30,12 +30,12 @@ public class FieldInterest extends BaseTimeEntity {
     @JoinColumn(name = "FIELD_CATEGORY_ID", nullable = false)
     private FieldCategory fieldCategoryId;
 
-    public void setAccount(Professor accountId) {
+    public void setProfessor(Professor professor) {
         if (this.professor != null) {
-            this.professor.getFieldInterestList().remove(this);
+            this.professor.getInterestedFieldList().remove(this);
         }
-        this.professor = accountId;
-        accountId.getFieldInterestList().add(this);
+        this.professor = professor;
+        professor.getInterestedFieldList().add(this);
     }
 
     public void setFieldCategory(FieldCategory fieldCategoryId) {

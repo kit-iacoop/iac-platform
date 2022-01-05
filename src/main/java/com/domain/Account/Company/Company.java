@@ -9,7 +9,6 @@ import com.domain.CompanyMileage.CompanyMileage;
 import com.domain.MileageRequest.MileageRequest;
 import com.domain.common.BaseTimeEntity;
 
-import com.domain.common.GradeType;
 import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +37,7 @@ public class Company extends Account {
 
     @Enumerated
     @Column(name = "GRADE", nullable = false)
-    private GradeType grade;
+    private String grade;
 
     @Column(name = "MILEAGE", nullable = false)
     private Long mileage;
@@ -46,14 +45,14 @@ public class Company extends Account {
     @Column(name = "POINT", nullable = false)
     private Long point;
 
-   @Column(name = "CURRENTIZATION_STATUS", nullable = false)
-   private State currentizationStatus;
+    @Column(name = "CURRENTIZATION_STATUS", nullable = false)
+    private State currentizationStatus;
 
     @OneToMany(mappedBy = "companyAccountId")
     private List<CollaboRequest> collaboRequest = new ArrayList<>();
 
-   @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-   private List<MileageRequest> mileageRequest;
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    private List<MileageRequest> mileageRequest;
 
     @OneToMany(mappedBy = "companyId")
     private List<Item> itemList = new ArrayList<>();
@@ -61,9 +60,9 @@ public class Company extends Account {
     @OneToMany(mappedBy = "companyAccountId")
     private List<Project> projectList = new ArrayList<>();
 
-   @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-   private List<CompanyMileage> mileageList;
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    private List<CompanyMileage> mileageList;
 
-   @OneToMany(mappedBy = "company",fetch = FetchType.LAZY)
-   private List<AnnualFeeRequest> annualFeeRequest;
+    @OneToMany(mappedBy = "company",fetch = FetchType.LAZY)
+    private List<AnnualFeeRequest> annualFeeRequest;
 }

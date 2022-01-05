@@ -54,9 +54,6 @@ public abstract class Account extends BaseTimeEntity {
    private List<Copyright>copyrightList = new ArrayList<>();
 
    @OneToMany(mappedBy = "accountId")
-   private List<FieldInterest> fieldInterestList=new ArrayList<>();
-
-   @OneToMany(mappedBy = "accountId")
    private List<MeetingAttendant> meetingAttendantList=new ArrayList<>();
 
 }
