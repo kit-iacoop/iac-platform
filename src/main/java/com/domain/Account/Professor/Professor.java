@@ -1,6 +1,7 @@
 package com.domain.Account.Professor;
 
 import com.domain.Account.Account;
+import com.domain.Account.Company.Company;
 import com.domain.CollaboRequestProfessor.CollaboRequestProfessor;
 import com.domain.ProjectProfessor.ProjectProfessor;
 import com.domain.CollaboRequestProfessor.CollaboRequestProfessor;
@@ -42,5 +43,9 @@ public class Professor extends Account {
 
    @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
    private List<FieldInterest> interestedFieldList;
+
+
+   @OneToMany(mappedBy = "mentorProfessor", fetch = FetchType.LAZY)
+    private List<Company> menteeCompanyList;
 
 }

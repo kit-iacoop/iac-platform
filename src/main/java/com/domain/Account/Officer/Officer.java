@@ -22,18 +22,18 @@ import java.util.List;
 @Entity
 public class Officer extends Account {
 
-   @ManyToOne(fetch = FetchType.LAZY)
-   @JoinColumn(name = "UNIVERSITY_ID", nullable = false)
-   private University university;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "UNIVERSITY_ID", nullable = false)
+    private University university;
 
     @Column(name = "OFFICE_LOCATION", nullable = false)
     private String officeLocation;
 
-   @OneToMany(mappedBy = "officer", fetch = FetchType.LAZY)
-   private List<MileageRequest> mileageRequest;
+    @OneToMany(mappedBy = "officer", fetch = FetchType.LAZY)
+    private List<MileageRequest> mileageRequest;
 
-   @OneToMany(mappedBy = "officer",fetch = FetchType.LAZY)
-   private List<AnnualFeeRequest> annualFeeRequest;
+    @OneToMany(mappedBy = "officer",fetch = FetchType.LAZY)
+    private List<AnnualFeeRequest> annualFeeRequest;
 
     @OneToMany(mappedBy = "officerAccountId")
     private List<CollaboRequest> collaboRequest = new ArrayList<>();
