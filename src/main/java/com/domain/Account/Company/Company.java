@@ -3,6 +3,7 @@ package com.domain.Account.Company;
 import com.domain.Account.Account;
 import com.domain.Account.Professor.Professor;
 import com.domain.CollaboRequest.CollaboRequest;
+import com.domain.CompanyAnnualSales.CompanyAnnualSales;
 import com.domain.Item.Item;
 import com.domain.Project.Project;
 import com.domain.AnnualFeeRequest.AnnualFeeRequest;
@@ -63,10 +64,14 @@ public class Company extends Account {
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<CompanyMileage> mileageList;
 
-    @OneToMany(mappedBy = "company",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<AnnualFeeRequest> annualFeeRequest;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "MENTOR_PROFESSOR")
     private Professor mentorProfessor;
+
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    private List<CompanyAnnualSales> annualSalesList;
 
 }
