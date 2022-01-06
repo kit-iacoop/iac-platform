@@ -46,6 +46,9 @@ public abstract class Account extends BaseTimeEntity {
    @Column(name = "EMAIL", nullable = false, unique = true)
    private String email;
 
+   @Column(name = "TELEPHONE", nullable = true)
+   private String telephone;
+
    @Enumerated(EnumType.STRING)
    @Column(name = "STATUS", nullable = false)
    private State status;

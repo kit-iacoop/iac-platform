@@ -1,4 +1,4 @@
-package com.domain.Account.Admin;
+package com.domain.Account;
 
 import com.domain.Account.Account;
 import com.domain.common.BaseTimeEntity;

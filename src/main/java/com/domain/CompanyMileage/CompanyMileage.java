@@ -1,6 +1,6 @@
 package com.domain.CompanyMileage;
 
-import com.domain.Account.Company.Company;
+import com.domain.Account.Company;
 import com.domain.MileageRequest.MileageRequest;
 import com.domain.common.BaseTimeEntity;
 
@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter

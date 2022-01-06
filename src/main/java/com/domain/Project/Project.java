@@ -1,6 +1,6 @@
 package com.domain.Project;
 
-import com.domain.Account.Company.Company;
+import com.domain.Account.Company;
 import com.domain.BudgetDetail.BudgetDetail;
 import com.domain.CollaboRequest.CollaboRequest;
 import com.domain.Meeting.Meeting;

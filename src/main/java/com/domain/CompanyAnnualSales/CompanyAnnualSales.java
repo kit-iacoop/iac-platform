@@ -1,7 +1,6 @@
 package com.domain.CompanyAnnualSales;
 
-import com.domain.Account.Company.Company;
-import com.domain.MileageRequest.MileageRequest;
+import com.domain.Account.Company;
 import com.domain.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

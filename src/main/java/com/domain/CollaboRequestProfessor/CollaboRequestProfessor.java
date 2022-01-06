@@ -1,6 +1,6 @@
 package com.domain.CollaboRequestProfessor;
 
-import com.domain.Account.Professor.Professor;
+import com.domain.Account.Professor;
 import com.domain.CollaboRequest.CollaboRequest;
 import com.domain.common.BaseTimeEntity;
 
@@ -8,8 +8,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter

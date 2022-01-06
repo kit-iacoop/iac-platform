@@ -1,7 +1,5 @@
-package com.domain.Account.Company;
+package com.domain.Account;
 
-import com.domain.Account.Account;
-import com.domain.Account.Professor.Professor;
 import com.domain.CollaboRequest.CollaboRequest;
 import com.domain.CompanyAnnualSales.CompanyAnnualSales;
 import com.domain.Item.Item;
@@ -9,15 +7,14 @@ import com.domain.Project.Project;
 import com.domain.AnnualFeeRequest.AnnualFeeRequest;
 import com.domain.CompanyMileage.CompanyMileage;
 import com.domain.MileageRequest.MileageRequest;
-import com.domain.common.BaseTimeEntity;
 
 import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.List;
 
 @NoArgsConstructor
@@ -28,11 +25,14 @@ import java.util.List;
 @Entity
 public class Company extends Account {
 
+    @Column(name = "BUSINESS_REGISTRATION_NUMBER", nullable = false)
+    private Long businessRegistrationNumber;
+
     @Column(name = "EMPLOYEE_NUMBER", nullable = false)
     private Long employeeNumber;
 
     @Column(name = "SECTOR", nullable = false)
-    private String sector;
+    private String sector; // 업종.. ?
 
     @Column(name = "OWNER", nullable = false)
     private String owner;
@@ -40,14 +40,23 @@ public class Company extends Account {
     @Column(name = "GRADE", nullable = false)
     private String grade;
 
+    @Column(name = "COMPANY_TYPE", nullable = false)
+    private String companyType;
+
+    @Column(name = "TEMPORARY_ADDRESS", nullable = true)
+    private String temporaryAddress;
+
     @Column(name = "MILEAGE", nullable = false)
     private Long mileage;
 
     @Column(name = "POINT", nullable = false)
     private Long point;
 
+    @Column(name = "SUBSCRIPTION_DATE", nullable = true)
+    private LocalDate subscriptionDate; // 협약일
+
     @Column(name = "CURRENTIZATION_STATUS", nullable = false)
-    private State currentizationStatus;
+    private State currentizationStatus; // 현행화 상태
 
     @OneToMany(mappedBy = "companyAccountId")
     private List<CollaboRequest> collaboRequest = new ArrayList<>();

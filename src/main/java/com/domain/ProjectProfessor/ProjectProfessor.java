@@ -1,8 +1,7 @@
 package com.domain.ProjectProfessor;
 
-import com.domain.Account.Professor.Professor;
+import com.domain.Account.Professor;
 import com.domain.Project.Project;
-import com.domain.Account.Professor.Professor;
 import com.domain.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

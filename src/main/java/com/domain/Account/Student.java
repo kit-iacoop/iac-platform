@@ -1,4 +1,4 @@
-package com.domain.Account.Student;
+package com.domain.Account;
 
 import com.domain.Account.Account;
 import com.domain.CollaboRequestProfessor.CollaboRequestProfessor;

@@ -1,7 +1,7 @@
 package com.domain.University;
 
-import com.domain.Account.Officer.Officer;
-import com.domain.Account.Professor.Professor;
+import com.domain.Account.Officer;
+import com.domain.Account.Professor;
 import com.domain.common.Address;
 import com.domain.common.BaseTimeEntity;
 

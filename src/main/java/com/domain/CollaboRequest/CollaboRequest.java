@@ -1,7 +1,7 @@
 package com.domain.CollaboRequest;
 
-import com.domain.Account.Company.Company;
-import com.domain.Account.Officer.Officer;
+import com.domain.Account.Company;
+import com.domain.Account.Officer;
 import com.domain.CollaboRequestProfessor.CollaboRequestProfessor;
 import com.domain.CollaboRequestTechnique.CollaboRequestTechnique;
 import com.domain.Meeting.Meeting;

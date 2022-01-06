@@ -1,7 +1,7 @@
 package com.domain.MileageRequest;
 
-import com.domain.Account.Company.Company;
-import com.domain.Account.Officer.Officer;
+import com.domain.Account.Company;
+import com.domain.Account.Officer;
 import com.domain.CompanyMileage.CompanyMileage;
 import com.domain.MileageFile.MileageFile;
 import com.domain.MileagePolicy.MileagePolicy;

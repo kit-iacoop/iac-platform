@@ -1,4 +1,4 @@
-package com.domain.Account.Officer;
+package com.domain.Account;
 
 import com.domain.Account.Account;
 import com.domain.CollaboRequest.CollaboRequest;

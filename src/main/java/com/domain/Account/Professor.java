@@ -1,20 +1,14 @@
-package com.domain.Account.Professor;
+package com.domain.Account;
 
-import com.domain.Account.Account;
-import com.domain.Account.Company.Company;
 import com.domain.CollaboRequestProfessor.CollaboRequestProfessor;
 import com.domain.ProjectProfessor.ProjectProfessor;
-import com.domain.CollaboRequestProfessor.CollaboRequestProfessor;
 import com.domain.FieldInterest.FieldInterest;
-import com.domain.ProjectProfessor.ProjectProfessor;
 import com.domain.University.University;
-import com.domain.common.BaseTimeEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor

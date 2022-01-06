@@ -1,7 +1,7 @@
 package com.domain.AnnualFeeRequest;
 
-import com.domain.Account.Company.Company;
-import com.domain.Account.Officer.Officer;
+import com.domain.Account.Company;
+import com.domain.Account.Officer;
 import com.domain.GradePolicy.GradePolicy;
 import com.domain.common.BaseTimeEntity;
 

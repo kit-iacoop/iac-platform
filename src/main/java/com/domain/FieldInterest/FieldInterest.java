@@ -1,15 +1,12 @@
 package com.domain.FieldInterest;
 
-import com.domain.Account.Account;
 import com.domain.FieldCategory.FieldCategory;
-import com.domain.Account.Professor.Professor;
+import com.domain.Account.Professor;
 import com.domain.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
