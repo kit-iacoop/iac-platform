@@ -20,25 +20,25 @@ public class MeetingAttendant extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "MEETING_ID", nullable = false)
-    private Meeting meetingId;
+    private Meeting meeting;
 
     @ManyToOne
     @JoinColumn(name = "ACCOUNT_ID", nullable = false)
-    private Account accountId;
+    private Account account;
 
     public void setMeeting(Meeting meetingId) {
-        if (this.meetingId != null) {
-            this.meetingId.getMeetingAttendantList().remove(this);
+        if (this.meeting != null) {
+            this.meeting.getMeetingAttendantList().remove(this);
         }
-        this.meetingId = meetingId;
+        this.meeting = meetingId;
         meetingId.getMeetingAttendantList().add(this);
     }
 
     public void setAccount(Account accountId) {
-        if (this.accountId != null) {
-            this.accountId.getMeetingAttendantList().remove(this);
+        if (this.account != null) {
+            this.account.getMeetingAttendantList().remove(this);
         }
-        this.accountId = accountId;
+        this.account = accountId;
         accountId.getMeetingAttendantList().add(this);
     }
 }

@@ -58,16 +58,16 @@ public class Company extends Account {
     @Column(name = "CURRENTIZATION_STATUS", nullable = false)
     private State currentizationStatus; // 현행화 상태
 
-    @OneToMany(mappedBy = "companyAccountId")
+    @OneToMany(mappedBy = "company")
     private List<CollaboRequest> collaboRequest = new ArrayList<>();
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<MileageRequest> mileageRequest;
 
-    @OneToMany(mappedBy = "companyId")
+    @OneToMany(mappedBy = "company")
     private List<Item> itemList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "companyAccountId")
+    @OneToMany(mappedBy = "company")
     private List<Project> projectList = new ArrayList<>();
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)

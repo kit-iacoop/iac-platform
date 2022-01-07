@@ -19,7 +19,7 @@ public class ProofFile extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "PROJECT_OUTPUT_ID", nullable = false)
-    private ProjectOutput projectOutputId;
+    private ProjectOutput projectOutput;
 
     @Column(name = "FILE_NAME", nullable = false)
     private String fileName;
@@ -31,10 +31,10 @@ public class ProofFile extends BaseTimeEntity {
     private String fileSize;
 
     public void setProjectOutput(ProjectOutput projectOutputId) {
-        if (this.projectOutputId != null) {
-            this.projectOutputId.getProofFileList().remove(this);
+        if (this.projectOutput != null) {
+            this.projectOutput.getProofFileList().remove(this);
         }
-        this.projectOutputId = projectOutputId;
+        this.projectOutput = projectOutputId;
         projectOutputId.getProofFileList().add(this);
     }
 }

@@ -20,18 +20,18 @@ public class ProjectProfessor extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "PROJECT_ID", nullable = false)
-    private Project projectId;
+    private Project project;
 
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROFESSOR_ACCOUNT_ID", nullable = false)
     private Professor professor;
 
-    public void setProjectId(Project projectId) {
-        if (this.projectId != null) {
-            this.projectId.getProfessorList().remove(this);
+    public void setProject(Project projectId) {
+        if (this.project != null) {
+            this.project.getProfessorList().remove(this);
         }
-        this.projectId = projectId;
+        this.project = projectId;
         projectId.getProfessorList().add(this);
     }
 

@@ -29,11 +29,11 @@ public class CollaboRequest extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "OFFICER_ACCOUNT_ID", nullable = false)
-    private Officer officerAccountId;
+    private Officer officer;
 
     @ManyToOne
     @JoinColumn(name = "COMPANY_ACCOUNT_ID", nullable = false)
-    private Company companyAccountId;
+    private Company company;
 
     @Column(name = "TITLE", nullable = false)
     private String title;
@@ -59,31 +59,31 @@ public class CollaboRequest extends BaseTimeEntity {
     @Column(name = "REQUEST_TYPE", nullable = false)
     private RequestType requestType;
 
-    @OneToMany(mappedBy = "collaboRequestId")
+    @OneToMany(mappedBy = "collaboRequest")
     private List<CollaboRequestProfessor> collaboRequestProfessorList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "collaboRequestId")
+    @OneToMany(mappedBy = "collaboRequest")
     private List<CollaboRequestTechnique> collaboRequestTechniqueList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "collaboRequestId")
+    @OneToMany(mappedBy = "collaboRequest")
     private List<Meeting> meetingList = new ArrayList<>();
 
     @OneToOne
     private Project projectId;
 
     public void setOfficer(Officer officerAccountId) {
-        if (this.officerAccountId != null) {
-            this.officerAccountId.getCollaboRequest().remove(this);
+        if (this.officer != null) {
+            this.officer.getCollaboRequest().remove(this);
         }
-        this.officerAccountId = officerAccountId;
+        this.officer = officerAccountId;
         officerAccountId.getCollaboRequest().add(this);
     }
 
     public void setCompany(Company companyAccountId) {
-        if (this.companyAccountId != null) {
-            this.companyAccountId.getCollaboRequest().remove(this);
+        if (this.company != null) {
+            this.company.getCollaboRequest().remove(this);
         }
-        this.companyAccountId = companyAccountId;
+        this.company = companyAccountId;
         companyAccountId.getCollaboRequest().add(this);
     }
 

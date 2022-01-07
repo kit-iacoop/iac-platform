@@ -1,7 +1,6 @@
 package com.domain.Account;
 
 import com.domain.Copyright.Copyright;
-import com.domain.FieldInterest.FieldInterest;
 import com.domain.MeetingAttendant.MeetingAttendant;
 import com.domain.common.Address;
 import com.domain.common.BaseTimeEntity;
@@ -56,7 +55,7 @@ public abstract class Account extends BaseTimeEntity {
    @OneToMany(mappedBy = "accountId")
    private List<Copyright>copyrightList = new ArrayList<>();
 
-   @OneToMany(mappedBy = "accountId")
+   @OneToMany(mappedBy = "account")
    private List<MeetingAttendant> meetingAttendantList=new ArrayList<>();
 
 }

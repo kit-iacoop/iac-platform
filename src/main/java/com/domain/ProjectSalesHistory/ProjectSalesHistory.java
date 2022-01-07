@@ -23,7 +23,7 @@ public class ProjectSalesHistory extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "PROJECT_ID", nullable = false)
-    private Project projectId;
+    private Project project;
 
     @Column(name = "YEAR", nullable = false)
     private String year;
@@ -39,11 +39,11 @@ public class ProjectSalesHistory extends BaseTimeEntity {
     @OneToMany
     private List<SalesHistoryProofFile> proofFileList = new ArrayList<>();
 
-    public void setProjectId(Project projectId) {
-        if (this.projectId != null) {
-            this.projectId.getSalesHistoryList().remove(this);
+    public void setProject(Project projectId) {
+        if (this.project != null) {
+            this.project.getSalesHistoryList().remove(this);
         }
-        this.projectId = projectId;
+        this.project = projectId;
         projectId.getSalesHistoryList().add(this);
     }
 }

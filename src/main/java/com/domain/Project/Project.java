@@ -29,15 +29,15 @@ public class Project extends BaseTimeEntity {
     // 여기서 CollaboRequest의 FK를 소유하는게 자연스러운듯
     @OneToOne
     @JoinColumn(name = "COLLABO_REQUEST_ID", nullable = false)
-    private CollaboRequest collaboRequestId;
+    private CollaboRequest collaboRequest;
 
     // BudgetDetail에서 프로젝트의 FK를 소유하는게 자연스러운듯
-    @OneToOne(mappedBy = "projectId")
-    private BudgetDetail budgetDetailId;
+    @OneToOne(mappedBy = "project")
+    private BudgetDetail budgetDetail;
 
     @ManyToOne
     @JoinColumn(name = "COMPANY_ACCOUNT_ID", nullable = false)
-    private Company companyAccountId;
+    private Company company;
 
     @Column(name = "START_DATE", nullable = false)
     private LocalDate startDate;
@@ -45,34 +45,34 @@ public class Project extends BaseTimeEntity {
     @Column(name = "END_DATE", nullable = false)
     private LocalDate endDate;
 
-    @OneToMany(mappedBy = "projectId")
+    @OneToMany(mappedBy = "project")
     List<Meeting> meetingList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "projectId")
+    @OneToMany(mappedBy = "project")
     List<ProjectOutput> projectOutputList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "projectId")
+    @OneToMany(mappedBy = "project")
     List<ProjectProfessor> professorList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "projectId")
+    @OneToMany(mappedBy = "project")
     List<ProjectSalesHistory> salesHistoryList = new ArrayList<>();
 
-    public void setBudgetDetailId(BudgetDetail budgetDetailId) {
-        this.budgetDetailId = budgetDetailId;
+    public void setBudgetDetail(BudgetDetail budgetDetailId) {
+        this.budgetDetail = budgetDetailId;
     }
 
     public void setCollaboRequest(CollaboRequest collaboRequestId) {
-        if (this.collaboRequestId != null) {
-            this.collaboRequestId.setProjectId(null);
+        if (this.collaboRequest != null) {
+            this.collaboRequest.setProjectId(null);
         }
-        this.collaboRequestId = collaboRequestId;
+        this.collaboRequest = collaboRequestId;
     }
 
     public void setCompany(Company companyAccountId) {
-        if (this.companyAccountId != null) {
-            this.companyAccountId.getProjectList().remove(this);
+        if (this.company != null) {
+            this.company.getProjectList().remove(this);
         }
-        this.companyAccountId = companyAccountId;
+        this.company = companyAccountId;
         companyAccountId.getProjectList().add(this);
     }
 }

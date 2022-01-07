@@ -4,7 +4,6 @@ import com.domain.Project.Project;
 import com.domain.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 
@@ -23,7 +22,7 @@ public class BudgetDetail extends BaseTimeEntity {
 
     @OneToOne
     @JoinColumn(name = "PROJECT_ID", nullable = false)
-    private Project projectId;
+    private Project project;
 
     @Column(name = "TOTAL", nullable = false)
     private String total;
@@ -38,10 +37,10 @@ public class BudgetDetail extends BaseTimeEntity {
     private String indirectCost;
 
     public void setProject(Project projectId) {
-        if (this.projectId != null) {
-            this.projectId.setBudgetDetailId(null);
+        if (this.project != null) {
+            this.project.setBudgetDetail(null);
         }
-        this.projectId = projectId;
-        projectId.setBudgetDetailId(this);
+        this.project = projectId;
+        projectId.setBudgetDetail(this);
     }
 }

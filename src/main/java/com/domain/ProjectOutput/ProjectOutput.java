@@ -24,7 +24,7 @@ public class ProjectOutput extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "PROJECT_ID", nullable = false)
-    private Project projectId;
+    private Project project;
 
     // CopyrightType 을 같이 사용해도 문제없을것같음.
     @Enumerated(EnumType.STRING)
@@ -38,14 +38,14 @@ public class ProjectOutput extends BaseTimeEntity {
     @Column(name = "STATUS", nullable = false)
     private State status;
 
-    @OneToMany(mappedBy = "projectOutputId")
+    @OneToMany(mappedBy = "projectOutput")
     private List<ProofFile> proofFileList = new ArrayList<>();
 
     public void setProject(Project projectId) {
-        if (this.projectId != null) {
-            this.projectId.getProjectOutputList().remove(this);
+        if (this.project != null) {
+            this.project.getProjectOutputList().remove(this);
         }
-        this.projectId = projectId;
+        this.project = projectId;
         projectId.getProjectOutputList().add(this);
     }
 }

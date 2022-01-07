@@ -21,17 +21,17 @@ public class CollaboRequestProfessor extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "COLLABO_REQUEST_ID", nullable = false)
-    private CollaboRequest collaboRequestId;
+    private CollaboRequest collaboRequest;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PROFESSOR_ACCOUNT_ID", nullable = false)
     private Professor professor;
 
     public void setCollaboRequest(CollaboRequest collaboRequestId) {
-        if (this.collaboRequestId != null) {
-            this.collaboRequestId.getCollaboRequestProfessorList().remove(this);
+        if (this.collaboRequest != null) {
+            this.collaboRequest.getCollaboRequestProfessorList().remove(this);
         }
-        this.collaboRequestId = collaboRequestId;
+        this.collaboRequest = collaboRequestId;
         collaboRequestId.getCollaboRequestProfessorList().add(this);
     }
 

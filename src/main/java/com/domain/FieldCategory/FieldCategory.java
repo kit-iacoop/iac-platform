@@ -30,7 +30,7 @@ public class FieldCategory extends BaseTimeEntity {
     @Column(name = "LEVEL", nullable = false)
     private Long level;
 
-    @OneToMany(mappedBy = "fieldCategoryId")
+    @OneToMany(mappedBy = "fieldCategory")
     private List<CollaboRequestTechnique> collaboRequestTechniqueList = new ArrayList<>();
 
     @OneToMany(mappedBy = "fieldCategoryId")

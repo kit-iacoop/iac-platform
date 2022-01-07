@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Getter
@@ -22,7 +20,7 @@ public class MeetingFile extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "MEETING_ID", nullable = false)
-    private Meeting meetingId;
+    private Meeting meeting;
 
     @Column(name = "FILE_TYPE", nullable = false)
     private String fileType;
@@ -36,11 +34,11 @@ public class MeetingFile extends BaseTimeEntity {
     @Column(name = "FILE_SIZE", nullable = false)
     private String fileSize;
 
-    public void setMeetingId(Meeting meetingId) {
-        if (this.meetingId != null) {
-            this.meetingId.getMeetingFileList().remove(this);
+    public void setMeeting(Meeting meetingId) {
+        if (this.meeting != null) {
+            this.meeting.getMeetingFileList().remove(this);
         }
-        this.meetingId = meetingId;
+        this.meeting = meetingId;
         meetingId.getMeetingFileList().add(this);
     }
 }

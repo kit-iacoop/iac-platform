@@ -32,10 +32,10 @@ public class Officer extends Account {
     @OneToMany(mappedBy = "officer", fetch = FetchType.LAZY)
     private List<MileageRequest> mileageRequest;
 
-    @OneToMany(mappedBy = "officer",fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "officer", fetch = FetchType.LAZY)
     private List<AnnualFeeRequest> annualFeeRequest;
 
-    @OneToMany(mappedBy = "officerAccountId")
+    @OneToMany(mappedBy = "officer")
     private List<CollaboRequest> collaboRequest = new ArrayList<>();
 
 }

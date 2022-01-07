@@ -19,16 +19,16 @@ public class Item extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "COMPANY_ID", nullable = false)
-    private Company companyId;
+    private Company company;
 
     @Column(name = "ITEM_NAME", nullable = false)
     private String itemName;
 
     public void setCompany(Company companyId) {
-        if (this.companyId != null) {
-            this.companyId.getItemList().remove(this);
+        if (this.company != null) {
+            this.company.getItemList().remove(this);
         }
-        this.companyId = companyId;
+        this.company = companyId;
         companyId.getItemList().add(this);
     }
 }

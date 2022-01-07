@@ -19,7 +19,7 @@ public class SalesHistoryProofFile extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "PROJECT_SALES_HISTORY_ID", nullable = false)
-    private ProjectSalesHistory projectSalesHistoryId;
+    private ProjectSalesHistory projectSalesHistory;
 
     @Column(name = "FILE_NAME", nullable = false)
     private String fileName;
@@ -31,10 +31,10 @@ public class SalesHistoryProofFile extends BaseTimeEntity {
     private String fileSize;
 
     public void setProjectSalesHistory(ProjectSalesHistory projectSalesHistoryId) {
-        if (this.projectSalesHistoryId != null) {
-            this.projectSalesHistoryId.getProofFileList().remove(this);
+        if (this.projectSalesHistory != null) {
+            this.projectSalesHistory.getProofFileList().remove(this);
         }
-        this.projectSalesHistoryId = projectSalesHistoryId;
+        this.projectSalesHistory = projectSalesHistoryId;
         projectSalesHistoryId.getProofFileList().add(this);
     }
 }

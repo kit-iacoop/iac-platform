@@ -25,11 +25,11 @@ public class Meeting extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "COLLABO_REQUEST_ID", nullable = false)
-    private CollaboRequest collaboRequestId;
+    private CollaboRequest collaboRequest;
 
     @ManyToOne
     @JoinColumn(name = "PROJECT_ID")
-    private Project projectId;
+    private Project project;
 
     @Column(name = "MEETING_LOCATION", nullable = false)
     private String meetingLocation;
@@ -47,25 +47,25 @@ public class Meeting extends BaseTimeEntity {
     @Column(name = "MEETING_TYPE", nullable = false)
     private String meetingType;
 
-    @OneToMany(mappedBy = "meetingId")
+    @OneToMany(mappedBy = "meeting")
     List<MeetingAttendant> meetingAttendantList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "meetingId")
+    @OneToMany(mappedBy = "meeting")
     List<MeetingFile> meetingFileList = new ArrayList<>();
 
     public void setCollaboRequest(CollaboRequest collaboRequestId) {
-        if (this.collaboRequestId != null) {
-            this.collaboRequestId.getMeetingList().remove(this);
+        if (this.collaboRequest != null) {
+            this.collaboRequest.getMeetingList().remove(this);
         }
-        this.collaboRequestId = collaboRequestId;
+        this.collaboRequest = collaboRequestId;
         collaboRequestId.getMeetingList().add(this);
     }
 
     public void setProject(Project projectId) {
-        if (this.projectId != null) {
-            this.projectId.getMeetingList().remove(this);
+        if (this.project != null) {
+            this.project.getMeetingList().remove(this);
         }
-        this.projectId = projectId;
+        this.project = projectId;
         projectId.getMeetingList().add(this);
     }
 }

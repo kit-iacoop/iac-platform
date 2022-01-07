@@ -20,25 +20,25 @@ public class CollaboRequestTechnique extends BaseTimeEntity {
 
     @ManyToOne
     @JoinColumn(name = "FIELD_CATEGORY_ID", nullable = false)
-    private FieldCategory fieldCategoryId;
+    private FieldCategory fieldCategory;
 
     @ManyToOne
     @JoinColumn(name = "COLLABO_REQUEST_ID", nullable = false)
-    private CollaboRequest collaboRequestId;
+    private CollaboRequest collaboRequest;
 
     public void setFieldCategory(FieldCategory fieldCategoryId) {
-        if (this.fieldCategoryId != null) {
-            this.fieldCategoryId.getCollaboRequestTechniqueList().remove(this);
+        if (this.fieldCategory != null) {
+            this.fieldCategory.getCollaboRequestTechniqueList().remove(this);
         }
-        this.fieldCategoryId = fieldCategoryId;
+        this.fieldCategory = fieldCategoryId;
         fieldCategoryId.getCollaboRequestTechniqueList().add(this);
     }
 
     public void setCollaboRequest(CollaboRequest collaboRequestId) {
-        if (this.collaboRequestId != null) {
-            this.collaboRequestId.getCollaboRequestTechniqueList().remove(this);
+        if (this.collaboRequest != null) {
+            this.collaboRequest.getCollaboRequestTechniqueList().remove(this);
         }
-        this.collaboRequestId = collaboRequestId;
+        this.collaboRequest = collaboRequestId;
         collaboRequestId.getCollaboRequestTechniqueList().add(this);
     }
 }
