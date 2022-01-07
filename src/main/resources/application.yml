@@ -46,3 +46,22 @@ spring:
   jpa:
     hibernate:
       ddl-auto: update
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: kgh
+
+  datasource:
+    url: jdbc:mariadb://localhost:3307/iac_platform?characterEncoding=UTF-8&serverTimezone=UTC
+    username: guest
+    password: 1234
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+server:
+  port: 8081
