@@ -18,7 +18,7 @@ public class CollaborationCategory extends BaseTimeEntity {
     private Long collaborationCategoryId;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "PARENT_CATEGORY_ID", nullable = true)
+    @JoinColumn(name = "PARENT_CATEGORY_ID")
     private CollaborationCategory parentCategory;
 
     @Column(name = "COLLABORATION_NAME", nullable = false)
