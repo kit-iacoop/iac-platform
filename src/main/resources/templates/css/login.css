@@ -1,0 +1,144 @@
+* {
+    font-family: Droid Sans;
+}
+
+/* header & navbar */
+.header-wrapper {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    padding: 0 5rem;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+.top-menu-wrapper {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+}
+
+
+.top-menu-wrapper>ul>li {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 3rem;
+}
+
+li {
+    list-style: none;
+    text-align: center;
+}
+
+/* contents */
+.login-area {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: 10em;
+    background-color: #f2f4f7;
+    border: 12px solid #e4e8ee;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-left: -5rem;
+}
+
+.login-title-area {
+    display: flex;
+    flex-direction: row;
+    padding-left: 35rem;
+}
+
+.login-text-area {
+    margin-left: 0.5rem;
+}
+
+.login-text-area h2 {
+    color: #0273e1;
+    font-size: 24px;
+    margin-left: -10rem;
+}
+
+.login-text-area h4 {
+    padding-left: 0.7rem;
+    margin-top: -0.5rem;
+}
+
+.form-login-wrapper {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    margin-top: 1rem;
+}
+
+.form-login-area-id-pwd {
+    align-items: center;    
+}
+
+.form-login-area {
+    padding-left: 35rem
+}
+
+#member_id, #member_pw {
+    padding: 0.5rem;
+    margin-top: 0.1rem;
+    padding-right: 7rem;
+}
+
+input {
+    margin-left: 0.1rem;
+}
+
+input[type="submit"] {
+    background: #0273e1;
+    color: #ffffff;
+    width: 7rem;
+}
+
+.login-submenu {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    padding-left: 35rem;
+    padding-top: 1rem;
+}
+
+
+.login-submenu > li {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 2rem;
+}
+
+.login-submenu > li > a {
+    display: block;
+    text-align: center;
+    background-color: #5A6F88;
+    color: #ffffff;
+    padding: 0.5rem 3.5rem;
+}
+
+/* footer */
+.footer-wrapper {
+    position: relative;
+    max-width: 1240px;
+    padding: 0 20px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-wrapper address, .footer-wrapper a {
+    display: inline;
+    word-break: keep-all;
+}
+
+a:link, a:visited, a:hover {
+    text-decoration: none;
+}

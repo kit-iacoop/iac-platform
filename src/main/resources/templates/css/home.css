@@ -1,0 +1,66 @@
+* {
+    font-family: Droid Sans;
+}
+
+/* header & navbar */
+.header-wrapper {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    padding: 0 5rem;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+.top-menu-wrapper {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+}
+
+
+.top-menu-wrapper>ul>li {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 3rem;
+}
+
+li {
+    list-style: none;
+    text-align: center;
+}
+
+/* contents */
+.cropping {
+    text-align: center;
+    max-height: 500px;
+    overflow: hidden;
+}
+
+.cropping img {
+    max-width: initial;
+    text-align: center;
+}
+
+/* footer */
+.footer-wrapper {
+    position: relative;
+    max-width: 1240px;
+    padding: 0 20px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-wrapper address, .footer-wrapper a {
+    display: inline;
+    word-break: keep-all;
+}
+
+a:link, a:visited, a:hover {
+    text-decoration: none;
+}

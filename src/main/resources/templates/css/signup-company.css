@@ -1,0 +1,155 @@
+* {
+    font-family: Droid Sans;
+}
+
+/* header & navbar */
+.header-wrapper {
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    padding: 0 5rem;
+}
+
+h2 {
+    font-size: 20px;
+}
+
+.top-menu-wrapper {
+    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 16px;
+}
+
+
+.top-menu-wrapper>ul>li {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    padding-right: 3rem;
+}
+
+li {
+    list-style: none;
+    text-align: center;
+}
+
+/* contents */
+.signup-area {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0 5rem;
+    background-color: #f2f4f7;
+    border: 12px solid #e4e8ee;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+    padding-left: -5rem;
+}
+
+.signup-title-area {
+    display: flex;
+    flex-direction: row;
+    padding-left: 40rem;
+}
+
+.signup-text-area {
+    margin-left: 0.5rem;
+}
+
+.signup-text-area h2 {
+    color: #f7a728;
+    font-size: 24px;
+    margin-left: -5rem;
+}
+
+.signup-text-area h4 {
+    padding-left: 0.7rem;
+    margin-top: -0.5rem;
+}
+
+.signup-section-area > li {
+    position: relative;
+    vertical-align: middle;
+    padding-right: 2rem;
+}
+
+.signup-section-area > li > a {
+    display: block;
+    text-align: center;
+    background-color: #5A6F88;
+    color: #ffffff;
+    padding: 1rem 3.5rem;
+    margin-left: 30rem;
+    margin-right: 30rem;
+    margin-top: 1rem;
+}
+
+
+#signup-company {
+    background-color: #f7a728;
+}
+
+#signup-person {
+    background-color: #47b4aa;
+}
+
+#signup-company-title {
+    padding-left: 6rem;
+}
+
+.search-address {
+    display: flex;
+    flex-direction: row;
+}
+
+#sample6_postcode {
+    width: 3rem;
+    margin-left: 8rem;
+}
+
+input[type="button"] {
+    background: #f7a728;
+    color: #ffffff;
+    height: 2.5rem;
+    margin-left: 3.5rem;
+}
+
+.form-signup-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 40rem 0 40rem;
+}
+.signup-info {
+    padding: 0.5rem;
+    margin-top: 0.1rem;
+    padding-right: 7rem;
+}
+
+input[type="submit"] {
+    background: #f7a728;
+    color: #ffffff;
+    margin-top: 1rem;
+    width: 27rem;
+    height: 3rem;
+}
+
+.footer-wrapper {
+    position: relative;
+    max-width: 1240px;
+    padding: 0 20px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.footer-wrapper address, .footer-wrapper a {
+    display: inline;
+    word-break: keep-all;
+}
+
+a:link, a:visited, a:hover {
+    text-decoration: none;
+}
