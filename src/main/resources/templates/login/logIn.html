@@ -15,16 +15,16 @@
                         <h4>아이디와 비밀번호를 입력해 주세요.</h4>
                     </div>
                 </div>
-                <form id="loginForm" method="post">
+                <form id="loginForm" th:action="@{/login.do}" th:object="${account}" method="post">
                     <div class="form-login-wrapper">
                         <div class ="form-login-area-id-pwd">
                             <div class="form-login-area">
-                                <input type="text" id="member_id" name="member_id"
+                                <input type="text" id="member_id" name="id" th:field="*{loginId}"
                                 placeholder="아이디" title="로그인 할 아이디를 입력하세요."
                                 style="text-transform: uppercase;">
                             </div>
                             <div class="form-login-area">
-                                <input type="password" id="member_pw" name="member_pw" 
+                                <input type="password" id="member_pw" name="pw" th:field="*{password}"
                                 placeholder="비밀번호" title="로그인 할 비밀번호를 입력하세요.">
                             </div>
                         </div>
