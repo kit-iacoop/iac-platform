@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class AccountController {
@@ -22,12 +23,13 @@ public class AccountController {
     }
 
     @GetMapping("/register/company")
-    public String createCompany(){
-        return "register/company";
+    public ModelAndView createCompany(){
+        return new ModelAndView("register/company").addObject(new CompanyRegisterVO());
     }
 
     @PostMapping("/register/company")
     public String createCompany(@ModelAttribute CompanyRegisterVO companyRegisterVO){
+        // TODO : 성공, 실패 분기 必
 
         return "register/company";
     }
