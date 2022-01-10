@@ -1,9 +1,11 @@
-
+<!DOCTYPE html>
+<html xmlns:th="http://www/thymeleaf.org">
+    <th:block th:fragment="headerFragment">
         <header>
             <div class="header">
                 <div class="header-wrapper">
                     <h2>
-                        <img width="200px" src="https://www.kumoh.ac.kr/_res/ko/img/common/logo@2x.png">
+                        <a href="/"><img width="200px" src="https://www.kumoh.ac.kr/_res/ko/img/common/logo@2x.png"></a>
                         산학협력공유플랫폼
                     </h2>
                     <div class="top-menu-wrapper">
@@ -16,9 +18,11 @@
                             <li class="topmenu6">게시판</li>
                         </ul>
                         <div class="login-icon-wrapper">
-                            <a href="#">로그인</a>
+                            <a href="/login.do">로그인</a>
                         </div>
                     </div>
                 </div>
             </div>
         </header>
+    </th:block>
+</html>
