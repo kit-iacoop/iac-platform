@@ -1,6 +1,7 @@
 package com.security.configs;
 
 
+import com.security.handler.CustomAccessDeniedHandler;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -26,12 +27,8 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        //정적 파일 ignore
-        web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
-    }
-
+    private final AuthenticationSuccessHandler authenticationSuccessHandler;
+    private final AuthenticationFailureHandler authenticationFailureHandler;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -40,9 +37,39 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/**").permitAll()
                 .anyRequest().authenticated();
 
-        http
-                .formLogin();
 
+        http
+                .formLogin()
+//                .loginPage("/login")
+//                .loginProcessingUrl("/login")
+                .defaultSuccessUrl("/")
+                .successHandler(authenticationSuccessHandler)
+                .failureHandler(authenticationFailureHandler)
+                .permitAll();
+
+        http
+                .exceptionHandling()
+                .accessDeniedHandler(accessDeniedHandler());
+
+
+    }
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        //정적 파일 ignore
+        web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler(){
+        CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
+        accessDeniedHandler.setErrorPage("/denied");
+        return accessDeniedHandler;
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
 }
