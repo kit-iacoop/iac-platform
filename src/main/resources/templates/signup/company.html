@@ -65,35 +65,35 @@
                         <h4>COMPANY</h4>
                     </div>
                 </div>
-                <form id="signupCompanyForm" method="post">
+                <form id="signupCompanyForm" th:action="@{/register/company}" th:object="${companyRegisterVO}" method="post">
                     <div class="form-signup-company-wrapper">
                         <div class="form-signup-area">
                             <div class="label-wrapper">
                                 <label for="id" class="id">아이디</label>
                             </div>
-                            <input type="text" class="signup-info" id="member_id" name="member_id"
+                            <input type="text" class="signup-info" id="member_id" name="member_id" th:field="*{loginId}"
                             placeholder="아이디" title="로그인 할 아이디를 입력하세요."
                             style="text-transform: uppercase;">
                         </div>
                         <div class="form-signup-area">
                             <label for="password" class="password">비밀번호</label>
-                            <input type="password" class="signup-info" id="member_pw" name="member_pw" 
+                            <input type="password" class="signup-info" id="member_pw" name="member_pw" th:field="*{password}"
                             placeholder="비밀번호" title="로그인 할 비밀번호를 입력하세요.">
                         </div>
                         <div class="form-signup-area">
-                            <label for="name" class="name">가입자</label>
-                            <input type="text" class="signup-info" id="member_name" name="member_name" 
+                            <label for="name" class="name">회사명</label>
+                            <input type="text" class="signup-info" id="member_name" name="member_name" th:field="*{name}"
                             placeholder="회사명" title="회사 이름을 입력하세요.">
                         </div>
                         <div class="form-signup-area">
                             <label for="birthday" class="birthday">설립일</label>
-                            <input type="date" class="signup-info" id="member_birthday" name="member_birthday" 
+                            <input type="date" class="signup-info" id="member_birthday" name="member_birthday" th:field="*{birthDate}"
                             placeholder="설립일" title="설립일을 입력하세요.">
                         </div>
                         <div class="search-address">
                             <div class="form-signup-area">
                                 <label for="address" class="address">주소</label>
-                                <input type="text" class="signup-info" id="sample6_postcode" name="member_zipcode" 
+                                <input type="text" class="signup-info" id="sample6_postcode" name="member_zipcode" th:field="*{zipCode}"
                                 placeholder="우편번호" title="본사 주소를 입력하세요.">
                                 <input id="search-btn" type="button" onclick="sample6_execDaumPostcode()" value="검색">
                             </div>
@@ -101,44 +101,49 @@
                         </div>
                         <div class="form-signup-area">
                             <label for="address" class="address"></label>
-                            <input type="text" class="signup-info" id="sample6_address" name="member_city" 
+                            <input type="text" class="signup-info" id="sample6_address" name="member_city" th:field="*{city}"
                             placeholder="도로명" title="본사 주소를 입력하세요.">
                         </div>
                         <div class="form-signup-area">
                             <label for="address" class="address"></label>
-                            <input type="text" class="signup-info" id="sample6_extraAddress" name="member_street" 
+                            <input type="text" class="signup-info" id="sample6_extraAddress" name="member_street" th:field="*{street}"
                             placeholder="세부주소" title="본사 주소를 입력하세요.">
                         </div>
                         <div class="form-signup-area">
+                            <label for="telephone" class="email">이메일</label>
+                            <input type="text" class="signup-info" id="member_email" name="member_email" th:field="*{email}"
+                            placeholder="이메일" title="이메일 입력하세요.">
+                        </div>
+                        <div class="form-signup-area">
                             <label for="telephone" class="telephone">전화번호</label>
-                            <input type="text" class="signup-info" id="member_telephone" name="member_telephone" 
+                            <input type="text" class="signup-info" id="member_telephone" name="member_telephone" th:field="*{telephone}"
                             placeholder="전화번호" title="전화번호를 입력하세요.">
                         </div>
-                        <input type="hidden" name="status" value="C">
+                        <input type="hidden" name="status" value="C" th:field="*{status}">
 
                         <div class="form-signup-area">
                             <label for="employeeNumber" class="employeeNumber">사업자 등록번호</label>
-                            <input type="text" class="signup-info" id="member_employeeNumber" name="member_employeeNumber" 
+                            <input type="text" class="signup-info" id="member_employeeNumber" name="member_employeeNumber" th:field="*{employeeNumber}"
                             placeholder="사업자 등록번호" title="사업자 등록번호를 입력하세요.">
                         </div>
                         <div class="form-signup-area">
                             <label for="companyType" class="companyType">회사구분</label>
-                            <input type="text" class="signup-info" id="member_companyType" name="member_companyType" 
+                            <input type="text" class="signup-info" id="member_companyType" name="member_companyType" th:field="*{companyType}"
                             placeholder="회사구분" title="회사구분을 입력하세요.">
                         </div>
                         <div class="form-signup-area">
                             <label for="sector" class="sector">업종</label>
-                            <input type="text" class="signup-info" id="member_sector" name="member_sector" 
+                            <input type="text" class="signup-info" id="member_sector" name="member_sector" th:field="*{sector}"
                             placeholder="업종" title="업종을 입력하세요.">
                         </div>
                         <div class="form-signup-area">
                             <label for="owner" class="owner">대표자</label>
-                            <input type="text" class="signup-info" id="member_owner" name="member_owner" 
+                            <input type="text" class="signup-info" id="member_owner" name="member_owner" th:field="*{owner}"
                             placeholder="대표자" title="대표자 이름를 입력하세요.">
                         </div>
                         <div class="form-signup-area">
                             <label for="subscriptionDate" class="subscriptionDate">협약일</label>
-                            <input type="date" class="signup-info" id="member_subscriptionDate" name="member_subscriptionDate" 
+                            <input type="date" class="signup-info" id="member_subscriptionDate" name="member_subscriptionDate" th:field="*{subscriptionDate}"
                             placeholder="협약일" title="협약일을 입력하세요.">
                         </div>
                         <input type="submit" name value="회원가입" title="회원가입">
