@@ -18,6 +18,7 @@ import java.util.List;
 @Getter
 
 @SuperBuilder
+@ToString(exclude = {"copyrightList", "meetingAttendantList"})
 
 @Entity
 @DiscriminatorColumn
@@ -54,9 +55,10 @@ public abstract class Account extends BaseTimeEntity {
    private State status;
 
    @OneToMany(mappedBy = "accountId")
-   private List<Copyright>copyrightList = new ArrayList<>();
+   private List<Copyright> copyrightList;
 
    @OneToMany(mappedBy = "account")
-   private List<MeetingAttendant> meetingAttendantList=new ArrayList<>();
+   private List<MeetingAttendant> meetingAttendantList;
+
 
 }

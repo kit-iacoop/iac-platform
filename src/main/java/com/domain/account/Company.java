@@ -12,6 +12,7 @@ import com.domain.common.State;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -22,6 +23,8 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @SuperBuilder
+
+@ToString(callSuper=true, exclude = {"temporaryAddress", "collaboRequest", "mileageRequest", "itemList", "projectList", "mileageList","annualFeeRequest","mentorProfessor", "annualSalesList"})
 
 @DiscriminatorValue("C")
 @Table(name = "COMPANY")
@@ -62,16 +65,16 @@ public class Company extends Account {
     private State currentizationStatus; // 현행화 상태
 
     @OneToMany(mappedBy = "company")
-    private List<CollaboRequest> collaboRequest = new ArrayList<>();
+    private List<CollaboRequest> collaboRequest;
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<MileageRequest> mileageRequest;
 
     @OneToMany(mappedBy = "company")
-    private List<Item> itemList = new ArrayList<>();
+    private List<Item> itemList;
 
     @OneToMany(mappedBy = "company")
-    private List<Project> projectList = new ArrayList<>();
+    private List<Project> projectList;
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<CompanyMileage> mileageList;
