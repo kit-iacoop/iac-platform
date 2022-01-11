@@ -9,12 +9,16 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+
 @Builder
 @Getter
+
 @NoArgsConstructor
 @AllArgsConstructor
-@Embeddable
+
 @ToString
+
+@Embeddable
 public class Address {
     @Column(name = "CITY", nullable = true)
     private String city;
