@@ -21,8 +21,12 @@ public class LoginController {
     public String accessDenied(@RequestParam(value = "exception", required = false) String exception, Model model){
 
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Account principal = (Account)auth.getPrincipal();
-        model.addAttribute("username", principal.getName());
+
+        if(auth.getPrincipal() != null){
+            Account principal = (Account)auth.getPrincipal();
+            model.addAttribute("username", principal.getName());
+        }
+
         model.addAttribute("exception", exception);
 
         return "/login/denied";
