@@ -6,17 +6,18 @@ import com.domain.common.Address;
 import com.domain.common.BaseTimeEntity;
 
 import com.domain.common.State;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
 @NoArgsConstructor
 @Getter
+
+@SuperBuilder
 
 @Entity
 @DiscriminatorColumn

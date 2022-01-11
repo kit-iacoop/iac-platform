@@ -5,8 +5,10 @@ import com.domain.annualFeeRequest.AnnualFeeRequest;
 import com.domain.mileageRequest.MileageRequest;
 import com.domain.university.University;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 
+@SuperBuilder
 @DiscriminatorValue("O")
 @Table(name = "OFFICER")
 @Entity

@@ -9,8 +9,10 @@ import com.domain.companyMileage.CompanyMileage;
 import com.domain.mileageRequest.MileageRequest;
 
 import com.domain.common.State;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,6 +21,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
+@SuperBuilder
 
 @DiscriminatorValue("C")
 @Table(name = "COMPANY")

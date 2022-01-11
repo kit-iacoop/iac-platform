@@ -1,13 +1,16 @@
 package com.domain.account;
 
 import com.domain.university.University;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
+@SuperBuilder
 
 @DiscriminatorValue("S")
 @Table(name = "STUDENT")

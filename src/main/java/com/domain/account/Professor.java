@@ -5,14 +5,17 @@ import com.domain.projectProfessor.ProjectProfessor;
 import com.domain.fieldInterest.FieldInterest;
 import com.domain.university.University;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.List;
 
 @NoArgsConstructor
 @Getter
+@SuperBuilder
 
 @DiscriminatorValue("P")
 @Table(name = "PROFESSOR")
