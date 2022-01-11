@@ -2,6 +2,7 @@ package com.security.configs;
 
 
 import com.security.handler.CustomAccessDeniedHandler;
+import com.security.provider.CustomAuthenticationProvider;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -55,6 +56,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        //custom provier 등록
+        auth.authenticationProvider(authenticationProvider());
+
+    }
+
+    @Override
     public void configure(WebSecurity web) throws Exception {
         //정적 파일 ignore
         web.ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
@@ -70,6 +78,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        return new CustomAuthenticationProvider();
     }
 
 }

@@ -60,5 +60,8 @@ public abstract class Account extends BaseTimeEntity {
    @OneToMany(mappedBy = "account")
    private List<MeetingAttendant> meetingAttendantList;
 
+   public void deletePassword(){
+      this.password = null;
+   }
 
 }

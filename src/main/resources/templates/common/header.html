@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www/thymeleaf.org">
+<html xmlns:th="http://www/thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <th:block th:fragment="headerFragment">
         <header>
             <div class="header">
@@ -17,8 +17,11 @@
                             <li class="topmenu5">장비/공간 조회</li>
                             <li class="topmenu6">게시판</li>
                         </ul>
-                        <div class="login-icon-wrapper">
+                        <div sec:authorize="isAnonymous()" class="login-icon-wrapper">
                             <a href="/login">로그인</a>
+                        </div>
+                        <div sec:authorize="isAuthenticated()" class="login-icon-wrapper">
+                            <a href="/logout">로그아웃</a>
                         </div>
                     </div>
                 </div>
