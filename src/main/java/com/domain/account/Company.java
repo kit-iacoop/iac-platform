@@ -34,7 +34,7 @@ public class Company extends Account {
     @Column(name = "BUSINESS_REGISTRATION_NUMBER", nullable = false)
     private Long businessRegistrationNumber;
 
-    @Column(name = "EMPLOYEE_NUMBER", nullable = false)
+    @Column(name = "EMPLOYEE_NUMBER", nullable = false) // 임시 nullable
     private Long employeeNumber;
 
     @Column(name = "SECTOR", nullable = false)
@@ -89,4 +89,10 @@ public class Company extends Account {
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<CompanyAnnualSales> annualSalesList;
 
+    public void verification(String grade, Long mileage, Long point, State currentizationStatus){
+        this.grade = grade;
+        this.mileage = mileage;
+        this.point = point;
+        this.currentizationStatus = currentizationStatus;
+    }
 }

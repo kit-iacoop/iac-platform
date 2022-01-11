@@ -55,7 +55,7 @@ public class CompanyRegisterDTO {
                 .owner(owner)
                 .subscriptionDate(LocalDate.parse(subscriptionDate, DateTimeFormatter.ISO_DATE))
                 .status(State.PENDING)
-                .currentizationStatus(State.NORMAL)
+                .employeeNumber(Long.parseLong(employeeNumber))
                 .build()
                 ;
     }

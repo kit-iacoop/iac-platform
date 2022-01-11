@@ -122,9 +122,15 @@
 <!--                        <input type="hidden" name="status" value="C" th:field="*{status}">-->
 
                         <div class="form-signup-area">
-                            <label for="employeeNumber" class="employeeNumber">사업자 등록번호</label>
-                            <input type="text" class="signup-info" id="member_employeeNumber" name="member_employeeNumber" required="required" th:field="*{businessRegistrationNumber}"
+                            <label for="businessRegistrationNumber" class="businessRegistrationNumber">사업자 등록번호</label>
+                            <input type="text" class="signup-info" id="businessRegistrationNumber" name="member_businessRegistrationNumber" required="required" th:field="*{businessRegistrationNumber}"
                             placeholder="사업자 등록번호" title="사업자 등록번호를 입력하세요.">
+                        </div>
+
+                        <div class="form-signup-area">
+                            <label for="employeeNumber" class="employeeNumber">사원 수</label>
+                            <input type="text" class="signup-info" id="member_employeeNumber" name="member_employeeNumber" required="required" th:field="*{employeeNumber}"
+                                   placeholder="사원 수" title="사원 수를 입력하세요.">
                         </div>
                         <div class="form-signup-area">
                             <label for="companyType" class="companyType">회사구분</label>
