@@ -67,6 +67,15 @@ spring:
     hibernate:
       ddl-auto: update
 
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+
+  thymeleaf:
+    cache: false
+
 server:
   port: 8081
 
