@@ -1,4 +1,3 @@
-
 spring:
   jpa:
     properties:
@@ -9,14 +8,16 @@ spring:
   datasource:
     driver-class-name: org.mariadb.jdbc.Driver
 
-  # profiles:
-  #   active: pyk
-
 logging:
   level:
     org.hibernate:
       type.descriptor.sql: trace #show parameter binding
       SQL: DEBUG
+
+
+property:
+  default-data-loader: #테스트 데이터 로더 (true : 활성화, false : 비활성화)
+    activate:  true
 
 ---
 
@@ -48,7 +49,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
 
 ---
 
