@@ -3,10 +3,12 @@ package com.web.dto;
 import com.domain.account.Account;
 import com.domain.copyright.Copyright;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 
 public class CopyrightDTO {
     private String copyrightId;

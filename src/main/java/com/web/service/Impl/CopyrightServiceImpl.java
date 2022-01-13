@@ -4,7 +4,7 @@ import com.domain.copyright.Copyright;
 import com.domain.copyright.CopyrightRepository;
 import com.web.dto.CopyrightDTO;
 import com.web.service.CopyrightService;
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -12,12 +12,16 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
-@AllArgsConstructor
 
 @Service
 public class CopyrightServiceImpl implements CopyrightService {
 
     private final CopyrightRepository copyrightRepository;
+
+    @Autowired
+    public CopyrightServiceImpl(CopyrightRepository copyrightRepository) {
+        this.copyrightRepository = copyrightRepository;
+    }
 
     @Override
     public List<CopyrightDTO> findCopyright(Pageable pageable) {
