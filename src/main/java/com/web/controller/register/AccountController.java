@@ -18,7 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 @AllArgsConstructor
 
 @Controller
-public class RegisterController {
+public class AccountController {
 
     private final AccountService accountService;
     private final PasswordEncoder passwordEncoder;
