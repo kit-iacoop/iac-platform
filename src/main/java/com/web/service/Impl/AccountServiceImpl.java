@@ -18,6 +18,6 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     @Override
     public void createAccount(Account account) {
-        accountRepository.save(account);
+        accountRepository.encryptedSave(account);
     }
 }

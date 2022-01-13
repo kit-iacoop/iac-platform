@@ -37,7 +37,6 @@ public class AccountController {
     public String createCompany(@ModelAttribute CompanyRegisterDTO companyDTO){
 
         try {
-            companyDTO.setPassword(passwordEncoder.encode(companyDTO.getPassword())); // 'raw password' to 'bcrypt hash value'
             Company companyEntity = companyDTO.toEntity();
             companyEntity.verification("BRONZE", 0L, 0L, State.NORMAL); //TODO : 가입 승인 페이지 생길 때 까지..
             accountService.createAccount(companyEntity);
