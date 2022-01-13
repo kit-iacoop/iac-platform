@@ -47,11 +47,12 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
 
     @Transactional
-    public Company createCompanyIfNotFound(final String loginId, final String password) {
+    public void createCompanyIfNotFound(final String loginId, final String password) {
 
         Account account = accountRepository.findByLoginId(loginId);
 
         if (account == null) {
+
             account = Company.builder()
                     .name("test company name")
                     .birthDate(LocalDate.now())
@@ -73,9 +74,11 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
                     .subscriptionDate(LocalDate.now())
                     .currentizationStatus(State.NORMAL)
                     .build();
+
+            accountRepository.save(account);
         }
 
-        return (Company) accountRepository.save(account);
+
     }
 
 }
