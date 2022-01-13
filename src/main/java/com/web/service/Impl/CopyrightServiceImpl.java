@@ -5,6 +5,8 @@ import com.domain.copyright.CopyrightRepository;
 import com.web.dto.CopyrightDTO;
 import com.web.service.CopyrightService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,12 +18,22 @@ import java.util.List;
 public class CopyrightServiceImpl implements CopyrightService {
 
     private final CopyrightRepository copyrightRepository;
-    
+
     @Override
-    public List<CopyrightDTO> findCopyright() {
-        List<Copyright> all = copyrightRepository.findAll();
+    public List<CopyrightDTO> findCopyright(Pageable pageable) {
+        Page<Copyright> list = copyrightRepository.findAll(pageable);
         List<CopyrightDTO> dtoList = new ArrayList<>();
-        for (Copyright e : all) {
+        for (Copyright e : list) {
+            dtoList.add(new CopyrightDTO(e));
+        }
+        return dtoList;
+    }
+
+    @Override
+    public List<CopyrightDTO> findCopyrightByKey(Pageable pageable, String title) {
+        Page<Copyright> list = copyrightRepository.findByTitleContaining(pageable, title);
+        List<CopyrightDTO> dtoList = new ArrayList<>();
+        for (Copyright e : list) {
             dtoList.add(new CopyrightDTO(e));
         }
         return dtoList;
