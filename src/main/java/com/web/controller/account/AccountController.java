@@ -1,11 +1,10 @@
-package com.web.controller.register;
+package com.web.controller.account;
 
 
 import com.domain.account.Company;
 import com.domain.common.State;
 import com.web.dto.CompanyRegisterDTO;
 import com.web.service.AccountService;
-import com.web.service.Impl.AccountServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
