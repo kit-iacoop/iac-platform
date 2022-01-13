@@ -95,6 +95,30 @@ li {
     background-color: #47b4aa;
 }
 
+.success-submenu > li {
+    position: relative;
+    vertical-align: middle;
+    padding-right: 2rem;
+}
+
+.success-submenu > li > a {
+    display: block;
+    text-align: center;
+    background-color: #5A6F88;
+    color: #ffffff;
+    padding: 1rem 3.5rem;
+    margin-left: 30rem;
+    margin-right: 30rem;
+    margin-top: 1rem;
+}
+
+#home {
+    background-color: #f7a728;
+}
+
+#login {
+    background-color: #47b4aa;
+}
 /* footer */
 .footer-wrapper {
     position: relative;

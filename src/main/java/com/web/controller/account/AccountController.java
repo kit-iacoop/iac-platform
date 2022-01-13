@@ -49,8 +49,6 @@ public class AccountController {
             //return "redirect:/denied?exception=invalid request
         }
         //TODO : 회원가입 완료 페이지 필요
-        return "redirect:/";
+        return "register/success";
     }
-
-
 }

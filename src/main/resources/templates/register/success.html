@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <th:block th:replace="common/head :: headFragment"></th:block>
+        <link href="/css/signup.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <th:block th:replace="common/header :: headerFragment"></th:block>
+        <section>
+            <div class="signup-area">
+                <div class="success-msg">  
+                    <h1>회원가입이 완료되었습니다.</h1>
+                </div>
+                <ul class="success-submenu">
+                    <li><a id="home" href="/">홈 바로 가기</a></li>
+                    <li><a id="login" href="/login">로그인 바로 가기</a></li>
+                </ul>
+            </div>
+        </section>
+        <th:block th:replace="common/footer :: footerFragment"></th:block>
+    </body>
+</html>
