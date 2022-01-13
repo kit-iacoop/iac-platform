@@ -23,8 +23,6 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
     private boolean activate = false; // application.yml에 의해 주입됨
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private AccountRepository accountRepository;
@@ -58,7 +56,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
                     .birthDate(LocalDate.now())
                     .address(new Address("test city", "test street", 123456L))
                     .loginId(loginId)
-                    .password(passwordEncoder.encode(password))
+                    .password(password)
                     .email("test@test.com")
                     .telephone("010-0000-0000")
                     .status(State.NORMAL)
@@ -75,7 +73,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
                     .currentizationStatus(State.NORMAL)
                     .build();
 
-            accountRepository.save(account);
+            accountRepository.encryptedSave(account);
         }
 
 
