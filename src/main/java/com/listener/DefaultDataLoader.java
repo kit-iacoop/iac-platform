@@ -45,38 +45,37 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
 
     @Transactional
-    public void createCompanyIfNotFound(final String loginId, final String password) {
+    public Company createCompanyIfNotFound(final String loginId, final String password) {
 
         Account account = accountRepository.findByLoginId(loginId);
 
-        if (account == null) {
-
-            account = Company.builder()
-                    .name("test company name")
-                    .birthDate(LocalDate.now())
-                    .address(new Address("test city", "test street", 123456L))
-                    .loginId(loginId)
-                    .password(password)
-                    .email("test@test.com")
-                    .telephone("010-0000-0000")
-                    .status(State.NORMAL)
-                    .businessRegistrationNumber(123456789L)
-                    .employeeNumber(1234L)
-                    .sector("섹터섹터섹터")
-                    .owner("test owner")
-                    .grade("test grade")
-                    .companyType("test company type")
-                    .temporaryAddress("test temporary address")
-                    .mileage(123456L)
-                    .point(123456L)
-                    .subscriptionDate(LocalDate.now())
-                    .currentizationStatus(State.NORMAL)
-                    .build();
-
-            accountRepository.encryptedSave(account);
+        if (account != null) {
+            return null;
         }
 
+        account = Company.builder()
+                .name("test company name")
+                .birthDate(LocalDate.now())
+                .address(new Address("test city", "test street", 123456L))
+                .loginId(loginId)
+                .password(password)
+                .email("test@test.com")
+                .telephone("010-0000-0000")
+                .status(State.NORMAL)
+                .businessRegistrationNumber(123456789L)
+                .employeeNumber(1234L)
+                .sector("섹터섹터섹터")
+                .owner("test owner")
+                .grade("test grade")
+                .companyType("test company type")
+                .temporaryAddress("test temporary address")
+                .mileage(123456L)
+                .point(123456L)
+                .subscriptionDate(LocalDate.now())
+                .currentizationStatus(State.NORMAL)
+                .build();
 
+        return (Company) accountRepository.encryptedSave(account);
     }
 
 }
