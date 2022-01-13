@@ -11,6 +11,11 @@ spring:
   # profiles:
   #   active: pyk
 
+  data:
+    web:
+      pageable:
+        one-indexed-parameters: true
+
 logging:
   level:
     org.hibernate:
