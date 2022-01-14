@@ -1,6 +1,7 @@
 package com.domain.security.resource;
 
 import com.domain.security.role.Role;
+import com.web.dto.ResourceDto;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -45,8 +46,18 @@ public class Resource implements Serializable {
     private String resourceType;
 
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "role_resources", joinColumns = {
-            @JoinColumn(name = "resource_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
+    @JoinTable(name = "role_resources", joinColumns = { @JoinColumn(name = "resource_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
     private Set<Role> roleSet = new HashSet<>();
 
+    public ResourceDto toDto() {
+        return ResourceDto.builder()
+                .id(id.toString())
+                .resourceName(resourceName)
+                .httpMethod(httpMethod)
+                .orderNum(orderNum)
+                .resourceType(resourceType)
+                .roleSet(roleSet)
+                .build();
+
+    }
 }
