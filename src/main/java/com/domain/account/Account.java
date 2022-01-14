@@ -6,6 +6,7 @@ import com.domain.common.Address;
 import com.domain.common.BaseTimeEntity;
 import com.domain.security.role.Role;
 import com.domain.common.State;
+import com.web.dto.AccountRolesDto;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @NoArgsConstructor
 @Getter
@@ -64,7 +66,7 @@ public abstract class Account extends BaseTimeEntity {
 
    @ManyToMany(fetch = FetchType.LAZY, cascade={CascadeType.ALL})
    @JoinTable(name = "account_roles", joinColumns = { @JoinColumn(name = "account_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
-   private Set<Role> userRoles = new HashSet<>();
+   private Set<Role> accountRoles = new HashSet<>();
 
 
    public void changePassword(String newPassword){
@@ -74,4 +76,18 @@ public abstract class Account extends BaseTimeEntity {
       this.password = null;
    }
 
+   public AccountRolesDto toAccountRolesDto(){
+      return AccountRolesDto.builder()
+              .id(accountId.toString())
+              .loginId(loginId)
+              .email(email)
+              .roles(accountRoles.stream()
+                      .map(Role::getRoleName)
+                      .collect(Collectors.toList()))
+              .build();
+   }
+
+   public void updateRoles(Set<Role> roleSet){
+      this.accountRoles = roleSet;
+   }
 }
