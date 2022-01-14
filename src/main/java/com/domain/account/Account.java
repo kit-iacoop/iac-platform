@@ -4,7 +4,7 @@ import com.domain.copyright.Copyright;
 import com.domain.meetingAttendant.MeetingAttendant;
 import com.domain.common.Address;
 import com.domain.common.BaseTimeEntity;
-
+import com.domain.security.Role;
 import com.domain.common.State;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -12,7 +12,9 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @NoArgsConstructor
 @Getter
@@ -59,6 +61,12 @@ public abstract class Account extends BaseTimeEntity {
 
    @OneToMany(mappedBy = "account")
    private List<MeetingAttendant> meetingAttendantList;
+
+
+   @ManyToMany(fetch = FetchType.LAZY, cascade={CascadeType.ALL})
+   @JoinTable(name = "account_roles", joinColumns = { @JoinColumn(name = "account_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
+   private Set<Role> userRoles = new HashSet<>();
+
 
    public void changePassword(String newPassword){
       this.password = newPassword;
