@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -55,10 +56,10 @@ public abstract class Account extends BaseTimeEntity {
    private State status;
 
    @OneToMany(mappedBy = "accountId")
-   private List<Copyright> copyrightList;
+   private List<Copyright> copyrightList = new LinkedList<>();
 
    @OneToMany(mappedBy = "account")
-   private List<MeetingAttendant> meetingAttendantList;
+   private List<MeetingAttendant> meetingAttendantList = new LinkedList<>();;
 
    public void changePassword(String newPassword){
       this.password = newPassword;

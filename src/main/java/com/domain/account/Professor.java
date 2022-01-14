@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.LinkedList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -33,16 +34,16 @@ public class Professor extends Account {
     private String department;
 
    @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
-   private List<ProjectProfessor> projectList;
+   private List<ProjectProfessor> projectList = new LinkedList<>();
 
    @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
-   private List<CollaboRequestProfessor> requestProjectList;
+   private List<CollaboRequestProfessor> requestProjectList = new LinkedList<>();
 
    @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
-   private List<FieldInterest> interestedFieldList;
+   private List<FieldInterest> interestedFieldList = new LinkedList<>();
 
 
    @OneToMany(mappedBy = "mentorProfessor", fetch = FetchType.LAZY)
-    private List<Company> menteeCompanyList;
+    private List<Company> menteeCompanyList = new LinkedList<>();
 
 }
