@@ -1,5 +1,6 @@
-package com.domain.security;
+package com.domain.security.resource;
 
+import com.domain.security.role.Role;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
@@ -24,7 +25,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "RESOURCE")
-public class Resources implements Serializable {
+public class Resource implements Serializable {
 
     @Id
     @GeneratedValue

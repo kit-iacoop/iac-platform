@@ -1,7 +1,8 @@
 
-package com.domain.security;
+package com.domain.security.role;
 
 import com.domain.account.Account;
+import com.domain.security.resource.Resource;
 import lombok.*;
 
 import javax.persistence.*;
@@ -39,7 +40,7 @@ public class Role implements Serializable {
 
     @OrderBy("ordernum desc")
     @ManyToMany(mappedBy = "roleSet", fetch = FetchType.LAZY)
-    private Set<Resources> resourcesSet = new LinkedHashSet<>();
+    private Set<Resource> resourceSet = new LinkedHashSet<>();
 
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "userRoles")
     private Set<Account> accounts = new HashSet<>();

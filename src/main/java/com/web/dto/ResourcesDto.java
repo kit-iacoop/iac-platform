@@ -1,6 +1,6 @@
 package com.web.dto;
 
-import com.domain.security.Role;
+import com.domain.security.role.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

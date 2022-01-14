@@ -1,4 +1,4 @@
-package com.domain.security;
+package com.domain.security.rolehierarchy;
 
 import lombok.*;
 

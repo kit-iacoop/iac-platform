@@ -4,14 +4,13 @@ import com.domain.copyright.Copyright;
 import com.domain.meetingAttendant.MeetingAttendant;
 import com.domain.common.Address;
 import com.domain.common.BaseTimeEntity;
-import com.domain.security.Role;
+import com.domain.security.role.Role;
 import com.domain.common.State;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
