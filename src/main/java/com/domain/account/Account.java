@@ -20,7 +20,7 @@ import java.util.Set;
 @Getter
 
 @SuperBuilder
-@ToString(exclude = {"copyrightList", "meetingAttendantList"})
+@ToString(exclude = {"copyrightList", "meetingAttendantList", "userRoles"})
 
 @Entity
 @DiscriminatorColumn
