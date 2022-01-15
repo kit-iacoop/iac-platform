@@ -6,6 +6,8 @@ import com.domain.account.Admin;
 import com.domain.account.Company;
 import com.domain.common.Address;
 import com.domain.common.State;
+import com.domain.security.resource.Resource;
+import com.domain.security.resource.ResourceRepository;
 import com.domain.security.role.Role;
 import com.domain.security.role.RoleRepository;
 import lombok.Setter;
@@ -33,6 +35,9 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private ResourceRepository resourceRepository;
+
     @Override
     @Transactional
     public void onApplicationEvent(final ContextRefreshedEvent event) {
@@ -40,8 +45,41 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         if(activate){
             loadRoleData();
             loadAccountData();
+            loadResourceData();
         }
 
+    }
+
+    private void loadResourceData() {
+        createResourceIfNotFound(0L, "/*", "url", "", 1000, "ROLE_USER", "ROLE_ADMIN", "ROLE_COMPANY" );
+        createResourceIfNotFound(1L, "/admin/*", "url", "", 0, "ROLE_ADMIN");
+    }
+
+    private Resource createResourceIfNotFound(Long id, String name, String type, String httpMethod, Integer priority, String... roleNames) {
+
+        // 중복 검사
+        Resource resource = resourceRepository.findByResourceNameAndHttpMethod(name, httpMethod);
+        if(resource != null){
+            return resource;
+        }
+
+        // 자원 생성
+        resource = Resource.builder()
+                .id(id)
+                .resourceName(name)
+                .resourceType(type)
+                .httpMethod(httpMethod)
+                .orderNum(priority)
+                .build();
+
+        for(String roleName : roleNames){
+            Role role = roleRepository.findByRoleName(roleName);
+            if(role != null){
+                resource.addRole(role);
+            }
+        }
+
+        return resourceRepository.save(resource);
     }
 
     private void loadRoleData() {
