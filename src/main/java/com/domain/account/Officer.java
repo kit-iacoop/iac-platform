@@ -31,12 +31,15 @@ public class Officer extends Account {
     @Column(name = "OFFICE_LOCATION", nullable = false)
     private String officeLocation;
 
+    @Builder.Default
     @OneToMany(mappedBy = "officer", fetch = FetchType.LAZY)
     private List<MileageRequest> mileageRequest = new LinkedList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "officer", fetch = FetchType.LAZY)
     private List<AnnualFeeRequest> annualFeeRequest = new LinkedList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "officer")
     private List<CollaboRequest> collaboRequest = new ArrayList<>();
 

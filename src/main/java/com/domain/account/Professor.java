@@ -33,17 +33,20 @@ public class Professor extends Account {
     @Column(name = "DEPARTMENT", nullable = false)
     private String department;
 
-   @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
-   private List<ProjectProfessor> projectList = new LinkedList<>();
+    @Builder.Default
+    @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
+    private List<ProjectProfessor> projectList = new LinkedList<>();
 
-   @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
-   private List<CollaboRequestProfessor> requestProjectList = new LinkedList<>();
+    @Builder.Default
+    @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
+    private List<CollaboRequestProfessor> requestProjectList = new LinkedList<>();
 
-   @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
-   private List<FieldInterest> interestedFieldList = new LinkedList<>();
+    @Builder.Default
+    @OneToMany(mappedBy = "professor", fetch = FetchType.LAZY)
+    private List<FieldInterest> interestedFieldList = new LinkedList<>();
 
-
-   @OneToMany(mappedBy = "mentorProfessor", fetch = FetchType.LAZY)
+    @Builder.Default
+    @OneToMany(mappedBy = "mentorProfessor", fetch = FetchType.LAZY)
     private List<Company> menteeCompanyList = new LinkedList<>();
 
 }

@@ -65,21 +65,27 @@ public class Company extends Account {
     @Column(name = "CURRENTIZATION_STATUS", nullable = false)
     private State currentizationStatus; // 현행화 상태
 
+    @Builder.Default
     @OneToMany(mappedBy = "company")
     private List<CollaboRequest> collaboRequest = new LinkedList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<MileageRequest> mileageRequest = new LinkedList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "company")
     private List<Item> itemList = new LinkedList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "company")
     private List<Project> projectList = new LinkedList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<CompanyMileage> mileageList = new LinkedList<>();
 
+    @Builder.Default
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<AnnualFeeRequest> annualFeeRequest = new LinkedList<>();
 
@@ -87,6 +93,7 @@ public class Company extends Account {
     @JoinColumn(name = "MENTOR_PROFESSOR")
     private Professor mentorProfessor;
 
+    @Builder.Default
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<CompanyAnnualSales> annualSalesList = new LinkedList<>();
 

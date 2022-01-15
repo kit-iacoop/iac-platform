@@ -2,7 +2,9 @@ package com.security.service;
 
 
 import com.domain.account.*;
+import com.domain.security.role.Role;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -10,46 +12,37 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @AllArgsConstructor
 
+@Slf4j
 @Service("userDetailsService")
-public class CustomUserDetailsService implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     private final AccountRepository accountRepository;
 
-    @Override
+    @Transactional
     public UserDetails loadUserByUsername(String loginId) throws UsernameNotFoundException {
 
         Account account = accountRepository.findByLoginId(loginId);
 
-        // id 찾지 못하는 예외
+        // 해당 loginId 가지는 유저 미존재의 경우
         if(account == null){
-            throw new UsernameNotFoundException("LoginIDNotFoundException");
+            throw new UsernameNotFoundException("No user found with LoginId: " + loginId);
         }
 
-        List<GrantedAuthority> roles = new ArrayList<>();
 
-
-        /* 권한 부여 임시 코드 *///TODO: 권한 관련 DB화
-
-        String auth = "";
-
-        if(account instanceof Company)
-            auth = "ROLE_COMPANY";
-        else if(account instanceof Officer)
-            auth = "ROLE_OFFICER";
-        else if(account instanceof Student)
-            auth = "ROLE_STUDENT";
-        else if(account instanceof Professor)
-            auth = "ROLE_PROFESSOR";
-        else if(account instanceof Admin)
-            auth = "ROLE_ADMIN";
-
-        roles.add(new SimpleGrantedAuthority(auth));
+        // 인가 프로세스에서 사용할 수 있도록 유저 권한 가공
+        List<GrantedAuthority> roles = account.getAccountRoles()
+                .stream()
+                .map(Role::getRoleName)
+                .collect(Collectors.toSet())
+                .stream().map(SimpleGrantedAuthority::new).collect(Collectors.toList());
 
         return new AccountContext(account, roles);
     }
