@@ -7,6 +7,7 @@ import com.domain.common.BaseTimeEntity;
 import com.domain.common.CopyrightType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @NoArgsConstructor
 @Getter
+@SuperBuilder
 @Entity
 @Table(name = "COPYRIGHT")
 public class Copyright extends BaseTimeEntity {

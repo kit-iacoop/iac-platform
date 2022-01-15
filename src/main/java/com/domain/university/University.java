@@ -5,13 +5,15 @@ import com.domain.account.Professor;
 import com.domain.common.Address;
 import com.domain.common.BaseTimeEntity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.List;
 
-
+@SuperBuilder
 @NoArgsConstructor
 @Getter
 @Entity

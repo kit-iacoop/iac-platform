@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/copyright/copyright-list.css">
+</head>
+
+<body>
+<div>
+    <form action="/copyright" method="get">
+        <input type="hidden" name="page" value="1">
+        <input type="text" name="key">
+        <button type="submit">검색</button>
+    </form>
+</div>
+
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th scope="col" class=""><span>특허구분</span></th>
+            <th scope="col" class=""><span>특허명</span></th>
+            <th scope="col" class=""><span>발명자</span></th>
+            <th scope="col" class=""><span>상태</span></th>
+            <th scope="col" class=""><span>일자</span></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="dto : ${copyrightDtos}">
+            <td th:text="${dto.copyrightType}"></td>
+            <td><a th:href="@{/copyright/{id}(id=${dto.copyrightId})}" th:text="${dto.copyrightName}"></a></td>
+            <td th:text="${dto.representor}"></td>
+            <td th:text="${dto.copyrightState}"></td>
+            <td th:text="${dto.declarationYear}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div>
+    <div>
+        <a th:if="${page} > 1" th:href="@{/copyright(page=${page+(-1)}, key=${key})}">prev</a>
+        <a th:if="${page} == 1" href="#">prev</a>
+    </div>
+    <div>
+        <th:block th:with="ten=${(page+(-1))/10*10}">
+            <th:block th:each="num : ${#numbers.sequence(ten+1, ten+10)}">
+                <a th:if="${num} <= ${maxPage}" th:href="@{/copyright(page=${num}, key=${key})}" th:text="${num}"></a>
+                <a th:if="${num} > ${maxPage}" href="#" th:text="${num}"></a>
+            </th:block>
+        </th:block>
+    </div>
+    <div>
+        <a th:if="${page} < ${maxPage}" th:href="@{/copyright(page=${page+1}, key=${key})}">next</a>
+        <a th:if="${page} >= ${maxPage}" href="#">next</a>
+    </div>
+</div>
+
+</body>
+
+</html>
