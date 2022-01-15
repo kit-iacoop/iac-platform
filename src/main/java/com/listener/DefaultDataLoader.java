@@ -28,7 +28,6 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
     private boolean activate = false; // application.yml에 의해 주입됨
 
-
     @Autowired
     private AccountRepository accountRepository;
 
@@ -50,10 +49,40 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
     }
 
+    private void loadRoleData() {
+        createRoleIfNotFound("ROLE_ADMIN", "어드민 권한");
+        createRoleIfNotFound("ROLE_COMPANY", "회사 권한");
+    }
+
+    public void loadAccountData(){
+        createAdminIfNotFound("ADMIN", "1234");
+        createCompanyIfNotFound("COMPANY0", "1234");
+    }
+
     private void loadResourceData() {
         createResourceIfNotFound(0L, "/*", "url", "", 1000, "ROLE_USER", "ROLE_ADMIN", "ROLE_COMPANY" );
         createResourceIfNotFound(1L, "/admin/*", "url", "", 0, "ROLE_ADMIN");
     }
+
+
+    private Role createRoleIfNotFound(String roleName, String roleDesc) {
+
+        // 중복 검사
+        Role role = roleRepository.findByRoleName(roleName);
+        if(role != null){
+            return role;
+        }
+
+
+        // 생성
+        role = Role.builder()
+                .roleName(roleName)
+                .roleDesc(roleDesc)
+                .build();
+
+        return roleRepository.save(role);
+    }
+
 
     private Resource createResourceIfNotFound(Long id, String name, String type, String httpMethod, Integer priority, String... roleNames) {
 
@@ -82,34 +111,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         return resourceRepository.save(resource);
     }
 
-    private void loadRoleData() {
-        createRoleIfNotFound("ROLE_ADMIN", "어드민 권한");
-        createRoleIfNotFound("ROLE_COMPANY", "회사 권한");
-    }
 
-    private Role createRoleIfNotFound(String roleName, String roleDesc) {
-
-        // 중복 검사
-        Role role = roleRepository.findByRoleName(roleName);
-        if(role != null){
-            return role;
-        }
-
-
-        // 생성
-        role = Role.builder()
-                .roleName(roleName)
-                .roleDesc(roleDesc)
-                .build();
-
-        return roleRepository.save(role);
-    }
-
-
-    public void loadAccountData(){
-        createAdminIfNotFound("ADMIN", "1234");
-        createCompanyIfNotFound("COMPANY0", "1234");
-    }
 
     @Transactional
     public Admin createAdminIfNotFound(final String loginId, final String password){
