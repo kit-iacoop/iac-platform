@@ -15,7 +15,7 @@ public class UrlFilterInvocationSecurityMetadataSource implements FilterInvocati
     //LinkedHashMap : 순서를 유지하는 해시맵 (자원의 순서가 중요하기에..)
     private LinkedHashMap<RequestMatcher, List<ConfigAttribute>> requestMap;
 
-    private SecurityResourceService securityResourceService;
+    private final SecurityResourceService securityResourceService;
 
     public UrlFilterInvocationSecurityMetadataSource(LinkedHashMap<RequestMatcher, List<ConfigAttribute>> requestMap, SecurityResourceService securityResourceService) {
         this.requestMap = requestMap;

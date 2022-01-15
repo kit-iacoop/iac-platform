@@ -22,12 +22,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 
-        String username = authentication.getName();
+        String loginId = authentication.getName();
         String password = (String)authentication.getCredentials();
 
 
         //id 검증
-        AccountContext accountContext = (AccountContext) userDetailsService.loadUserByUsername(username);
+        AccountContext accountContext = (AccountContext) userDetailsService.loadUserByUsername(loginId);
 
         // pw 검증
         if(!passwordEncoder.matches(password, accountContext.getPassword())){

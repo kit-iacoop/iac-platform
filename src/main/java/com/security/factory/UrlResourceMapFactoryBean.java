@@ -19,7 +19,7 @@ public class UrlResourceMapFactoryBean implements FactoryBean<LinkedHashMap<Requ
     }
 
     @Override
-    public LinkedHashMap<RequestMatcher, List<ConfigAttribute>> getObject() throws Exception {
+    public LinkedHashMap<RequestMatcher, List<ConfigAttribute>> getObject(){
 
         if(resourceMap == null){
             resourceMap = securityResourceService.getResourceList();

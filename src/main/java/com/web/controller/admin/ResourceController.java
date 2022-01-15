@@ -93,6 +93,6 @@ public class ResourceController {
 		resourceService.deleteResource(Long.parseLong(id));
 		filterInvocationSecurityMetadataSource.reload();
 
-		return "redirect:/admin/Resource";
+		return "redirect:/admin/resource";
 	}
 }
