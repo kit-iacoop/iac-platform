@@ -2,6 +2,7 @@ package com.listener;
 
 import com.domain.account.AccountRepository;
 import com.domain.account.Company;
+import com.domain.security.role.RoleRepository;
 import com.web.controller.HomeController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,10 +21,13 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
-public class DefaultDataLoaderTest {
+public class DefaultDataLoaderTest { //TODO : 테스트 코드 최신화
 
     @Mock
     private AccountRepository accountRepository;
+
+    @Mock
+    private RoleRepository roleRepository;
 
     @InjectMocks
     private DefaultDataLoader defaultDataLoader;
