@@ -2,9 +2,12 @@ package com.listener;
 
 import com.domain.account.Account;
 import com.domain.account.AccountRepository;
+import com.domain.account.Admin;
 import com.domain.account.Company;
 import com.domain.common.Address;
 import com.domain.common.State;
+import com.domain.security.role.Role;
+import com.domain.security.role.RoleRepository;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -27,32 +30,90 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
 
     @Override
     @Transactional
     public void onApplicationEvent(final ContextRefreshedEvent event) {
 
         if(activate){
+            loadRoleData();
             loadAccountData();
         }
 
     }
 
+    private void loadRoleData() {
+        createRoleIfNotFound("ROLE_ADMIN", "어드민 권한");
+        createRoleIfNotFound("ROLE_COMPANY", "회사 권한");
+    }
+
+    private Role createRoleIfNotFound(String roleName, String roleDesc) {
+
+        // 중복 검사
+        Role role = roleRepository.findByRoleName(roleName);
+        if(role != null){
+            return role;
+        }
+
+
+        // 생성
+        role = Role.builder()
+                .roleName(roleName)
+                .roleDesc(roleDesc)
+                .build();
+
+        return roleRepository.save(role);
+    }
+
 
     public void loadAccountData(){
+        createAdminIfNotFound("ADMIN", "1234");
         createCompanyIfNotFound("COMPANY0", "1234");
     }
 
+    @Transactional
+    public Admin createAdminIfNotFound(final String loginId, final String password){
+
+        // 중복 검사
+        Account account = accountRepository.findByLoginId(loginId);
+        if (account != null) {
+            return (Admin) account;
+        }
+
+        // 생성
+        account = Admin.builder()
+                .name("Admin")
+                .birthDate(LocalDate.now())
+                .address(new Address(" ", " ", 0L))
+                .loginId(loginId)
+                .password(password)
+                .email(" ")
+                .telephone(" ")
+                .status(State.NORMAL)
+                .build();
+
+        account = accountRepository.encryptedSave(account);
+
+        Role role = roleRepository.findByRoleName("ROLE_ADMIN");
+        account.addRole(role);
+
+        return (Admin) account;
+    }
 
     @Transactional
     public Company createCompanyIfNotFound(final String loginId, final String password) {
 
+        // 중복 검사
         Account account = accountRepository.findByLoginId(loginId);
 
         if (account != null) {
-            return null;
+            return (Company) account;
         }
 
+
+        // 생성
         account = Company.builder()
                 .name("test company name")
                 .birthDate(LocalDate.now())
@@ -75,7 +136,14 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
                 .currentizationStatus(State.NORMAL)
                 .build();
 
-        return (Company) accountRepository.encryptedSave(account);
+
+        account = accountRepository.encryptedSave(account);
+
+        Role role = roleRepository.findByRoleName("ROLE_COMPANY");
+        account.addRole(role);
+
+
+        return (Company) account;
     }
 
 }
