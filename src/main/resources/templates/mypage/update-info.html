@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <th:block th:replace="common/section-head :: sectionHeadFragment"></th:block>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    </head>
+    <body>
+        <section>
+            <th:block th:replace="common/officer-nav :: officerNavFragment"></th:block>
+            <div class="contents">
+                <div class="user-info">
+                    <h1 class="user-name">직원 ○○○</h1>
+                    <h4 class="user-point">마일리지 500 | 1000p</h4>
+                    <button class="logout">로그아웃</button>
+                </div>
+                <div class="sub-menu-wrapper">
+                    <ul>
+                        <li><a href="/mypage">내 정보</a></li>
+                        <li><a href="/mypage/update">정보 수정</a></li>
+                    </ul>
+                </div>
+                <div class="task-contents">
+                    <div class="member-info">
+                        <label>이름</label>
+                        <input type="text" class="update-info" name="member_id" placeholder="">
+                        </div>
+                    </div>
+                    <div class="member-info">
+                        <label>생일</label>
+                        <input type="date" class="update-info" name="member_id" placeholder="">
+                    </div>
+                    <div class="member-info">
+                        <label>주소</label>
+                        <input type="text" class="update-info" name="member_id" placeholder="">
+                    </div>
+                    <div class="member-info">
+                        <label>비밀번호</label>
+                        <input type="password" class="update-info" name="member_id" placeholder="">
+                    </div>
+                    <div class="member-info">
+                        <label>이메일</label>
+                        <input type="text" class="update-info" name="member_id" placeholder="">
+                    </div>
+                    <div class="member-info">
+                        <label>전화번호</label>
+                        <input type="text" class="update-info" name="member_id" placeholder="">
+                    </div>
+            </div>
+        </section>
+    </body>
+</html>

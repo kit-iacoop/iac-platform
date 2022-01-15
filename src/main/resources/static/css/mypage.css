@@ -1,0 +1,9 @@
+.task-contents {
+    display: flex;
+    flex-direction: column;
+}
+
+.member-info {
+    display: flex;
+    flex-direction: row;
+}
