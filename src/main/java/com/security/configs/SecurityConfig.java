@@ -2,6 +2,7 @@ package com.security.configs;
 
 
 import com.security.factory.UrlResourceMapFactoryBean;
+import com.security.filter.PermitAllFilter;
 import com.security.handler.CustomAccessDeniedHandler;
 import com.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
 import com.security.provider.CustomAuthenticationProvider;
@@ -43,10 +44,13 @@ import java.util.List;
 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    //White List
+    private final String[] PERMIT_ALL_RESOURCES = {"/", "/login", "/user/login/**", "/admin/**"};
+
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
     private final AuthenticationFailureHandler authenticationFailureHandler;
-
     private final SecurityResourceService securityResourceService;
+
 
 
     @Override
@@ -108,14 +112,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     /* 인가 DB 연동 관련 빈들 */
     @Bean // 인가 담당 필터 교체 (우리는 DB연동하여 인가수행하므로)
-    public FilterSecurityInterceptor customFilterSecurityInterceptor() throws Exception {
+    public PermitAllFilter customFilterSecurityInterceptor() throws Exception {
 
-        FilterSecurityInterceptor filterSecurityInterceptor = new FilterSecurityInterceptor();
+        PermitAllFilter permitAllFilter = new PermitAllFilter(PERMIT_ALL_RESOURCES);
 
-        filterSecurityInterceptor.setSecurityMetadataSource(urlFilterInvocationSecurityMetadataSource()); // 메타데이터 소스 재정의
-        filterSecurityInterceptor.setAccessDecisionManager(affirmativeBased()); // decision 정책 설정 (affirmativeBased : 하나라도 긍정이면 접근허가)
-        filterSecurityInterceptor.setAuthenticationManager(authenticationManagerBean()); // 인증된 사용자인지 확인 필요하기에
-        return filterSecurityInterceptor;
+        permitAllFilter.setSecurityMetadataSource(urlFilterInvocationSecurityMetadataSource()); // 메타데이터 소스 재정의
+        permitAllFilter.setAccessDecisionManager(affirmativeBased()); // decision 정책 설정 (affirmativeBased : 하나라도 긍정이면 접근허가)
+        permitAllFilter.setAuthenticationManager(authenticationManagerBean()); // 인증된 사용자인지 확인 필요하기에
+
+        return permitAllFilter;
     }
 
     @Bean // 인가 담당 필터 교체 시 서블릿에도 자동으로 등록이 되기에 비활성화해주어야 한다.
