@@ -16,12 +16,31 @@
                 <div class="sub-menu-wrapper">
                     <ul>
                         <li><a href="/register/accept">가입 승인</a></li>
-                        <li><a href="/current/accept">현행화 승인</a></li>
+                        <li><a href="#">현행화 승인</a></li>
                     </ul>
                 </div>
                 <div class="task-contents">
-                    asdfasdfsdafdsafd
-                </div>
+                    <div>
+                        <table>
+                            <thead>
+                            <tr>
+                                <th scope="col" class=""><span>선택</span></th>
+                                <th scope="col" class=""><span>구분</span></th>
+                                <th scope="col" class=""><span>업종</span></th>
+                                <th scope="col" class=""><span>회사명</span></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="dto : ${companyDtos}">
+                                <td><input type="checkbox" name="checkedValue" value="${dto.businessRegistrationNumber}"/></td>
+                                <td th:text="${dto.companyType}"></td>
+                                <td th:text="${dto.sector}"></td>
+                                <td><a th:href="@{/company/{id}(id=${dto.businessRegistrationNumber})}" th:text="${dto.name}"></a></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <button type="submit">승인</button>
             </div>
         </section>
     </body>
