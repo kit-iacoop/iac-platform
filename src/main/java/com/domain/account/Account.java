@@ -58,13 +58,17 @@ public abstract class Account extends BaseTimeEntity {
    @Column(name = "STATUS", nullable = false)
    private State status;
 
+
+   @Builder.Default
    @OneToMany(mappedBy = "accountId")
    private List<Copyright> copyrightList = new LinkedList<>();
 
+   @Builder.Default
    @OneToMany(mappedBy = "account")
-   private List<MeetingAttendant> meetingAttendantList = new LinkedList<>();;
+   private List<MeetingAttendant> meetingAttendantList = new LinkedList<>();
 
 
+   @Builder.Default
    @ManyToMany(fetch = FetchType.LAZY, cascade={CascadeType.ALL})
    @JoinTable(name = "account_roles", joinColumns = { @JoinColumn(name = "account_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
    private Set<Role> accountRoles = new HashSet<>();
@@ -90,5 +94,24 @@ public abstract class Account extends BaseTimeEntity {
 
    public void updateRoles(Set<Role> roleSet){
       this.accountRoles = roleSet;
+   }
+
+   public void addRole(Role role){
+
+      if(accountRoles.contains(role)){
+         return;
+      }
+
+      accountRoles.add(role);
+      role.getAccounts().add(this);
+
+   }
+
+   public void removeRole(Role role){
+      if(!accountRoles.contains(role)) {
+         return;
+      }
+      accountRoles.remove(role);
+      role.getAccounts().remove(this);
    }
 }
