@@ -10,4 +10,6 @@ public interface CopyrightService {
     Page<CopyrightDTO> findCopyright(Pageable pageable);
 
     Page<CopyrightDTO> findCopyrightByKey(Pageable pageable, String title);
+
+    CopyrightDTO findCopyrightDetail(String id);
 }

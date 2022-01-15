@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -52,5 +53,11 @@ public class CopyrightServiceImpl implements CopyrightService {
 
 
         return new PageImpl<>(dtoList.subList(start, end), pageable, dtoList.size());
+    }
+
+    @Override
+    public CopyrightDTO findCopyrightDetail(String id) {
+        Optional<Copyright> byId = copyrightRepository.findById(Long.valueOf(id));
+        return byId.map(CopyrightDTO::new).orElse(null);
     }
 }
