@@ -7,13 +7,15 @@ import com.domain.common.BaseTimeEntity;
 import com.domain.security.role.Role;
 import com.domain.common.State;
 import com.web.dto.AccountRolesDto;
+import com.domain.security.role.Role;
+import com.web.dto.AccountRolesDto;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.*;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -21,8 +23,7 @@ import java.util.stream.Collectors;
 @Getter
 
 @SuperBuilder
-@ToString(exclude = {"copyrightList", "meetingAttendantList", "userRoles"})
-
+@ToString(exclude = {"copyrightList", "meetingAttendantList", "accountRoles"})
 @Entity
 @DiscriminatorColumn
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -58,10 +59,10 @@ public abstract class Account extends BaseTimeEntity {
    private State status;
 
    @OneToMany(mappedBy = "accountId")
-   private List<Copyright> copyrightList;
+   private List<Copyright> copyrightList = new LinkedList<>();
 
    @OneToMany(mappedBy = "account")
-   private List<MeetingAttendant> meetingAttendantList;
+   private List<MeetingAttendant> meetingAttendantList = new LinkedList<>();;
 
 
    @ManyToMany(fetch = FetchType.LAZY, cascade={CascadeType.ALL})

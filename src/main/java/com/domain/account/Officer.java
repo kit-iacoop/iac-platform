@@ -12,6 +12,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -31,10 +32,10 @@ public class Officer extends Account {
     private String officeLocation;
 
     @OneToMany(mappedBy = "officer", fetch = FetchType.LAZY)
-    private List<MileageRequest> mileageRequest;
+    private List<MileageRequest> mileageRequest = new LinkedList<>();
 
     @OneToMany(mappedBy = "officer", fetch = FetchType.LAZY)
-    private List<AnnualFeeRequest> annualFeeRequest;
+    private List<AnnualFeeRequest> annualFeeRequest = new LinkedList<>();
 
     @OneToMany(mappedBy = "officer")
     private List<CollaboRequest> collaboRequest = new ArrayList<>();

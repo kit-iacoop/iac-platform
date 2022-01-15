@@ -18,6 +18,7 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -65,29 +66,29 @@ public class Company extends Account {
     private State currentizationStatus; // 현행화 상태
 
     @OneToMany(mappedBy = "company")
-    private List<CollaboRequest> collaboRequest;
+    private List<CollaboRequest> collaboRequest = new LinkedList<>();
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-    private List<MileageRequest> mileageRequest;
+    private List<MileageRequest> mileageRequest = new LinkedList<>();
 
     @OneToMany(mappedBy = "company")
-    private List<Item> itemList;
+    private List<Item> itemList = new LinkedList<>();
 
     @OneToMany(mappedBy = "company")
-    private List<Project> projectList;
+    private List<Project> projectList = new LinkedList<>();
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-    private List<CompanyMileage> mileageList;
+    private List<CompanyMileage> mileageList = new LinkedList<>();
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-    private List<AnnualFeeRequest> annualFeeRequest;
+    private List<AnnualFeeRequest> annualFeeRequest = new LinkedList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MENTOR_PROFESSOR")
     private Professor mentorProfessor;
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-    private List<CompanyAnnualSales> annualSalesList;
+    private List<CompanyAnnualSales> annualSalesList = new LinkedList<>();
 
     public void verification(String grade, Long mileage, Long point, State currentizationStatus){
         this.grade = grade;
