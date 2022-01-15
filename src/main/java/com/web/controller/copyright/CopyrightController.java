@@ -4,6 +4,7 @@ package com.web.controller.copyright;
 import com.web.dto.CopyrightDTO;
 import com.web.service.CopyrightService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -29,7 +30,7 @@ public class CopyrightController {
     @GetMapping("/copyright")
     @ResponseBody
     public ModelAndView findAllCopyright(@PageableDefault() Pageable page, @RequestParam(required = false, value = "key") String key) {
-        List<CopyrightDTO> dtoList;
+        Page<CopyrightDTO> dtoList;
         if (key == null) {
             dtoList = copyrightService.findCopyright(page);
         } else {
@@ -38,7 +39,7 @@ public class CopyrightController {
         Map<String, Object> models = new HashMap<>();
         models.put("copyrightDtos", dtoList);
         models.put("page", page.getPageNumber());
-        models.put("maxPage", page.getPageSize());
+        models.put("maxPage", dtoList.getTotalPages());
         models.put("key", key);
         return new ModelAndView("copyright/copyright-list").addAllObjects(models);
     }

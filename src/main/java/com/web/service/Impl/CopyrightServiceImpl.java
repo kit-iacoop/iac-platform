@@ -6,6 +6,7 @@ import com.web.dto.CopyrightDTO;
 import com.web.service.CopyrightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -24,22 +25,32 @@ public class CopyrightServiceImpl implements CopyrightService {
     }
 
     @Override
-    public List<CopyrightDTO> findCopyright(Pageable pageable) {
+    public Page<CopyrightDTO> findCopyright(Pageable pageable) {
         Page<Copyright> list = copyrightRepository.findAll(pageable);
         List<CopyrightDTO> dtoList = new ArrayList<>();
+
         for (Copyright e : list) {
             dtoList.add(new CopyrightDTO(e));
         }
-        return dtoList;
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), dtoList.size());
+
+        return new PageImpl<>(dtoList.subList(start, end), pageable, dtoList.size());
     }
 
     @Override
-    public List<CopyrightDTO> findCopyrightByKey(Pageable pageable, String title) {
+    public Page<CopyrightDTO> findCopyrightByKey(Pageable pageable, String title) {
         Page<Copyright> list = copyrightRepository.findByTitleContaining(pageable, title);
         List<CopyrightDTO> dtoList = new ArrayList<>();
         for (Copyright e : list) {
             dtoList.add(new CopyrightDTO(e));
         }
-        return dtoList;
+
+        int start = (int) pageable.getOffset();
+        int end = Math.min((start + pageable.getPageSize()), dtoList.size());
+
+
+        return new PageImpl<>(dtoList.subList(start, end), pageable, dtoList.size());
     }
 }
