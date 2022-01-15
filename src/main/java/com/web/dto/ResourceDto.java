@@ -34,7 +34,6 @@ public class ResourceDto {
 
     public Resource toEntity(){
         return Resource.builder()
-                .id(Long.parseLong(id))
                 .resourceName(resourceName)
                 .httpMethod(httpMethod)
                 .orderNum(orderNum)
