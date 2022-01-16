@@ -3,6 +3,7 @@
     <head>
         <th:block th:replace="common/section-head :: sectionHeadFragment"></th:block>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="/css/mypage.css" rel="stylesheet" type="text/css">
     </head>
     <body>
         <section>
@@ -20,31 +21,11 @@
                     </ul>
                 </div>
                 <div class="task-contents">
-                    <div class="member-info">
-                        <label>이름</label>
-                        <input type="text" class="update-info" name="member_id" placeholder="">
-                        </div>
-                    </div>
-                    <div class="member-info">
-                        <label>생일</label>
-                        <input type="date" class="update-info" name="member_id" placeholder="">
-                    </div>
-                    <div class="member-info">
-                        <label>주소</label>
-                        <input type="text" class="update-info" name="member_id" placeholder="">
-                    </div>
-                    <div class="member-info">
-                        <label>비밀번호</label>
-                        <input type="password" class="update-info" name="member_id" placeholder="">
-                    </div>
-                    <div class="member-info">
-                        <label>이메일</label>
-                        <input type="text" class="update-info" name="member_id" placeholder="">
-                    </div>
-                    <div class="member-info">
-                        <label>전화번호</label>
-                        <input type="text" class="update-info" name="member_id" placeholder="">
-                    </div>
+                    <form id="updateInfoForm" th:action="@{/mypage/update}" th:object="${AccountDTO}" method="post">
+                        <th:block th:replace="mypage/fragments/common-info-update :: commonInfoUpdateFragment"></th:block>
+                    </form>
+                    <input type="submit" name value="수정" title="수정">
+                </div>
             </div>
         </section>
     </body>

@@ -54,7 +54,7 @@
 }
 
 .user-info {
-    background-color: aqua;
+    /* background-color: aqua; */
     display: flex;
     flex-direction: row;
 }
@@ -75,7 +75,7 @@ section {
     justify-content: space-between;
     align-items: center;
     font-size: 16px;
-    background-color: magenta;
+    /* background-color: magenta; */
 }
 
 
@@ -89,8 +89,4 @@ section {
 .sub-menu-wrapper>li {
     list-style: none;
     text-align: center;
-}
-
-.task-contents {
-    background-color: green;
 }

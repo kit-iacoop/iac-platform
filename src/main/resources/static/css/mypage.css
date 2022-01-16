@@ -1,4 +1,4 @@
-.task-contents {
+.common-info {
     display: flex;
     flex-direction: column;
 }
@@ -6,4 +6,26 @@
 .member-info {
     display: flex;
     flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 40rem 0 40rem;
+}
+
+.member-info > label {
+    /* background-color: maroon; */
+    padding-right: 2rem;
+}
+
+.member-info > div {
+    /* background-color: aqua; */
+    padding-left: 2rem;
+}
+
+
+#sample6_postcode {
+    width: 6rem;
+}
+
+#birthday {
+    width: 10.5rem;
 }
