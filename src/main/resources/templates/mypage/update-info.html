@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <th:block th:replace="common/section-head :: sectionHeadFragment"></th:block>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="/css/mypage.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <section>
+            <th:block th:replace="common/officer-nav :: officerNavFragment"></th:block>
+            <div class="contents">
+                <div class="user-info">
+                    <h1 class="user-name">직원 ○○○</h1>
+                    <h4 class="user-point">마일리지 500 | 1000p</h4>
+                    <button class="logout">로그아웃</button>
+                </div>
+                <div class="sub-menu-wrapper">
+                    <ul>
+                        <li><a href="/mypage">내 정보</a></li>
+                        <li><a href="/mypage/update">정보 수정</a></li>
+                    </ul>
+                </div>
+                <div class="task-contents">
+                    <form id="updateInfoForm" th:action="@{/mypage/update}" th:object="${AccountDTO}" method="post">
+                        <th:block th:replace="mypage/fragments/common-info-update :: commonInfoUpdateFragment"></th:block>
+                    </form>
+                    <input type="submit" name value="수정" title="수정">
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
