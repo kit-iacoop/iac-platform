@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -42,5 +43,16 @@ public class CopyrightController {
         models.put("maxPage", dtoList.getTotalPages());
         models.put("key", key);
         return new ModelAndView("copyright/copyright-list").addAllObjects(models);
+    }
+
+    @GetMapping("/copyright/{id}")
+    @ResponseBody
+    public ModelAndView viewCopyrightDetail(@PathVariable String id) {
+
+        CopyrightDTO copyrightDetail = copyrightService.findCopyrightDetail(id);
+
+        Map<String, Object> models = new HashMap<>();
+        models.put("copyrightDto", copyrightDetail);
+        return new ModelAndView("copyright/copyright-detail").addAllObjects(models);
     }
 }

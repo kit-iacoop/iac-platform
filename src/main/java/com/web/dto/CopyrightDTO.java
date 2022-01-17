@@ -25,6 +25,10 @@ public class CopyrightDTO {
     private String keyword;
     private String description;
     private String maintenanceState;
+    private String applicationDate;
+    private String applicationNumber;
+    private String registrationDate;
+    private String registrationNumber;
 
     public CopyrightDTO(Copyright copyright) {
         this.copyrightId = String.valueOf(copyright.getCopyrightId());
@@ -41,6 +45,20 @@ public class CopyrightDTO {
         this.keyword = copyright.getKeyword();
         this.description = copyright.getDescription();
         this.maintenanceState = copyright.getMaintenanceState();
+        this.applicationDate = "";
+        this.applicationNumber = "";
+        this.registrationDate = "";
+        this.registrationNumber = "";
+
+        if (copyright.getApplicationRegistrationList().size() != 0) {
+            this.applicationDate = copyright.getApplicationRegistrationList().get(0).getIssueDate().toString();
+            this.applicationNumber = copyright.getApplicationRegistrationList().get(0).getNumber();
+            if (copyright.getApplicationRegistrationList().size() > 1) {
+                this.registrationDate = copyright.getApplicationRegistrationList().get(1).getIssueDate().toString();
+                this.registrationNumber = copyright.getApplicationRegistrationList().get(1).getNumber();
+            }
+        }
+
     }
 
 }
