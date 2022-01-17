@@ -46,12 +46,13 @@ public class CopyrightController {
     }
 
     @GetMapping("/copyright/{id}")
+    @ResponseBody
     public ModelAndView viewCopyrightDetail(@PathVariable String id) {
 
         CopyrightDTO copyrightDetail = copyrightService.findCopyrightDetail(id);
 
         Map<String, Object> models = new HashMap<>();
-        models.put("detail", copyrightDetail);
+        models.put("copyrightDto", copyrightDetail);
         return new ModelAndView("copyright/copyright-detail").addAllObjects(models);
     }
 }
