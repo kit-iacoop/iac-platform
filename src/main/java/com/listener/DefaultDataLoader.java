@@ -54,7 +54,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         createRoleIfNotFound("ROLE_COMPANY", "회사 권한");
     }
 
-    public void loadAccountData(){
+    private void loadAccountData(){
         createAdminIfNotFound("ADMIN", "1234");
         createCompanyIfNotFound("COMPANY0", "1234");
     }
@@ -65,7 +65,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     }
 
 
-    private Role createRoleIfNotFound(String roleName, String roleDesc) {
+    public Role createRoleIfNotFound(String roleName, String roleDesc) {
 
         // 중복 검사
         Role role = roleRepository.findByRoleName(roleName);
@@ -84,7 +84,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     }
 
 
-    private Resource createResourceIfNotFound(Long id, String name, String type, String httpMethod, Integer priority, String... roleNames) {
+    public Resource createResourceIfNotFound(Long id, String name, String type, String httpMethod, Integer priority, String... roleNames) {
 
         // 중복 검사
         Resource resource = resourceRepository.findByResourceNameAndHttpMethod(name, httpMethod);
