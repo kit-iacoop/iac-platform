@@ -28,7 +28,7 @@ public class CopyrightController {
         this.copyrightService = copyrightService;
     }
 
-    @GetMapping("/copyright")
+    @GetMapping("/copyrights")
     @ResponseBody
     public ModelAndView findAllCopyright(@PageableDefault() Pageable page, @RequestParam(required = false, value = "key") String key) {
         Page<CopyrightDTO> dtoList;
@@ -45,7 +45,7 @@ public class CopyrightController {
         return new ModelAndView("copyright/copyright-list").addAllObjects(models);
     }
 
-    @GetMapping("/copyright/{id}")
+    @GetMapping("/copyrights/{id}")
     @ResponseBody
     public ModelAndView viewCopyrightDetail(@PathVariable String id) {
 
@@ -54,5 +54,13 @@ public class CopyrightController {
         Map<String, Object> models = new HashMap<>();
         models.put("copyrightDto", copyrightDetail);
         return new ModelAndView("copyright/copyright-detail").addAllObjects(models);
+    }
+
+    @GetMapping("/copyrights/new")
+    @ResponseBody
+    public ModelAndView newCopyrightForm() {
+
+        Map<String, Object> models = new HashMap<>();
+        return new ModelAndView("copyright/copyright-form").addAllObjects(models);
     }
 }
