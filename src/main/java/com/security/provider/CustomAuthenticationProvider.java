@@ -41,7 +41,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         // 인증 토큰 생성
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(
-                        accountContext.getAccount(), null, accountContext.getAuthorities()
+                        accountContext, null, accountContext.getAuthorities()
                 );
 
         return authenticationToken;
