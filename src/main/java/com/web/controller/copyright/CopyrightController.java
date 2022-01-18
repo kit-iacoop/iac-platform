@@ -1,24 +1,22 @@
 package com.web.controller.copyright;
 
-
 import com.web.dto.CopyrightDTO;
 import com.web.service.CopyrightService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("copyrights")
 public class CopyrightController {
 
     private final CopyrightService copyrightService;
@@ -28,9 +26,16 @@ public class CopyrightController {
         this.copyrightService = copyrightService;
     }
 
-    @GetMapping("/copyrights")
+    // 모든 Request 에서 공통 Attribute 필요시 사용할것
+//    @ModelAttribute
+//    public void commonAttribute(Model model) {
+//        model.addAttribute("asdf", "");
+//
+//    }
+
+    @GetMapping("/")
     @ResponseBody
-    public ModelAndView findAllCopyright(@PageableDefault() Pageable page, @RequestParam(required = false, value = "key") String key) {
+    public String findAllCopyright(@PageableDefault() Pageable page, @RequestParam(required = false, value = "key") String key, Model model) {
         Page<CopyrightDTO> dtoList;
         if (key == null) {
             dtoList = copyrightService.findCopyright(page);
@@ -42,25 +47,31 @@ public class CopyrightController {
         models.put("page", page.getPageNumber());
         models.put("maxPage", dtoList.getTotalPages());
         models.put("key", key);
-        return new ModelAndView("copyright/copyright-list").addAllObjects(models);
+        model.addAllAttributes(models);
+        return "copyright/copyright-list";
     }
 
-    @GetMapping("/copyrights/{id}")
+    @GetMapping("/{id}")
     @ResponseBody
-    public ModelAndView viewCopyrightDetail(@PathVariable String id) {
+    public String viewCopyrightDetail(@PathVariable String id, Model model) {
 
         CopyrightDTO copyrightDetail = copyrightService.findCopyrightDetail(id);
+        model.addAttribute("copyrightDto", copyrightDetail);
 
-        Map<String, Object> models = new HashMap<>();
-        models.put("copyrightDto", copyrightDetail);
-        return new ModelAndView("copyright/copyright-detail").addAllObjects(models);
+        return "copyright/copyright-detail";
     }
 
-    @GetMapping("/copyrights/new")
-    @ResponseBody
-    public ModelAndView newCopyrightForm() {
+    @GetMapping("/new")
+    public String newCopyrightForm(Model model) {
+        model.addAttribute("copyrightDto", new CopyrightDTO());
 
-        Map<String, Object> models = new HashMap<>();
-        return new ModelAndView("copyright/copyright-form").addAllObjects(models);
+        return "copyright/copyright-form";
     }
+
+    @PostMapping("/")
+    public String insertNewCopyright(@RequestBody @ModelAttribute @Valid CopyrightDTO copyrightDTO, Model model) {
+
+        return "";
+    }
+
 }
