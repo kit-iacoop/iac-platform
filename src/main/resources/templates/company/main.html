@@ -10,7 +10,7 @@
             function selectMainMenu(statusItem) {
                 var mainmenuId = $(statusItem).attr('value');
                 console.log(mainmenuId);
-                $(".sub-menu-wrapper").load("officer/menu #"+mainmenuId, function() {
+                $(".sub-menu-wrapper").load("company/menu #"+mainmenuId, function() {
                     $(this).show();
                 });
             } 
@@ -26,10 +26,10 @@
     </head>
     <body>
         <section>
-            <th:block th:replace="officer/nav :: officerNavFragment"></th:block>
+            <th:block th:replace="company/nav :: companyNavFragment"></th:block>
             <div class="contents-wrapper">
                 <div class="user-info">
-                    <h1 class="user-name">직원 ○○○</h1>
+                    <h1 class="user-name">기업 ○○○</h1>
                      <h4 class="user-point">마일리지 500 | 1000p</h4>
                      <button class="logout">로그아웃</button>
                  </div> 

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <th:block th:fragment="companyNavFragment">
+        <div class="menu">
+            <label for="expand-menu">메뉴</label>
+            <input type="checkbox" id="expand-menu" name="expand-menu">
+            <ul>
+                <li><a value="mypage" onclick="selectMainMenu(this)">기본 정보</a></li>
+                <li><a value="industry-cooperation" onclick="selectMainMenu(this)">산학 협력</a></li>
+                <li><a value="share-accpet" onclick="selectMainMenu(this)">대여</a></li>
+                <li><a value="mileage-point" onclick="selectMainMenu(this)">마일리지/포인트 현황</a></li>
+            </ul>
+        </div>
+    </th:block>
+</html>
+    
+
