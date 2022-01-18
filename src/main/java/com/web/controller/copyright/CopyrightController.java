@@ -33,8 +33,7 @@ public class CopyrightController {
 //
 //    }
 
-    @GetMapping("/")
-    @ResponseBody
+    @GetMapping("/list")
     public String findAllCopyright(@PageableDefault() Pageable page, @RequestParam(required = false, value = "key") String key, Model model) {
         Page<CopyrightDTO> dtoList;
         if (key == null) {
@@ -51,8 +50,7 @@ public class CopyrightController {
         return "copyright/copyright-list";
     }
 
-    @GetMapping("/{id}")
-    @ResponseBody
+    @GetMapping("/list/{id}")
     public String viewCopyrightDetail(@PathVariable String id, Model model) {
 
         CopyrightDTO copyrightDetail = copyrightService.findCopyrightDetail(id);
@@ -68,10 +66,10 @@ public class CopyrightController {
         return "copyright/copyright-form";
     }
 
-    @PostMapping("/")
+    @PostMapping("/list")
     public String insertNewCopyright(@RequestBody @ModelAttribute @Valid CopyrightDTO copyrightDTO, Model model) {
 
-        return "";
+        return "copyright/";
     }
 
 }
