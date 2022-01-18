@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <th:block th:replace="fragments/common/section-head :: sectionHeadFragment"></th:block>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="/css/mypage.css" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+        <section>
+                <div class="task-contents">
+                    <form id="updateInfoForm" method="post">
+                        <th:block th:replace="fragments/mypage/common-info-update :: commonInfoUpdateFragment"></th:block>
+                        <th:block th:replace="fragments/mypage/professor-info-update :: professorInfoUpdateFragment"></th:block>
+                    </form>
+                    <input type="submit" name value="수정" title="수정">
+                </div>
+            </div>
+        </section>
+    </body>
+</html>

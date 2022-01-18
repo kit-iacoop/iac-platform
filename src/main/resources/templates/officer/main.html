@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <th:block th:replace="fragments/common/section-head :: sectionHeadFragment"></th:block>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="/css/mypage.css" rel="stylesheet" type="text/css">
+        <script src="/js/jquery.js"></script>
+        <link href="/css/sb-admin-2.min.css" rel="stylesheet" type="text/css">
+        <script>
+            function selectMainMenu(statusItem) {
+                var mainmenuId = $(statusItem).attr('value');
+                console.log(mainmenuId);
+                $(".sub-menu-wrapper").load("officer/menu #"+mainmenuId, function() {
+                    $(this).show();
+                });
+            } 
+
+            function selectSubMenu(statusItem) {
+                var submenuId = $(statusItem).attr('value');
+                console.log(submenuId);
+                $(".main-contents").load(submenuId, function() {
+                    $(this).show();
+                });
+            } 
+        </script>
+    </head>
+    <body>
+        <section>
+            <th:block th:replace="officer/nav :: officerNavFragment"></th:block>
+            <div class="contents-wrapper">
+                <div class="user-info">
+                    <h1 class="user-name">직원 ○○○</h1>
+                     <h4 class="user-point">마일리지 500 | 1000p</h4>
+                     <button class="logout">로그아웃</button>
+                 </div> 
+                <div class="sub-menu-wrapper">
+                </div>
+                <div class="main-contents">
+                </div>
+            </div>
+        </section>
+    </body>
+</html>
