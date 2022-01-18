@@ -8,54 +8,54 @@
     <link rel="stylesheet" href="/css/copyright/copyright-detail.css">
 </head>
 <body>
-    <div>
-        <table>
-            <thead>
-                <th class="copyright-title" colspan="4" th:text="${copyrightDto.copyrightName}"></th>
-            </thead>
-            <tr>
-                <th>구분</th>
-                <td th:text="${copyrightDto.copyrightType}"></td>
-                <th>상태</th>
-                <td th:text="${copyrightDto.maintenanceState}"></td>
-            </tr>
-            <tr>
-                <th>공개년도</th>
-                <td th:text="${copyrightDto.declarationYear}"></td>
-                <th>공동</th>
-                <td th:text="${copyrightDto.cooperation}"></td>
-            </tr>
-            <tr>
-                <th>대표자</th>
-                <td th:text="${copyrightDto.representor}"></td>
-                <th>교수</th>
-                <td th:text="${copyrightDto.professorName}"></td>
-            </tr>
-            <tr>
-                <th>출원일자</th>
-                <td th:text="${copyrightDto.applicationDate}"></td>
-                <th>출원번호</th>
-                <td th:text="${copyrightDto.applicationNumber}"></td>
-            </tr>
-            <tr>
-                <th>등록일자</th>
-                <td th:text="${copyrightDto.registrationDate}"></td>
-                <th>등록번호</th>
-                <td th:text="${copyrightDto.registrationNumber}"></td>
-            </tr>
-            <tr>
-                <th>설명</th>
-                <td colspan="3" th:text="${copyrightDto.description}"></td>
-            </tr>
-            <tr>
-                <th>키워드</th>
-                <td colspan="3" th:text="${copyrightDto.keyword}"></td>
-            </tr>
-        </table>
-    </div>
-    <div>
-        <a href="/copyright" class="button">목록으로</a>
-<!--        <a th:href="@{/copyright/edit/{id}(id=${copyrightDto.copyrightId})}" class="button">수정</a>-->
-    </div>
+<div>
+    <table>
+        <thead>
+        <th class="copyright-title" colspan="4" th:text="${copyrightDto.copyrightName}"></th>
+        </thead>
+        <tr>
+            <th>구분</th>
+            <td th:text="${copyrightDto.copyrightType}"></td>
+            <th>상태</th>
+            <td th:text="${copyrightDto.maintenanceState}"></td>
+        </tr>
+        <tr>
+            <th>공개년도</th>
+            <td th:text="${copyrightDto.declarationYear}"></td>
+            <th>공동</th>
+            <td th:text="${copyrightDto.cooperation}"></td>
+        </tr>
+        <tr>
+            <th>대표자</th>
+            <td th:text="${copyrightDto.representor}"></td>
+            <th>교수</th>
+            <td th:text="${copyrightDto.professorName}"></td>
+        </tr>
+        <tr>
+            <th>출원일자</th>
+            <td th:text="${copyrightDto.applicationDate}"></td>
+            <th>출원번호</th>
+            <td th:text="${copyrightDto.applicationNumber}"></td>
+        </tr>
+        <tr>
+            <th>등록일자</th>
+            <td th:text="${copyrightDto.registrationDate}"></td>
+            <th>등록번호</th>
+            <td th:text="${copyrightDto.registrationNumber}"></td>
+        </tr>
+        <tr>
+            <th>설명</th>
+            <td colspan="3" th:text="${copyrightDto.description}"></td>
+        </tr>
+        <tr>
+            <th>키워드</th>
+            <td colspan="3" th:text="${copyrightDto.keyword}"></td>
+        </tr>
+    </table>
+</div>
+<div>
+    <a href="/copyrights" class="button">목록으로</a>
+    <!--        <a th:href="@{/copyright/edit/{id}(id=${copyrightDto.copyrightId})}" class="button">수정</a>-->
+</div>
 </body>
 </html>
