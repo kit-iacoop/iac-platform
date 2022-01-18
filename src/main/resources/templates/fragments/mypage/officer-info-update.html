@@ -1,5 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www/thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <th:block th:fragment="officerInfoUpdateFragment">
+        <div class="member-info">
+            <label>대학</label>
+            <input type="text" class="update-info" name="member_university" placeholder="">
+        </div>
+        <div class="member-info">
+            <label>부서</label>
+            <input type="text" class="update-info" name="member_department" placeholder="">
+        </div>
     </th:block>
 </html>

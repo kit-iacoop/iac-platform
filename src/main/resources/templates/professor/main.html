@@ -10,7 +10,7 @@
             function selectMainMenu(statusItem) {
                 var mainmenuId = $(statusItem).attr('value');
                 console.log(mainmenuId);
-                $(".sub-menu-wrapper").load("officer/menu #"+mainmenuId, function() {
+                $(".sub-menu-wrapper").load("professor/menu #"+mainmenuId, function() {
                     $(this).show();
                 });
             } 
