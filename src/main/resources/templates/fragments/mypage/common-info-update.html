@@ -54,40 +54,40 @@
         <div class="common-info">
             <div class="member-info">
                 <label>이름</label>
-                <input type="text" class="update-info" name="member_name" placeholder="">
+                <input type="text" class="update-info" name="member_name" placeholder="" th:field="*{name}">
                 </div>
             </div>
             <div class="member-info">
                 <label>생일</label>
-                <input type="date" class="update-info" id="birthday" name="member_birthday" placeholder="">
+                <input type="date" class="update-info" id="birthday" name="member_birthday" placeholder="" th:field="*{birthDate}">
             </div>
             <div class="search-address">
                 <div class="member-info">
                     <label for="address" class="address">주소</label>
-                    <input type="text" class="update-info" id="sample6_postcode" name="member_zipcode" placeholder="">
+                    <input type="text" class="update-info" id="sample6_postcode" name="member_zipcode" placeholder="" th:field="*{zipCode}">
                     <input id="search-btn" type="button" onclick="sample6_execDaumPostcode()" value="검색">
                 </div>
                
             </div>
             <div class="member-info">
                 <label for="address" class="address"></label>
-                <input type="text" class="update-info" id="address" name="member_city" placeholder="">
+                <input type="text" class="update-info" id="address" name="member_city" placeholder="" th:field="*{city}">
             </div>
             <div class="member-info">
                 <label for="detail_address" class="address"></label>
-                <input type="text" class="update-info" id="detail_address" name="member_street" placeholder="">
+                <input type="text" class="update-info" id="detail_address" name="member_street" placeholder="" th:field="*{street}">
             </div>
             <div class="member-info">
                 <label>비밀번호</label>
-                <input type="password" class="update-info" name="member_pw" placeholder="">
+                <input type="password" class="update-info" name="member_pw" placeholder="" th:field="*{password}">
             </div>
             <div class="member-info">
                 <label>이메일</label>
-                <input type="text" class="update-info" name="member_email" placeholder="">
+                <input type="text" class="update-info" name="member_email" placeholder="" th:field="*{email}">
             </div>
             <div class="member-info">
                 <label>전화번호</label>
-                <input type="text" class="update-info" name="member_phone" placeholder="">
+                <input type="text" class="update-info" name="member_phone" placeholder="" th:field="*{telephone}">
             </div>
     </th:block>
 </html>

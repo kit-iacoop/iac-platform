@@ -3,9 +3,11 @@
     <th:block th:fragment="officerInfoInquireFragment">
         <div class="member-info">
             <label>대학</label>
+            <div>[[${account.university}]]</div>
         </div>
         <div class="member-info">
-            <label>사무실</label>
+            <label>부서</label>
+            <div>[[${account.department}]]</div>
         </div>
     </th:block>
 </html>

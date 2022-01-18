@@ -3,11 +3,11 @@
     <th:block th:fragment="officerInfoUpdateFragment">
         <div class="member-info">
             <label>대학</label>
-            <input type="text" class="update-info" name="member_university" placeholder="">
+            <input type="text" class="update-info" name="member_university" placeholder="" th:field="*{university}">
         </div>
         <div class="member-info">
             <label>부서</label>
-            <input type="text" class="update-info" name="member_department" placeholder="">
+            <input type="text" class="update-info" name="member_department" placeholder="" th:field="*{department}}">
         </div>
     </th:block>
 </html>

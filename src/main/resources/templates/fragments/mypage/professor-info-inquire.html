@@ -3,12 +3,15 @@
     <th:block th:fragment="professorInfoInquireFragment">
         <div class="member-info">
             <label>대학</label>
+            <div>[[${account.university}]]</div>
         </div>
         <div class="member-info">
             <label>학과</label>
+            <div>[[${account.department}]]</div>
         </div>
         <div class="member-info">
             <label>사무실</label>
+            <div>[[${account.officeLocation}]]</div>
         </div>
     </th:block>
 </html>

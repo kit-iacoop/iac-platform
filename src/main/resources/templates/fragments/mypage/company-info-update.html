@@ -2,24 +2,28 @@
 <html xmlns:th="http://www/thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
     <th:block th:fragment="companyInfoUpdateFragment">
         <div class="member-info">
+            <label>대표</label>
+            <input type="owner" class="update-info" name="member_owner" placeholder="" th:field="*{owner}">
+        </div>
+        <div class="member-info">
             <label>구분</label>
-            <input type="text" class="update-info" name="member_companyType" placeholder="">
+            <input type="text" class="update-info" name="member_companyType" placeholder="" th:field="*{companyType}">
         </div>
         <div class="member-info">
             <label>업종</label>
-            <input type="text" class="update-info" name="member_sector" placeholder="">
+            <input type="text" class="update-info" name="member_sector" placeholder="" th:field="*{sector}">
         </div>
         <div class="member-info">
-            <label>대표</label>
-            <input type="owner" class="update-info" name="member_owner" placeholder="">
+            <label>사원 수</label>
+            <input type="text" class="update-info" name="member_employeeNumber" placeholder="" th:field="*{employeeNumber}">
         </div>
         <div class="member-info">
             <label>사업자번호</label>
-            <input type="text" class="update-info" name="member_employeeNumber" placeholder="">
+            <input type="text" class="update-info" name="member_businessRegistrationNumber" placeholder="" th:field="*{businessRegistrationNumber}">
         </div>
         <div class="member-info">
             <label>협약일</label>
-            <input type="date" class="update-info" name="member_currentizationStatus" placeholder="">
+            <input type="date" class="update-info" name="member_subscriptionDate" placeholder="" th:field="*{subscriptionDate}">
         </div>
     </th:block>
 </html>
