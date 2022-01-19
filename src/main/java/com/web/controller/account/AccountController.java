@@ -4,11 +4,10 @@ package com.web.controller.account;
 import com.common.Common;
 import com.domain.account.Company;
 import com.domain.common.State;
-import com.web.dto.CompanyRegisterDTO;
+import com.web.dto.CompanyInformationDTO;
 import com.web.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.validation.Errors;
@@ -31,11 +30,11 @@ public class AccountController {
 
     @GetMapping("/register/company")
     public ModelAndView registerCompany(){
-        return new ModelAndView("register/company").addObject(new CompanyRegisterDTO());
+        return new ModelAndView("register/company").addObject(new CompanyInformationDTO());
     }
 
     @PostMapping("/register/company")
-    public ModelAndView registerCompany(@Validated @ModelAttribute CompanyRegisterDTO companyDTO, Errors errors, ModelAndView mav){
+    public ModelAndView registerCompany(@Validated @ModelAttribute CompanyInformationDTO companyDTO, Errors errors, ModelAndView mav){
 
         if(errors.hasErrors()) {
 
@@ -65,6 +64,14 @@ public class AccountController {
 
         return mav;
     }
+
+    @GetMapping("company/mypage")
+    public ModelAndView companyMypage(ModelAndView mav){
+
+        mav.setViewName("company/mypage/inquire-info");
+        return mav;
+    }
+
 
 
 }

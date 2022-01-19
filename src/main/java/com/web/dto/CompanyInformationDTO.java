@@ -17,46 +17,46 @@ import java.time.format.DateTimeFormatter;
 @Setter
 @ToString
 
-public class CompanyRegisterDTO {
+public class CompanyInformationDTO {
 
 
     @Size(min=4, max=20)
-    @NotBlank(message = "아이디는 필수 입력 값입니다.")
+    @NotBlank
     private String loginId;
 
     @Size(min=8, max=20)
-    @NotBlank(message = "패스워드는 필수 입력 값입니다.")
+    @NotBlank
     private String password;
 
     @Size(min=1, max=50)
-    @NotEmpty(message = "회사명은 필수 입력 값입니다.")
+    @NotEmpty
     private String name;
 
     @Size(min=1, max=50)
     @Positive
-    @NotBlank (message = "사업자 등록 번호는 필수 입력 값입니다.")
+    @NotBlank
     private String businessRegistrationNumber;
 
     private String birthDate;
 
     @Size(min=5, max=5)
-    @NotBlank(message = "우편번호는 필수 입력 값입니다.")
+    @NotBlank
     private String zipCode;
 
     @Size(min=2, max=30)
-    @NotEmpty(message = "도시명은  필수 입력 값입니다.")
+    @NotEmpty
     public String city;
 
     @Size(min=2, max=200)
     public String street;
 
     @Size(min=5, max=200)
-    @NotBlank(message = "이메일은 필수 입력 값입니다.")
-    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$", message = "이메일 형식에 맞지 않습니다.")
+    @NotBlank
+    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$")
     private String email;
 
     @Size(min=8, max=15)
-    @NotBlank(message = "전화번호는 필수 입력 값입니다.")
+    @NotBlank
     private String telephone;
 
     @Size(min=1, max=7)
@@ -64,18 +64,19 @@ public class CompanyRegisterDTO {
     private String employeeNumber;
 
     @Size(min=2, max=10)
-    @NotEmpty(message = "회사 구분은 필수 입력 값입니다.")
+    @NotEmpty
     private String companyType;
 
     @Size(min=2, max=100)
-    @NotEmpty(message = "회사 분야는 필수 입력 값입니다.")
+    @NotEmpty
     private String sector;
 
     @Size(min=1, max=100)
     private String owner;
 
-    @NotEmpty(message = "협약일은 필수 입력 값입니다.")
+    @NotEmpty
     private String subscriptionDate;
+
 
     public Company toEntity(){
         return Company.builder()
