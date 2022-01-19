@@ -3,6 +3,7 @@ package com.web.controller.login;
 import com.domain.account.Account;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,8 +33,8 @@ public class LoginController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if(auth.getPrincipal() != null){ // 로그인 체크
-            Account principal = (Account)auth.getPrincipal();
-            model.addAttribute("username", principal.getName());
+            User principal = (User) auth.getPrincipal();
+            model.addAttribute("username", principal.getUsername());
         }
 
         model.addAttribute("exception", exception);
