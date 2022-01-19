@@ -27,28 +27,22 @@ import java.util.LinkedList;
 public class AccountController {
 
     private final AccountService accountService;
-    private final PasswordEncoder passwordEncoder;
     private final Common common;
 
-    @GetMapping( "/register")
-    public String register() {
-        return "register/main";
-    }
-
     @GetMapping("/register/company")
-    public ModelAndView createCompany(){
+    public ModelAndView registerCompany(){
         return new ModelAndView("register/company").addObject(new CompanyRegisterDTO());
     }
 
     @PostMapping("/register/company")
-    public ModelAndView createCompany(@Validated @ModelAttribute CompanyRegisterDTO companyDTO, Errors errors, ModelAndView mav){
+    public ModelAndView registerCompany(@Validated @ModelAttribute CompanyRegisterDTO companyDTO, Errors errors, ModelAndView mav){
 
         if(errors.hasErrors()) {
 
             LinkedList<LinkedHashMap<String, String>> errorList = common.refineErrors(errors);
             log.warn("COMPANY 회원가입 예외 : " + errorList.toString()); //FE 필터 거치지 않았으므로 WARN으로 기록
 
-            mav.setViewName("/register/company");
+            mav.setViewName("register/company");
             mav.addObject("errors", errorList);
 
             return mav;
@@ -59,6 +53,15 @@ public class AccountController {
         companyEntity.verification("BRONZE", 0L, 0L, State.NORMAL); //TODO : 가입 승인 페이지 생길 때 까지..
         accountService.createAccount(companyEntity);
         mav.setViewName("register/success");
+
+        return mav;
+    }
+
+    @GetMapping("officer/family-company/screen")
+    public ModelAndView companyRegistrationScreen(ModelAndView mav){
+
+        mav.addObject("companyDtos", accountService.getAllPendingCompanies());
+        mav.setViewName("officer/family-company-accept/register");
 
         return mav;
     }

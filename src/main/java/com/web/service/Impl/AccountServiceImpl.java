@@ -2,9 +2,11 @@ package com.web.service.Impl;
 
 import com.domain.account.Account;
 import com.domain.account.AccountRepository;
+import com.domain.account.Company;
 import com.domain.security.role.Role;
 import com.domain.security.role.RoleRepository;
 import com.web.dto.AccountRolesDto;
+import com.web.dto.PendingCompanyDTO;
 import com.web.service.AccountService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -65,6 +67,13 @@ public class AccountServiceImpl implements AccountService {
     public List<Account> getAllAccounts() {
 
         return accountRepository.findAll();
+    }
+
+    @Transactional
+    @Override
+    public List<PendingCompanyDTO> getAllPendingCompanies() {
+
+        return accountRepository.getAllPendingCompanies();
     }
 
     @Transactional

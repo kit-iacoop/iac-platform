@@ -2,6 +2,7 @@ package com.web.service;
 
 import com.domain.account.Account;
 import com.web.dto.AccountRolesDto;
+import com.web.dto.PendingCompanyDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,5 +18,7 @@ public interface AccountService {
     public void updateAccountRoles(AccountRolesDto accountRolesDto);
 
     public List<Account> getAllAccounts();
+
+    public List<PendingCompanyDTO>getAllPendingCompanies();
 }
 
