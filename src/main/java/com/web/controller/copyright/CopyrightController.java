@@ -33,6 +33,11 @@ public class CopyrightController {
 //
 //    }
 
+    @GetMapping({"", "/"})
+    public String redirectList() {
+        return "redirect:/copyrights/list";
+    }
+
     @GetMapping("/list")
     public String findAllCopyright(@PageableDefault() Pageable page, @RequestParam(required = false, value = "key") String key, Model model) {
         Page<CopyrightDTO> dtoList;
@@ -53,8 +58,7 @@ public class CopyrightController {
     @GetMapping("/list/{id}")
     public String viewCopyrightDetail(@PathVariable String id, Model model) {
 
-        CopyrightDTO copyrightDetail = copyrightService.findCopyrightDetail(id);
-        model.addAttribute("copyrightDto", copyrightDetail);
+        model.addAttribute("copyrightDto", copyrightService.findCopyrightDetail(id));
 
         return "copyright/copyright-detail";
     }
