@@ -7,6 +7,7 @@ import com.domain.account.Company;
 import com.domain.account.Officer;
 import com.domain.account.Professor;
 import com.domain.common.State;
+import com.security.service.AccountContext;
 import com.web.dto.account.CompanyInformationDTO;
 import com.web.dto.account.OfficerInformationDTO;
 import com.web.dto.account.ProfessorInformationDTO;
@@ -75,7 +76,8 @@ public class AccountController {
     @GetMapping(path = {"officer/mypage", "company/mypage", "professor/mypage"})
     public ModelAndView mypage(ModelAndView mav){
 
-        Account account = (Account)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Account account = ((AccountContext)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccount();
+
         mav.addObject("account", account.toInformationDTO());
 
         if(account instanceof Company){
@@ -88,7 +90,5 @@ public class AccountController {
 
         return mav;
     }
-
-
 
 }
