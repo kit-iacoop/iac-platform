@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko">
     <head>
-        <th:block th:replace="common/head :: headFragment"></th:block>
+        <th:block th:replace="fragments/common/head :: headFragment"></th:block>
         <link href="/css/signup-company.css" rel="stylesheet" type="text/css">
         <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
         <script>
@@ -55,7 +55,7 @@
             </script>
     </head>
     <body>
-        <th:block th:replace="common/header :: headerFragment"></th:block>
+        <th:block th:replace="fragments/common/header :: headerFragment"></th:block>
         <section>
             <div class="signup-area">
                 <div class="signup-title-area">
@@ -65,7 +65,7 @@
                         <h4>COMPANY</h4>
                     </div>
                 </div>
-                <form id="signupCompanyForm" th:action="@{/register/company}" th:object="${companyRegisterDTO}" method="post">
+                <form id="signupCompanyForm" th:action="@{/register/company}" th:object="${companyInformationDTO}" method="post">
                     <div class="form-signup-company-wrapper">
                         <div class="form-signup-area">
                             <div class="label-wrapper">
@@ -157,6 +157,6 @@
                 </form>
             </div>
         </section>
-        <th:block th:replace="common/footer :: footerFragment"></th:block>
+        <th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
     </body>
 </html>

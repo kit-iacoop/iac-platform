@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www/thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <th:block th:fragment="companyInfoInquireFragment">
+        <div class="member-info">
+            <label>대표</label>
+            <div>[[${account.owner}]]</div>
+        </div>
+        <div class="member-info">
+            <label>구분</label>
+            <div>[[${account.companyType}]]</div>
+        </div>
+        <div class="member-info">
+            <label>업종</label>
+            <div>[[${account.sector}]]</div>
+        </div>
+        <div class="member-info">
+            <label>사원 수</label>
+            <div>[[${account.employeeNumber}]]</div>
+        </div>
+        <div class="member-info">
+            <label>사업자번호</label>
+            <div>[[${account.businessRegistrationNumber}]]</div>
+        </div>
+        <div class="member-info">
+            <label>협약일</label>
+            <div>[[${account.subscriptionDate}]]</div>
+        </div>
+    </th:block>
+</html>

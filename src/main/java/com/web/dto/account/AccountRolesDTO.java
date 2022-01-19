@@ -1,4 +1,4 @@
-package com.web.dto;
+package com.web.dto.account;
 
 import lombok.*;
 
@@ -11,7 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class AccountRolesDto {
+public class AccountRolesDTO {
     private String id;
     private String loginId;
     private String email;

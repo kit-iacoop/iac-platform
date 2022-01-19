@@ -39,7 +39,7 @@ public class LoginController {
 
         model.addAttribute("exception", exception);
 
-        return "/login/denied";
+        return "login/denied";
     }
 
     @GetMapping("/logout")

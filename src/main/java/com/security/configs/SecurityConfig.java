@@ -45,7 +45,7 @@ import java.util.List;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     //White List
-    private final String[] PERMIT_ALL_RESOURCES = {"/", "/login"};
+    private final String[] PERMIT_ALL_RESOURCES = {"/", "/login", "/register/**"};
 
     private final AuthenticationSuccessHandler authenticationSuccessHandler;
     private final AuthenticationFailureHandler authenticationFailureHandler;

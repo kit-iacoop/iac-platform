@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RoleDto{
+public class RoleDTO {
 
 
     private String id;

@@ -2,13 +2,18 @@ package com.web.controller.account;
 
 
 import com.common.Common;
+import com.domain.account.Account;
 import com.domain.account.Company;
+import com.domain.account.Officer;
+import com.domain.account.Professor;
 import com.domain.common.State;
-import com.web.dto.CompanyRegisterDTO;
+import com.web.dto.account.CompanyInformationDTO;
+import com.web.dto.account.OfficerInformationDTO;
+import com.web.dto.account.ProfessorInformationDTO;
 import com.web.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.validation.Errors;
@@ -27,28 +32,22 @@ import java.util.LinkedList;
 public class AccountController {
 
     private final AccountService accountService;
-    private final PasswordEncoder passwordEncoder;
     private final Common common;
 
-    @GetMapping( "/register")
-    public String register() {
-        return "register/main";
-    }
-
     @GetMapping("/register/company")
-    public ModelAndView createCompany(){
-        return new ModelAndView("register/company").addObject(new CompanyRegisterDTO());
+    public ModelAndView registerCompany(){
+        return new ModelAndView("register/company").addObject(new CompanyInformationDTO());
     }
 
     @PostMapping("/register/company")
-    public ModelAndView createCompany(@Validated @ModelAttribute CompanyRegisterDTO companyDTO, Errors errors, ModelAndView mav){
+    public ModelAndView registerCompany(@Validated @ModelAttribute CompanyInformationDTO companyDTO, Errors errors, ModelAndView mav){
 
         if(errors.hasErrors()) {
 
             LinkedList<LinkedHashMap<String, String>> errorList = common.refineErrors(errors);
             log.warn("COMPANY 회원가입 예외 : " + errorList.toString()); //FE 필터 거치지 않았으므로 WARN으로 기록
 
-            mav.setViewName("/register/company");
+            mav.setViewName("register/company");
             mav.addObject("errors", errorList);
 
             return mav;
@@ -62,6 +61,34 @@ public class AccountController {
 
         return mav;
     }
+
+    @GetMapping("officer/family-company/screen")
+    public ModelAndView companyRegistrationScreen(ModelAndView mav){
+
+        mav.addObject("companyDtos", accountService.getAllPendingCompanies());
+        mav.setViewName("officer/family-company-accept/register");
+
+        return mav;
+    }
+
+
+    @GetMapping(path = {"officer/mypage", "company/mypage", "professor/mypage"})
+    public ModelAndView mypage(ModelAndView mav){
+
+        Account account = (Account)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        mav.addObject("account", account.toInformationDTO());
+
+        if(account instanceof Company){
+            mav.setViewName("company/mypage/inquire-info");
+        } else if (account instanceof Professor){
+            mav.setViewName("professor/mypage/inquire-info");
+        } else if (account instanceof Officer){
+            mav.setViewName("officer/mypage/inquire-info");
+        }
+
+        return mav;
+    }
+
 
 
 }

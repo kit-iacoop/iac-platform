@@ -5,6 +5,9 @@ import com.domain.projectProfessor.ProjectProfessor;
 import com.domain.fieldInterest.FieldInterest;
 import com.domain.university.University;
 
+import com.web.dto.account.AccountInformationDTO;
+import com.web.dto.account.OfficerInformationDTO;
+import com.web.dto.account.ProfessorInformationDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,7 +26,7 @@ import java.util.List;
 @Entity
 public class Professor extends Account {
 
-   @ManyToOne(fetch = FetchType.LAZY)
+   @ManyToOne(fetch = FetchType.EAGER)
    @JoinColumn(name = "UNIVERSITY_ID", nullable = false)
    private University university;
 
@@ -49,4 +52,25 @@ public class Professor extends Account {
     @OneToMany(mappedBy = "mentorProfessor", fetch = FetchType.LAZY)
     private List<Company> menteeCompanyList = new LinkedList<>();
 
+ @Override
+ public ProfessorInformationDTO toInformationDTO() {
+  return ProfessorInformationDTO.builder()
+          .accountId(accountId)
+          .loginId(loginId)
+          .password(null)
+          .name(name)
+          .birthDate(birthDate.toString())
+          .zipCode(address.getZipCode())
+          .city(address.getCity())
+          .street(address.getStreet())
+          .email(email)
+          .telephone(telephone)
+          .status(status)
+          // 교수 정보
+          .university(university.getUniversityName())
+          .officeLocation(officeLocation)
+          .department(department)
+          .build();
+
+ }
 }
