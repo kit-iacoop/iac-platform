@@ -2,12 +2,18 @@ package com.web.controller.account;
 
 
 import com.common.Common;
+import com.domain.account.Account;
 import com.domain.account.Company;
+import com.domain.account.Officer;
+import com.domain.account.Professor;
 import com.domain.common.State;
 import com.web.dto.account.CompanyInformationDTO;
+import com.web.dto.account.OfficerInformationDTO;
+import com.web.dto.account.ProfessorInformationDTO;
 import com.web.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
 import org.springframework.validation.Errors;
@@ -65,10 +71,21 @@ public class AccountController {
         return mav;
     }
 
-    @GetMapping("company/mypage")
-    public ModelAndView companyMypage(ModelAndView mav){
 
-        mav.setViewName("company/mypage/inquire-info");
+    @GetMapping(path = {"officer/mypage", "company/mypage", "professor/mypage"})
+    public ModelAndView mypage(ModelAndView mav){
+
+        Account account = (Account)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        mav.addObject("account", account.toInformationDTO());
+
+        if(account instanceof Company){
+            mav.setViewName("company/mypage/inquire-info");
+        } else if (account instanceof Professor){
+            mav.setViewName("professor/mypage/inquire-info");
+        } else if (account instanceof Officer){
+            mav.setViewName("officer/mypage/inquire-info");
+        }
+
         return mav;
     }
 

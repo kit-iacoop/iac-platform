@@ -27,7 +27,7 @@ import java.util.List;
 @Entity
 public class Officer extends Account {
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "UNIVERSITY_ID", nullable = false)
     private University university;
 
