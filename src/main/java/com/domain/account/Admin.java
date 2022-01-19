@@ -1,5 +1,6 @@
 package com.domain.account;
 
+import com.web.dto.account.AccountInformationDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -15,4 +16,8 @@ import javax.persistence.*;
 @Entity
 public class Admin extends Account {
 
+    @Override
+    public AccountInformationDTO toInformationDTO() {
+        return null;
+    }
 }

@@ -37,7 +37,7 @@ public abstract class AccountInformationDTO {
 
     @Size(min=5, max=5)
     @NotBlank
-    protected String zipCode;
+    protected Long zipCode;
 
     @Size(min=2, max=30)
     @NotEmpty

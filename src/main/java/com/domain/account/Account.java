@@ -6,6 +6,7 @@ import com.domain.common.Address;
 import com.domain.common.BaseTimeEntity;
 import com.domain.security.role.Role;
 import com.domain.common.State;
+import com.web.dto.account.AccountInformationDTO;
 import com.web.dto.account.AccountRolesDTO;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -29,55 +30,49 @@ public abstract class Account extends BaseTimeEntity {
 
    @Id @GeneratedValue(strategy = GenerationType.TABLE) // <union-subclass> 매핑에서 IDENTITY 전략 사용 불가능 한 것으로 보여 불가피하게 TABLE 전략 사용
    @Column(name = "ACCOUNT_ID", nullable = false, unique = true)
-   private Long accountId;
+   protected Long accountId;
 
    @Column(name = "NAME", nullable = false)
-   private String name;
+   protected String name;
 
    @Column(name = "BIRTH_DATE", nullable = false)
-   private LocalDate birthDate;
+   protected LocalDate birthDate;
 
    @Embedded
-   private Address address;
+   protected Address address;
 
    @Column(name = "LOGIN_ID", nullable = false, unique = true)
-   private String loginId;
+   protected String loginId;
 
    @Column(name = "PASSWORD", nullable = false)
-   private String password;
+   protected String password;
 
    @Column(name = "EMAIL", nullable = false)
-   private String email;
+   protected String email;
 
    @Column(name = "TELEPHONE", nullable = true)
-   private String telephone;
+   protected String telephone;
 
    @Enumerated(EnumType.STRING)
    @Column(name = "STATUS", nullable = false)
-   private State status;
+   protected State status;
 
 
    @Builder.Default
    @OneToMany(mappedBy = "accountId")
-   private List<Copyright> copyrightList = new LinkedList<>();
+   protected List<Copyright> copyrightList = new LinkedList<>();
 
    @Builder.Default
    @OneToMany(mappedBy = "account")
-   private List<MeetingAttendant> meetingAttendantList = new LinkedList<>();
+   protected List<MeetingAttendant> meetingAttendantList = new LinkedList<>();
 
 
    @Builder.Default
    @ManyToMany(fetch = FetchType.LAZY, cascade={CascadeType.ALL})
    @JoinTable(name = "account_roles", joinColumns = { @JoinColumn(name = "account_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
-   private Set<Role> accountRoles = new HashSet<>();
+   protected Set<Role> accountRoles = new HashSet<>();
 
-
-   public void changePassword(String newPassword){
-      this.password = newPassword;
-   }
-   public void deletePassword(){
-      this.password = null;
-   }
+   public abstract AccountInformationDTO toInformationDTO();
 
    public AccountRolesDTO toAccountRolesDto(){
       return AccountRolesDTO.builder()
@@ -88,6 +83,14 @@ public abstract class Account extends BaseTimeEntity {
                       .map(Role::getRoleName)
                       .collect(Collectors.toList()))
               .build();
+   }
+
+   public void changePassword(String newPassword){
+      this.password = newPassword;
+   }
+
+   public void deletePassword(){
+      this.password = null;
    }
 
    public void updateRoles(Set<Role> roleSet){
@@ -112,4 +115,5 @@ public abstract class Account extends BaseTimeEntity {
       accountRoles.remove(role);
       role.getAccounts().remove(this);
    }
+
 }

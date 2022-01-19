@@ -31,7 +31,7 @@ import java.time.format.DateTimeFormatter;
 public class OfficerInformationDTO extends AccountInformationDTO{
 
     @NotBlank
-    private University university;
+    private String university;
 
     private String officeLocation;
 
@@ -43,7 +43,7 @@ public class OfficerInformationDTO extends AccountInformationDTO{
                 .password(password)
                 .name(name)
                 .birthDate(LocalDate.parse(birthDate, DateTimeFormatter.ISO_DATE))
-                .address(new Address(city, street, Long.parseLong(zipCode)))
+                .address(new Address(city, street, zipCode))
                 .email(email)
                 .telephone(telephone)
                 .status(State.PENDING)

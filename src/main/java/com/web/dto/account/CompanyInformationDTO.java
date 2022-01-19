@@ -21,11 +21,11 @@ public class CompanyInformationDTO extends AccountInformationDTO {
     @Size(min=1, max=50)
     @Positive
     @NotBlank
-    private String businessRegistrationNumber;
+    private Long businessRegistrationNumber;
 
     @Size(min=1, max=7)
     @Positive
-    private String employeeNumber;
+    private Long employeeNumber;
 
     @Size(min=2, max=10)
     @NotEmpty
@@ -49,17 +49,17 @@ public class CompanyInformationDTO extends AccountInformationDTO {
                 .password(password)
                 .name(name)
                 .birthDate(LocalDate.parse(birthDate, DateTimeFormatter.ISO_DATE))
-                .address(new Address(city, street, Long.parseLong(zipCode)))
+                .address(new Address(city, street, zipCode))
                 .email(email)
                 .telephone(telephone)
                 .status(State.PENDING)
                 //회사정보
-                .businessRegistrationNumber(Long.parseLong(businessRegistrationNumber))
+                .businessRegistrationNumber(businessRegistrationNumber)
                 .companyType(companyType)
                 .sector(sector)
                 .owner(owner)
                 .subscriptionDate(LocalDate.parse(subscriptionDate, DateTimeFormatter.ISO_DATE))
-                .employeeNumber(Long.parseLong(employeeNumber))
+                .employeeNumber(employeeNumber)
                 .build()
                 ;
     }

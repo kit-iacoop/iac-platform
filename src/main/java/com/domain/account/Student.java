@@ -1,6 +1,9 @@
 package com.domain.account;
 
 import com.domain.university.University;
+import com.web.dto.account.AccountInformationDTO;
+import com.web.dto.account.ProfessorInformationDTO;
+import com.web.dto.account.StudentInformationDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,4 +30,24 @@ public class Student extends Account {
     @Column(name = "DEPARTMENT", nullable = false)
     private String department;
 
+    @Override
+    public AccountInformationDTO toInformationDTO() {
+        return StudentInformationDTO.builder()
+                .accountId(accountId)
+                .loginId(loginId)
+                .password(null)
+                .name(name)
+                .birthDate(birthDate.toString())
+                .zipCode(address.getZipCode())
+                .city(address.getCity())
+                .street(address.getStreet())
+                .email(email)
+                .telephone(telephone)
+                .status(status)
+                // 교수 정보
+                .university(university.getUniversityName())
+                .studentNumber(studentNumber)
+                .department(department)
+                .build();
+    }
 }

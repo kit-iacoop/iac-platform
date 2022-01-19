@@ -9,6 +9,7 @@ import com.domain.companyMileage.CompanyMileage;
 import com.domain.mileageRequest.MileageRequest;
 
 import com.domain.common.State;
+import com.web.dto.account.CompanyInformationDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -102,5 +103,29 @@ public class Company extends Account {
         this.mileage = mileage;
         this.point = point;
         this.currentizationStatus = currentizationStatus;
+    }
+
+    @Override
+    public CompanyInformationDTO toInformationDTO() {
+        return CompanyInformationDTO.builder()
+                .accountId(accountId)
+                .loginId(loginId)
+                .password(null)
+                .name(name)
+                .birthDate(birthDate.toString())
+                .zipCode(address.getZipCode())
+                .city(address.getCity())
+                .street(address.getStreet())
+                .email(email)
+                .telephone(telephone)
+                .status(status)
+                // 회사 정보
+                .businessRegistrationNumber(businessRegistrationNumber)
+                .employeeNumber(employeeNumber)
+                .companyType(companyType)
+                .sector(sector)
+                .owner(owner)
+                .subscriptionDate(subscriptionDate.toString())
+                .build();
     }
 }
