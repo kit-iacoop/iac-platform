@@ -98,7 +98,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     }
 
     private void loadResourceData() {
-        createResourceIfNotFound("/*", "url", "", 0, "ROLE_USER","ROLE_OFFICER","ROLE_STUDENT", "ROLE_ADMIN", "ROLE_COMPANY" );
+        createResourceIfNotFound("/**", "url", "", 0, "ROLE_USER","ROLE_OFFICER","ROLE_STUDENT", "ROLE_ADMIN", "ROLE_COMPANY" );
         createResourceIfNotFound("/admin/**", "url", "", 1000, "ROLE_ADMIN");
         createResourceIfNotFound("/company/**", "url", "", 999, "ROLE_COMPANY");
         createResourceIfNotFound("/professor/**", "url", "", 998, "ROLE_PROFESSOR");
