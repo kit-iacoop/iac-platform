@@ -9,12 +9,14 @@ import com.domain.security.role.Role;
 import com.domain.security.role.RoleRepository;
 import com.domain.university.University;
 import com.domain.university.UniversityRepository;
+import com.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
@@ -38,6 +40,9 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
     @Autowired
     private UniversityRepository universityRepository;
+
+    @Autowired
+    private UrlFilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource;
 
     @Override
     @Transactional
@@ -92,12 +97,14 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     }
 
     private void loadResourceData() {
-        createResourceIfNotFound("/*", "url", "", 1000, "ROLE_USER", "ROLE_ADMIN", "ROLE_COMPANY" );
-        createResourceIfNotFound("/admin/*", "url", "", 0, "ROLE_ADMIN");
-        createResourceIfNotFound("/company/*", "url", "", 1, "ROLE_COMPANY");
-        createResourceIfNotFound("/professor/*", "url", "", 2, "ROLE_PROFESSOR");
-        createResourceIfNotFound("/officer/*", "url", "", 3, "ROLE_OFFICER");
-        createResourceIfNotFound("/student/*", "url", "", 4, "ROLE_STUDENT");
+        createResourceIfNotFound("/*", "url", "", 0, "ROLE_USER","ROLE_OFFICER","ROLE_STUDENT", "ROLE_ADMIN", "ROLE_COMPANY" );
+        createResourceIfNotFound("/admin/**", "url", "", 1000, "ROLE_ADMIN");
+        createResourceIfNotFound("/company/**", "url", "", 999, "ROLE_COMPANY");
+        createResourceIfNotFound("/professor/**", "url", "", 998, "ROLE_PROFESSOR");
+        createResourceIfNotFound("/officer/**", "url", "", 997, "ROLE_OFFICER");
+        createResourceIfNotFound("/student/**", "url", "", 996, "ROLE_STUDENT");
+        filterInvocationSecurityMetadataSource.reload();
+
     }
 
 
