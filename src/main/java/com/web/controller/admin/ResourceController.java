@@ -4,7 +4,7 @@ import com.domain.security.resource.Resource;
 import com.domain.security.role.Role;
 import com.domain.security.role.RoleRepository;
 import com.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
-import com.web.dto.ResourceDto;
+import com.web.dto.ResourceDTO;
 import com.web.service.ResourceService;
 import com.web.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +44,7 @@ public class ResourceController {
 	}
 
 	@PostMapping(value="/admin/resource")
-	public String createResource(ResourceDto resourceDto) {
+	public String createResource(ResourceDTO resourceDto) {
 
 
 		Role role = roleRepository.findByRoleName(resourceDto.getRoleName());
@@ -65,7 +65,7 @@ public class ResourceController {
 		List<Role> roleList = roleService.getRoles();
 		model.addAttribute("roleList", roleList);
 
-		ResourceDto resourceDto = new ResourceDto();
+		ResourceDTO resourceDto = new ResourceDTO();
 		Set<Role> roleSet = new HashSet<>();
 		roleSet.add(new Role());
 		resourceDto.setRoleSet(roleSet);
@@ -81,7 +81,7 @@ public class ResourceController {
         model.addAttribute("roleList", roleList);
 		Resource resource = resourceService.getResource(Long.parseLong(id));
 
-		ResourceDto resourceDto = resource.toDto();
+		ResourceDTO resourceDto = resource.toDto();
 		model.addAttribute("resource", resourceDto);
 
 		return "admin/resource/detail";

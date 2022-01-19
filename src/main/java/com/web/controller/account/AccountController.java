@@ -4,7 +4,7 @@ package com.web.controller.account;
 import com.common.Common;
 import com.domain.account.Company;
 import com.domain.common.State;
-import com.web.dto.CompanyInformationDTO;
+import com.web.dto.account.CompanyInformationDTO;
 import com.web.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

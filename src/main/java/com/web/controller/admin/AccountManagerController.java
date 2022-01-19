@@ -3,7 +3,7 @@ package com.web.controller.admin;
 
 import com.domain.account.Account;
 import com.domain.security.role.Role;
-import com.web.dto.AccountRolesDto;
+import com.web.dto.account.AccountRolesDTO;
 import com.web.service.AccountService;
 import com.web.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +39,7 @@ public class AccountManagerController {
 
 
 	@PostMapping(value="/admin/accounts")
-	public String updateAccountRoles(AccountRolesDto accountRolesDto) {
+	public String updateAccountRoles(AccountRolesDTO accountRolesDto) {
 
 		accountService.updateAccountRoles(accountRolesDto);
 
@@ -50,7 +50,7 @@ public class AccountManagerController {
 	@GetMapping(value = "/admin/accounts/{id}")
 	public String getAccount(@PathVariable(value = "id") Long id, Model model) {
 
-		AccountRolesDto accountDto = accountService.getAccountRolesDtoById(id);
+		AccountRolesDTO accountDto = accountService.getAccountRolesDtoById(id);
 		List<Role> roleList = roleService.getRoles();
 		
 		model.addAttribute("account", accountDto);

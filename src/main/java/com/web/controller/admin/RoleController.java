@@ -1,7 +1,7 @@
 package com.web.controller.admin;
 
 import com.domain.security.role.Role;
-import com.web.dto.RoleDto;
+import com.web.dto.RoleDTO;
 import com.web.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,14 +30,14 @@ public class RoleController {
 	@GetMapping(value="/admin/roles/register")
 	public String viewRoles(Model model) {
 
-		RoleDto role = new RoleDto();
+		RoleDTO role = new RoleDTO();
 		model.addAttribute("role", role);
 
 		return "admin/role/detail";
 	}
 
 	@PostMapping(value="/admin/roles")
-	public String createRole(RoleDto roleDto) {
+	public String createRole(RoleDTO roleDto) {
 
 
 		Role role = roleDto.toEntity();
@@ -51,7 +51,7 @@ public class RoleController {
 
 		Role role = roleService.getRole(Long.parseLong(id));
 
-		RoleDto roleDto = role.toDto();
+		RoleDTO roleDto = role.toDto();
 		model.addAttribute("role", roleDto);
 
 		return "admin/role/detail";

@@ -6,9 +6,7 @@ import com.domain.common.Address;
 import com.domain.common.BaseTimeEntity;
 import com.domain.security.role.Role;
 import com.domain.common.State;
-import com.web.dto.AccountRolesDto;
-import com.domain.security.role.Role;
-import com.web.dto.AccountRolesDto;
+import com.web.dto.account.AccountRolesDTO;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -81,8 +79,8 @@ public abstract class Account extends BaseTimeEntity {
       this.password = null;
    }
 
-   public AccountRolesDto toAccountRolesDto(){
-      return AccountRolesDto.builder()
+   public AccountRolesDTO toAccountRolesDto(){
+      return AccountRolesDTO.builder()
               .id(accountId.toString())
               .loginId(loginId)
               .email(email)

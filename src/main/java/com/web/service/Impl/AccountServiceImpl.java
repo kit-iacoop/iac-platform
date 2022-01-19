@@ -2,10 +2,9 @@ package com.web.service.Impl;
 
 import com.domain.account.Account;
 import com.domain.account.AccountRepository;
-import com.domain.account.Company;
 import com.domain.security.role.Role;
 import com.domain.security.role.RoleRepository;
-import com.web.dto.AccountRolesDto;
+import com.web.dto.account.AccountRolesDTO;
 import com.web.dto.PendingCompanyDTO;
 import com.web.service.AccountService;
 import lombok.AllArgsConstructor;
@@ -51,7 +50,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     @Override
-    public AccountRolesDto getAccountRolesDtoById(Long id) {
+    public AccountRolesDTO getAccountRolesDtoById(Long id) {
 
         Account account = getAccountById(id);
 
@@ -78,7 +77,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     @Override
-    public void updateAccountRoles(AccountRolesDto accountRolesDto) {
+    public void updateAccountRoles(AccountRolesDTO accountRolesDto) {
         Account account = getAccountById(Long.parseLong(accountRolesDto.getId()));
 
         if(accountRolesDto.getRoles() != null){

@@ -3,7 +3,7 @@ package com.domain.security.role;
 
 import com.domain.account.Account;
 import com.domain.security.resource.Resource;
-import com.web.dto.RoleDto;
+import com.web.dto.RoleDTO;
 import lombok.*;
 
 import javax.persistence.*;
@@ -48,8 +48,8 @@ public class Role implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "accountRoles")
     private Set<Account> accounts = new HashSet<>();
 
-    public RoleDto toDto() {
-        return RoleDto.builder()
+    public RoleDTO toDto() {
+        return RoleDTO.builder()
                 .id(id.toString())
                 .roleName(roleName)
                 .roleDesc(roleDesc)
