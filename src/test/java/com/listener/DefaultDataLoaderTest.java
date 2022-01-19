@@ -2,6 +2,7 @@ package com.listener;
 
 import com.domain.account.AccountRepository;
 import com.domain.account.Company;
+import com.domain.common.State;
 import com.domain.security.role.RoleRepository;
 import com.web.controller.HomeController;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,7 +50,7 @@ public class DefaultDataLoaderTest { //TODO : 테스트 코드 최신화
             when(accountRepository.encryptedSave(any(Company.class))).thenAnswer(AdditionalAnswers.returnsFirstArg());
 
             //when
-            Company company = (Company)defaultDataLoader.createCompanyIfNotFound(loginId, password);
+            Company company = (Company)defaultDataLoader.createCompanyIfNotFound(loginId, password, State.PENDING);
 
             //then
             assertEquals(loginId, company.getLoginId());

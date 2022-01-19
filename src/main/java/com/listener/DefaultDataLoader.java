@@ -89,7 +89,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
     public void loadAccountData(){
         createAdminIfNotFound("ADMIN", "1234");
-        createCompanyIfNotFound("COMPANY0", "1234");
+        createCompanyIfNotFound("COMPANY0", "1234", State.NORMAL);
+        createCompanyIfNotFound("PENDING_COMPANY0", "1234", State.PENDING);
         createProfessorIfNotFound("PROFESSOR0", "1234");
         createOfficerIfNotFound("OFFICER0", "1234");
         createStudentIfNotFound("STUDENT0", "1234");
@@ -185,7 +186,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     }
 
     @Transactional
-    public Company createCompanyIfNotFound(final String loginId, final String password) {
+    public Company createCompanyIfNotFound(final String loginId, final String password, final State state) {
 
         // 중복 검사
         Account account = accountRepository.findByLoginId(loginId);
@@ -204,7 +205,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
                 .password(password)
                 .email("test0@test.com")
                 .telephone("010-0000-0000")
-                .status(State.NORMAL)
+                .status(state)
                 .businessRegistrationNumber(123456789L)
                 .employeeNumber(1234L)
                 .sector("섹터섹터섹터")
