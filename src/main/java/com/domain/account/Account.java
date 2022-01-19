@@ -48,7 +48,7 @@ public abstract class Account extends BaseTimeEntity {
    @Column(name = "PASSWORD", nullable = false)
    private String password;
 
-   @Column(name = "EMAIL", nullable = false, unique = true)
+   @Column(name = "EMAIL", nullable = false)
    private String email;
 
    @Column(name = "TELEPHONE", nullable = true)
