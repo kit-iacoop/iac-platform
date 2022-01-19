@@ -43,7 +43,7 @@ public class CopyrightController {
         }
         Map<String, Object> models = new HashMap<>();
         models.put("copyrightDtos", dtoList);
-        models.put("page", page.getPageNumber());
+        models.put("page", page.getPageNumber() + 1);
         models.put("maxPage", dtoList.getTotalPages());
         models.put("key", key);
         model.addAllAttributes(models);
