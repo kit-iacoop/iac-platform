@@ -1,5 +1,6 @@
 package com.web.controller.copyright;
 
+import com.domain.common.CopyrightType;
 import com.web.dto.CopyrightDTO;
 import com.web.service.CopyrightService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,8 +66,8 @@ public class CopyrightController {
 
     @GetMapping("/new")
     public String newCopyrightForm(Model model) {
-        model.addAttribute("copyrightDto", new CopyrightDTO());
-
+        model.addAttribute("copyrightDTO", new CopyrightDTO());     // form th:object에 필요
+        model.addAttribute("copyrightTypes", CopyrightType.values());
         return "copyright/copyright-form";
     }
 
