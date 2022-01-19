@@ -92,8 +92,12 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     }
 
     private void loadResourceData() {
-        createResourceIfNotFound(0L, "/*", "url", "", 1000, "ROLE_USER", "ROLE_ADMIN", "ROLE_COMPANY" );
-        createResourceIfNotFound(1L, "/admin/*", "url", "", 0, "ROLE_ADMIN");
+        createResourceIfNotFound("/*", "url", "", 1000, "ROLE_USER", "ROLE_ADMIN", "ROLE_COMPANY" );
+        createResourceIfNotFound("/admin/*", "url", "", 0, "ROLE_ADMIN");
+        createResourceIfNotFound("/company/*", "url", "", 1, "ROLE_COMPANY");
+        createResourceIfNotFound("/professor/*", "url", "", 2, "ROLE_PROFESSOR");
+        createResourceIfNotFound("/officer/*", "url", "", 3, "ROLE_OFFICER");
+        createResourceIfNotFound("/student/*", "url", "", 4, "ROLE_STUDENT");
     }
 
 
@@ -116,7 +120,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     }
 
 
-    private Resource createResourceIfNotFound(Long id, String name, String type, String httpMethod, Integer priority, String... roleNames) {
+    public Resource createResourceIfNotFound(String name, String type, String httpMethod, Integer priority, String... roleNames) {
 
         // 중복 검사
         Resource resource = resourceRepository.findByResourceNameAndHttpMethod(name, httpMethod);
@@ -126,7 +130,6 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
         // 생성
         resource = Resource.builder()
-                .id(id)
                 .resourceName(name)
                 .resourceType(type)
                 .httpMethod(httpMethod)
@@ -229,7 +232,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
         // 생성
         account = Professor.builder()
-                .name("test company name")
+                .name("test Professor name")
                 .birthDate(LocalDate.now())
                 .address(new Address("test city", "test street", 123456L))
                 .loginId(loginId)
@@ -263,7 +266,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
         // 생성
         account = Officer.builder()
-                .name("test company name")
+                .name("test Officer name")
                 .birthDate(LocalDate.now())
                 .address(new Address("test city", "test street", 123456L))
                 .loginId(loginId)
@@ -299,7 +302,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
         // 생성
         account = Student.builder()
-                .name("test company name")
+                .name("test Student name")
                 .birthDate(LocalDate.now())
                 .address(new Address("test city", "test street", 123456L))
                 .loginId(loginId)

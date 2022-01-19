@@ -40,7 +40,7 @@ public class Role implements Serializable {
     private String roleDesc;
 
     @Builder.Default
-    @OrderBy("ordernum desc")
+    @OrderBy("order_num desc")
     @ManyToMany(mappedBy = "roleSet", fetch = FetchType.LAZY)
     private Set<Resource> resourceSet = new LinkedHashSet<>();
 
