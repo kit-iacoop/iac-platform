@@ -22,14 +22,15 @@ public class AccountRepositoryCustomImpl implements AccountRepositoryCustom {
 
     @Override
     public Account encryptedSave(Account account) {
-        account.changePassword(passwordEncoder.encode(account.getPassword()));
+
+        if (!account.getPassword().startsWith("{bcrypt}")){ // 암호화 되어있지 않다면 암호화
+            account.changePassword(passwordEncoder.encode(account.getPassword()));
+        }
 
         if(account.getAccountId() == null){
             em.persist(account);
-
         } else{
-            log.warn("encryptedSave()로는 UPDATE가 불가능합니다.");
-
+            em.merge(account);
         }
 
         return account;
