@@ -66,10 +66,10 @@ public class Copyright extends BaseTimeEntity {
     @Column(name = "MAINTENANCE_STATE")
     private String maintenanceState;
 
-    @OneToMany(mappedBy = "copyright")
+    @OneToMany(mappedBy = "copyright", cascade = CascadeType.PERSIST, orphanRemoval = true)
     List<ApplicationRegistration> applicationRegistrationList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "copyright")
+    @OneToMany(mappedBy = "copyright", cascade = CascadeType.PERSIST, orphanRemoval = true)
     List<ParticipantCopyright> participantCopyrightList = new ArrayList<>();
 
     public void setAccount(Account accountId) {

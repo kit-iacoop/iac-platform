@@ -4,12 +4,14 @@ import com.domain.copyright.Copyright;
 import com.domain.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 
 @NoArgsConstructor
 @Getter
+@SuperBuilder
 @Entity
 @Table(name = "APPLICATION_REGISTRATION")
 public class ApplicationRegistration extends BaseTimeEntity {
@@ -30,4 +32,13 @@ public class ApplicationRegistration extends BaseTimeEntity {
 
     @Column(name = "TYPE") // 출원, 등록 두가지만 있어서 enum으로 빼던가 해도 될 듯. 일단 String
     private String type;
+
+    public void setCopyright(Copyright copyright) {
+        if (this.copyright != null) {
+            this.copyright.getApplicationRegistrationList().remove(this);
+        }
+        this.copyright = copyright;
+        copyright.getApplicationRegistrationList().add(this);
+    }
+
 }

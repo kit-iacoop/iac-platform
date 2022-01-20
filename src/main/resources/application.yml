@@ -25,7 +25,7 @@ logging:
 
 property:
   default-data-loader: #테스트 데이터 로더 (true : 활성화, false : 비활성화)
-    activate:  true
+    activate: true
 
 ---
 
@@ -57,7 +57,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
 
 ---
 

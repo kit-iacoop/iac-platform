@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/copyright/copyright-form.css">
+</head>
+
+<body>
+    <div>
+        <form th:action="@{/copyrights/list}" th:object="${copyrightDTO}" method="post">
+            <table>
+                <tr>
+                    <th><label for="copyrightType">구분</label></th>
+                    <td>
+                        <select th:field="*{copyrightType}" id="copyrightType">
+                            <option th:each="type : ${copyrightTypes}" th:value="${type}" th:text="${type.getName()}">
+                            </option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="copyrightName">특허명</label></th>
+                    <td>
+                        <input type="text" th:field="*{copyrightName}" id="copyrightName">
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="maintenanceState">상태</label></th>
+                    <td>
+                        <input type="text" th:field="*{maintenanceState}" id="maintenanceState">
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="cooperation">공동</label></th>
+                    <td>
+                        <input type="text" th:field="*{cooperation}" id="cooperation">
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="declarationYear">공개년도</label></th>
+                    <td>
+                        <input type="text" th:field="*{declarationYear}" id="declarationYear">
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="keyword">키워드</label></th>
+                    <td>
+                        <input type="text" th:field="*{keyword}" id="keyword">
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="description">설명</label></th>
+                    <td>
+                        <textarea th:field="*{description}" id="description" cols="30" rows="5"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="representor">대표자</label></th>
+                    <td>
+                        <input type="text" th:field="*{representor}" id="representor">
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="professorName">교수</label></th>
+                    <td>
+                        <input type="text" th:field="*{professorName}" id="professorName">
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="professorDept">교수 전공</label></th>
+                    <td>
+                        <input type="text" th:field="*{professorDept}" id="professorDept">
+                    </td>
+                </tr>
+                <!--            <tr>-->
+                <!--                <th><label for="cooperation">교수 기여율</label></th>-->
+                <!--                <td>-->
+                <!--                    <input type="text" th:field="*{cooperation}" id="cooperation">-->
+                <!--                </td>-->
+                <!--            </tr>-->
+                <tr>
+                    <th><label for="applicationDate">출원일자</label></th>
+                    <td>
+                        <input type="date" th:field="*{applicationDate}" id="applicationDate">
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="applicationNumber">출원번호</label></th>
+                    <td>
+                        <input type="text" th:field="*{applicationNumber}" id="applicationNumber"
+                            pattern="\d{2}-?\d{4}-?\d{7}">
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="registrationDate">등록일자</label></th>
+                    <td>
+                        <input type="date" th:field="*{registrationDate}" id="registrationDate">
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="registrationNumber">등록번호</label></th>
+                    <td>
+                        <input type="text" th:field="*{registrationNumber}" id="registrationNumber"
+                            pattern="\d{2}-?\d{7}(?:-?\d{4})?">
+                    </td>
+                </tr>
+            </table>
+            <a href="/copyrights/list" class="button">목록으로</a>
+            <button type="submit">등록</button>
+        </form>
+    </div>
+</body>
+
+</html>
