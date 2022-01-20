@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "ANNUAL_FEE_REQUEST", schema = "iac_platform-test")
+@Table(name = "ANNUAL_FEE_REQUEST")
 public class AnnualFeeRequest extends BaseTimeEntity {
 
    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

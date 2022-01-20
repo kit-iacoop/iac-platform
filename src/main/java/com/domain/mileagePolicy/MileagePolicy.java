@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "MILEAGE_POLICY", schema = "iac_platform-test")
+@Table(name = "MILEAGE_POLICY")
 public class MileagePolicy extends BaseTimeEntity {
    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name = "MILEAGE_POLICY_ID", nullable = false, unique = true)
