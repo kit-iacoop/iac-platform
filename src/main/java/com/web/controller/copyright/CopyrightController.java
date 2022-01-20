@@ -73,8 +73,9 @@ public class CopyrightController {
 
     @PostMapping("/list")
     public String insertNewCopyright(@RequestBody @ModelAttribute @Valid CopyrightDTO copyrightDTO, Model model) {
+        copyrightService.insertNewCopyright(copyrightDTO);
 
-        return "copyright/";
+        return "redirect:/copyrights/list";
     }
 
 }
