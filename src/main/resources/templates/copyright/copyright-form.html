@@ -59,6 +59,14 @@
                     </td>
                 </tr>
                 <tr>
+                    <th><label for="accountId">소유자</label></th>
+                    <td>
+                        <input type="hidden" th:field="*{accountId}" id="accountId">
+                        <input type="text" id="accountName" readonly>
+                        <button type="button" id="accountIdSearch" onclick="window.open('/accounts/search', '_blank', 'width=500,height=400');">검색</button>
+                    </td>
+                </tr>
+                <tr>
                     <th><label for="representor">대표자</label></th>
                     <td>
                         <input type="text" th:field="*{representor}" id="representor">

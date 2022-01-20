@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <div>
+            <input type="text" id="search-key">
+            <button type="button" id="search-btn">검색</button>
+        </div>
+        <div id="account-info-list-wrapper">
+            <ul th:fragment="account-search-result">
+                <li class="account-info" th:each="dto : ${accountDtos}">
+                    <input type="hidden" class="accountId" th:value="${dto.accountId}">
+                    <div th:if="${dto.dtype.equals('S')}">[학생]</div>
+                    <div th:if="${dto.dtype.equals('P')}">[교수]</div>
+                    <div th:if="${dto.dtype.equals('C')}">[기업]</div>
+                    <div class="accountName" th:text="${dto.name}"></div>
+                    <div th:text="${dto.department}"></div>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script th:inline="javascript">
+        $(function () {
+            $('#search-btn').click(() => {
+                $.ajax({
+                    method: "GET",
+                    url: "/accounts/search-result",
+                    data: { key: $('#search-key').val() }
+                })
+                    .done(function (fragment) {
+                        $('#account-info-list-wrapper').replaceWith(fragment);
+                        $('.account-info').click(function () {
+                            if (window.opener != null && !window.opener.closed) {
+                                let idInput = $(this).find(".accountId").val();
+                                let nameInput = $(this).find(".accountName").text();
+                                $("#accountId", opener.document).val(idInput);
+                                $("#accountName", opener.document).val(nameInput);
+                            }
+                            window.close();
+                        });
+                    });
+            });
+        });
+    </script>
+</body>
+
+</html>
