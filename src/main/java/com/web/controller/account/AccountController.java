@@ -91,4 +91,22 @@ public class AccountController {
         return mav;
     }
 
+    @GetMapping(path ={"company/mypage/update", "professor/mypage/update", "officer/mypage/update" })
+    public ModelAndView updateInformation(ModelAndView mav){
+
+        Account account = ((AccountContext)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccount();
+
+        mav.addObject("account", account.toInformationDTO());
+
+        if(account instanceof Company){
+            mav.setViewName("company/mypage/update-info");
+        } else if (account instanceof Professor){
+            mav.setViewName("professor/mypage/update-info");
+        } else if (account instanceof Officer){
+            mav.setViewName("officer/mypage/update-info");
+        }
+
+        return mav;
+    }
+
 }
