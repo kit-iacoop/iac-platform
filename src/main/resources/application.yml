@@ -33,18 +33,16 @@ spring:
       on-profile: hyun
 
   datasource:
+    url: jdbc:h2:tcp://localhost/~/test
     driver-class-name: org.h2.Driver
     username: sa
-    password: password
+    password:
 
 #    url: jdbc:mariadb://20.78.149.80:3306/iac_platform-test?characterEncoding=UTF-8&serverTimezone=UTC
 #    username: root
 #    password: 211224
 
   jpa:
-#    properties:
-#      hibernate:
-#        globally_quoted_identifiers: true #h2 예약어 회피용
     hibernate:
       ddl-auto: update
 
