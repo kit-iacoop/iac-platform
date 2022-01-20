@@ -88,9 +88,8 @@ public class CopyrightServiceImpl implements CopyrightService {
                 .participantCopyrightList(new ArrayList<>())
                 .build();
 
-        Account account = accountRepository.findAll().get(0);
-
-        copyright.setAccount(account);
+        Optional<Account> maybeAccount = accountRepository.findById(Long.valueOf(dto.getAccountId()));
+        maybeAccount.ifPresent(copyright::setAccount);
 
         ApplicationRegistration applic = ApplicationRegistration.builder()
                 .issueDate(LocalDate.parse(dto.getApplicationDate()))

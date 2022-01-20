@@ -15,6 +15,10 @@ public class RequestController {
     public RequestController(RequestService requestService) {
         this.requestService = requestService;
     }
-    
 
+    @GetMapping({"/"})
+    public String redirectList() {
+
+        return "request page";
+    }
 }
