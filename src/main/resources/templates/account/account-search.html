@@ -12,6 +12,11 @@
 <body>
     <div>
         <div>
+            <select id="dtype-select">
+                <option value="S">학생</option>
+                <option value="P">교수</option>
+                <option value="C">기업</option>
+            </select>
             <input type="text" id="search-key">
             <button type="button" id="search-btn">검색</button>
         </div>
@@ -34,7 +39,10 @@
                 $.ajax({
                     method: "GET",
                     url: "/accounts/search-result",
-                    data: { key: $('#search-key').val() }
+                    data: {
+                        key: $('#search-key').val(),
+                        dtype: $('#dtype-select').val()
+                    }
                 })
                     .done(function (fragment) {
                         $('#account-info-list-wrapper').replaceWith(fragment);
