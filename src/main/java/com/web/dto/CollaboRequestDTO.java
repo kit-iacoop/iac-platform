@@ -26,6 +26,7 @@ public class CollaboRequestDTO {
     private String description;
     private String status;
     private String requestType;
+    private String budget;
 
     // nullable true column list
     private String projectId;

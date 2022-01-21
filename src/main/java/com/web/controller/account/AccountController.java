@@ -8,12 +8,14 @@ import com.domain.account.Officer;
 import com.domain.account.Professor;
 import com.domain.common.State;
 import com.security.service.AccountContext;
+import com.web.dto.account.AccountInformationDTO;
 import com.web.dto.account.CompanyInformationDTO;
 import com.web.dto.account.OfficerInformationDTO;
 import com.web.dto.account.ProfessorInformationDTO;
 import com.web.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
@@ -24,8 +26,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 @AllArgsConstructor
 @Slf4j
@@ -36,14 +40,14 @@ public class AccountController {
     private final Common common;
 
     @GetMapping("/register/company")
-    public ModelAndView registerCompany(){
+    public ModelAndView registerCompany() {
         return new ModelAndView("register/company").addObject(new CompanyInformationDTO());
     }
 
     @PostMapping("/register/company")
-    public ModelAndView registerCompany(@Validated @ModelAttribute CompanyInformationDTO companyDTO, Errors errors, ModelAndView mav){
+    public ModelAndView registerCompany(@Validated @ModelAttribute CompanyInformationDTO companyDTO, Errors errors, ModelAndView mav) {
 
-        if(errors.hasErrors()) {
+        if (errors.hasErrors()) {
 
             LinkedList<LinkedHashMap<String, String>> errorList = common.refineErrors(errors);
             log.warn("COMPANY 회원가입 예외 : " + errorList.toString()); //FE 필터 거치지 않았으므로 WARN으로 기록
@@ -64,7 +68,7 @@ public class AccountController {
     }
 
     @GetMapping("officer/family-company/screen")
-    public ModelAndView companyRegistrationScreen(ModelAndView mav){
+    public ModelAndView companyRegistrationScreen(ModelAndView mav) {
 
         mav.addObject("companyDtos", accountService.getAllPendingCompanies());
         mav.setViewName("officer/family-company-accept/register");
@@ -74,21 +78,30 @@ public class AccountController {
 
 
     @GetMapping(path = {"officer/mypage", "company/mypage", "professor/mypage"})
-    public ModelAndView mypage(ModelAndView mav){
+    public ModelAndView mypage(ModelAndView mav) {
 
-        Account account = ((AccountContext)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccount();
+        Account account = ((AccountContext) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccount();
 
         mav.addObject("account", account.toInformationDTO());
 
-        if(account instanceof Company){
+        if (account instanceof Company) {
             mav.setViewName("company/mypage/inquire-info");
-        } else if (account instanceof Professor){
+        } else if (account instanceof Professor) {
             mav.setViewName("professor/mypage/inquire-info");
-        } else if (account instanceof Officer){
+        } else if (account instanceof Officer) {
             mav.setViewName("officer/mypage/inquire-info");
         }
 
         return mav;
     }
 
+    @GetMapping("account/search")
+    public String accountSearch() {
+        return "account/account-search";
+    }
+
+    @GetMapping("account/search-result")
+    public List<Account> accountSearchResult() {
+        return new ArrayList<>();
+    }
 }

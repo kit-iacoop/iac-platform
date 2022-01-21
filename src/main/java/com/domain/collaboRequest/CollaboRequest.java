@@ -40,8 +40,8 @@ public class CollaboRequest extends BaseTimeEntity {
 
     // 예산관련 필드. BudgetDetail 클래스에서 String으로 관리하므로 통일함
     // 생각해보니 BudgetDetail 필드에서 해당 내용 관리중이므로 정규화를 위해 제거
-    // @Column(name = "BUDGET", nullable = false)
-    // private String budget;
+    @Column(name = "BUDGET", nullable = false)
+    private String budget;
 
     @Column(name = "TERM", nullable = false)
     private String term;
