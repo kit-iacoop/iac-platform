@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/css/copyright/copyright-form.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -25,25 +26,25 @@
                 <tr>
                     <th><label for="copyrightName">특허명</label></th>
                     <td>
-                        <input type="text" th:field="*{copyrightName}" id="copyrightName">
+                        <input type="text" th:field="*{copyrightName}" id="copyrightName" required>
                     </td>
                 </tr>
                 <tr>
                     <th><label for="maintenanceState">상태</label></th>
                     <td>
-                        <input type="text" th:field="*{maintenanceState}" id="maintenanceState">
+                        <input type="text" th:field="*{maintenanceState}" id="maintenanceState" required>
                     </td>
                 </tr>
                 <tr>
                     <th><label for="cooperation">공동</label></th>
                     <td>
-                        <input type="text" th:field="*{cooperation}" id="cooperation">
+                        <input type="text" th:field="*{cooperation}" id="cooperation" required>
                     </td>
                 </tr>
                 <tr>
                     <th><label for="declarationYear">공개년도</label></th>
                     <td>
-                        <input type="text" th:field="*{declarationYear}" id="declarationYear">
+                        <input type="text" th:field="*{declarationYear}" id="declarationYear" pattern="\d{4}" required>
                     </td>
                 </tr>
                 <tr>
@@ -69,38 +70,38 @@
                 <tr>
                     <th><label for="representor">대표자</label></th>
                     <td>
-                        <input type="text" th:field="*{representor}" id="representor">
+                        <input type="text" th:field="*{representor}" id="representor" required>
                     </td>
                 </tr>
                 <tr>
                     <th><label for="professorName">교수</label></th>
                     <td>
-                        <input type="text" th:field="*{professorName}" id="professorName">
+                        <input type="text" th:field="*{professorName}" id="professorName" required>
                     </td>
                 </tr>
                 <tr>
                     <th><label for="professorDept">교수 전공</label></th>
                     <td>
-                        <input type="text" th:field="*{professorDept}" id="professorDept">
+                        <input type="text" th:field="*{professorDept}" id="professorDept" required>
                     </td>
                 </tr>
                 <!--            <tr>-->
                 <!--                <th><label for="cooperation">교수 기여율</label></th>-->
                 <!--                <td>-->
-                <!--                    <input type="text" th:field="*{cooperation}" id="cooperation">-->
+                <!--                    <input type="text" th:field="*{cooperation}" id="cooperation" required>-->
                 <!--                </td>-->
                 <!--            </tr>-->
                 <tr>
                     <th><label for="applicationDate">출원일자</label></th>
                     <td>
-                        <input type="date" th:field="*{applicationDate}" id="applicationDate">
+                        <input type="date" th:field="*{applicationDate}" id="applicationDate" required>
                     </td>
                 </tr>
                 <tr>
                     <th><label for="applicationNumber">출원번호</label></th>
                     <td>
                         <input type="text" th:field="*{applicationNumber}" id="applicationNumber"
-                            pattern="\d{2}-?\d{4}-?\d{7}">
+                            pattern="\d{2}-?\d{4}-?\d{7}" required>
                     </td>
                 </tr>
                 <tr>
@@ -121,6 +122,17 @@
             <button type="submit">등록</button>
         </form>
     </div>
+
+    <script>
+        $(function () {
+            $('form').submit(function () {
+                if (!$('#accountName').val()) {
+                    alert('소유자(?)를 선택해야 합니다.');
+                    return false;
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>
