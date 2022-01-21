@@ -11,10 +11,11 @@
     <tbody>
         <tr th:each="dto : ${annualFeeRequestDTO}">
             <td th:text="${dto.year}"></td>
-            <td th:text="${dto.gradePolicy.grade}"></td>
+            <td th:text="${dto.grade}"></td>
             <td th:text="${dto.cash}"></td>
             <td th:text="${dto.point}"></td>
-            <td th:text="${dto.confirmDate}"></td>
+<!--            <td th:text="${dto.confirmDate}"></td>-->
+            <td th:text="${#temporals.formatISO(dto.confirmDate)}"></td>
         </tr>
         </tbody>
 </table>
