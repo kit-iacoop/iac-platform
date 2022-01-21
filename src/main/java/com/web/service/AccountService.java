@@ -1,11 +1,8 @@
 package com.web.service;
 
 import com.domain.account.Account;
-import com.web.dto.account.AccountRolesDTO;
+import com.web.dto.account.*;
 import com.web.dto.PendingCompanyDTO;
-import com.web.dto.account.CompanyInformationDTO;
-import com.web.dto.account.ProfessorInformationDTO;
-import com.web.dto.account.StudentInformationDTO;
 
 import java.util.List;
 
@@ -24,10 +21,10 @@ public interface AccountService {
 
     public List<PendingCompanyDTO> getAllPendingCompanies();
 
-    public List<CompanyInformationDTO> findCompanyContainName(String name);
+    public List<AccountSearchDTO> findCompanyContainName(String name);
 
-    public List<ProfessorInformationDTO> findProfessorContainName(String name);
+    public List<AccountSearchDTO> findProfessorContainName(String name);
 
-    public List<StudentInformationDTO> findStudentContainName(String name);
+    public List<AccountSearchDTO> findStudentContainName(String name);
 }
 

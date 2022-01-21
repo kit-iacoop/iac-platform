@@ -8,10 +8,7 @@ import com.domain.account.Officer;
 import com.domain.account.Professor;
 import com.domain.common.State;
 import com.security.service.AccountContext;
-import com.web.dto.account.AccountInformationDTO;
-import com.web.dto.account.CompanyInformationDTO;
-import com.web.dto.account.OfficerInformationDTO;
-import com.web.dto.account.ProfessorInformationDTO;
+import com.web.dto.account.*;
 import com.web.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,11 +16,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
@@ -95,13 +91,28 @@ public class AccountController {
         return mav;
     }
 
-    @GetMapping("account/search")
+    @GetMapping("accounts/search")
     public String accountSearch() {
         return "account/account-search";
     }
 
-    @GetMapping("account/search-result")
-    public List<Account> accountSearchResult() {
-        return new ArrayList<>();
+    @GetMapping("accounts/search-result")
+    public String accountSearchResult(@RequestParam String key, @RequestParam String dtype, Model model) {
+
+        List<AccountSearchDTO> list = new ArrayList<>();
+        if (dtype.equals("S")) {
+            list = accountService.findStudentContainName(key);
+        } else if (dtype.equals("P")) {
+            list = accountService.findProfessorContainName(key);
+        } else if (dtype.equals("C")) {
+            list = accountService.findCompanyContainName(key);
+        }
+        model.addAttribute("accountDtos", list);
+        for (AccountSearchDTO dto : list
+        ) {
+            System.out.println(dto.getAccountId());
+            System.out.println(dto.getName());
+        }
+        return "account/account-search :: account-search-result";
     }
 }

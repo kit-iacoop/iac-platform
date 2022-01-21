@@ -96,17 +96,17 @@ public class CopyrightServiceImpl implements CopyrightService {
                 .number(dto.getApplicationNumber())
                 .type("출원")
                 .build();
-
-        ApplicationRegistration regist = ApplicationRegistration.builder()
-                .issueDate(LocalDate.parse(dto.getRegistrationDate()))
-                .number(dto.getRegistrationNumber())
-                .type("등록")
-                .build();
-
         applic.setCopyright(copyright);
-        regist.setCopyright(copyright);
+
+        if (!dto.getRegistrationDate().isEmpty() & !dto.getRegistrationNumber().isEmpty()) {
+            ApplicationRegistration regist = ApplicationRegistration.builder()
+                    .issueDate(LocalDate.parse(dto.getRegistrationDate()))
+                    .number(dto.getRegistrationNumber())
+                    .type("등록")
+                    .build();
+            regist.setCopyright(copyright);
+        }
 
         copyrightRepository.save(copyright);
-
     }
 }
