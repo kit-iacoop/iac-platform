@@ -45,7 +45,7 @@
                     }
                 })
                     .done(function (fragment) {
-                        $('#account-info-list-wrapper').replaceWith(fragment);
+                        $('#account-info-list-wrapper').empty().append(fragment);
                         $('.account-info').click(function () {
                             if (window.opener != null && !window.opener.closed) {
                                 let idInput = $(this).find(".accountId").val();
