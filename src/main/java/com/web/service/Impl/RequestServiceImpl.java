@@ -8,10 +8,7 @@ import com.web.dto.CollaboRequestDTO;
 import com.web.service.RequestService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class RequestServiceImpl implements RequestService {
@@ -30,40 +27,20 @@ public class RequestServiceImpl implements RequestService {
         List<CollaboRequestDTO> list = new ArrayList<>();
 
         for (CollaboRequest request : all) {
-            Map<String, String> profList = new HashMap<>();
-            Map<String, String> techList = new HashMap<>();
-
-            List<CollaboRequestProfessor> professors = request.getCollaboRequestProfessorList();
-            List<CollaboRequestTechnique> techniques = request.getCollaboRequestTechniqueList();
-
-            for (CollaboRequestProfessor e : professors) {
-                profList.put(String.valueOf(e.getProfessor().getAccountId()), e.getProfessor().getName());
-            }
-            for (CollaboRequestTechnique e : techniques) {
-                techList.put(String.valueOf(e.getFieldCategory().getFieldCategoryId()), e.getFieldCategory().getCategoryName());
-            }
-
-            list.add(CollaboRequestDTO.builder()
-                    .collaboRequestId(String.valueOf(request.getCollaboRequestId()))
-                    .officerId(String.valueOf(request.getOfficer().getAccountId()))
-                    .officerName(request.getOfficer().getName())
-                    .companyId(String.valueOf(request.getCompany().getAccountId()))
-                    .companyName(request.getCompany().getName())
-                    .title(request.getTitle())
-                    .term(request.getTerm())
-                    .expireDate(String.valueOf(request.getExpireDate()))
-                    .description(request.getDescription())
-                    .status(String.valueOf(request.getStatus()))
-                    .requestType(String.valueOf(request.getRequestType()))
-                    .budget(request.getBudget())
-                    .projectId(String.valueOf(request.getProjectId()))
-                    .collaboRequestProfessorList(profList)
-                    .collaboRequestTechniqueList(techList)
-                    .meetingList(request.getMeetingList())
-                    .build()
-            );
+            list.add(new CollaboRequestDTO(request));
         }
 
         return list;
+    }
+
+    @Override
+    public CollaboRequestDTO getRequestDetail(String id) {
+        Optional<CollaboRequest> byId = collaboRequestRepository.findById(Long.valueOf(id));
+
+        CollaboRequestDTO dto = null;
+        if (byId.isPresent()) {
+            dto = new CollaboRequestDTO(byId.get());
+        }
+        return dto;
     }
 }

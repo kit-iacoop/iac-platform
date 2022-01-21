@@ -8,4 +8,6 @@ public interface RequestService {
 
     List<CollaboRequestDTO> findAllRequest();
 
+    CollaboRequestDTO getRequestDetail(String id);
+
 }

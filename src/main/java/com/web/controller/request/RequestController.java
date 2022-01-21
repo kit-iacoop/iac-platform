@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -32,5 +33,11 @@ public class RequestController {
         List<CollaboRequestDTO> allRequest = requestService.findAllRequest();
         model.addAttribute("collaboRequestDtos", allRequest);
         return "request/request-list";
+    }
+
+    @GetMapping("/list/{id}")
+    public String requestDetail(@PathVariable String id, Model model) {
+        model.addAttribute("requestDto", requestService.getRequestDetail(id));
+        return "request/request-detail";
     }
 }
