@@ -1,12 +1,10 @@
 package com.domain.account;
 
 import com.domain.collaboRequest.CollaboRequest;
-import com.domain.annualFeeRequest.AnnualFeeRequest;
+import com.domain.annualFeeRequest.AnnualFee;
 import com.domain.mileageRequest.MileageRequest;
 import com.domain.university.University;
 
-import com.web.dto.account.AccountInformationDTO;
-import com.web.dto.account.CompanyInformationDTO;
 import com.web.dto.account.OfficerInformationDTO;
 import lombok.Builder;
 import lombok.Getter;
@@ -40,7 +38,7 @@ public class Officer extends Account {
 
     @Builder.Default
     @OneToMany(mappedBy = "officer", fetch = FetchType.LAZY)
-    private List<AnnualFeeRequest> annualFeeRequest = new LinkedList<>();
+    private List<AnnualFee> annualFee = new LinkedList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "officer")

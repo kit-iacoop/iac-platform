@@ -4,7 +4,7 @@ import com.domain.collaboRequest.CollaboRequest;
 import com.domain.companyAnnualSales.CompanyAnnualSales;
 import com.domain.item.Item;
 import com.domain.project.Project;
-import com.domain.annualFeeRequest.AnnualFeeRequest;
+import com.domain.annualFeeRequest.AnnualFee;
 import com.domain.companyMileage.CompanyMileage;
 import com.domain.mileageRequest.MileageRequest;
 
@@ -18,7 +18,6 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -88,7 +87,7 @@ public class Company extends Account {
 
     @Builder.Default
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-    private List<AnnualFeeRequest> annualFeeRequest = new LinkedList<>();
+    private List<AnnualFee> annualFee = new LinkedList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MENTOR_PROFESSOR")
