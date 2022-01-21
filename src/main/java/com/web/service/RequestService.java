@@ -2,9 +2,10 @@ package com.web.service;
 
 import com.web.dto.CollaboRequestDTO;
 
-import java.util.Optional;
+import java.util.List;
 
 public interface RequestService {
 
-    
+    List<CollaboRequestDTO> findAllRequest();
+
 }

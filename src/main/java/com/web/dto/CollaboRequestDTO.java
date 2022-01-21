@@ -1,12 +1,11 @@
 package com.web.dto;
 
 
-import com.domain.collaboRequestProfessor.CollaboRequestProfessor;
-import com.domain.collaboRequestTechnique.CollaboRequestTechnique;
 import com.domain.meeting.Meeting;
 import lombok.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Setter
 @Getter
@@ -19,7 +18,9 @@ public class CollaboRequestDTO {
     // not null column list
     private String collaboRequestId;
     private String officerId;
+    private String officerName;
     private String companyId;
+    private String companyName;
     private String title;
     private String term;
     private String expireDate;
@@ -31,8 +32,9 @@ public class CollaboRequestDTO {
     // nullable true column list
     private String projectId;
 
-    private List<CollaboRequestProfessor> collaboRequestProfessorList;
-    private List<CollaboRequestTechnique> collaboRequestTechniqueList;
+    // Key - pk / Value - name(value)
+    private Map<String, String> collaboRequestProfessorList;
+    private Map<String, String> collaboRequestTechniqueList;
 
     private List<Meeting> meetingList;
 }
