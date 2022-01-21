@@ -63,7 +63,7 @@ public class AccountController {
         return mav;
     }
 
-    @GetMapping("officer/family-company/screen")
+    @GetMapping("officer/family-company/registration-screening")
     public ModelAndView companyRegistrationScreen(ModelAndView mav){
 
         mav.addObject("companyDtos", accountService.getAllPendingCompanies());
