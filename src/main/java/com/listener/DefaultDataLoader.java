@@ -1,8 +1,12 @@
 package com.listener;
 
 import com.domain.account.*;
+import com.domain.annualFeeRequest.AnnualFee;
+import com.domain.annualFeeRequest.AnnualFeeRepository;
 import com.domain.common.Address;
 import com.domain.common.State;
+import com.domain.gradePolicy.GradePolicy;
+import com.domain.gradePolicy.GradePolicyRepository;
 import com.domain.security.resource.Resource;
 import com.domain.security.resource.ResourceRepository;
 import com.domain.security.role.Role;
@@ -19,6 +23,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.awt.*;
 import java.time.LocalDate;
 
 
@@ -44,6 +50,14 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     @Autowired
     private UrlFilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource;
 
+    @Autowired
+    private AnnualFeeRepository annualFeeRepository;
+
+    @Autowired
+    private GradePolicyRepository gradePolicyRepository;
+
+
+
     @Override
     @Transactional
     public void onApplicationEvent(final ContextRefreshedEvent event) {
@@ -53,9 +67,66 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
             loadRoleData();
             loadAccountData();
             loadResourceData();
+            loadGradePolicyData();
+            loadAnnualFeeData();
         }
 
     }
+
+
+
+    private void loadAnnualFeeData(){
+        createAnnualFeeIfNotFound(1L, 2021, 9000L, 1000L, "BRONZE",State.APPROVED, LocalDate.now());
+        createAnnualFeeIfNotFound(2L, 2022, 40000L, 10000L, "SILVER",State.PENDING, null);
+
+    }
+
+
+    private void loadGradePolicyData(){
+        createGradePolicyIfNotFound("BRONZE", 10000L);
+        createGradePolicyIfNotFound("SILVER", 50000L);
+        createGradePolicyIfNotFound("GOLD", 100000L);
+
+    }
+
+    private AnnualFee createAnnualFeeIfNotFound(Long annualFeeId, Integer year,  Long cash, Long point, String grade, State paymentStatus, LocalDate confirmDate){
+        // 중복 검사
+        AnnualFee annualFee = annualFeeRepository.findByAnnualFeeId(annualFeeId);
+        if(annualFee != null){
+            return annualFee;
+        }
+        // 생성 & 삽입
+
+
+        return annualFeeRepository.save(AnnualFee.builder()
+                .annualFeeId(annualFeeId)
+                .officer((Officer) accountRepository.findByLoginId("OFFICER0"))
+                .company((Company) accountRepository.findByLoginId("COMPANY0"))
+                .gradePolicy(gradePolicyRepository.findByGrade(grade))
+                .year(year)
+                .cash(cash)
+                .point(point)
+                .paymentStatus(paymentStatus)
+                .confirmDate(confirmDate)
+                .build());
+    }
+
+    private GradePolicy createGradePolicyIfNotFound(String grade, Long price){
+        // 중복 검사
+        GradePolicy gradePolicy = gradePolicyRepository.findByGrade(grade);
+        if(gradePolicy != null){
+            return gradePolicy;
+        }
+
+        // 생성 & 삽입
+        gradePolicy = GradePolicy.builder()
+                .grade(grade)
+                .price(price)
+                .build();
+
+        return gradePolicyRepository.save(gradePolicy);
+    }
+
 
     private void loadUniversityData(){
         createUniversityIfNotFound("금오공과대학교");
