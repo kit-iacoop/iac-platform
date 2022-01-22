@@ -2,9 +2,11 @@ package com.domain.account;
 
 import com.domain.collaboRequest.CollaboRequest;
 import com.domain.annualFeeRequest.AnnualFee;
+import com.domain.common.Address;
 import com.domain.mileageRequest.MileageRequest;
 import com.domain.university.University;
 
+import com.web.dto.account.AccountInformationDTO;
 import com.web.dto.account.OfficerInformationDTO;
 import lombok.Builder;
 import lombok.Getter;
