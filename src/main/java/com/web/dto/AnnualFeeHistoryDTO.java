@@ -1,5 +1,6 @@
 package com.web.dto;
 
+import com.domain.common.State;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -16,6 +17,7 @@ public class AnnualFeeHistoryDTO {
     private String grade;
     private Long cash;
     private Long point;
+    private State paymentStatus;
     private LocalDate confirmDate;
 
 }
