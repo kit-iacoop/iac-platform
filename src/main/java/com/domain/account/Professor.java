@@ -1,6 +1,7 @@
 package com.domain.account;
 
 import com.domain.collaboRequestProfessor.CollaboRequestProfessor;
+import com.domain.common.Address;
 import com.domain.projectProfessor.ProjectProfessor;
 import com.domain.fieldInterest.FieldInterest;
 import com.domain.university.University;
@@ -14,6 +15,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -76,6 +79,18 @@ public class Professor extends Account {
 
  @Override
  public Account updateInformation(AccountInformationDTO accInfDto) {
-  return null;
+
+  ProfessorInformationDTO accDto = (ProfessorInformationDTO) accInfDto;
+
+  name = accDto.getName();
+  birthDate = LocalDate.parse(accDto.getBirthDate(), DateTimeFormatter.ISO_DATE);
+  password = accDto.getPassword();
+  email = accDto.getEmail();
+  telephone = accDto.getTelephone();
+  officeLocation = accDto.getOfficeLocation();
+  department = accDto.getDepartment();
+  address = new Address(accDto.getCity(), accDto.getStreet(), accDto.getZipCode());
+
+  return this;
  }
 }

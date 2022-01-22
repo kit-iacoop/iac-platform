@@ -2,6 +2,7 @@ package com.domain.account;
 
 import com.domain.collaboRequest.CollaboRequest;
 import com.domain.annualFeeRequest.AnnualFeeRequest;
+import com.domain.common.Address;
 import com.domain.mileageRequest.MileageRequest;
 import com.domain.university.University;
 
@@ -76,9 +77,10 @@ public class Officer extends Account {
         birthDate = LocalDate.parse(accDto.getBirthDate(), DateTimeFormatter.ISO_DATE);
         password = accDto.getPassword();
         email = accDto.getEmail();
-
+        telephone = accDto.getTelephone();
+        officeLocation = accDto.getOfficeLocation();
+        address = new Address(accDto.getCity(), accDto.getStreet(), accDto.getZipCode());
 
         return this;
-
     }
 }

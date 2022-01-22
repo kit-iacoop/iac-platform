@@ -144,6 +144,7 @@ public class Company extends Account {
         companyType = accDto.getCompanyType();
         sector = accDto.getSector();
         employeeNumber = accDto.getEmployeeNumber();
+        telephone = accDto.getTelephone();
         businessRegistrationNumber = accDto.getBusinessRegistrationNumber();
         subscriptionDate = LocalDate.parse(accDto.getSubscriptionDate(), DateTimeFormatter.ISO_DATE);
 
