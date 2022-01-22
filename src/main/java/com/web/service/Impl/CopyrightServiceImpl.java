@@ -36,31 +36,34 @@ public class CopyrightServiceImpl implements CopyrightService {
     @Override
     public Page<CopyrightDTO> findCopyright(Pageable pageable) {
         Page<Copyright> list = copyrightRepository.findAll(pageable);
-        List<CopyrightDTO> dtoList = new ArrayList<>();
 
-        for (Copyright e : list) {
-            dtoList.add(new CopyrightDTO(e));
-        }
+        //        List<CopyrightDTO> dtoList = new ArrayList<>();
+//
+//        for (Copyright e : list) {
+//            dtoList.add(new CopyrightDTO(e));
+//        }
+//
+//        int start = (int) pageable.getOffset();
+//        int end = Math.min((start + pageable.getPageSize()), dtoList.size());
 
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), dtoList.size());
-
-        return new PageImpl<>(dtoList.subList(start, end), pageable, dtoList.size());
+//        return new PageImpl<>(dtoList.subList(start, end), pageable, dtoList.size());
+        return list.map(CopyrightDTO::new);
     }
 
     @Override
     public Page<CopyrightDTO> findCopyrightByKey(Pageable pageable, String title) {
         Page<Copyright> list = copyrightRepository.findByTitleContaining(pageable, title);
-        List<CopyrightDTO> dtoList = new ArrayList<>();
-        for (Copyright e : list) {
-            dtoList.add(new CopyrightDTO(e));
-        }
-
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), dtoList.size());
-
-
-        return new PageImpl<>(dtoList.subList(start, end), pageable, dtoList.size());
+//        List<CopyrightDTO> dtoList = new ArrayList<>();
+//        for (Copyright e : list) {
+//            dtoList.add(new CopyrightDTO(e));
+//        }
+//
+//        int start = (int) pageable.getOffset();
+//        int end = Math.min((start + pageable.getPageSize()), dtoList.size());
+//
+//
+//        return new PageImpl<>(dtoList.subList(start, end), pageable, dtoList.size());
+        return list.map(CopyrightDTO::new);
     }
 
     @Override
