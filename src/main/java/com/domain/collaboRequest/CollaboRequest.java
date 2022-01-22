@@ -54,6 +54,9 @@ public class CollaboRequest extends BaseTimeEntity {
     @Column(name = "DESCRIPTION", nullable = false)
     private String description;
 
+    @Column(name = "CAPSTONE", nullable = false)
+    private String isCapstone;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "STATUS", nullable = false)
     private State status;

@@ -52,5 +52,4 @@ public class RequestController {
 
         return "redirect:/requests/list";
     }
-
 }

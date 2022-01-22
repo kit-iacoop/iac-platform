@@ -7,6 +7,7 @@ import java.util.List;
 public interface RequestService {
 
     List<CollaboRequestDTO> findAllRequest();
+    List<CollaboRequestDTO> findOpenRequest();
 
     CollaboRequestDTO getRequestDetail(String id);
 

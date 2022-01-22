@@ -21,15 +21,11 @@ public class RequestServiceImpl implements RequestService {
     private final CollaboRequestRepository collaboRequestRepository;
     private final OfficerRepository officerRepository;
     private final CompanyRepository companyRepository;
-    private final ProfessorRepository professorRepository;
-    private final FieldCategoryRepository fieldCategoryRepository;
 
-    public RequestServiceImpl(CollaboRequestRepository collaboRequestRepository, OfficerRepository officerRepository, CompanyRepository companyRepository, ProfessorRepository professorRepository, FieldCategoryRepository fieldCategoryRepository) {
+    public RequestServiceImpl(CollaboRequestRepository collaboRequestRepository, OfficerRepository officerRepository, CompanyRepository companyRepository) {
         this.collaboRequestRepository = collaboRequestRepository;
         this.officerRepository = officerRepository;
         this.companyRepository = companyRepository;
-        this.professorRepository = professorRepository;
-        this.fieldCategoryRepository = fieldCategoryRepository;
     }
 
 
@@ -37,13 +33,14 @@ public class RequestServiceImpl implements RequestService {
     public List<CollaboRequestDTO> findAllRequest() {
 
         List<CollaboRequest> all = collaboRequestRepository.findAll();
-        List<CollaboRequestDTO> list = new ArrayList<>();
+        return all.stream().map(CollaboRequestDTO::new).collect(Collectors.toList());
+    }
 
-        for (CollaboRequest request : all) {
-            list.add(new CollaboRequestDTO(request));
-        }
+    @Override
+    public List<CollaboRequestDTO> findOpenRequest() {
 
-        return list;
+        List<CollaboRequest> all = collaboRequestRepository.findAllByRequestType(RequestType.OPEN);
+        return all.stream().map(CollaboRequestDTO::new).collect(Collectors.toList());
     }
 
     @Override

@@ -32,19 +32,20 @@ public class CollaboRequestDTO {
     private String status;
     private String requestType;
     private String budget;
+    private String isCapstone;
 
     // nullable true column list
-    private String projectId;
+    private String projectId = null;
 
 
     // presentation layer 에서 사용되지 않는 정보
-    private List<CollaboRequestProfessor> collaboRequestProfessorList;
-    private List<CollaboRequestTechnique> collaboRequestTechniqueList;
-    private List<Meeting> meetingList;
+    private List<CollaboRequestProfessor> collaboRequestProfessorList = null;
+    private List<CollaboRequestTechnique> collaboRequestTechniqueList = null;
+    private List<Meeting> meetingList = null;
 
     // Key - pk / Value - name(value)
-    private Map<String, String> professorList;
-    private Map<String, String> techniqueList;
+    private Map<String, String> professorList = null;
+    private Map<String, String> techniqueList = null;
 
 
     public CollaboRequestDTO(CollaboRequest collaboRequest) {
@@ -61,24 +62,32 @@ public class CollaboRequestDTO {
         this.status = String.valueOf(collaboRequest.getStatus());
         this.requestType = String.valueOf(collaboRequest.getRequestType());
         this.budget = collaboRequest.getBudget();
+        this.isCapstone = collaboRequest.getIsCapstone();
+
         if (collaboRequest.getProjectId() != null) {
             this.projectId = String.valueOf(collaboRequest.getProjectId().getProjectId());
         }
 
-        collaboRequestProfessorList = collaboRequest.getCollaboRequestProfessorList();
-        collaboRequestTechniqueList = collaboRequest.getCollaboRequestTechniqueList();
-
-        professorList = new HashMap<>();
-        techniqueList = new HashMap<>();
-
-        List<CollaboRequestProfessor> requestProfessors = collaboRequest.getCollaboRequestProfessorList();
-        List<CollaboRequestTechnique> requestTechniques = collaboRequest.getCollaboRequestTechniqueList();
-        for (CollaboRequestProfessor e : requestProfessors) {
-            professorList.put(String.valueOf(e.getProfessor().getAccountId()), e.getProfessor().getName());
+        if (collaboRequest.getMeetingList() != null) {
+            this.meetingList = collaboRequest.getMeetingList();
         }
-        for (CollaboRequestTechnique e : requestTechniques) {
-            techniqueList.put(String.valueOf(e.getFieldCategory().getFieldCategoryId()), e.getFieldCategory().getCategoryName());
+
+        if (collaboRequest.getCollaboRequestProfessorList() != null) {
+            collaboRequestProfessorList = collaboRequest.getCollaboRequestProfessorList();
+            professorList = new HashMap<>();
+            List<CollaboRequestProfessor> requestProfessors = collaboRequest.getCollaboRequestProfessorList();
+            for (CollaboRequestProfessor e : requestProfessors) {
+                professorList.put(String.valueOf(e.getProfessor().getAccountId()), e.getProfessor().getName());
+            }
+        }
+
+        if (collaboRequest.getCollaboRequestTechniqueList() != null) {
+            collaboRequestTechniqueList = collaboRequest.getCollaboRequestTechniqueList();
+            techniqueList = new HashMap<>();
+            List<CollaboRequestTechnique> requestTechniques = collaboRequest.getCollaboRequestTechniqueList();
+            for (CollaboRequestTechnique e : requestTechniques) {
+                techniqueList.put(String.valueOf(e.getFieldCategory().getFieldCategoryId()), e.getFieldCategory().getCategoryName());
+            }
         }
     }
-
 }
