@@ -73,4 +73,9 @@ public class Professor extends Account {
           .build();
 
  }
+
+ @Override
+ public Account updateInformation(AccountInformationDTO accInfDto) {
+  return null;
+ }
 }

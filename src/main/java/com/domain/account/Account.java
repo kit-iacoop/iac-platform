@@ -116,4 +116,5 @@ public abstract class Account extends BaseTimeEntity {
       role.getAccounts().remove(this);
    }
 
+    public abstract Account updateInformation(AccountInformationDTO accInfDto);
 }

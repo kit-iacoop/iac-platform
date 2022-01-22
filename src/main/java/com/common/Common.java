@@ -1,5 +1,7 @@
 package com.common;
 
+import com.security.service.AccountContext;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
@@ -18,5 +20,7 @@ public class Common {
         });
         return errorList;
     }
-
+    public AccountContext getAccountContext(){
+        return (AccountContext)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
 }

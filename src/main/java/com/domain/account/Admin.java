@@ -20,4 +20,9 @@ public class Admin extends Account {
     public AccountInformationDTO toInformationDTO() {
         return null;
     }
+
+    @Override
+    public Account updateInformation(AccountInformationDTO accInfDto) {
+        return null;
+    }
 }

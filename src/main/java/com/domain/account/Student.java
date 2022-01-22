@@ -50,4 +50,9 @@ public class Student extends Account {
                 .department(department)
                 .build();
     }
+
+    @Override
+    public Account updateInformation(AccountInformationDTO accInfDto) {
+        return null;
+    }
 }
