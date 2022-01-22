@@ -5,7 +5,7 @@ import com.domain.common.Address;
 import com.domain.companyAnnualSales.CompanyAnnualSales;
 import com.domain.item.Item;
 import com.domain.project.Project;
-import com.domain.annualFeeRequest.AnnualFee;
+import com.domain.annualFee.AnnualFee;
 import com.domain.companyMileage.CompanyMileage;
 import com.domain.mileageRequest.MileageRequest;
 
@@ -21,7 +21,6 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,7 +28,7 @@ import java.util.List;
 @Getter
 @SuperBuilder
 
-@ToString(callSuper=true, exclude = {"temporaryAddress", "collaboRequest", "mileageRequest", "itemList", "projectList", "mileageList","annualFeeRequest","mentorProfessor", "annualSalesList"})
+@ToString(callSuper=true, exclude = {"temporaryAddress", "collaboRequest", "mileageRequest", "itemList", "projectList", "mileageList","annualFee","mentorProfessor", "annualSalesList"})
 
 @DiscriminatorValue("C")
 @Table(name = "COMPANY")

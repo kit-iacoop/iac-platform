@@ -1,6 +1,6 @@
 package com.domain.gradePolicy;
 
-import com.domain.annualFeeRequest.AnnualFee;
+import com.domain.annualFee.AnnualFee;
 import com.domain.common.BaseTimeEntity;
 
 

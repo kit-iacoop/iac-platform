@@ -1,7 +1,7 @@
 package com.domain.account;
 
 import com.domain.collaboRequest.CollaboRequest;
-import com.domain.annualFeeRequest.AnnualFee;
+import com.domain.annualFee.AnnualFee;
 import com.domain.common.Address;
 import com.domain.mileageRequest.MileageRequest;
 import com.domain.university.University;

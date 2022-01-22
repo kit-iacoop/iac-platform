@@ -1,4 +1,4 @@
-package com.domain.annualFeeRequest;
+package com.domain.annualFee;
 
 import com.domain.account.Company;
 import com.domain.account.Officer;

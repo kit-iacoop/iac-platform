@@ -1,8 +1,8 @@
 package com.listener;
 
 import com.domain.account.*;
-import com.domain.annualFeeRequest.AnnualFee;
-import com.domain.annualFeeRequest.AnnualFeeRepository;
+import com.domain.annualFee.AnnualFee;
+import com.domain.annualFee.AnnualFeeRepository;
 import com.domain.common.Address;
 import com.domain.common.State;
 import com.domain.gradePolicy.GradePolicy;
@@ -19,12 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.*;
 import java.time.LocalDate;
 
 
