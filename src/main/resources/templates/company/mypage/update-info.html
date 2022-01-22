@@ -7,7 +7,7 @@
     </head>
     <body>
         <section>
-            <form th:action="@{/company/mypage}" th:object="${accountDTO}" method="post">
+            <form th:action="@{/company/mypage/update}" th:object="${account}" method="post">
                 <div class="task-contents">
                         <th:block th:replace="fragments/mypage/common-info-update :: commonInfoUpdateFragment"></th:block>
                         <th:block th:replace="fragments/mypage/company-info-update :: companyInfoUpdateFragment"></th:block>

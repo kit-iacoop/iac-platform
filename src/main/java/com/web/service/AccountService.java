@@ -1,9 +1,13 @@
 package com.web.service;
 
 import com.domain.account.Account;
+import com.web.dto.account.AccountInformationDTO;
 import com.web.dto.account.AccountRolesDTO;
 import com.web.dto.PendingCompanyDTO;
+import com.web.dto.account.CompanyInformationDTO;
+import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface AccountService {
@@ -19,5 +23,7 @@ public interface AccountService {
     public List<Account> getAllAccounts();
 
     public List<PendingCompanyDTO>getAllPendingCompanies();
+
+    public ModelAndView updateAccountInformation(HttpServletRequest req, AccountInformationDTO accountDto, ModelAndView mav);
 }
 

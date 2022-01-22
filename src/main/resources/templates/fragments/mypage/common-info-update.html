@@ -53,13 +53,18 @@
             </script>
         <div class="common-info">
             <div class="member-info">
+                <label>아이디</label>
+                <input type="text" class="update-info" name="member_name" placeholder="" th:field="*{loginId}" readonly>
+            </div>
+        </div>
+            <div class="member-info">
                 <label>이름</label>
                 <input type="text" class="update-info" name="member_name" placeholder="" th:field="*{name}">
                 </div>
             </div>
             <div class="member-info">
                 <label>생일</label>
-                <input type="date" class="update-info" id="birthday" name="member_birthday" placeholder="" th:field="*{birthday}">
+                <input type="date" class="update-info" id="birthday" name="member_birthday" placeholder="" th:field="*{birthDate}">
             </div>
             <div class="search-address">
                 <div class="member-info">
