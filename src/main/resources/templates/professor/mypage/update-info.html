@@ -7,14 +7,13 @@
     </head>
     <body>
         <section>
+            <form th:action="@{/professor/mypage/update}" th:object="${account}" method="post">
                 <div class="task-contents">
-                    <form id="updateInfoForm" method="post">
                         <th:block th:replace="fragments/mypage/common-info-update :: commonInfoUpdateFragment"></th:block>
                         <th:block th:replace="fragments/mypage/professor-info-update :: professorInfoUpdateFragment"></th:block>
-                    </form>
                     <input type="submit" name value="수정" title="수정">
                 </div>
-            </div>
+            </form>
         </section>
     </body>
 </html>
