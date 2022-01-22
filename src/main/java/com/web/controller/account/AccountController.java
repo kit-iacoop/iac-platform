@@ -79,7 +79,7 @@ public class AccountController {
 
         mav.addObject("account", account.toInformationDTO());
 
-        mav.setViewName(common.getReqUrlPrefix(req) + "mypage/inquire-info");
+        mav.setViewName(common.getReqUrlPrefix(req) + "/mypage/inquire-info");
 
         return mav;
     }
@@ -90,6 +90,7 @@ public class AccountController {
         Account account = ((AccountContext)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccount();
 
         mav.addObject("account", account.toInformationDTO());
+
         mav.setViewName(common.getReqUrlPrefix(req) + "/mypage/update-info");
 
         return mav;

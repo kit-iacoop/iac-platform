@@ -29,11 +29,11 @@ public class Common {
 
         String uri = request.getRequestURI();
 
-        if(uri.startsWith("officer"))
+        if(uri.startsWith("/officer"))
             return "officer";
-        else if(uri.startsWith("company"))
+        else if(uri.startsWith("/company"))
             return "company";
-        else if(uri.startsWith("professor"))
+        else if(uri.startsWith("/professor"))
             return "professor";
 
 

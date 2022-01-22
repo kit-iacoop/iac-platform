@@ -7,6 +7,7 @@ import com.web.dto.PendingCompanyDTO;
 import com.web.dto.account.CompanyInformationDTO;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface AccountService {
@@ -23,6 +24,6 @@ public interface AccountService {
 
     public List<PendingCompanyDTO>getAllPendingCompanies();
 
-    public ModelAndView updateAccountInformation(AccountInformationDTO accountDto, ModelAndView mav);
+    public ModelAndView updateAccountInformation(HttpServletRequest req, AccountInformationDTO accountDto, ModelAndView mav);
 }
 

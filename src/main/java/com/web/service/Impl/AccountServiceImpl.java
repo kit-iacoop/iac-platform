@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.List;
@@ -37,7 +38,7 @@ public class AccountServiceImpl implements AccountService {
     
     @Transactional
     @Override
-    public ModelAndView updateAccountInformation(AccountInformationDTO accInfDto, ModelAndView mav) {
+    public ModelAndView updateAccountInformation(HttpServletRequest req, AccountInformationDTO accInfDto, ModelAndView mav) {
 
         // 입력된 id, pw
         String inputID = accInfDto.getLoginId();
@@ -52,7 +53,7 @@ public class AccountServiceImpl implements AccountService {
         // 실패 시 기존 창 유지
         if(!inputID.equals(originalID) || !passwordEncoder.matches(inputPW, originalPW)){
             mav.addObject("account", accInfDto);
-            mav.setViewName("company/mypage/update-info");
+            mav.setViewName(common.getReqUrlPrefix(req) + "/mypage/update-info");
             return mav;
         }
 
@@ -74,7 +75,7 @@ public class AccountServiceImpl implements AccountService {
         SecurityContextHolder.getContext().setAuthentication(authenticationToken);
 
         //조회페이지로 리다이렉트
-        mav.setViewName("redirect:/company/mypage");
+        mav.setViewName("redirect:/"+ common.getReqUrlPrefix(req) + "/mypage");
 
         return mav;
     }

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
@@ -33,7 +34,7 @@ public class CompanyController {
     private final Common common;
 
     @PostMapping("company/mypage/update")
-    public ModelAndView updateInformation(@Validated @ModelAttribute CompanyInformationDTO accInfDto, Errors errors, ModelAndView mav){
+    public ModelAndView updateInformation(@Validated @ModelAttribute CompanyInformationDTO accInfDto, Errors errors, ModelAndView mav, HttpServletRequest req){
 
         if(errors.hasErrors()) {    // Validation 통과 못할 시
             LinkedList<LinkedHashMap<String, String>> errorList = common.refineErrors(errors);
@@ -42,7 +43,7 @@ public class CompanyController {
             return mav;
         }
 
-        accountService.updateAccountInformation(accInfDto, mav);
+        accountService.updateAccountInformation(req, accInfDto, mav);
 
         return mav;
     }
