@@ -30,7 +30,7 @@ import java.time.format.DateTimeFormatter;
 
 public class OfficerInformationDTO extends AccountInformationDTO{
 
-    @NotBlank
+//    @NotBlank
     private String university;
 
     private String officeLocation;

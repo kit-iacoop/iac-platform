@@ -23,14 +23,13 @@ import java.time.format.DateTimeFormatter;
 
 public class StudentInformationDTO extends AccountInformationDTO{
 
-
-    @NotBlank
+//    @NotBlank
     private String university;
 
-    @NotBlank
+//    @NotBlank
     private String department;
 
-    @NotBlank
+//    @NotBlank
     private Long studentNumber;
 
     public Student toEntity(){

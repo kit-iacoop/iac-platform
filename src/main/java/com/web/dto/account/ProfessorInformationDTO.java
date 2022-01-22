@@ -30,12 +30,12 @@ import java.time.format.DateTimeFormatter;
 public class ProfessorInformationDTO extends AccountInformationDTO{
 
 
-    @NotBlank
+//    @NotBlank
     private String university;
 
     private String officeLocation;
 
-    @NotBlank
+//    @NotBlank
     private String department;
 
 

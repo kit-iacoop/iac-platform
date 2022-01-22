@@ -18,27 +18,27 @@ import java.time.format.DateTimeFormatter;
 
 public class CompanyInformationDTO extends AccountInformationDTO {
 
-    @Size(min=1, max=50)
-    @Positive
-    @NotBlank
+//    @Size(min=1, max=50)
+//    @Positive
+//    @NotBlank
     private Long businessRegistrationNumber;
 
-    @Size(min=1, max=7)
-    @Positive
+//    @Size(min=1, max=7)
+//    @Positive
     private Long employeeNumber;
 
-    @Size(min=2, max=10)
-    @NotEmpty
+//    @Size(min=2, max=10)
+//    @NotEmpty
     private String companyType;
 
-    @Size(min=2, max=100)
-    @NotEmpty
+//    @Size(min=2, max=100)
+//    @NotEmpty
     private String sector;
 
-    @Size(min=1, max=100)
+//    @Size(min=1, max=100)
     private String owner;
 
-    @NotEmpty
+//    @NotEmpty
     private String subscriptionDate;
 
 
