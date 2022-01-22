@@ -5,6 +5,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
@@ -22,5 +23,20 @@ public class Common {
     }
     public AccountContext getAccountContext(){
         return (AccountContext)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+    public String getReqUrlPrefix(HttpServletRequest request){
+
+        String uri = request.getRequestURI();
+
+        if(uri.startsWith("officer"))
+            return "officer";
+        else if(uri.startsWith("company"))
+            return "company";
+        else if(uri.startsWith("professor"))
+            return "professor";
+
+
+        return null;
     }
 }
