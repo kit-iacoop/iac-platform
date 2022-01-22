@@ -9,8 +9,6 @@ import com.domain.account.Professor;
 import com.domain.common.State;
 import com.security.service.AccountContext;
 import com.web.dto.account.CompanyInformationDTO;
-import com.web.dto.account.OfficerInformationDTO;
-import com.web.dto.account.ProfessorInformationDTO;
 import com.web.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
@@ -74,19 +73,25 @@ public class AccountController {
 
 
     @GetMapping(path = {"officer/mypage", "company/mypage", "professor/mypage"})
-    public ModelAndView mypage(ModelAndView mav){
+    public ModelAndView mypage(HttpServletRequest req, ModelAndView mav){
 
         Account account = ((AccountContext)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccount();
 
         mav.addObject("account", account.toInformationDTO());
 
-        if(account instanceof Company){
-            mav.setViewName("company/mypage/inquire-info");
-        } else if (account instanceof Professor){
-            mav.setViewName("professor/mypage/inquire-info");
-        } else if (account instanceof Officer){
-            mav.setViewName("officer/mypage/inquire-info");
-        }
+        mav.setViewName(common.getReqUrlPrefix(req) + "/mypage/inquire-info");
+
+        return mav;
+    }
+
+    @GetMapping(path ={"company/mypage/update", "professor/mypage/update", "officer/mypage/update" })
+    public ModelAndView updateInformation(HttpServletRequest req, ModelAndView mav){
+
+        Account account = ((AccountContext)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccount();
+
+        mav.addObject("account", account.toInformationDTO());
+
+        mav.setViewName(common.getReqUrlPrefix(req) + "/mypage/update-info");
 
         return mav;
     }

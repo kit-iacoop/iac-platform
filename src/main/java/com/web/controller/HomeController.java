@@ -1,10 +1,20 @@
 package com.web.controller;
 
+import com.common.Common;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
+@AllArgsConstructor
+@Slf4j
 @Controller
+
 public class HomeController {
+
+    private final Common common;
 
     @GetMapping(value="/")
     public String home() {
@@ -16,19 +26,9 @@ public class HomeController {
         return "register/main";
     }
 
-    @GetMapping("/company")
-    public String companyHome() {
-        return "company/main";
-    }
-
-    @GetMapping("/professor")
-    public String professorHome() {
-        return "professor/main";
-    }
-
-    @GetMapping("/officer")
-    public String officerHome() {
-        return "officer/main";
+    @GetMapping(path = {"/company", "/professor", "/officer"})
+    public String accountHome(HttpServletRequest req) {
+        return (common.getReqUrlPrefix(req) +"/main");
     }
 
 

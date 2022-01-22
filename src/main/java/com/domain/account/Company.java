@@ -1,6 +1,7 @@
 package com.domain.account;
 
 import com.domain.collaboRequest.CollaboRequest;
+import com.domain.common.Address;
 import com.domain.companyAnnualSales.CompanyAnnualSales;
 import com.domain.item.Item;
 import com.domain.project.Project;
@@ -9,6 +10,7 @@ import com.domain.companyMileage.CompanyMileage;
 import com.domain.mileageRequest.MileageRequest;
 
 import com.domain.common.State;
+import com.web.dto.account.AccountInformationDTO;
 import com.web.dto.account.CompanyInformationDTO;
 import lombok.Builder;
 import lombok.Getter;
@@ -18,6 +20,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -127,5 +130,26 @@ public class Company extends Account {
                 .owner(owner)
                 .subscriptionDate(subscriptionDate.toString())
                 .build();
+    }
+
+    @Override
+    public Account updateInformation(AccountInformationDTO accInfDto) {
+
+        CompanyInformationDTO accDto = (CompanyInformationDTO) accInfDto;
+
+        name = accDto.getName();
+        birthDate = LocalDate.parse(accDto.getBirthDate(), DateTimeFormatter.ISO_DATE);
+        password = accDto.getPassword();
+        email = accDto.getEmail();
+        address = new Address(accDto.getCity(), accDto.getStreet(), accDto.getZipCode());
+        owner = accDto.getOwner();
+        companyType = accDto.getCompanyType();
+        sector = accDto.getSector();
+        employeeNumber = accDto.getEmployeeNumber();
+        telephone = accDto.getTelephone();
+        businessRegistrationNumber = accDto.getBusinessRegistrationNumber();
+        subscriptionDate = LocalDate.parse(accDto.getSubscriptionDate(), DateTimeFormatter.ISO_DATE);
+
+        return this;
     }
 }

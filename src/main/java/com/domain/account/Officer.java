@@ -2,6 +2,7 @@ package com.domain.account;
 
 import com.domain.collaboRequest.CollaboRequest;
 import com.domain.annualFeeRequest.AnnualFeeRequest;
+import com.domain.common.Address;
 import com.domain.mileageRequest.MileageRequest;
 import com.domain.university.University;
 
@@ -14,6 +15,8 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -64,5 +67,20 @@ public class Officer extends Account {
                 .university(university.getUniversityName())
                 .officeLocation(officeLocation)
                 .build();
+    }
+
+    @Override
+    public Account updateInformation(AccountInformationDTO accInfDto) {
+        OfficerInformationDTO accDto = (OfficerInformationDTO) accInfDto;
+
+        name = accDto.getName();
+        birthDate = LocalDate.parse(accDto.getBirthDate(), DateTimeFormatter.ISO_DATE);
+        password = accDto.getPassword();
+        email = accDto.getEmail();
+        telephone = accDto.getTelephone();
+        officeLocation = accDto.getOfficeLocation();
+        address = new Address(accDto.getCity(), accDto.getStreet(), accDto.getZipCode());
+
+        return this;
     }
 }

@@ -34,7 +34,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
             throw new BadCredentialsException("BadCredentialsException");
         }
 
-        accountContext.getAccount().deletePassword(); // 보안을 위해 PW 삭제
+//        accountContext.getAccount().deletePassword(); // 보안을 위해 PW 삭제
 
         /* 여기서 추가 검증 절차 진행 가능 */
 

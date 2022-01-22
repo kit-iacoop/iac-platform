@@ -21,38 +21,38 @@ public abstract class AccountInformationDTO {
 
     protected Long accountId;
 
-    @Size(min=4, max=20)
-    @NotBlank
+//    @Size(min=4, max=20)
+//    @NotBlank
     protected String loginId;
 
-    @Size(min=8, max=20)
-    @NotBlank
+//    @Size(min=8, max=20)
+//    @NotBlank
     protected String password;
 
-    @Size(min=1, max=50)
-    @NotEmpty
+//    @Size(min=1, max=50)
+//    @NotEmpty
     protected String name;
 
     protected String birthDate;
 
-    @Size(min=5, max=5)
-    @NotBlank
+//    @Size(min=5, max=5)
+//    @NotBlank
     protected Long zipCode;
 
-    @Size(min=2, max=30)
-    @NotEmpty
+//    @Size(min=2, max=30)
+//    @NotEmpty
     protected String city;
 
-    @Size(min=2, max=200)
+//    @Size(min=2, max=200)
     protected String street;
 
-    @Size(min=5, max=200)
-    @NotBlank
-    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$")
+//    @Size(min=5, max=200)
+//    @NotBlank
+//    @Pattern(regexp = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$")
     protected String email;
 
-    @Size(min=8, max=15)
-    @NotBlank
+//    @Size(min=8, max=15)
+//    @NotBlank
     protected String telephone;
 
     protected State status;
