@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface ProfessorRepository extends JpaRepository<Professor, Long> {
     List<Professor> findByNameContains(String name);
+
 }

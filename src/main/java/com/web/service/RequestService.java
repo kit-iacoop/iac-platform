@@ -10,4 +10,6 @@ public interface RequestService {
 
     CollaboRequestDTO getRequestDetail(String id);
 
+    int insertNewRequest(CollaboRequestDTO collaboRequestDTO);
+
 }

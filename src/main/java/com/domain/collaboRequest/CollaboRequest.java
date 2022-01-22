@@ -11,6 +11,7 @@ import com.domain.common.RequestType;
 import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -20,6 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
+@SuperBuilder
 @Table(name = "COLLABO_REQUEST")
 public class CollaboRequest extends BaseTimeEntity {
     @Id

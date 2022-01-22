@@ -36,11 +36,16 @@ public class CollaboRequestDTO {
     // nullable true column list
     private String projectId;
 
-    // Key - pk / Value - name(value)
-    private Map<String, String> collaboRequestProfessorList;
-    private Map<String, String> collaboRequestTechniqueList;
 
+    // presentation layer 에서 사용되지 않는 정보
+    private List<CollaboRequestProfessor> collaboRequestProfessorList;
+    private List<CollaboRequestTechnique> collaboRequestTechniqueList;
     private List<Meeting> meetingList;
+
+    // Key - pk / Value - name(value)
+    private Map<String, String> professorList;
+    private Map<String, String> techniqueList;
+
 
     public CollaboRequestDTO(CollaboRequest collaboRequest) {
 
@@ -59,16 +64,21 @@ public class CollaboRequestDTO {
         if (collaboRequest.getProjectId() != null) {
             this.projectId = String.valueOf(collaboRequest.getProjectId().getProjectId());
         }
-        collaboRequestProfessorList = new HashMap<>();
-        collaboRequestTechniqueList = new HashMap<>();
+
+        collaboRequestProfessorList = collaboRequest.getCollaboRequestProfessorList();
+        collaboRequestTechniqueList = collaboRequest.getCollaboRequestTechniqueList();
+
+        professorList = new HashMap<>();
+        techniqueList = new HashMap<>();
 
         List<CollaboRequestProfessor> requestProfessors = collaboRequest.getCollaboRequestProfessorList();
         List<CollaboRequestTechnique> requestTechniques = collaboRequest.getCollaboRequestTechniqueList();
         for (CollaboRequestProfessor e : requestProfessors) {
-            collaboRequestProfessorList.put(String.valueOf(e.getProfessor().getAccountId()), e.getProfessor().getName());
+            professorList.put(String.valueOf(e.getProfessor().getAccountId()), e.getProfessor().getName());
         }
         for (CollaboRequestTechnique e : requestTechniques) {
-            collaboRequestTechniqueList.put(String.valueOf(e.getFieldCategory().getFieldCategoryId()), e.getFieldCategory().getCategoryName());
+            techniqueList.put(String.valueOf(e.getFieldCategory().getFieldCategoryId()), e.getFieldCategory().getCategoryName());
         }
     }
+
 }
