@@ -5,6 +5,7 @@
             <th scope="col" class=""><span>등급</span></th>
             <th scope="col" class=""><span>금액</span></th>
             <th scope="col" class=""><span>사용포인트</span></th>
+            <th scope="col" class=""><span>상태</span></th>
             <th scope="col" class=""><span>승인일</span></th>
         </tr>
     </thaed>
@@ -14,7 +15,7 @@
             <td th:text="${dto.grade}"></td>
             <td th:text="${dto.cash}"></td>
             <td th:text="${dto.point}"></td>
-<!--            <td th:text="${dto.confirmDate}"></td>-->
+            <td th:text="${dto.paymentStatus}"></td>
             <td th:text="${#temporals.formatISO(dto.confirmDate)}"></td>
         </tr>
         </tbody>
