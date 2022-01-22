@@ -4,7 +4,7 @@ package com.web.controller.annualfee;
 import com.domain.account.Company;
 import com.security.service.AccountContext;
 import com.web.dto.AnnualFeeHistoryDTO;
-import com.web.dto.account.CompanyInformationDTO;
+import com.web.dto.AnnualFeeInfoDTO;
 import com.web.service.AnnualFeeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +28,7 @@ public class AnnualFeeController {
     @GetMapping("/company/annual-fee/payment-application")
     public ModelAndView paymentApplication(ModelAndView mav){
 
+        mav.setViewName("company/annual-fee/payment");
 
         return mav;
     }
@@ -35,6 +36,8 @@ public class AnnualFeeController {
     @GetMapping("/officer/annual-fee/payment-screening")
     public ModelAndView paymentScreening(ModelAndView mav){
 
+        mav.setViewName("officer/family-company-accept/annual-fee-screen");
+        mav.addObject("annualFeeDTOs", annualFeeService.findAllInfoDto());
 
         return mav;
     }

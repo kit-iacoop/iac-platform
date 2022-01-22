@@ -31,11 +31,11 @@
         </tr>
     </thaed>
     <tbody>
-        <tr th:each="dto : ${annualFeeRequestDTO}">
-            <td><input type="checkbox" name="checkedValue" value="${dto.annualFeeRequestId}"/></td>
+        <tr th:each="dto : ${annualFeeDTOs}">
+            <td><input type="checkbox" name="checkedValue" value="${dto.annualFeeId}"/></td>
             <td th:text="${dto.year}"></td>
-            <td th:text="${dto.gradePolicy.grade}"></td>
-            <td th:text="${dto.company.name}"></td>
+            <td th:text="${dto.grade}"></td>
+            <td th:text="${dto.companyName}"></td>
             <td th:text="${dto.cash}"></td>
             <td th:text="${dto.point}"></td>
             <td th:text="${dto.paymentStatus}"></td>
