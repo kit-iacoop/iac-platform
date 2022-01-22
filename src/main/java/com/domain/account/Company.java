@@ -1,6 +1,7 @@
 package com.domain.account;
 
 import com.domain.collaboRequest.CollaboRequest;
+import com.domain.common.Address;
 import com.domain.companyAnnualSales.CompanyAnnualSales;
 import com.domain.item.Item;
 import com.domain.project.Project;
@@ -140,6 +141,7 @@ public class Company extends Account {
         birthDate = LocalDate.parse(accDto.getBirthDate(), DateTimeFormatter.ISO_DATE);
         password = accDto.getPassword();
         email = accDto.getEmail();
+        address = new Address(accDto.getCity(), accDto.getStreet(), accDto.getZipCode());
         owner = accDto.getOwner();
         companyType = accDto.getCompanyType();
         sector = accDto.getSector();
