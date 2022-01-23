@@ -14,8 +14,8 @@
     <style>
         .nav-link {
             padding: 0.75rem 1.75rem;
-            border-top-left-radius: 0.5rem!important;
-            border-top-right-radius: 0.5rem!important;
+            border-top-left-radius: 0.5rem !important;
+            border-top-right-radius: 0.5rem !important;
         }
     </style>
 </head>
@@ -25,19 +25,29 @@
         <div class="d-flex justify-content-between">
             <ul class="nav nav-tabs pr-3 mt-2 mb-1">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="/requests/list?type=all">전체</a>
+                    <a th:if="${type.equals('all')}" class="nav-link active" aria-current="page"
+                        href="/requests/list?type=all">전체</a>
+                    <a th:if="${!type.equals('all')}" class="nav-link" href="/requests/list?type=all">전체</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/requests/list?type=open">공개</a>
+                    <a th:if="${type.equals('open')}" class="nav-link active" aria-current="page"
+                        href="/requests/list?type=open">공개</a>
+                    <a th:if="${!type.equals('open')}" class="nav-link" href="/requests/list?type=open">공개</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/requests/list?type=close">비공개</a>
+                    <a th:if="${type.equals('close')}" class="nav-link active" aria-current="page"
+                        href="/requests/list?type=close">비공개</a>
+                    <a th:if="${!type.equals('close')}" class="nav-link" href="/requests/list?type=close">비공개</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/requests/list?type=my">나의 애로기술</a>
+                    <a th:if="${type.equals('my')}" class="nav-link active" aria-current="page"
+                        href="/requests/list?type=my">나의 애로기술</a>
+                    <a th:if="${!type.equals('my')}" class="nav-link" href="/requests/list?type=my">나의 애로기술</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/requests/list?type=capstone">캡스톤</a>
+                    <a th:if="${type.equals('capstone')}" class="nav-link active" aria-current="page"
+                        href="/requests/list?type=capstone">캡스톤</a>
+                    <a th:if="${!type.equals('capstone')}" class="nav-link" href="/requests/list?type=capstone">캡스톤</a>
                 </li>
             </ul>
             <form action="/requests/list" method="get" class="form-inline justify-content-end my-2">
