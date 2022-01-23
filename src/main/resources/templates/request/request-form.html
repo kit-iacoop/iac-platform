@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <form th:action="@{/requests/list}" th:object="${requestDto}" method="post">
+            <table>
+                <!-- <tr>
+                    <th><label for="accountId">요청 기업</label></th>
+                    <td>
+                        <input type="hidden" th:field="*{companyId}" id="accountId">
+                        <input type="text" id="accountName" readonly>
+                        <button type="button" id="accountIdSearch"
+                            onclick="window.open('/accounts/search', '_blank', 'width=500,height=400');">검색</button>
+                    </td>
+                </tr> -->
+
+                <input type="hidden" name="companyId" value="3">
+                <input type="hidden" name="officerId" value="5">
+                <input type="hidden" name="status" value="PENDING">
+                <tr>
+                    <th><label for="title">애로기술명</label></th>
+                    <td>
+                        <input type="text" th:field="*{title}" id="title" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="description">애로사항</label></th>
+                    <td>
+                        <textarea th:field="*{description}" id="description" cols="30" rows="5"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="term">프로젝트 기간</label></th>
+                    <td>
+                        <input type="text" th:field="*{term}" id="term" pattern="\d+" required>일
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="budget">예산</label></th>
+                    <td>
+                        <input type="text" th:field="*{budget}" id="budget" pattern="\d+" required>만원
+                    </td>
+                </tr>
+                <tr>
+                    <th><label>매칭 유형</label></th>
+                    <td>
+                        <input type="radio" id="OPEN" th:field="*{requestType}" value="OPEN" class="openclose">
+                        <label for="OPEN">공개</label><br>
+                        <input type="radio" id="CLOSE" th:field="*{requestType}" value="CLOSE" class="openclose">
+                        <label for="CLOSE">비공개 우선</label><br>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label>캡스톤 디자인 연계</label></th>
+                    <td>
+                        <input type="radio" id="isCapstone-true" th:field="*{isCapstone}" value="true">
+                        <label for="isCapstone-true">O</label><br>
+                        <input type="radio" id="isCapstone-false" th:field="*{isCapstone}" value="false">
+                        <label for="isCapstone-false">X</label><br>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="expireDate">공개 모집 기간</label></th>
+                    <td>
+                        <input type="date" th:field="*{expireDate}" id="expireDate">까지
+                    </td>
+                </tr>
+                <!-- <tr class="close-show">
+                    <th><label for="accountId">희망 교수</label></th>
+                    <td>
+                        <input type="hidden" th:field="*{professorId}" id="accountId">
+                        <input type="text" id="accountName" readonly>
+                        <button type="button" id="accountIdSearch"
+                            onclick="window.open('/accounts/search', '_blank', 'width=500,height=400');">검색</button>
+                    </td>
+                </tr> -->
+            </table>
+            <a href="/requests/list" class="btn">목록으로</a>
+            <button type="submit">등록</button>
+        </form>
+    </div>
+
+    <script>
+        $(function () {
+            // $('form').submit(function () {
+            //     if (!$('#accountName').val()) {
+            //         alert('소유자(?)를 선택해야 합니다.');
+            //         return false;
+            //     }
+            // });
+
+            $('.openclose').change(function () {
+                if ($('#OPEN').is(':checked')) {
+                    $('.close-show').hide();
+                    $('#accountId').prop('disabled', true);
+                } else {
+                    $('.close-show').show();
+                    $('#accountId').prop('disabled', false);
+                }
+            });
+
+            $('#OPEN').prop("checked", true);
+            $('.close-show').hide();
+            $('#accountId').prop('disabled', true);
+            $('#isCapstone-false').prop("checked", true);
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

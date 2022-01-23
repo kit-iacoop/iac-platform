@@ -1,6 +1,7 @@
 package com.domain.collaboRequest;
 
 import com.domain.account.Officer;
+import com.domain.common.RequestType;
 import com.domain.common.State;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -11,4 +12,6 @@ public interface CollaboRequestRepository extends JpaRepository<CollaboRequest, 
     List<CollaboRequest> findByOfficer(Officer officer);
 
     List<CollaboRequest> findByOfficerAndStatus(Officer officer, State status);
+
+    List<CollaboRequest> findAllByRequestType(RequestType requestType);
 }
