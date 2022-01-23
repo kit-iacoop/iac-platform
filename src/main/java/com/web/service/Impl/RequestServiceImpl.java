@@ -81,6 +81,7 @@ public class RequestServiceImpl implements RequestService {
                 .collaboRequestProfessorList(collaboRequestDTO.getCollaboRequestProfessorList())
                 .collaboRequestTechniqueList(collaboRequestDTO.getCollaboRequestTechniqueList())
                 .meetingList(collaboRequestDTO.getMeetingList())
+                .isCapstone(collaboRequestDTO.getIsCapstone())
                 .build();
 
         collaboRequestRepository.save(request);

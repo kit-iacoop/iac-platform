@@ -24,6 +24,10 @@
                             onclick="window.open('/accounts/search', '_blank', 'width=500,height=400');">검색</button>
                     </td>
                 </tr> -->
+
+                <input type="hidden" name="companyId" value="3">
+                <input type="hidden" name="officerId" value="5">
+                <input type="hidden" name="status" value="PENDING">
                 <tr>
                     <th><label for="title">애로기술명</label></th>
                     <td>
@@ -51,19 +55,28 @@
                 <tr>
                     <th><label>매칭 유형</label></th>
                     <td>
-                        <input type="radio" id="OPEN" name="requestType" value="OPEN" class="openclose" checked>
+                        <input type="radio" id="OPEN" th:field="*{requestType}" value="OPEN" class="openclose">
                         <label for="OPEN">공개</label><br>
-                        <input type="radio" id="CLOSE" name="requestType" value="CLOSE" class="openclose">
-                        <label for="CLOSE">비공개</label><br>
+                        <input type="radio" id="CLOSE" th:field="*{requestType}" value="CLOSE" class="openclose">
+                        <label for="CLOSE">비공개 우선</label><br>
                     </td>
                 </tr>
-                <tr class="open-show">
-                    <th><label for="expireDate">모집기간</label></th>
+                <tr>
+                    <th><label>캡스톤 디자인 연계</label></th>
+                    <td>
+                        <input type="radio" id="isCapstone-true" th:field="*{isCapstone}" value="true">
+                        <label for="isCapstone-true">O</label><br>
+                        <input type="radio" id="isCapstone-false" th:field="*{isCapstone}" value="false">
+                        <label for="isCapstone-false">X</label><br>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="expireDate">공개 모집 기간</label></th>
                     <td>
                         <input type="date" th:field="*{expireDate}" id="expireDate">까지
                     </td>
                 </tr>
-                <tr class="close-show" class="d-none">
+                <!-- <tr class="close-show">
                     <th><label for="accountId">희망 교수</label></th>
                     <td>
                         <input type="hidden" th:field="*{professorId}" id="accountId">
@@ -71,7 +84,7 @@
                         <button type="button" id="accountIdSearch"
                             onclick="window.open('/accounts/search', '_blank', 'width=500,height=400');">검색</button>
                     </td>
-                </tr>
+                </tr> -->
             </table>
             <a href="/requests/list" class="btn">목록으로</a>
             <button type="submit">등록</button>
@@ -88,15 +101,19 @@
             // });
 
             $('.openclose').change(function () {
-                console.log('hello');
                 if ($('#OPEN').is(':checked')) {
-                    $('.open-show').show();
                     $('.close-show').hide();
+                    $('#accountId').prop('disabled', true);
                 } else {
-                    $('.open-show').hide();
                     $('.close-show').show();
+                    $('#accountId').prop('disabled', false);
                 }
             });
+
+            $('#OPEN').prop("checked", true);
+            $('.close-show').hide();
+            $('#accountId').prop('disabled', true);
+            $('#isCapstone-false').prop("checked", true);
         });
     </script>
 
