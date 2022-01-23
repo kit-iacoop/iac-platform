@@ -37,11 +37,12 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    public List<CollaboRequestDTO> findOpenRequest() {
+    public List<CollaboRequestDTO> findRequestByType(RequestType type) {
 
-        List<CollaboRequest> all = collaboRequestRepository.findAllByRequestType(RequestType.OPEN);
+        List<CollaboRequest> all = collaboRequestRepository.findAllByRequestType(type);
         return all.stream().map(CollaboRequestDTO::new).collect(Collectors.toList());
     }
+
 
     @Override
     public CollaboRequestDTO getRequestDetail(String id) {
