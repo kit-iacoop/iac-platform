@@ -1,0 +1,52 @@
+<script language="javascript">
+    function showPopup() {
+        window.open("company/industry-cooperation/project/activity-proof-register", "활동 증빙 등록", "width=400, height=300, left=100, top=50");
+    }
+</script>
+
+<div class="search">
+    <div class="company-name-search">
+        <input type="text" placeholder="회사명">
+        <button>검색</button>
+    </div>
+    <div class="date-search">
+        <input type="date"> ~ <input type="date">
+        <button>검색</button>
+    </div>
+    <div class="state-search">
+        <select>
+            <option>상태</option>
+            <option>승인</option>
+            <option>대기</option>
+        </select>
+    </div>
+</div>
+
+<table>
+    <thaed>
+        <tr>
+            <th scope="col" class=""><span>선택</span></th>
+            <th scope="col" class=""><span>회사</span></th>
+            <th scope="col" class=""><span>활동구분</span></th>
+            <th scope="col" class=""><span>활동</span></th>
+            <th scope="col" class=""><span>회차</span></th>
+            <th scope="col" class=""><span>상태</span></th>
+            <th scope="col" class=""><span>시작일</span></th>
+            <th scope="col" class=""><span>종료일</span></th>
+        </tr>
+    </thaed>
+    <tbody>
+        <tr th:each="dto : ${mileageRequestDTO}">
+            <td><input type="checkbox" name="checkedValue" value="${dto.mileageRequestId}"/></td>
+            <td th:text="${dto.company.name}"></td>
+            <td th:text="${dto.mileagePolicy.collaborationCategory.parentCategory.collaborationName}"></td>
+            <td th:text="${dto.mileagePolicy.collaborationCategory.collaborationName}"></td>
+            <td th:text="${dto.achivementCnt}"></td>
+            <td th:text="${dto.status}"></td>
+            <td th:text="${dto.startDate}"></td>
+            <td th:text="${dto.endDate}"></td>
+        </tr>
+        </tbody>
+</table>
+
+<button onclick="showPopup()">등록</button>

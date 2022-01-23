@@ -1,0 +1,28 @@
+<h1>활동 증빙 자료 업로드</h1>
+<form id="activityProofRegisterForm" th:action="@{/company/industry-cooperation/project/activity-proof-register}" th:object="${mileageRequestDTO}" method="post">
+    <div class="activity-proof">
+        <label>대분류</label>
+        <input type="text" th:field="*{mileagePolicy.collaborationCategory.parentCategory.collaborationName}">
+    </div>
+    <div class="activity-proof">
+        <label>중분류</label>
+        <input type="text" th:field="*{mileagePolicy.collaborationCategory.collaborationName}">
+    </div>
+    <div class="activity-proof">
+        <label>회차</label>
+        <input type="text" th:field="*{achievementCnt}">
+    </div>
+    <div class="activity-proof">
+        <label>시작일</label>
+        <input type="date" th:field="*{startDate}">
+    </div>
+    <div class="activity-proof">
+        <label>종료일</label>
+        <input type="date" th:field="*{endDate}">
+    </div>
+    <div class="activity-proof">
+        <label>첨부파일</label>
+        <input type="file" th:field="*{}">
+    </div>
+    <button type="submit">등록</button>
+</form>
