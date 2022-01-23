@@ -64,7 +64,7 @@
                     <td>
                         <input type="hidden" th:field="*{accountId}" id="accountId">
                         <input type="text" id="accountName" readonly>
-                        <button type="button" id="accountIdSearch" onclick="window.open('/accounts/search', '_blank', 'width=500,height=400');">검색</button>
+                        <button type="button" id="accountIdSearch" onclick="window.open('/accounts/search?dtypes=S,P,C&idTag=accountId&nameTag=accountName', '_blank', 'width=500,height=400');">검색</button>
                     </td>
                 </tr>
                 <tr>

@@ -100,7 +100,10 @@ public class AccountController {
     }
 
     @GetMapping("accounts/search")
-    public String accountSearch() {
+    public String accountSearch(@RequestParam String[] dtypes, @RequestParam String idTag, @RequestParam String nameTag, Model model) {
+        model.addAttribute("dtypes", dtypes);
+        model.addAttribute("idTag", idTag);
+        model.addAttribute("nameTag", nameTag);
         return "account/account-search";
     }
 
