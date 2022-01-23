@@ -50,6 +50,7 @@ public class RequestController {
     public String insertNewRequest(@RequestBody @ModelAttribute @Valid CollaboRequestDTO collaboRequestDTO, Model model) {
         requestService.insertNewRequest(collaboRequestDTO);
 
+
         return "redirect:/requests/list";
     }
 }
