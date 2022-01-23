@@ -22,7 +22,8 @@
                     <td>
                         <input type="hidden" th:field="*{companyId}" id="companyId">
                         <input type="text" id="companyName" readonly>
-                        <button type="button" id="companyIdSearch" onclick="window.open('/accounts/search?dtypes=C&idTag=companyId&nameTag=companyName', '_blank', 'width=500,height=400');">검색</button>
+                        <button type="button" id="companyIdSearch"
+                            onclick="window.open('/accounts/search?dtypes=C&idTag=companyId&nameTag=companyName', '_blank', 'width=500,height=400');">검색</button>
                     </td>
                 </tr>
                 <tr>
@@ -73,17 +74,17 @@
                         <input type="date" th:field="*{expireDate}" id="expireDate">까지
                     </td>
                 </tr>
-<!--                <tr class="close-show">-->
-<!--                    <th><label for="professorId">희망 교수</label></th>-->
-<!--                    <td>-->
-<!--                        <input type="hidden" th:field="*{professorId}" id="professorId">-->
-<!--                        <input type="text" id="professorName" readonly>-->
-<!--                        <button type="button" id="professorIdSearch" onclick="window.open('/accounts/search?dtypes=P&idTag=professorId&nameTag=professorName', '_blank', 'width=500,height=400');">검색</button>-->
-<!--                    </td>-->
-<!--                </tr>-->
+                <!--                <tr class="close-show">-->
+                <!--                    <th><label for="professorId">희망 교수</label></th>-->
+                <!--                    <td>-->
+                <!--                        <input type="hidden" th:field="*{professorId}" id="professorId">-->
+                <!--                        <input type="text" id="professorName" readonly>-->
+                <!--                        <button type="button" id="professorIdSearch" onclick="window.open('/accounts/search?dtypes=P&idTag=professorId&nameTag=professorName', '_blank', 'width=500,height=400');">검색</button>-->
+                <!--                    </td>-->
+                <!--                </tr>-->
             </table>
-            <a href="/requests/list" class="btn">목록으로</a>
-            <button type="submit">등록</button>
+            <a href="/requests/list" class="btn btn-outline-secondary">목록으로</a>
+            <button type="submit" class="btn btn-primary">등록</button>
         </form>
     </div>
 
