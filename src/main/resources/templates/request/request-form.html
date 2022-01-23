@@ -14,20 +14,18 @@
 <body>
     <div>
         <form th:action="@{/requests/list}" th:object="${requestDto}" method="post">
+            <input type="hidden" name="status" value="PENDING">
+            <input type="hidden" name="officerId" value="5">
             <table>
-                <!-- <tr>
-                    <th><label for="accountId">요청 기업</label></th>
+                <tr>
+                    <th><label for="companyId">요청 기업</label></th>
                     <td>
-                        <input type="hidden" th:field="*{companyId}" id="accountId">
-                        <input type="text" id="accountName" readonly>
-                        <button type="button" id="accountIdSearch"
-                            onclick="window.open('/accounts/search', '_blank', 'width=500,height=400');">검색</button>
+                        <input type="hidden" th:field="*{companyId}" id="companyId">
+                        <input type="text" id="companyName" readonly>
+                        <button type="button" id="companyIdSearch"
+                            onclick="window.open('/accounts/search?dtypes=C&idTag=companyId&nameTag=companyName', '_blank', 'width=500,height=400');">검색</button>
                     </td>
-                </tr> -->
-
-                <input type="hidden" name="companyId" value="3">
-                <input type="hidden" name="officerId" value="5">
-                <input type="hidden" name="status" value="PENDING">
+                </tr>
                 <tr>
                     <th><label for="title">애로기술명</label></th>
                     <td>
@@ -43,13 +41,13 @@
                 <tr>
                     <th><label for="term">프로젝트 기간</label></th>
                     <td>
-                        <input type="text" th:field="*{term}" id="term" pattern="\d+" required>일
+                        <input type="text" th:field="*{term}" id="term" class="text-right" pattern="\d+" required>일
                     </td>
                 </tr>
                 <tr>
                     <th><label for="budget">예산</label></th>
                     <td>
-                        <input type="text" th:field="*{budget}" id="budget" pattern="\d+" required>만원
+                        <input type="text" th:field="*{budget}" id="budget" class="text-right" pattern="\d+" required>만원
                     </td>
                 </tr>
                 <tr>
@@ -76,43 +74,42 @@
                         <input type="date" th:field="*{expireDate}" id="expireDate">까지
                     </td>
                 </tr>
-                <!-- <tr class="close-show">
-                    <th><label for="accountId">희망 교수</label></th>
-                    <td>
-                        <input type="hidden" th:field="*{professorId}" id="accountId">
-                        <input type="text" id="accountName" readonly>
-                        <button type="button" id="accountIdSearch"
-                            onclick="window.open('/accounts/search', '_blank', 'width=500,height=400');">검색</button>
-                    </td>
-                </tr> -->
+                <!--                <tr class="close-show">-->
+                <!--                    <th><label for="professorId">희망 교수</label></th>-->
+                <!--                    <td>-->
+                <!--                        <input type="hidden" th:field="*{professorId}" id="professorId">-->
+                <!--                        <input type="text" id="professorName" readonly>-->
+                <!--                        <button type="button" id="professorIdSearch" onclick="window.open('/accounts/search?dtypes=P&idTag=professorId&nameTag=professorName', '_blank', 'width=500,height=400');">검색</button>-->
+                <!--                    </td>-->
+                <!--                </tr>-->
             </table>
-            <a href="/requests/list" class="btn">목록으로</a>
-            <button type="submit">등록</button>
+            <a href="/requests/list" class="btn btn-outline-secondary">목록으로</a>
+            <button type="submit" class="btn btn-primary">등록</button>
         </form>
     </div>
 
     <script>
         $(function () {
-            // $('form').submit(function () {
-            //     if (!$('#accountName').val()) {
-            //         alert('소유자(?)를 선택해야 합니다.');
-            //         return false;
-            //     }
-            // });
+            $('form').submit(function () {
+                if (!$('#companyName').val()) {
+                    alert('요청 기업을 선택해야 합니다.');
+                    return false;
+                }
+            });
 
             $('.openclose').change(function () {
                 if ($('#OPEN').is(':checked')) {
                     $('.close-show').hide();
-                    $('#accountId').prop('disabled', true);
+                    $('#professorId').prop('disabled', true);
                 } else {
                     $('.close-show').show();
-                    $('#accountId').prop('disabled', false);
+                    $('#professorId').prop('disabled', false);
                 }
             });
 
             $('#OPEN').prop("checked", true);
             $('.close-show').hide();
-            $('#accountId').prop('disabled', true);
+            $('#professorId').prop('disabled', true);
             $('#isCapstone-false').prop("checked", true);
         });
     </script>
