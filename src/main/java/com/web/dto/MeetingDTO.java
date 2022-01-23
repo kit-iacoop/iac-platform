@@ -1,11 +1,13 @@
 package com.web.dto;
 
 import com.domain.account.Account;
+import com.domain.meeting.Meeting;
 import com.domain.meetingAttendant.MeetingAttendant;
 import com.domain.meetingFile.MeetingFile;
 import lombok.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -26,5 +28,18 @@ public class MeetingDTO {
 
     private List<MeetingAttendantDTO> meetingAttendantList;
     private List<MeetingFileDTO> meetingFileList;
-    
+
+    public MeetingDTO(Meeting meeting) {
+        this.meetingId = String.valueOf(meeting.getMeetingId());
+        this.collaboRequestId = String.valueOf(meeting.getCollaboRequest().getCollaboRequestId());
+        this.projectId = String.valueOf(meeting.getProject().getProjectId());
+        this.meetingLocation = meeting.getMeetingLocation();
+        this.meetingName = meeting.getMeetingName();
+        this.meetingDate = String.valueOf(meeting.getMeetingDate());
+        this.meetingTime = meeting.getMeetingTime();
+        this.meetingType = meeting.getMeetingType();
+
+        this.meetingAttendantList = meeting.getMeetingAttendantList().stream().map(MeetingAttendantDTO::new).collect(Collectors.toList());
+        this.meetingFileList = meeting.getMeetingFileList().stream().map(MeetingFileDTO::new).collect(Collectors.toList());
+    }
 }

@@ -1,6 +1,12 @@
 package com.web.dto;
 
+import com.domain.meetingAttendant.MeetingAttendant;
+import com.domain.security.role.Role;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,6 +18,30 @@ public class MeetingAttendantDTO {
     private String meetingId;
     private String accountId;
     private String accountName;
-    private String accountDept; // 해당 참여자의 소속
-    private String accountRole; // 기업인지, 교수인지, 학생인지 등 표시
+    private String RoleName;
+
+    public MeetingAttendantDTO(MeetingAttendant meetingAttendant) {
+        this.meetingAttendantId = String.valueOf(meetingAttendant.getMeetingAttendantId());
+        this.meetingId = String.valueOf(meetingAttendant.getMeeting().getMeetingId());
+        this.accountId = String.valueOf(meetingAttendant.getAccount().getAccountId());
+        this.accountName = meetingAttendant.getAccount().getName();
+
+        for (Role role : meetingAttendant.getAccount().getAccountRoles()) {
+            String roleName = role.getRoleName();
+            switch (roleName) {
+                case "ROLE_PROFESSOR":
+                    RoleName = "ROLE_PROFESSOR";
+                    break;
+                case "ROLE_COMPANY":
+                    RoleName = "ROLE_COMPANY";
+                    break;
+                case "ROLE_STUDENT":
+                    RoleName = "ROLE_STUDENT";
+                    break;
+                default:
+                    RoleName = "UNKNOWN";
+                    break;
+            }
+        }
+    }
 }
