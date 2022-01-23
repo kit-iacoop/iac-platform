@@ -11,7 +11,14 @@
                 <div class="task-contents">
                     <form id="updateInfoForm" method="post">
                         <th:block th:replace="fragments/mypage/common-info-update :: commonInfoUpdateFragment"></th:block>
-                        <th:block th:replace="fragments/mypage/officer-info-update :: officerInfoUpdateFragment"></th:block>
+                        <div class="member-info">
+                            <label>대학</label>
+                            <input type="text" class="update-info" name="member_university" placeholder="" th:field="*{university}">
+                        </div>
+                        <div class="member-info">
+                            <label>소속 사무실</label>
+                            <input type="text" class="update-info" name="member_department" placeholder="" th:field="*{officeLocation}">
+                        </div>
                     <input type="submit" name value="수정" title="수정">
                 </div>
             </form>
