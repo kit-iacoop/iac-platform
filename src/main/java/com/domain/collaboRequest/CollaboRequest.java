@@ -65,13 +65,13 @@ public class CollaboRequest extends BaseTimeEntity {
     @Column(name = "REQUEST_TYPE", nullable = false)
     private RequestType requestType;
 
-    @OneToMany(mappedBy = "collaboRequest")
+    @OneToMany(mappedBy = "collaboRequest", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CollaboRequestProfessor> collaboRequestProfessorList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "collaboRequest")
+    @OneToMany(mappedBy = "collaboRequest", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<CollaboRequestTechnique> collaboRequestTechniqueList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "collaboRequest")
+    @OneToMany(mappedBy = "collaboRequest", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Meeting> meetingList = new ArrayList<>();
 
     @OneToOne
