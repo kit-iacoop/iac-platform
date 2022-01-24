@@ -54,9 +54,9 @@
                     <th><label>매칭 유형</label></th>
                     <td>
                         <input type="radio" id="OPEN" th:field="*{requestType}" value="OPEN" class="openclose">
-                        <label for="OPEN">공개</label><br>
+                        <label for="OPEN">공개 모집</label><br>
                         <input type="radio" id="CLOSE" th:field="*{requestType}" value="CLOSE" class="openclose">
-                        <label for="CLOSE">비공개 우선</label><br>
+                        <label for="CLOSE">비공개 우선(교수 지정)</label><br>
                     </td>
                 </tr>
                 <tr>
@@ -74,14 +74,17 @@
                         <input type="date" th:field="*{expireDate}" id="expireDate">까지
                     </td>
                 </tr>
-                <!--                <tr class="close-show">-->
-                <!--                    <th><label for="professorId">희망 교수</label></th>-->
-                <!--                    <td>-->
-                <!--                        <input type="hidden" th:field="*{professorId}" id="professorId">-->
-                <!--                        <input type="text" id="professorName" readonly>-->
-                <!--                        <button type="button" id="professorIdSearch" onclick="window.open('/accounts/search?dtypes=P&idTag=professorId&nameTag=professorName', '_blank', 'width=500,height=400');">검색</button>-->
-                <!--                    </td>-->
-                <!--                </tr>-->
+                <tr class="close-show">
+                    <th><label for="professorId0">희망 교수</label></th>
+                    <td>
+                        <div>
+                            <input type="hidden" name="professorList[0].professorId" id="professorId0">
+                            <input type="text" name="professorList[0].professorName" id="professorName0" readonly>
+                            <button type="button" id="professorIdSearch" onclick="window.open('/accounts/search?dtypes=P&idTag=professorId0&nameTag=professorName0', '_blank', 'width=500,height=400');">검색</button>
+                        </div>
+                        <button type="button" onclick="addProfessorInput()" id="addProfessorBtn">교수 추가</button>
+                    </td>
+                </tr>
             </table>
             <a href="/requests/list" class="btn btn-outline-secondary">목록으로</a>
             <button type="submit" class="btn btn-primary">등록</button>
@@ -112,6 +115,18 @@
             $('#professorId').prop('disabled', true);
             $('#isCapstone-false').prop("checked", true);
         });
+
+        let professorCnt = 1;
+        function addProfessorInput() {
+            $('#addProfessorBtn').before(`
+                <div>
+                    <input type="hidden" name="professorList[${professorCnt}].professorId" id="professorId${professorCnt}">
+                    <input type="text" name="professorList[${professorCnt}].professorName" id="professorName${professorCnt}" readonly>
+                    <button type="button" id="professorIdSearch" onclick="window.open('/accounts/search?dtypes=P&idTag=professorId${professorCnt}&nameTag=professorName${professorCnt}', '_blank', 'width=500,height=400');">검색</button>
+                </div>
+            `);
+            professorCnt++;
+        }
     </script>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
