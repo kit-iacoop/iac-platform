@@ -6,11 +6,13 @@ import com.domain.common.BaseTimeEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
+@SuperBuilder
 @Entity
 @Table(name = "COLLABO_REQUEST_PROFESSOR")
 public class CollaboRequestProfessor extends BaseTimeEntity {
