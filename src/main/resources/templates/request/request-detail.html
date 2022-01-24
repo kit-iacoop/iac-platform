@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body>
+    <div>
+        <table>
+            <thead>
+                <th colspan="4" th:text="${requestDto.title}"></th>
+            </thead>
+            <tr>
+                <th>기업명</th>
+                <td th:text="${requestDto.companyName}"></td>
+                <th>예산</th>
+                <td th:text="|약 ${requestDto.budget}만원|"></td>
+            </tr>
+            <tr>
+                <th>기간</th>
+                <td th:text="|약 ${requestDto.term}일|"></td>
+                <th>모집 종료일</th>
+                <td th:text="${requestDto.expireDate}"></td>
+            </tr>
+            <tr>
+                <th>캡스톤 디자인 연계</th>
+                <td th:text="${requestDto.isCapstone.equals('true')} ? 'O' : 'X'"></td>
+                <th>매칭 유형</th>
+                <td th:text="${requestDto.requestType.equals('OPEN')} ? '공개 모집' : '비공개(교수 지정)'"></td>
+            </tr>
+            <tr>
+                <th>기술 분야</th>
+                <td colspan="3">
+                    <div th:each="dto : ${requestDto.collaboRequestTechniqueList}">
+                        <ul>
+                            <li th:each="i : ${#numbers.sequence(dto.fieldCategoryTree.size() - 1, 0, -1)}"
+                                th:text="${dto.fieldCategoryTree[i]}"></li>
+                        </ul>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <th>설명</th>
+                <td colspan="3" th:text="${requestDto.description}"></td>
+            </tr>
+            <tr>
+                <th th:text="${requestDto.requestType.equals('OPEN')} ? '지원 교수' : '지정 교수'"></th>
+                <td colspan="3">
+                    <ul>
+                        <li th:each="dto : ${requestDto.collaboRequestProfessorList}" th:text="${dto.professorName}">
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <a href="/requests/list" class="btn btn-outline-primary">목록으로</a>
+        <button type="button" onclick="postRequest('/open')" class="btn btn-primary">공개 모집으로 전환</button>
+        <button type="button" onclick="postRequest('/join')" class="btn btn-primary">참여 지원</button>
+        <!--        <a th:href="@{/requests/edit/{id}(id=${requests.collaboRequestId})}" class="button">수정</a>-->
+    </div>
+
+    <script th:inline="javascript">
+        function postRequest(path) {
+            $.ajax({
+                method: "POST",
+                url: "/requests/list/" + [[${ requestDto.collaboRequestId }]] + path
+            })
+                .done(function () {
+                    alert('성공적으로 처리되었습니다.');
+                    location.reload();
+                });
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
