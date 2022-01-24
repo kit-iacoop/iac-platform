@@ -2,6 +2,7 @@ package com.web.controller.annualfee;
 
 
 import com.domain.account.Company;
+import com.domain.annualFee.AnnualFee;
 import com.security.service.AccountContext;
 import com.web.dto.AnnualFeeHistoryDTO;
 import com.web.dto.AnnualFeeInfoDTO;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -32,6 +34,26 @@ public class AnnualFeeController {
 
         return mav;
     }
+
+    @GetMapping("/officer/annual-fee/payment-screening/accept/{paymentId}")
+    public ModelAndView acceptPayment(ModelAndView mav, @PathVariable Long paymentId){
+
+        annualFeeService.acceptPayment(mav, paymentId);
+        mav.setViewName("redirect:/officer/annual-fee/payment-screening");
+
+        return mav;
+    }
+
+    @GetMapping("/officer/annual-fee/payment-screening/reject/{paymentId}")
+    public ModelAndView rejectPayment(ModelAndView mav, @PathVariable Long paymentId){
+
+        annualFeeService.rejectPayment(mav, paymentId);
+        mav.setViewName("redirect:/officer/annual-fee/payment-screening");
+
+        return mav;
+    }
+
+
 
     @GetMapping("/officer/annual-fee/payment-screening")
     public ModelAndView paymentScreening(ModelAndView mav){

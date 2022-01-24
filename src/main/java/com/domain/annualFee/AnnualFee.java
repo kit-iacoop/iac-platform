@@ -53,4 +53,31 @@ public class AnnualFee extends BaseTimeEntity {
    private LocalDate confirmDate;
 
 
+   // 정상처리 true 반환
+   // 비정상처리 false 반환
+   public Boolean accept(){
+
+      if(paymentStatus != State.PENDING) { // pending 상태가 아니라면 비정상 경우
+         return false;
+      }
+
+      paymentStatus = State.APPROVED;
+      confirmDate = LocalDate.now();
+
+      return true;
+
+   }
+
+   // 정상처리 true 반환
+   // 비정상처리 false 반환
+   public Boolean reject(){
+
+      if(paymentStatus != State.PENDING) { // pending 상태가 아니라면 비정상 경우
+         return false;
+      }
+
+      paymentStatus = State.REJECTED;
+
+      return true;
+   }
 }
