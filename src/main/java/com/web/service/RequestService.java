@@ -15,4 +15,7 @@ public interface RequestService {
 
     int insertNewRequest(CollaboRequestDTO collaboRequestDTO);
 
+    int closeToOpen(Long id);
+
+    int requestAttend(Long requestId, Long professorId);
 }

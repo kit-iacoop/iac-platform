@@ -33,6 +33,7 @@ public class RequestServiceImpl implements RequestService {
     private final CompanyRepository companyRepository;
     private final ProfessorRepository professorRepository;
     private final FieldCategoryRepository fieldCategoryRepository;
+    private final CollaboRequestProfessorRepository collaboRequestProfessorRepository;
 
     public RequestServiceImpl(
             CollaboRequestRepository collaboRequestRepository,
@@ -41,13 +42,15 @@ public class RequestServiceImpl implements RequestService {
             CollaboRequestProfessorRepository collaboRequestProfessorRepository,
             CollaboRequestTechniqueRepository collaboRequestTechniqueRepository,
             ProfessorRepository professorRepository,
-            FieldCategoryRepository fieldCategoryRepository) {
+            FieldCategoryRepository fieldCategoryRepository,
+            CollaboRequestProfessorRepository collaboRequestProfessorRepository1) {
 
         this.collaboRequestRepository = collaboRequestRepository;
         this.officerRepository = officerRepository;
         this.companyRepository = companyRepository;
         this.professorRepository = professorRepository;
         this.fieldCategoryRepository = fieldCategoryRepository;
+        this.collaboRequestProfessorRepository = collaboRequestProfessorRepository1;
     }
 
     @Override
@@ -145,4 +148,43 @@ public class RequestServiceImpl implements RequestService {
         collaboRequestRepository.save(request);
         return 1;
     }
+
+    @Override
+    public int closeToOpen(Long id) {
+        Optional<CollaboRequest> maybeRequest = collaboRequestRepository.findById(id);
+        if (maybeRequest.isPresent()) {
+            CollaboRequest request = maybeRequest.get();
+            request.changeTypeOpen();
+            request.clearProfessorList();
+            collaboRequestRepository.save(request);
+            return 1;
+        }
+
+        return 0;
+    }
+
+    @Override
+    public int requestAttend(Long requestId, Long professorId) {
+
+        Optional<CollaboRequest> maybeRequest = collaboRequestRepository.findById(requestId);
+        Optional<Professor> maybeProfessor = professorRepository.findById(professorId);
+
+        if (maybeRequest.isPresent() & maybeProfessor.isPresent()) {
+            CollaboRequest request = maybeRequest.get();
+            Professor professor = maybeProfessor.get();
+
+            CollaboRequestProfessor build = CollaboRequestProfessor.builder()
+                    .build();
+            build.setProfessor(professor);
+            build.setCollaboRequest(request);
+
+            collaboRequestProfessorRepository.save(build);
+            return 1;
+        }
+
+        return 0;
+    }
+
+    @Override
+    public
 }

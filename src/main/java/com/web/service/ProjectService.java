@@ -8,4 +8,6 @@ import java.util.List;
 
 public interface ProjectService {
     Page<ProjectDTO> findAllProject(Pageable pageable);
+
+    ProjectDTO makeProjectFormDTO(Long id);
 }
