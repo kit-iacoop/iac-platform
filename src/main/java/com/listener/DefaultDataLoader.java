@@ -74,20 +74,22 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
             loadRoleData();
             loadAccountData();
             loadResourceData();
-            loadMileageData();
             loadCollaborationCategoryData();
+            loadMileageData();
         }
 
     }
 
     private void loadMileageData() {
-        createCompanyMileageIfNotFound();
+
+        createMileagePolicyIfNotFound(1L, "중분류 테스트 1", 50L, 50L);
         createMileageRequestIfNotFound();
-        createMileagePolicyIfNotFound();
-        createCollaborationCategoryIfNotFound();
+        createCompanyMileageIfNotFound();
+
     }
 
     private void loadCollaborationCategoryData() {
+        // 되도록이면 변경하지 말고 추가할 것
         createCollaborationCategoryIfNotFound(1L, null, "대분류 테스트 1", 1);
         createCollaborationCategoryIfNotFound(2L, null, "대분류 테스트 2", 1);
         createCollaborationCategoryIfNotFound(3L, null, "대분류 테스트 3", 1);
@@ -123,13 +125,36 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
 
 
-    private MileagePolicy createCollaborationCategoryIfNotFound(){
+    private MileagePolicy createMileagePolicyIfNotFound(Long id, String categoryName, Long mileage, Long point){
 
+        //카테고리 존재 확인
+        CollaborationCategory collaboration = collaborationCategoryRepository.findByCollaborationName(categoryName);
+        if(collaboration == null){
+            return null;
+        }
 
-        return null;
+        //중복 확인
+        MileagePolicy mileagePolicy = mileagePolicyRepository.findByMileagePolicyId(id);
+
+        if(mileagePolicy != null){
+            return mileagePolicy;
+        }
+
+        // 생성 & 저장
+
+        mileagePolicy = MileagePolicy.builder()
+                .mileagePolicyId(id)
+                .collaborationCategory(collaboration)
+                .mileage(mileage)
+                .point(point)
+                .build();
+
+        return mileagePolicyRepository.save(mileagePolicy);
     }
 
     private MileagePolicy createMileagePolicyIfNotFound(){
+
+
 
         return null;
     }
