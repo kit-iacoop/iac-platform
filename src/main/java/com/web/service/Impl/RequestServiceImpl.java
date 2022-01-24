@@ -45,7 +45,7 @@ public class RequestServiceImpl implements RequestService {
 
         switch (type) {
             case "all":
-                return collaboRequestRepository.findAll(pageable).map(CollaboRequestDTO::new);
+                return collaboRequestRepository.findAllByTitleContains(key, pageable).map(CollaboRequestDTO::new);
             case "close":
                 return collaboRequestRepository.findAllByRequestTypeAndTitleContains(RequestType.CLOSE, key, pageable).map(CollaboRequestDTO::new);
             case "my":

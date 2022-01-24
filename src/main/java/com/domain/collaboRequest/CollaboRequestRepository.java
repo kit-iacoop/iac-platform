@@ -15,6 +15,8 @@ public interface CollaboRequestRepository extends JpaRepository<CollaboRequest, 
 
     List<CollaboRequest> findByOfficerAndStatus(Officer officer, State status);
 
+    Page<CollaboRequest> findAllByTitleContains(String key, Pageable pageable);
+
     Page<CollaboRequest> findAllByRequestTypeAndTitleContains(RequestType requestType, String key, Pageable pageable);
 
     Page<CollaboRequest> findAllByCompany_AccountIdAndTitleContains(Long companyId, String key, Pageable pageable);
