@@ -7,8 +7,12 @@ import com.domain.common.RequestType;
 import com.domain.common.State;
 import com.domain.fieldCategory.FieldCategory;
 import com.domain.fieldCategory.FieldCategoryRepository;
+import com.security.service.AccountContext;
 import com.web.dto.CollaboRequestDTO;
 import com.web.service.RequestService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -28,19 +32,23 @@ public class RequestServiceImpl implements RequestService {
         this.companyRepository = companyRepository;
     }
 
-
     @Override
-    public List<CollaboRequestDTO> findAllRequest() {
+    public Page<CollaboRequestDTO> findRequestByTypeAndKey(String type, String key, Pageable pageable) {
 
-        List<CollaboRequest> all = collaboRequestRepository.findAll();
-        return all.stream().map(CollaboRequestDTO::new).collect(Collectors.toList());
-    }
-
-    @Override
-    public List<CollaboRequestDTO> findRequestByType(RequestType type) {
-
-        List<CollaboRequest> all = collaboRequestRepository.findAllByRequestType(type);
-        return all.stream().map(CollaboRequestDTO::new).collect(Collectors.toList());
+        switch (type) {
+            case "all":
+                return collaboRequestRepository.findAll(pageable).map(CollaboRequestDTO::new);
+            case "close":
+                return collaboRequestRepository.findAllByRequestTypeAndTitleContains(RequestType.CLOSE, key, pageable).map(CollaboRequestDTO::new);
+            case "my":
+                AccountContext principal = (AccountContext) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+                Long accountId = principal.getAccount().getAccountId();
+                return collaboRequestRepository.findAllByCompany_AccountIdAndTitleContains(accountId, key, pageable).map(CollaboRequestDTO::new);
+            case "capstone":
+                return collaboRequestRepository.findAllByIsCapstoneAndTitleContains("true", key, pageable).map(CollaboRequestDTO::new);
+            default:
+                return collaboRequestRepository.findAllByRequestTypeAndTitleContains(RequestType.OPEN, key, pageable).map(CollaboRequestDTO::new);
+        }
     }
 
 

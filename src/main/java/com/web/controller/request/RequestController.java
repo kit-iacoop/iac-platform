@@ -4,6 +4,9 @@ package com.web.controller.request;
 import com.web.dto.CollaboRequestDTO;
 import com.web.service.RequestService;
 import lombok.AllArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -27,10 +30,25 @@ public class RequestController {
     }
 
     @GetMapping("/list")
-    public String requestList(Model model) {
+    public String requestList(
+            @RequestParam(name = "type", defaultValue = "open") String type,
+            @RequestParam(name = "key", required = false) String key,
+            @PageableDefault Pageable pageable, Model model) {
 
-        List<CollaboRequestDTO> allRequest = requestService.findAllRequest();
+        if (!type.equals("all") & !type.equals("close") & !type.equals("my") & !type.equals("capstone")) {
+            type = "open";
+        }
+        if (key == null) {
+            key = "";
+        }
+
+        Page<CollaboRequestDTO> allRequest = requestService.findRequestByTypeAndKey(type, key, pageable);
+
         model.addAttribute("collaboRequestDtos", allRequest);
+        model.addAttribute("type", type);
+        model.addAttribute("page", pageable.getPageNumber() + 1);
+        model.addAttribute("maxPage", allRequest.getTotalPages());
+        model.addAttribute("key", key);
         return "request/request-list";
     }
 
