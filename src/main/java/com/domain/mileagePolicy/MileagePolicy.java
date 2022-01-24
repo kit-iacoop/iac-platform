@@ -19,7 +19,7 @@ public class MileagePolicy extends BaseTimeEntity {
    private Long mileagePolicyId;
 
    @OneToOne(fetch = FetchType.LAZY)
-   @JoinColumn(name = "COLLABORATION_CATEGORY_ID", nullable = false)
+   @JoinColumn(name = "COLLABORATION_CATEGORY_ID", nullable = false, unique = true)
    private CollaborationCategory collaborationCategory;
 
    @Column(name = "MILEAGE", nullable = false)

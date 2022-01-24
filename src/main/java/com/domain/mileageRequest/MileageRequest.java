@@ -10,11 +10,13 @@ import com.domain.common.BaseTimeEntity;
 import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@SuperBuilder
 @NoArgsConstructor
 @Getter
 @Entity

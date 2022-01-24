@@ -5,10 +5,12 @@ import com.domain.collaborationCategory.CollaborationCategory;
 import com.domain.collaborationCategory.CollaborationCategoryRepository;
 import com.domain.common.Address;
 import com.domain.common.State;
+import com.domain.companyMileage.CompanyMileage;
 import com.domain.companyMileage.CompanyMileageRepository;
 import com.domain.mileageFile.MileageFileRepository;
 import com.domain.mileagePolicy.MileagePolicy;
 import com.domain.mileagePolicy.MileagePolicyRepository;
+import com.domain.mileageRequest.MileageRequest;
 import com.domain.mileageRequest.MileageRequestRepository;
 import com.domain.security.resource.Resource;
 import com.domain.security.resource.ResourceRepository;
@@ -24,6 +26,8 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.naming.CompositeName;
 import java.time.LocalDate;
 
 
@@ -83,9 +87,46 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     private void loadMileageData() {
 
         createMileagePolicyIfNotFound(1L, "중분류 테스트 1", 50L, 50L);
-        createMileageRequestIfNotFound();
+        createMileageRequestIfNotFound(1L, "OFFICER0", "COMPANY0", 1L, 5L, State.PENDING, LocalDate.now(), LocalDate.now());
         createCompanyMileageIfNotFound();
 
+    }
+
+    private CompanyMileage createCompanyMileageIfNotFound() {
+
+        return null;
+    }
+
+    private MileageRequest createMileageRequestIfNotFound(Long reqId, String officerId, String companyId, Long mileagePolicyId, Long achievementCnt, State stat, LocalDate startDate, LocalDate endDate) {
+
+        // 필요 객체 확인
+        MileagePolicy mileagePolicy = mileagePolicyRepository.findByMileagePolicyId(mileagePolicyId);
+        Company company = (Company) accountRepository.findByLoginId(companyId);
+        Officer officer = (Officer) accountRepository.findByLoginId(companyId);
+
+        if(mileagePolicy == null || company == null || officer == null){
+            return null;
+        }
+
+        MileageRequest mr = mileageRequestRepository.findByMileageRequestId(reqId);
+        if(mr != null){
+            return mr;
+        }
+
+        // 생성 &저장
+
+        mr = MileageRequest.builder()
+                .mileageRequestId(mileagePolicyId)
+                .officer(officer)
+                .company(company)
+                .mileagePolicy(mileagePolicy)
+                .achievementCnt(achievementCnt)
+                .status(stat)
+                .startDate(startDate)
+                .endDate(endDate)
+                .build();
+
+        return mileageRequestRepository.save(mr);
     }
 
     private void loadCollaborationCategoryData() {
@@ -150,24 +191,6 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
                 .build();
 
         return mileagePolicyRepository.save(mileagePolicy);
-    }
-
-    private MileagePolicy createMileagePolicyIfNotFound(){
-
-
-
-        return null;
-    }
-
-    private MileagePolicy createMileageRequestIfNotFound(){
-
-        return null;
-    }
-
-
-    private MileagePolicy createCompanyMileageIfNotFound(){
-
-        return null;
     }
 
 
