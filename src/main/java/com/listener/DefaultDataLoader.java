@@ -1,8 +1,15 @@
 package com.listener;
 
 import com.domain.account.*;
+import com.domain.collaborationCategory.CollaborationCategory;
+import com.domain.collaborationCategory.CollaborationCategoryRepository;
 import com.domain.common.Address;
 import com.domain.common.State;
+import com.domain.companyMileage.CompanyMileageRepository;
+import com.domain.mileageFile.MileageFileRepository;
+import com.domain.mileagePolicy.MileagePolicy;
+import com.domain.mileagePolicy.MileagePolicyRepository;
+import com.domain.mileageRequest.MileageRequestRepository;
 import com.domain.security.resource.Resource;
 import com.domain.security.resource.ResourceRepository;
 import com.domain.security.role.Role;
@@ -15,8 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
@@ -44,6 +49,22 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     @Autowired
     private UrlFilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource;
 
+    @Autowired
+    private CompanyMileageRepository companyMileageRepository;
+
+    @Autowired
+    private MileageRequestRepository mileageRequestRepository;
+
+    @Autowired
+    private MileageFileRepository mileageFileRepository;
+
+    @Autowired
+    private MileagePolicyRepository mileagePolicyRepository;
+
+    @Autowired
+    private CollaborationCategoryRepository collaborationCategoryRepository;
+
+
     @Override
     @Transactional
     public void onApplicationEvent(final ContextRefreshedEvent event) {
@@ -53,9 +74,80 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
             loadRoleData();
             loadAccountData();
             loadResourceData();
+            loadMileageData();
+            loadCollaborationCategoryData();
         }
 
     }
+
+    private void loadMileageData() {
+        createCompanyMileageIfNotFound();
+        createMileageRequestIfNotFound();
+        createMileagePolicyIfNotFound();
+        createCollaborationCategoryIfNotFound();
+    }
+
+    private void loadCollaborationCategoryData() {
+        createCollaborationCategoryIfNotFound(1L, null, "대분류 테스트 1", 1);
+        createCollaborationCategoryIfNotFound(2L, null, "대분류 테스트 2", 1);
+        createCollaborationCategoryIfNotFound(3L, null, "대분류 테스트 3", 1);
+        createCollaborationCategoryIfNotFound(4L, 1L, "중분류 테스트 1", 2);
+        createCollaborationCategoryIfNotFound(5L, 1L, "중분류 테스트 2", 2);
+        createCollaborationCategoryIfNotFound(6L, 1L, "중분류 테스트 3", 2);
+    }
+
+    private CollaborationCategory createCollaborationCategoryIfNotFound(Long id, Long parentId, String name, Integer level){
+
+        //부모 존재 확인
+        CollaborationCategory parentCategory = collaborationCategoryRepository.findByCategoryId(parentId);
+        if(parentCategory == null){
+            return null;
+        }
+
+        // 중복 검사
+        CollaborationCategory collaborationCategory = collaborationCategoryRepository.findByCategoryId(id);
+
+        if(collaborationCategory != null){
+            return collaborationCategory;
+        }
+
+        collaborationCategory = CollaborationCategory.builder()
+                .collaborationCategoryId(id)
+                .parentCategory(parentCategory)
+                .collaborationName(name)
+                .level(level)
+                .build();
+
+        return collaborationCategoryRepository.save(collaborationCategory);
+    }
+
+
+
+    private MileagePolicy createCollaborationCategoryIfNotFound(){
+
+
+        return null;
+    }
+
+    private MileagePolicy createMileagePolicyIfNotFound(){
+
+        return null;
+    }
+
+    private MileagePolicy createMileageRequestIfNotFound(){
+
+        return null;
+    }
+
+
+    private MileagePolicy createCompanyMileageIfNotFound(){
+
+        return null;
+    }
+
+
+
+
 
     private void loadUniversityData(){
         createUniversityIfNotFound("금오공과대학교");
