@@ -3,12 +3,16 @@ package com.web.service.Impl;
 import com.domain.account.*;
 import com.domain.collaboRequest.CollaboRequest;
 import com.domain.collaboRequest.CollaboRequestRepository;
+import com.domain.collaboRequestProfessor.CollaboRequestProfessor;
+import com.domain.collaboRequestProfessor.CollaboRequestProfessorRepository;
+import com.domain.collaboRequestTechnique.CollaboRequestTechnique;
+import com.domain.collaboRequestTechnique.CollaboRequestTechniqueRepository;
 import com.domain.common.RequestType;
 import com.domain.common.State;
-import com.domain.fieldCategory.FieldCategory;
-import com.domain.fieldCategory.FieldCategoryRepository;
 import com.security.service.AccountContext;
 import com.web.dto.CollaboRequestDTO;
+import com.web.dto.CollaboRequestProfessorDTO;
+import com.web.dto.CollaboRequestTechniqueDTO;
 import com.web.service.RequestService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,11 +29,15 @@ public class RequestServiceImpl implements RequestService {
     private final CollaboRequestRepository collaboRequestRepository;
     private final OfficerRepository officerRepository;
     private final CompanyRepository companyRepository;
+    private final CollaboRequestProfessorRepository collaboRequestProfessorRepository;
+    private final CollaboRequestTechniqueRepository collaboRequestTechniqueRepository;
 
-    public RequestServiceImpl(CollaboRequestRepository collaboRequestRepository, OfficerRepository officerRepository, CompanyRepository companyRepository) {
+    public RequestServiceImpl(CollaboRequestRepository collaboRequestRepository, OfficerRepository officerRepository, CompanyRepository companyRepository, CollaboRequestProfessorRepository collaboRequestProfessorRepository, CollaboRequestTechniqueRepository collaboRequestTechniqueRepository) {
         this.collaboRequestRepository = collaboRequestRepository;
         this.officerRepository = officerRepository;
         this.companyRepository = companyRepository;
+        this.collaboRequestProfessorRepository = collaboRequestProfessorRepository;
+        this.collaboRequestTechniqueRepository = collaboRequestTechniqueRepository;
     }
 
     @Override
@@ -76,6 +84,25 @@ public class RequestServiceImpl implements RequestService {
             return -1;
         }
 
+
+        List<String> professorIdList = new ArrayList<>();
+        List<CollaboRequestProfessor> professorList = null;
+        if (collaboRequestDTO.getCollaboRequestProfessorList() != null) {
+            for (CollaboRequestProfessorDTO dto : collaboRequestDTO.getCollaboRequestProfessorList()) {
+                professorIdList.add(dto.getCollaboRequestProfessorId());
+            }
+            professorList = collaboRequestProfessorRepository.findAllById(professorIdList.stream().map(Long::valueOf).collect(Collectors.toList()));
+        }
+
+        List<String> techniqueIdList = new ArrayList<>();
+        List<CollaboRequestTechnique> techniqueList = null;
+        if (collaboRequestDTO.getCollaboRequestTechniqueList() != null) {
+            for (CollaboRequestTechniqueDTO dto : collaboRequestDTO.getCollaboRequestTechniqueList()) {
+                techniqueIdList.add(dto.getCollaboRequestTechniqueId());
+            }
+            techniqueList = collaboRequestTechniqueRepository.findAllById(techniqueIdList.stream().map(Long::valueOf).collect(Collectors.toList()));
+        }
+
         CollaboRequest request = CollaboRequest.builder()
                 .officer(maybeOfficer.get())
                 .company(maybeCompany.get())
@@ -86,9 +113,9 @@ public class RequestServiceImpl implements RequestService {
                 .description(collaboRequestDTO.getDescription())
                 .status(State.valueOf(collaboRequestDTO.getStatus()))
                 .requestType(RequestType.valueOf(collaboRequestDTO.getRequestType()))
-                .collaboRequestProfessorList(collaboRequestDTO.getCollaboRequestProfessorList())
-                .collaboRequestTechniqueList(collaboRequestDTO.getCollaboRequestTechniqueList())
-                .meetingList(collaboRequestDTO.getMeetingList())
+                .collaboRequestProfessorList(professorList)
+                .collaboRequestTechniqueList(techniqueList)
+                .meetingList(new ArrayList<>())
                 .isCapstone(collaboRequestDTO.getIsCapstone())
                 .build();
 
