@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +41,9 @@ public class CopyrightController {
     }
 
     @GetMapping("/list")
-    public String findAllCopyright(@PageableDefault() Pageable page, @RequestParam(required = false, value = "key") String key, Model model) {
+    public String findAllCopyright(
+            @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable page,
+            @RequestParam(required = false, value = "key") String key, Model model) {
         Page<CopyrightDTO> dtoList;
         if (key == null) {
             dtoList = copyrightService.findCopyright(page);

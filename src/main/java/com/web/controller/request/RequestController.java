@@ -10,9 +10,9 @@ import com.web.dto.ProjectDTO;
 import com.web.service.ProjectService;
 import com.web.service.RequestService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -41,7 +41,9 @@ public class RequestController {
     public String requestList(
             @RequestParam(name = "type", defaultValue = "open") String type,
             @RequestParam(name = "key", required = false) String key,
-            @PageableDefault Pageable pageable, Model model) {
+            @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable, Model model) {
+
+        System.out.println("****************************** 기술요청 목록");
 
         if (!type.equals("all") & !type.equals("close") & !type.equals("my") & !type.equals("capstone")) {
             type = "open";
@@ -62,6 +64,8 @@ public class RequestController {
 
     @GetMapping("/list/{id}")
     public String requestDetail(@PathVariable String id, Model model) {
+        System.out.println("********************** 기술요청 상세정보");
+
         model.addAttribute("requestDto", requestService.getRequestDetail(id));
         return "request/request-detail";
     }
@@ -82,22 +86,25 @@ public class RequestController {
 
     @PostMapping("/list/{id}/open")
     public String closeToOpen(@PathVariable String id) {
+        System.out.println("******************** 공개로 변경");
+
         requestService.closeToOpen(Long.valueOf(id));
 
-        return "redirect:/request/list/" + id;
+        return "redirect:/requests/list/" + id;
     }
 
-    @PostMapping("/list/{id}/attend")
+    @PostMapping("/list/{id}/join")
     public String requestAttend(@PathVariable String id) {
         AccountContext context = common.getAccountContext();
         Account account = context.getAccount();
 
         if(context.hasRole("PROFESSOR")){
+            System.out.println("************************** 참가요청");
             requestService.requestAttend(Long.valueOf(id), account.getAccountId());
-            return "redirect:/request/list/" + id;
+            return "redirect:/requests/list/" + id;
         }
 
-        return "redirect:/request/list/";
+        return "redirect:/requests/list";
     }
 
     @GetMapping("/list/{id}/project")
@@ -110,7 +117,7 @@ public class RequestController {
             model.addAttribute("projectDto", projectDTO);
             return "request/project-form";
         }
-        return "redirect:/request/list/" + id;
+        return "redirect:/requests/list/" + id;
 
     }
 
@@ -121,8 +128,8 @@ public class RequestController {
 
         if (account.getAccountRoles().contains(Common.getOfficerRoleInstance())) {
             Long projectId = projectService.makeProject(projectDTO);
-            return "redirect:/project/list/" + projectId;
+            return "redirect:/projects/list/" + projectId;
         }
-        return "redirect:/request/list/" + id;
+        return "redirect:/requests/list/" + id;
     }
 }
