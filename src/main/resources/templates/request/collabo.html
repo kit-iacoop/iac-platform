@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>가족회사</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/assets/img/favicon.png" rel="icon">
+  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: BizLand - v3.7.0
+  * Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-envelope d-flex align-items-center"><a
+            href="mailto:contact@example.com">contact@example.com</a></i>
+        <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
+      </div>
+      <div class="social-links d-none d-md-flex align-items-center">
+        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+      <h1 class="logo">
+        <a href="/"><span>기</span>업 <span>대</span>학 <span>지</span>역을 하나로</a>
+      </h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li class="dropdown">
+            <a href="#"><span>가족회사</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="https://www.google.com/">가족회사란?</a></li>
+              <li><a href="#">가족회사찾기</a></li>
+              <li><a href="#">가족회사가입</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="/requests/list"><span>애로기술해결</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/requests/new">애로기술요청</a></li>
+              <li><a href="/requests/list">등록된애로기술</a></li>
+              <li><a href="#">코디네이터</a></li>
+            </ul>
+          </li>
+
+          <li><a class="nav-link scrollto" href="#services">특허검색</a></li>
+          <li>
+            <a class="nav-link scrollto" href="#portfolio">장비공유</a>
+          </li>
+          <li><a class="nav-link scrollto" href="#team">커뮤니티</a></li>
+
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+      <!-- .navbar -->
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <main id="main" data-aos="fade-up">
+
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Collaboration Details</h2>
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li>Portfolio Details</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- Breadcrumbs Section -->
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="collabo-project" class="collabo-details">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-2 sidebar">
+            <div class="sidebar-container shadow">
+              <div class="sidebar-header">
+                <h4>검색조건</h4>
+              </div>
+              <div class="sidebar-body">
+                <dl>
+                  <dt>프로젝트 형태</dt>
+                  <dd>
+                    <ul>
+                      <li><input type="radio" name="radio-btn" data-type="t1" checked="checked"
+                          id="project-type01"><label for="project-type01">장기</label></li>
+                      <li><input type="radio" name="radio-btn" data-type="t2" id="project-type02"><label
+                          for="project-type02">단기</label></li>
+                      <li><input type="radio" name="radio-btn" data-type="t3" id="project-type03"><label
+                          for="project-type03">융합</label></li>
+                      <li><input type="radio" name="radio-btn" data-type="t4" id="project-type04"><label
+                          for="project-type04">캡스톤디자인</label></li>
+                    </ul>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt>전공</dt>
+                  <dd>
+                    <ul>
+                      <li><input type="checkbox" data-type="m1" id="major-electrical"><label
+                          for="major-electrical">전자</label></li>
+                      <li><input type="checkbox" data-type="m2" id="major-architectural"><label
+                          for="major-architectural">건축</label></li>
+                      <li><input type="checkbox" data-type="m3" id="major-industrial"><label
+                          for="major-industrial">산업</label></li>
+                      <li><input type="checkbox" data-type="m4" id="major-chemical"><label
+                          for="major-chemical">화학</label></li>
+                      <li><input type="checkbox" data-type="m5" id="major-mechanical"><label
+                          for="major-mechanical">기계</label></li>
+                      <li><input type="checkbox" data-type="m6" id="major-computer"><label
+                          for="major-computer">컴퓨터/IT</label></li>
+                      <li><input type="checkbox" data-type="m7" id="major-environmental"><label
+                          for="major-environmental">환경</label></li>
+                    </ul>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-10 body">
+            <div class="container" data-aos="fade-up">
+              <section id="counts" class="counts">
+                <div class="container" data-aos="fade-up">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                      <div class="count-box shadow">
+                        <i class="bi bi-emoji-smile"></i>
+                        <span data-purecounter-start="0" data-purecounter-end="16" data-purecounter-duration="1.5"
+                          class="purecounter"></span>
+                        <p>장기프로젝트</p>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+                      <div class="count-box shadow">
+                        <i class="bi bi-journal-richtext"></i>
+                        <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1.5"
+                          class="purecounter"></span>
+                        <p>단기프로젝트</p>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                      <div class="count-box shadow">
+                        <i class="bi bi-headset"></i>
+                        <span data-purecounter-start="0" data-purecounter-end="11" data-purecounter-duration="1.5"
+                          class="purecounter"></span>
+                        <p>융합프로젝트</p>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                      <div class="count-box shadow">
+                        <i class="bi bi-people"></i>
+                        <span data-purecounter-start="0" data-purecounter-end="13" data-purecounter-duration="1.5"
+                          class="purecounter"></span>
+                        <p>캡스톤디자인</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div><!-- End of counter -->
+            <div class="project-list-container">
+              <ul class="project-list-ul">
+                <li class="project-list-li">
+                  <div class="project-title">
+                    <div><span class="project-type-tag">장기</span><a href="#">
+                        <h4>제품 불량 판별 비전 인식</h4>
+                      </a> <span class="regist-date">2022.01.21</span></div>
+                    <div><span class="tag">New</span> <span class="tag">모집중</span> <span class="tag">D-10</span></div>
+                  </div>
+                  <div class="project-field">
+                    분야: 컴퓨터,비전인식,인공지능, C#
+                  </div>
+                  <div class="project-summary">
+                    <p><span>프로젝트규모:</span><b>1,000만원</b></p>
+                    <p><span>수행기간:</span><b>180일</b></p>
+                    <p><span>현 지원자수:</span><b>2명</b></p>
+                  </div>
+                  <div class="request-company">
+                    <div class="col-lg-8">
+                      <p><b>요청내용</b><br>
+                        사내용 FA 용어집(자료) 검색 앱제작에 어려움이 있어 웹 프로그래밍 전문가와 함께 프로젝트를 수행하길 희망</p>
+                    </div>
+                    <div class="col-lg-4">
+                      <dl>
+                        <dd><b>기업명:</b> 산학협력단</dd>
+                        <dd><b>지역:</b> 구미 <br></dd>
+                      </dl>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="project-list-li">
+                  <div class="project-title">
+                    <div><span class="project-type-tag">캡스톤디자인</span>
+                      <h4>태양광 모듈 계측장비 정확도 향상</h4> <span class="regist-date">2022.01.26</span>
+                    </div>
+                    <div><span class="tag">New</span> <span class="tag">모집중</span> <span class="tag">D-15</span></div>
+                  </div>
+                  <div class="project-field">
+                    분야: 기계, 전자, 컴퓨터
+                  </div>
+                  <div class="project-summary">
+                    <p><span>프로젝트규모:</span><b>200만원</b></p>
+                    <p><span>수행기간:</span><b>90일</b></p>
+                    <p><span>현 지원자수:</span><b>5명</b></p>
+                  </div>
+                  <div class="request-company">
+                    <div class="col-lg-8">
+                      <p><b>요청내용</b><br>
+                        사내용 FA 용어집(자료) 검색 앱제작에 어려움이 있어 웹 프로그래밍 전문가와 함께 프로젝트를 수행하길 희망</p>
+                    </div>
+                    <div class="col-lg-4">
+                      <dl>
+                        <dd><b>기업명:</b> 산학협력단</dd>
+                        <dd><b>지역:</b> 구미 <br></dd>
+                      </dl>
+                    </div>
+                  </div>
+                </li>
+
+                <li class="project-list-li">
+                  <div class="project-title">
+                    <div><span class="project-type-tag">장기</span>
+                      <h4>사내용 FA 용어집(자료) 검색 앱제작</h4> <span class="regist-date">2022.01.21</span>
+                    </div>
+                    <div><span class="tag">New</span> <span class="tag">모집중</span> <span class="tag">D-10</span></div>
+                  </div>
+                  <div class="project-field">
+                    분야: 개발,디자인,기획
+                  </div>
+                  <div class="project-summary">
+                    <p><span>프로젝트규모:</span><b>1,000만원</b></p>
+                    <p><span>수행기간:</span><b>180일</b></p>
+                    <p><span>현 지원자수:</span><b>2명</b></p>
+                  </div>
+                  <div class="request-company">
+                    <div class="col-lg-8">
+                      <p><b>요청내용</b><br>
+                        사내용 FA 용어집(자료) 검색 앱제작에 어려움이 있어 웹 프로그래밍 전문가와 함께 프로젝트를 수행하길 희망</p>
+                    </div>
+                    <div class="col-lg-4">
+                      <dl>
+                        <dd><b>기업명:</b> 산학협력단</dd>
+                        <dd><b>지역:</b> 구미 <br></dd>
+                      </dl>
+                    </div>
+                  </div>
+                </li>
+
+              </ul>
+            </div><!-- project list contanier -->
+          </div>
+        </div>
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/assets/vendor/purecounter/purecounter.js"></script>
+  <script src="/assets/vendor/aos/aos.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/assets/js/main.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="/assets/js/collabo.js"></script>
+
+</body>
+
+</html>

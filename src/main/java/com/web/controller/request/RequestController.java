@@ -58,7 +58,7 @@ public class RequestController {
         model.addAttribute("page", pageable.getPageNumber() + 1);
         model.addAttribute("maxPage", allRequest.getTotalPages());
         model.addAttribute("key", key);
-        return "request/request-list";
+        return "request/collabo";
     }
 
     @GetMapping("/list/{id}")
