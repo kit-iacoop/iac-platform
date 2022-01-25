@@ -53,7 +53,7 @@ public class CopyrightController {
         models.put("maxPage", dtoList.getTotalPages());
         models.put("key", key);
         model.addAllAttributes(models);
-        return "copyright/copyright-list";
+        return "copyright/copyright";
     }
 
     @GetMapping("/list/{id}")
