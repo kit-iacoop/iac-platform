@@ -25,4 +25,5 @@ public class ProjectProfessorDTO {
         this.professorId = projectProfessor.getProfessor().getDepartment();
         this.professorId = projectProfessor.getProfessor().getUniversity().getUniversityName();
     }
+
 }

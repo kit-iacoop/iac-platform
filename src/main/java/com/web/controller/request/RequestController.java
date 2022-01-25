@@ -118,11 +118,11 @@ public class RequestController {
     }
 
     @PostMapping("/list/{id}/project")
-    public String makeProject(@PathVariable String id) {
+    public String makeProject(@PathVariable String id, @RequestBody @ModelAttribute @Valid ProjectDTO projectDTO, Model model) {
         AccountContext principal = (AccountContext) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Account account = principal.getAccount();
         if (account.getAccountRoles().contains(Common.getOfficerRoleInstance())) {
-            Long projectId = projectService.makeProject(Long.valueOf(id));
+            Long projectId = projectService.makeProject(projectDTO);
             return "redirect:/project/list/" + projectId;
         }
         return "redirect:/request/list/" + id;

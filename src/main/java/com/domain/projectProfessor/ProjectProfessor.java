@@ -5,12 +5,14 @@ import com.domain.project.Project;
 import com.domain.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
 @Entity
+@SuperBuilder
 @Table(name = "PROJECT_PROFESSOR")
 public class ProjectProfessor extends BaseTimeEntity {
     @Id
@@ -18,12 +20,12 @@ public class ProjectProfessor extends BaseTimeEntity {
     @Column(name = "PROJECT_PROFESSOR_ID", nullable = false)
     private Long projectProfessorId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PROJECT_ID", nullable = false)
     private Project project;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PROFESSOR_ACCOUNT_ID", nullable = false)
     private Professor professor;
 

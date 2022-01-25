@@ -74,7 +74,7 @@ public class CollaboRequest extends BaseTimeEntity {
     @OneToMany(mappedBy = "collaboRequest", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Meeting> meetingList = new ArrayList<>();
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST, orphanRemoval = true)
     private Project projectId;
 
     public void setOfficer(Officer officerAccountId) {
