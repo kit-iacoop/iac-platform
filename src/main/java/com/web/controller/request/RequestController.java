@@ -46,6 +46,8 @@ public class RequestController {
             @RequestParam(name = "key", required = false) String key,
             @PageableDefault Pageable pageable, Model model) {
 
+        System.out.println("****************************** 기술요청 목록");
+
         if (!type.equals("all") & !type.equals("close") & !type.equals("my") & !type.equals("capstone")) {
             type = "open";
         }
@@ -65,6 +67,8 @@ public class RequestController {
 
     @GetMapping("/list/{id}")
     public String requestDetail(@PathVariable String id, Model model) {
+        System.out.println("********************** 기술요청 상세정보");
+
         model.addAttribute("requestDto", requestService.getRequestDetail(id));
         return "request/request-detail";
     }
@@ -85,23 +89,26 @@ public class RequestController {
 
     @PostMapping("/list/{id}/open")
     public String closeToOpen(@PathVariable String id) {
+        System.out.println("******************** 공개로 변경");
+
         requestService.closeToOpen(Long.valueOf(id));
 
-        return "redirect:/request/list/" + id;
+        return "redirect:/requests/list/" + id;
     }
 
-    @PostMapping("/list/{id}/attend")
+    @PostMapping("/list/{id}/join")
     public String requestAttend(@PathVariable String id) {
         AccountContext principal = (AccountContext) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Account account = principal.getAccount();
         Set<Role> accountRoles = account.getAccountRoles();
         for (Role r : accountRoles) {
             if (r.getRoleName().equals("ROLE_PROFESSOR")) {
+                System.out.println("************************** 참가요청");
                 requestService.requestAttend(Long.valueOf(id), account.getAccountId());
-                return "redirect:/request/list/" + id;
+                return "redirect:/requests/list/" + id;
             }
         }
-        return "redirect:/request/list/";
+        return "redirect:/requests/list";
     }
 
     @GetMapping("/list/{id}/project")
@@ -113,7 +120,7 @@ public class RequestController {
             model.addAttribute("projectDto", projectDTO);
             return "request/project-form";
         }
-        return "redirect:/request/list/" + id;
+        return "redirect:/requests/list/" + id;
 
     }
 
@@ -123,8 +130,8 @@ public class RequestController {
         Account account = principal.getAccount();
         if (account.getAccountRoles().contains(Common.getOfficerRoleInstance())) {
             Long projectId = projectService.makeProject(projectDTO);
-            return "redirect:/project/list/" + projectId;
+            return "redirect:/projects/list/" + projectId;
         }
-        return "redirect:/request/list/" + id;
+        return "redirect:/requests/list/" + id;
     }
 }

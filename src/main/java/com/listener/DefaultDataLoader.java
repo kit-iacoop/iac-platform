@@ -19,6 +19,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 
 
@@ -48,7 +49,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     @Transactional
     public void onApplicationEvent(final ContextRefreshedEvent event) {
 
-        if(activate){
+        if (activate) {
             loadUniversityData();
             loadRoleData();
             loadAccountData();
@@ -57,7 +58,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
     }
 
-    private void loadUniversityData(){
+    private void loadUniversityData() {
         createUniversityIfNotFound("금오공과대학교");
         createUniversityIfNotFound("대나무학교");
 
@@ -67,7 +68,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
         // 중복 검사
         University university = universityRepository.findByUniversityName(universityName);
-        if(university != null){
+        if (university != null) {
             return university;
         }
 
@@ -87,7 +88,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         createRoleIfNotFound("ROLE_STUDENT", "학생 권한");
     }
 
-    private void loadAccountData(){
+    private void loadAccountData() {
         createAdminIfNotFound("ADMIN", "1234");
         createCompanyIfNotFound("COMPANY0", "1234", State.NORMAL);
         createCompanyIfNotFound("PENDING_COMPANY0", "1234", State.PENDING);
@@ -98,12 +99,13 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     }
 
     private void loadResourceData() {
-        createResourceIfNotFound("/**", "url", "", 0, "ROLE_USER","ROLE_OFFICER","ROLE_STUDENT", "ROLE_ADMIN", "ROLE_COMPANY" );
+        createResourceIfNotFound("/**", "url", "", 0, "ROLE_USER", "ROLE_OFFICER", "ROLE_STUDENT", "ROLE_ADMIN", "ROLE_COMPANY");
         createResourceIfNotFound("/admin/**", "url", "", 1000, "ROLE_ADMIN");
         createResourceIfNotFound("/company/**", "url", "", 999, "ROLE_COMPANY");
         createResourceIfNotFound("/professor/**", "url", "", 998, "ROLE_PROFESSOR");
         createResourceIfNotFound("/officer/**", "url", "", 997, "ROLE_OFFICER");
         createResourceIfNotFound("/student/**", "url", "", 996, "ROLE_STUDENT");
+        createResourceIfNotFound("/requests/**", "url", "", 995, "ROLE_USER", "ROLE_OFFICER", "ROLE_PROFESSOR", "ROLE_STUDENT", "ROLE_ADMIN", "ROLE_COMPANY");
         filterInvocationSecurityMetadataSource.reload();
 
     }
@@ -113,7 +115,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
         // 중복 검사
         Role role = roleRepository.findByRoleName(roleName);
-        if(role != null){
+        if (role != null) {
             return role;
         }
 
@@ -132,7 +134,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
         // 중복 검사
         Resource resource = resourceRepository.findByResourceNameAndHttpMethod(name, httpMethod);
-        if(resource != null){
+        if (resource != null) {
             return resource;
         }
 
@@ -144,9 +146,9 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
                 .orderNum(priority)
                 .build();
 
-        for(String roleName : roleNames){
+        for (String roleName : roleNames) {
             Role role = roleRepository.findByRoleName(roleName);
-            if(role != null){
+            if (role != null) {
                 resource.addRole(role);
             }
         }
@@ -155,9 +157,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     }
 
 
-
     @Transactional
-    public Admin createAdminIfNotFound(final String loginId, final String password){
+    public Admin createAdminIfNotFound(final String loginId, final String password) {
 
         // 중복 검사
         Account account = accountRepository.findByLoginId(loginId);
@@ -332,7 +333,6 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
         return (Student) account;
     }
-
 
 
 }
