@@ -5,12 +5,14 @@ import com.domain.fieldCategory.FieldCategory;
 import com.domain.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
 @Entity
+@SuperBuilder
 @Table(name = "COLLABO_REQUEST_TECHNIQUE")
 public class CollaboRequestTechnique extends BaseTimeEntity {
     @Id

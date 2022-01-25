@@ -4,11 +4,13 @@ import com.domain.project.Project;
 import com.domain.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
+@SuperBuilder
 @Entity
 @Table(name = "BUDGET_DETAIL")
 public class BudgetDetail extends BaseTimeEntity {
@@ -20,7 +22,7 @@ public class BudgetDetail extends BaseTimeEntity {
     @Column(name = "BUDGET_DETAIL_ID", nullable = false)
     private Long budgetDetailId;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PROJECT_ID", nullable = false)
     private Project project;
 

@@ -10,6 +10,7 @@ import lombok.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -37,15 +38,10 @@ public class CollaboRequestDTO {
     // nullable true column list
     private String projectId = null;
 
-
     // presentation layer 에서 사용되지 않는 정보
-    private List<CollaboRequestProfessor> collaboRequestProfessorList = null;
-    private List<CollaboRequestTechnique> collaboRequestTechniqueList = null;
-    private List<Meeting> meetingList = null;
-
-    // Key - pk / Value - name(value)
-    private Map<String, String> professorList = null;
-    private Map<String, String> techniqueList = null;
+    private List<CollaboRequestProfessorDTO> collaboRequestProfessorList = null;
+    private List<CollaboRequestTechniqueDTO> collaboRequestTechniqueList = null;
+    private List<MeetingDTO> meetingList = null;
 
 
     public CollaboRequestDTO(CollaboRequest collaboRequest) {
@@ -69,25 +65,15 @@ public class CollaboRequestDTO {
         }
 
         if (collaboRequest.getMeetingList() != null) {
-            this.meetingList = collaboRequest.getMeetingList();
+            this.meetingList = collaboRequest.getMeetingList().stream().map(MeetingDTO::new).collect(Collectors.toList());
         }
 
         if (collaboRequest.getCollaboRequestProfessorList() != null) {
-            collaboRequestProfessorList = collaboRequest.getCollaboRequestProfessorList();
-            professorList = new HashMap<>();
-            List<CollaboRequestProfessor> requestProfessors = collaboRequest.getCollaboRequestProfessorList();
-            for (CollaboRequestProfessor e : requestProfessors) {
-                professorList.put(String.valueOf(e.getProfessor().getAccountId()), e.getProfessor().getName());
-            }
+            this.collaboRequestProfessorList = collaboRequest.getCollaboRequestProfessorList().stream().map(CollaboRequestProfessorDTO::new).collect(Collectors.toList());
         }
 
         if (collaboRequest.getCollaboRequestTechniqueList() != null) {
-            collaboRequestTechniqueList = collaboRequest.getCollaboRequestTechniqueList();
-            techniqueList = new HashMap<>();
-            List<CollaboRequestTechnique> requestTechniques = collaboRequest.getCollaboRequestTechniqueList();
-            for (CollaboRequestTechnique e : requestTechniques) {
-                techniqueList.put(String.valueOf(e.getFieldCategory().getFieldCategoryId()), e.getFieldCategory().getCategoryName());
-            }
+            this.collaboRequestTechniqueList = collaboRequest.getCollaboRequestTechniqueList().stream().map(CollaboRequestTechniqueDTO::new).collect(Collectors.toList());
         }
     }
 }

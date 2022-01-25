@@ -10,6 +10,7 @@ import com.domain.projectSalesHistory.ProjectSalesHistory;
 import com.domain.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
+@SuperBuilder
 @Table(name = "PROJECT")
 public class Project extends BaseTimeEntity {
     @Id
@@ -27,15 +29,15 @@ public class Project extends BaseTimeEntity {
     private Long projectId;
 
     // 여기서 CollaboRequest의 FK를 소유하는게 자연스러운듯
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "COLLABO_REQUEST_ID", nullable = false)
     private CollaboRequest collaboRequest;
 
     // BudgetDetail에서 프로젝트의 FK를 소유하는게 자연스러운듯
-    @OneToOne(mappedBy = "project")
+    @OneToOne(mappedBy = "project", orphanRemoval = true, cascade = CascadeType.PERSIST)
     private BudgetDetail budgetDetail;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "COMPANY_ACCOUNT_ID", nullable = false)
     private Company company;
 
@@ -45,16 +47,16 @@ public class Project extends BaseTimeEntity {
     @Column(name = "END_DATE", nullable = false)
     private LocalDate endDate;
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.PERSIST, orphanRemoval = true)
     List<Meeting> meetingList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.PERSIST, orphanRemoval = true)
     List<ProjectOutput> projectOutputList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.PERSIST, orphanRemoval = true)
     List<ProjectProfessor> professorList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "project")
+    @OneToMany(mappedBy = "project", cascade = CascadeType.PERSIST, orphanRemoval = true)
     List<ProjectSalesHistory> salesHistoryList = new ArrayList<>();
 
     public void setBudgetDetail(BudgetDetail budgetDetailId) {
@@ -74,5 +76,9 @@ public class Project extends BaseTimeEntity {
         }
         this.company = companyAccountId;
         companyAccountId.getProjectList().add(this);
+    }
+
+    public void setProfessorList(List<ProjectProfessor> projectProfessorList) {
+        this.professorList = projectProfessorList;
     }
 }
