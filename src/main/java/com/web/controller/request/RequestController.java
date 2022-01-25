@@ -28,8 +28,7 @@ import java.util.Set;
 public class RequestController {
     private final RequestService requestService;
     private final ProjectService projectService;
-
-    private Common common;
+    private final Common common;
 
     @GetMapping({"/"})
     public String redirectList() {

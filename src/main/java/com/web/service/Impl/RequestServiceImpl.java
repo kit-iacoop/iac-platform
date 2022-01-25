@@ -38,24 +38,6 @@ public class RequestServiceImpl implements RequestService {
     private final FieldCategoryRepository fieldCategoryRepository;
     private final CollaboRequestProfessorRepository collaboRequestProfessorRepository;
 
-//    public RequestServiceImpl(
-//            CollaboRequestRepository collaboRequestRepository,
-//            OfficerRepository officerRepository,
-//            CompanyRepository companyRepository,
-//            CollaboRequestProfessorRepository collaboRequestProfessorRepository,
-//            CollaboRequestTechniqueRepository collaboRequestTechniqueRepository,
-//            ProfessorRepository professorRepository,
-//            FieldCategoryRepository fieldCategoryRepository,
-//            CollaboRequestProfessorRepository collaboRequestProfessorRepository1) {
-//
-//        this.collaboRequestRepository = collaboRequestRepository;
-//        this.officerRepository = officerRepository;
-//        this.companyRepository = companyRepository;
-//        this.professorRepository = professorRepository;
-//        this.fieldCategoryRepository = fieldCategoryRepository;
-//        this.collaboRequestProfessorRepository = collaboRequestProfessorRepository1;
-//    }
-
     @Override
     public Page<CollaboRequestDTO> findRequestByTypeAndKey(String type, String key, Pageable pageable) {
 
