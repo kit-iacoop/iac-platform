@@ -11,6 +11,7 @@ import com.web.service.ProjectService;
 import com.web.service.RequestService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -44,7 +45,7 @@ public class RequestController {
     public String requestList(
             @RequestParam(name = "type", defaultValue = "open") String type,
             @RequestParam(name = "key", required = false) String key,
-            @PageableDefault Pageable pageable, Model model) {
+            @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable, Model model) {
 
         if (!type.equals("all") & !type.equals("close") & !type.equals("my") & !type.equals("capstone")) {
             type = "open";
