@@ -98,7 +98,7 @@ public class RequestController {
         AccountContext context = common.getAccountContext();
         Account account = context.getAccount();
 
-        if(context.hasRole("PROFESSOR")){
+        if (context.hasRole("PROFESSOR")) {
             System.out.println("************************** 참가요청");
             requestService.requestAttend(Long.valueOf(id), account.getAccountId());
             return "redirect:/requests/list/" + id;
@@ -110,9 +110,8 @@ public class RequestController {
     @GetMapping("/list/{id}/project")
     public String makeProjectForm(@PathVariable String id, Model model) {
         AccountContext context = common.getAccountContext();
-        Account account = context.getAccount();
 
-        if (account.getAccountRoles().contains(Common.getOfficerRoleInstance())) {
+        if (context.hasRole("PROFESSOR")) {
             ProjectDTO projectDTO = projectService.makeProjectFormDTO(Long.valueOf(id));
             model.addAttribute("projectDto", projectDTO);
             return "request/project-form";
@@ -126,7 +125,7 @@ public class RequestController {
         AccountContext context = common.getAccountContext();
         Account account = context.getAccount();
 
-        if (account.getAccountRoles().contains(Common.getOfficerRoleInstance())) {
+        if (context.hasRole("OFFICER")) {
             Long projectId = projectService.makeProject(projectDTO);
             return "redirect:/projects/list/" + projectId;
         }

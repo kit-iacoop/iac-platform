@@ -16,6 +16,7 @@ import com.web.dto.CollaboRequestDTO;
 import com.web.dto.CollaboRequestProfessorDTO;
 import com.web.dto.CollaboRequestTechniqueDTO;
 import com.web.service.RequestService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,6 +27,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
+
 public class RequestServiceImpl implements RequestService {
 
     private final CollaboRequestRepository collaboRequestRepository;
@@ -35,23 +38,23 @@ public class RequestServiceImpl implements RequestService {
     private final FieldCategoryRepository fieldCategoryRepository;
     private final CollaboRequestProfessorRepository collaboRequestProfessorRepository;
 
-    public RequestServiceImpl(
-            CollaboRequestRepository collaboRequestRepository,
-            OfficerRepository officerRepository,
-            CompanyRepository companyRepository,
-            CollaboRequestProfessorRepository collaboRequestProfessorRepository,
-            CollaboRequestTechniqueRepository collaboRequestTechniqueRepository,
-            ProfessorRepository professorRepository,
-            FieldCategoryRepository fieldCategoryRepository,
-            CollaboRequestProfessorRepository collaboRequestProfessorRepository1) {
-
-        this.collaboRequestRepository = collaboRequestRepository;
-        this.officerRepository = officerRepository;
-        this.companyRepository = companyRepository;
-        this.professorRepository = professorRepository;
-        this.fieldCategoryRepository = fieldCategoryRepository;
-        this.collaboRequestProfessorRepository = collaboRequestProfessorRepository1;
-    }
+//    public RequestServiceImpl(
+//            CollaboRequestRepository collaboRequestRepository,
+//            OfficerRepository officerRepository,
+//            CompanyRepository companyRepository,
+//            CollaboRequestProfessorRepository collaboRequestProfessorRepository,
+//            CollaboRequestTechniqueRepository collaboRequestTechniqueRepository,
+//            ProfessorRepository professorRepository,
+//            FieldCategoryRepository fieldCategoryRepository,
+//            CollaboRequestProfessorRepository collaboRequestProfessorRepository1) {
+//
+//        this.collaboRequestRepository = collaboRequestRepository;
+//        this.officerRepository = officerRepository;
+//        this.companyRepository = companyRepository;
+//        this.professorRepository = professorRepository;
+//        this.fieldCategoryRepository = fieldCategoryRepository;
+//        this.collaboRequestProfessorRepository = collaboRequestProfessorRepository1;
+//    }
 
     @Override
     public Page<CollaboRequestDTO> findRequestByTypeAndKey(String type, String key, Pageable pageable) {
