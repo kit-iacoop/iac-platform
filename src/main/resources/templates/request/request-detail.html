@@ -71,7 +71,10 @@
         function postRequest(path) {
             $.ajax({
                 method: "POST",
-                url: "/requests/list/" + [[${ requestDto.collaboRequestId }]] + path
+                url: "/requests/list/" + [[${ requestDto.collaboRequestId }]] + path,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
+                }
             })
                 .done(function () {
                     alert('성공적으로 처리되었습니다.');
