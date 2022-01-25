@@ -9,6 +9,8 @@ import com.web.dto.CollaboRequestDTO;
 import com.web.dto.ProjectDTO;
 import com.web.service.ProjectService;
 import com.web.service.RequestService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -22,17 +24,12 @@ import java.util.Set;
 
 @RequestMapping("requests")
 @Controller
+@RequiredArgsConstructor
 public class RequestController {
     private final RequestService requestService;
     private final ProjectService projectService;
 
-    public RequestController(
-            RequestService requestService,
-            ProjectService projectService) {
-
-        this.requestService = requestService;
-        this.projectService = projectService;
-    }
+    private Common common;
 
     @GetMapping({"/"})
     public String redirectList() {
@@ -92,22 +89,22 @@ public class RequestController {
 
     @PostMapping("/list/{id}/attend")
     public String requestAttend(@PathVariable String id) {
-        AccountContext principal = (AccountContext) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Account account = principal.getAccount();
-        Set<Role> accountRoles = account.getAccountRoles();
-        for (Role r : accountRoles) {
-            if (r.getRoleName().equals("ROLE_PROFESSOR")) {
-                requestService.requestAttend(Long.valueOf(id), account.getAccountId());
-                return "redirect:/request/list/" + id;
-            }
+        AccountContext context = common.getAccountContext();
+        Account account = context.getAccount();
+
+        if(context.hasRole("PROFESSOR")){
+            requestService.requestAttend(Long.valueOf(id), account.getAccountId());
+            return "redirect:/request/list/" + id;
         }
+
         return "redirect:/request/list/";
     }
 
     @GetMapping("/list/{id}/project")
     public String makeProjectForm(@PathVariable String id, Model model) {
-        AccountContext principal = (AccountContext) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Account account = principal.getAccount();
+        AccountContext context = common.getAccountContext();
+        Account account = context.getAccount();
+
         if (account.getAccountRoles().contains(Common.getOfficerRoleInstance())) {
             ProjectDTO projectDTO = projectService.makeProjectFormDTO(Long.valueOf(id));
             model.addAttribute("projectDto", projectDTO);
@@ -119,8 +116,9 @@ public class RequestController {
 
     @PostMapping("/list/{id}/project")
     public String makeProject(@PathVariable String id, @RequestBody @ModelAttribute @Valid ProjectDTO projectDTO, Model model) {
-        AccountContext principal = (AccountContext) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Account account = principal.getAccount();
+        AccountContext context = common.getAccountContext();
+        Account account = context.getAccount();
+
         if (account.getAccountRoles().contains(Common.getOfficerRoleInstance())) {
             Long projectId = projectService.makeProject(projectDTO);
             return "redirect:/project/list/" + projectId;
