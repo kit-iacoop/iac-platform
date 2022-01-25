@@ -178,6 +178,7 @@ public class RequestServiceImpl implements RequestService {
             build.setProfessor(professor);
             build.setCollaboRequest(request);
 
+
             collaboRequestProfessorRepository.save(build);
             return 1;
         }
