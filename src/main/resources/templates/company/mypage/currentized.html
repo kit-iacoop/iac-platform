@@ -1,5 +1,25 @@
 <ul>
-    <li>기업 정보</li>
-    <li>금해 연회비 납부</li>
-    <li>매출 갱신</li>
+    <li>기업 정보: <span th:if="${infoUpdate}">갱신</span><span th:if="${!infoUpdate}">미갱신</span></li>
+    <li>금해 연회비 납부: <span th:if="${annualFee}">갱신</span><span th:if="${!annualFee}">미갱신</span></li>
+    <li>매출 갱신: <span th:if="${saleUpdate}">갱신</span><span th:if="${!saleUpdate}">미갱신</span></li>
 </ul>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script th:inline="javascript">
+    /* <![CDATA[ */
+    let infoBool = /*[[${infoUpdate}]]*/;
+    let annualFeeBool = /*[[${annualFee}]]*/;
+    let saleBool = /*[[${saleUpdate}]]*/;
+    /* ]]> */
+    
+    $(document).ready(function() {
+        if(!infoBool) {
+            alert("기업 정보를 갱신하세요.");
+        }
+        if(!annualFeeBool) {
+            alert("연회비를 납부하세요.");
+        }
+        if(!saleBool) {
+            alert("매출을 갱신하세요.");
+        }
+    });
+</script>
