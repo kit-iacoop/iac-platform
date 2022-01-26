@@ -2,30 +2,26 @@
 <script src="/js/annual-fee/payment.js"></script>
 
 <div class="current-info">
-    ooo 기업은 현재 GOLD 등급입니다.
+    ooo 기업은 현재 [[${accountDTO.grade}]] 등급입니다.
 </div>
 <div class="main-calculate-wrapper">
     <div class="select-grade-wrapper">
         <select id="annual-fee-for-grade" onchange="changePrice()">
-            <option>선택</option>
-            <option value="1000000">BRONZE</option>
-            <option value="3000000">SILVER</option>
-            <option value="5000000">GOLD</option>
-            <option value="7000000">PLATINUM</option>
+            <option th:each="gradePolicy: ${gradePolicyDTOs}" th:value="${gradePolicy.price}" th:utext="${gradePolicy.grade}"></option>
         </select>
     </div>
     <div class="cash-calculate-wrapper">
         <div class="original-price">
-            <p>5000000</p>원
+            <p>[[${annualFee}]]</p>원
         </div>
         <div class="using-point-area">
             <input id="use-point" type="text"/>
             <button onclick="discount()">사용</button>
             <button onclick="allUseDiscount()">모두 사용</button>
-            보유: <p id="my-point">100</p>포인트
+            보유: <p id="my-point">[[${accountDTO.point}]]</p>포인트
         </div>
         <div class="sale-price">
-            <p id="sale-price">5000000</p>원
+            <p id="sale-price">[[${annualFee}]]</p>원
         </div>
     </div>
 </div>
