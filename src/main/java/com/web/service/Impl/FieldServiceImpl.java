@@ -7,6 +7,7 @@ import com.web.service.FieldService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -20,11 +21,18 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public List<FieldCategoryDTO> getChildren(Long parentId) {
-        Optional<FieldCategory> maybeParent = fieldCategoryRepository.findById(parentId);
-        if (maybeParent.isEmpty()) {
-            return null;
+        Optional<FieldCategory> maybeParent = Optional.empty();
+        if (parentId == -1L) {
+            maybeParent = fieldCategoryRepository.findById(1L);
+            if (maybeParent.isPresent()) {
+                return List.of(new FieldCategoryDTO(maybeParent.get()));
+            }
         }
-        List<FieldCategory> findAllField = fieldCategoryRepository.findAllByParentCategory(maybeParent.get());
-        return findAllField.stream().map(FieldCategoryDTO::new).collect(Collectors.toList());
+        maybeParent = fieldCategoryRepository.findById(parentId);
+        if (maybeParent.isPresent()) {
+            List<FieldCategory> findAllField = fieldCategoryRepository.findAllByParentCategory(maybeParent.get());
+            return findAllField.stream().map(FieldCategoryDTO::new).collect(Collectors.toList());
+        }
+        return null;
     }
 }
