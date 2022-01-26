@@ -1,0 +1,58 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<h1>회사 세부 정보</h1>
+<div class="company-detail">
+    <label>이름</label>
+    <div>[[${account.name}]]</div>
+</div>
+<div class="company-detail">
+    <label>회사 구분</label>
+    <div>[[${account.companyType}]]</div>
+</div>
+<div class="company-detail">
+    <label>업종</label>
+    <div>[[${account.sector}]]</div>
+</div>
+<div class="company-detail">
+    <label>대표</label>
+    <div>[[${account.owner}]]</div>
+</div>
+<div class="company-detail">
+    <label>사업자 등록번호</label>
+    <div>[[${account.businessRegistrationNumber}]]</div>
+</div>
+<div class="company-detail">
+    <label>사원 수</label>
+    <div>[[${account.employeeNumber}]]</div>
+</div>
+<div class="company-detail">
+    <label>주소</label>
+    <div>[[${account.address.zipCode}]] [[${account.address.city}]] [[${account.address.street}]]</div>
+</div>
+<div class="company-detail">
+    <label>연락처</label>
+    <div>[[${account.telephone}]]</div>
+</div>
+<div class="company-detail">
+    <label>이메일</label>
+    <div>[[${account.email}]]</div>
+</div>
+
+<button type="submit" onclick="postRequest('/accept')">승인</button>
+<button type="submit" onclick="postRequest('/reject')">거절</button>
+
+
+<script th:inline="javascript">
+    function postRequest(path) {
+        $.ajax({
+            method: "POST",
+            url: "/officer/family-company/screen/detail/" + [[${account.accountId}]] + path,
+            beforeSend: function (xhr) {
+				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
+			}
+        })
+        .done(function() {
+            alert("성공적으로 처리되었습니다.");
+            window.close();
+        });
+    }
+</script>
