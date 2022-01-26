@@ -6,7 +6,9 @@ import com.domain.account.Account;
 import com.domain.security.role.Role;
 import com.security.service.AccountContext;
 import com.web.dto.CollaboRequestDTO;
+import com.web.dto.FieldCategoryDTO;
 import com.web.dto.ProjectDTO;
+import com.web.service.FieldService;
 import com.web.service.ProjectService;
 import com.web.service.RequestService;
 import lombok.RequiredArgsConstructor;
@@ -20,6 +22,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Set;
 
 @RequestMapping("requests")
@@ -29,6 +32,7 @@ public class RequestController {
     private final RequestService requestService;
     private final ProjectService projectService;
     private final Common common;
+    private final FieldService fieldService;
 
     @GetMapping({"/"})
     public String redirectList() {
@@ -50,8 +54,10 @@ public class RequestController {
         }
 
         Page<CollaboRequestDTO> allRequest = requestService.findRequestByTypeAndKey(type, key, pageable);
+        List<FieldCategoryDTO> allCategory = fieldService.getAllCategory();
 
         model.addAttribute("collaboRequestDtos", allRequest);
+        model.addAttribute("categories", allCategory);
         model.addAttribute("type", type);
         model.addAttribute("page", pageable.getPageNumber() + 1);
         model.addAttribute("maxPage", allRequest.getTotalPages());

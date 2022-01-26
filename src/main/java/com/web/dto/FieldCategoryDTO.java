@@ -12,9 +12,11 @@ import lombok.*;
 public class FieldCategoryDTO {
     String fieldCategoryId;
     String categoryName;
+    String level;
 
     public FieldCategoryDTO(FieldCategory fieldCategory) {
         this.fieldCategoryId = String.valueOf(fieldCategory.getFieldCategoryId());
         this.categoryName = fieldCategory.getCategoryName();
+        this.level = String.valueOf(fieldCategory.getLevel());
     }
 }
