@@ -32,7 +32,6 @@ public class CollaborationCategory extends BaseTimeEntity {
     private Integer level;
 
     @OneToMany(mappedBy =  "parentCategory", fetch = FetchType.LAZY)
-    @JoinColumn
     private List<CollaborationCategory> children = new ArrayList<>();
 
 

@@ -10,6 +10,7 @@ import com.domain.common.BaseTimeEntity;
 import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ import java.util.List;
 
 @SuperBuilder
 @NoArgsConstructor
+@ToString(exclude={"mileageFileList", "companyMileage"})
 @Getter
 @Entity
 @Table(name = "MILEAGE_REQUEST")

@@ -20,6 +20,7 @@ import com.domain.university.University;
 import com.domain.university.UniversityRepository;
 import com.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationListener;
@@ -29,12 +30,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.naming.CompositeName;
 import java.time.LocalDate;
+import java.util.Optional;
 
 
+@Slf4j
 @Setter
 @ConfigurationProperties(prefix = "property.default-data-loader")
 @Component
-public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEvent> {
+public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedEvent> {
 
     private boolean activate = false; // application.yml에 의해 주입됨
 
@@ -88,13 +91,40 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
         createMileagePolicyIfNotFound(1L, "중분류 테스트 1", 50L, 50L);
         createMileageRequestIfNotFound(1L, "OFFICER0", "COMPANY0", 1L, 5L, State.PENDING, LocalDate.now(), LocalDate.now());
-        createCompanyMileageIfNotFound();
+        createMileageRequestIfNotFound(2L, "OFFICER0", "COMPANY0", 1L, 3L, State.APPROVED, LocalDate.now(), LocalDate.now());
+        createCompanyMileageIfNotFound(1L, "COMPANY0", 2L, 500L, 500L);
 
     }
 
-    private CompanyMileage createCompanyMileageIfNotFound() {
+    private CompanyMileage createCompanyMileageIfNotFound(Long id, String companyId, Long requestId, Long mileage, Long point) {
 
-        return null;
+
+        // 필요 객체 확인
+        Company company = (Company) accountRepository.findByLoginId(companyId);
+        MileageRequest mr = mileageRequestRepository.findByMileageRequestId(requestId);
+
+        if(company == null || mr == null){
+            log.warn("createCompanyMileageIfNotFound() : 필요 객체 null");
+            return null;
+        }
+
+        CompanyMileage companyMileage = companyMileageRepository.findByCompanyMileageId(id);
+
+        if(companyMileage != null){
+            log.warn("createCompanyMileageIfNotFound() : 이미 존재하는 객체");
+            return companyMileage;
+        }
+
+        CompanyMileage cm = CompanyMileage.builder()
+                .companyMileageId(id)
+                .company(company)
+                .mileageRequest(mr)
+                .mileage(mileage)
+                .point(point)
+                .build();
+
+
+        return companyMileageRepository.save(cm);
     }
 
     private MileageRequest createMileageRequestIfNotFound(Long reqId, String officerId, String companyId, Long mileagePolicyId, Long achievementCnt, State stat, LocalDate startDate, LocalDate endDate) {
@@ -102,21 +132,23 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         // 필요 객체 확인
         MileagePolicy mileagePolicy = mileagePolicyRepository.findByMileagePolicyId(mileagePolicyId);
         Company company = (Company) accountRepository.findByLoginId(companyId);
-        Officer officer = (Officer) accountRepository.findByLoginId(companyId);
+        Officer officer = (Officer) accountRepository.findByLoginId(officerId);
 
         if(mileagePolicy == null || company == null || officer == null){
+            log.warn("createMileageRequestIfNotFound() : 필요 객체 null");
             return null;
         }
 
         MileageRequest mr = mileageRequestRepository.findByMileageRequestId(reqId);
         if(mr != null){
+            log.warn("createMileageRequestIfNotFound() : 이미 존재하는 객체");
             return mr;
         }
 
         // 생성 &저장
 
         mr = MileageRequest.builder()
-                .mileageRequestId(mileagePolicyId)
+                .mileageRequestId(reqId)
                 .officer(officer)
                 .company(company)
                 .mileagePolicy(mileagePolicy)
@@ -142,15 +174,17 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     private CollaborationCategory createCollaborationCategoryIfNotFound(Long id, Long parentId, String name, Integer level){
 
         //부모 존재 확인
-        CollaborationCategory parentCategory = collaborationCategoryRepository.findByCategoryId(parentId);
-        if(parentCategory == null){
+        CollaborationCategory parentCategory = collaborationCategoryRepository.findByCollaborationCategoryId(parentId);
+        if(parentId != null && parentCategory == null){
+            log.warn("createCollaborationCategoryIfNotFound() : 부모 객체 null");
             return null;
         }
 
         // 중복 검사
-        CollaborationCategory collaborationCategory = collaborationCategoryRepository.findByCategoryId(id);
+        CollaborationCategory collaborationCategory = collaborationCategoryRepository.findByCollaborationCategoryId(id);
 
         if(collaborationCategory != null){
+            log.warn("createMileageRequestIfNotFound() : 이미 존재하는 객체");
             return collaborationCategory;
         }
 
@@ -168,9 +202,10 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
     private MileagePolicy createMileagePolicyIfNotFound(Long id, String categoryName, Long mileage, Long point){
 
-        //카테고리 존재 확인
+        //필요 객체 확인
         CollaborationCategory collaboration = collaborationCategoryRepository.findByCollaborationName(categoryName);
         if(collaboration == null){
+            log.warn("createMileagePolicyIfNotFound() : 필요 객체 null");
             return null;
         }
 
@@ -178,6 +213,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         MileagePolicy mileagePolicy = mileagePolicyRepository.findByMileagePolicyId(id);
 
         if(mileagePolicy != null){
+            log.warn("createMileagePolicyIfNotFound() : 이미 존재하는 객체");
             return mileagePolicy;
         }
 
@@ -208,6 +244,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         // 중복 검사
         University university = universityRepository.findByUniversityName(universityName);
         if(university != null){
+            log.warn("createUniversityIfNotFound() : 이미 존재하는 객체");
+
             return university;
         }
 
@@ -254,6 +292,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         // 중복 검사
         Role role = roleRepository.findByRoleName(roleName);
         if(role != null){
+            log.warn("createRoleIfNotFound() : 이미 존재하는 객체");
+
             return role;
         }
 
@@ -273,6 +313,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         // 중복 검사
         Resource resource = resourceRepository.findByResourceNameAndHttpMethod(name, httpMethod);
         if(resource != null){
+            log.warn("createResourceIfNotFound() : 이미 존재하는 객체");
+
             return resource;
         }
 
@@ -302,6 +344,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         // 중복 검사
         Account account = accountRepository.findByLoginId(loginId);
         if (account != null) {
+            log.warn("createAdminIfNotFound() : 이미 존재하는 객체");
+
             return (Admin) account;
         }
 
@@ -332,6 +376,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         Account account = accountRepository.findByLoginId(loginId);
 
         if (account != null) {
+            log.warn("createCompanyIfNotFound() : 이미 존재하는 객체");
+
             return (Company) account;
         }
 
@@ -375,6 +421,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         Account account = accountRepository.findByLoginId(loginId);
 
         if (account != null) {
+            log.warn("createProfessorIfNotFound() : 이미 존재하는 객체");
+
             return (Professor) account;
         }
 
@@ -409,6 +457,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         Account account = accountRepository.findByLoginId(loginId);
 
         if (account != null) {
+            log.warn("createOfficerIfNotFound() : 이미 존재하는 객체");
+
             return (Officer) account;
         }
 
@@ -444,6 +494,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         Account account = accountRepository.findByLoginId(loginId);
 
         if (account != null) {
+            log.warn("createStudentIfNotFound() : 이미 존재하는 객체");
+
             return (Student) account;
         }
 

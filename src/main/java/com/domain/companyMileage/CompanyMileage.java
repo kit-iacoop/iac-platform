@@ -6,9 +6,11 @@ import com.domain.common.BaseTimeEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
+@SuperBuilder
 @NoArgsConstructor
 @Getter
 @Entity
