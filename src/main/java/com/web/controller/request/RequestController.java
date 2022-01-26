@@ -42,8 +42,6 @@ public class RequestController {
             @RequestParam(name = "key", required = false) String key,
             @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable, Model model) {
 
-        System.out.println("****************************** 기술요청 목록");
-
         if (!type.equals("all") & !type.equals("close") & !type.equals("my") & !type.equals("capstone")) {
             type = "open";
         }
@@ -63,7 +61,6 @@ public class RequestController {
 
     @GetMapping("/list/{id}")
     public String requestDetail(@PathVariable String id, Model model) {
-        System.out.println("********************** 기술요청 상세정보");
 
         model.addAttribute("requestDto", requestService.getRequestDetail(id));
         return "request/request-detail";
@@ -85,7 +82,6 @@ public class RequestController {
 
     @PostMapping("/list/{id}/open")
     public String closeToOpen(@PathVariable String id) {
-        System.out.println("******************** 공개로 변경");
 
         requestService.closeToOpen(Long.valueOf(id));
 
@@ -98,7 +94,6 @@ public class RequestController {
         Account account = context.getAccount();
 
         if (context.hasRole("PROFESSOR")) {
-            System.out.println("************************** 참가요청");
             requestService.requestAttend(Long.valueOf(id), account.getAccountId());
             return "redirect:/requests/list/" + id;
         }
