@@ -18,14 +18,20 @@ public class FieldServiceImpl implements FieldService {
 
     @Override
     public List<FieldCategoryDTO> getAllCategory() {
-        List<FieldCategory> root = fieldCategoryRepository.findAllByParentCategory(null);
-        Deque<FieldCategory> deque = new ArrayDeque<>(root);
+        Deque<FieldCategory> deque = new ArrayDeque<>(fieldCategoryRepository.findAllByParentCategory(null));
         List<FieldCategory> ordered = new ArrayList<>();
+
         while (!deque.isEmpty()) {
-            FieldCategory pop = deque.pop();
-            ordered.add(pop);
-            deque.addAll(fieldCategoryRepository.findAllByParentCategory(pop));
+            FieldCategory pop = deque.getLast();
+            deque.removeLast();
+            if (!ordered.contains(pop)) {
+                ordered.add(pop);
+                for (FieldCategory fc : fieldCategoryRepository.findAllByParentCategory(pop)) {
+                    deque.addLast(fc);
+                }
+            }
         }
+
         return ordered.stream().map(FieldCategoryDTO::new).collect(Collectors.toList());
     }
 
