@@ -9,6 +9,10 @@ public class DateUtil {
         return LocalDate.now().until(toLocalDate(date), ChronoUnit.DAYS);
     }
 
+    public static long passedDay(String date) {
+        return toLocalDate(date).until(LocalDate.now(), ChronoUnit.DAYS);
+    }
+
     public static String dotStyle(String date) {
         return toLocalDate(date).format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
     }

@@ -1668,6 +1668,28 @@ table {
   box-shadow: 3px 3px #ddd;
 }
 
+.depth-1 {}
+
+.depth-2 {
+  margin-left: 1rem;
+}
+
+.depth-3 {
+  margin-left: 2rem;
+}
+
+.depth-4 {
+  margin-left: 3rem;
+}
+
+.comma-separated:after {
+  content: ", ";
+}
+
+.comma-separated:last-child:after {
+  content: "";
+}
+
 #collabo-project {
   background-color: #f0f0f0;
 }

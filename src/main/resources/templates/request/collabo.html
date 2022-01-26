@@ -36,21 +36,6 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 
-  <style>
-    .depth-1 {}
-
-    .depth-2 {
-      margin-left: 1rem;
-    }
-
-    .depth-3 {
-      margin-left: 2rem;
-    }
-
-    .depth-4 {
-      margin-left: 3rem;
-    }
-  </style>
 </head>
 
 <body>
@@ -162,20 +147,22 @@
                   <dt>전공</dt>
                   <dd>
                     <ul>
-                      <li class="depth-1"><input type="checkbox" name="fieldCategory" value="1"
-                          id="major-electrical"><label for="major-electrical">전자</label></li>
-                      <li class="depth-2"><input type="checkbox" name="fieldCategory" value="2"
-                          id="major-architectural"><label for="major-architectural">건축</label></li>
-                      <li class="depth-3"><input type="checkbox" name="fieldCategory" value="3"
-                          id="major-industrial"><label for="major-industrial">산업</label></li>
-                      <li class="depth-4"><input type="checkbox" name="fieldCategory" value="4"
-                          id="major-chemical"><label for="major-chemical">화학</label></li>
-                      <li class="depth-1"><input type="checkbox" name="fieldCategory" value="5"
-                          id="major-mechanical"><label for="major-mechanical">기계</label></li>
-                      <li class="depth-2"><input type="checkbox" name="fieldCategory" value="6"
-                          id="major-computer"><label for="major-computer">컴퓨터/IT</label></li>
-                      <li class="depth-2"><input type="checkbox" name="fieldCategory" value="7"
-                          id="major-environmental"><label for="major-environmental">환경</label></li>
+                      <li th:each="category : ${categories}" th:class="|depth-${category.level}|">
+                        <input type="checkbox" name="fieldCategory" th:value="${category.fieldCategoryId}" th:id="|category-${category.fieldCategoryId}|">
+                        <label th:for="|category-${category.fieldCategoryId}|" th:text="${category.categoryName}"></label>
+                      </li>
+<!--                      <li class="depth-2"><input type="checkbox" name="fieldCategory" value="2"-->
+<!--                          id="major-architectural"><label for="major-architectural">건축</label></li>-->
+<!--                      <li class="depth-3"><input type="checkbox" name="fieldCategory" value="3"-->
+<!--                          id="major-industrial"><label for="major-industrial">산업</label></li>-->
+<!--                      <li class="depth-4"><input type="checkbox" name="fieldCategory" value="4"-->
+<!--                          id="major-chemical"><label for="major-chemical">화학</label></li>-->
+<!--                      <li class="depth-1"><input type="checkbox" name="fieldCategory" value="5"-->
+<!--                          id="major-mechanical"><label for="major-mechanical">기계</label></li>-->
+<!--                      <li class="depth-2"><input type="checkbox" name="fieldCategory" value="6"-->
+<!--                          id="major-computer"><label for="major-computer">컴퓨터/IT</label></li>-->
+<!--                      <li class="depth-2"><input type="checkbox" name="fieldCategory" value="7"-->
+<!--                          id="major-environmental"><label for="major-environmental">환경</label></li>-->
                     </ul>
                   </dd>
                 </dl>
@@ -322,11 +309,13 @@
                         class="project-type-tag">장기</span>
                       <span th:if="${T(com.web.util.NumberUtil).toLong(dto.term) <= 100}"
                         class="project-type-tag">단기</span>
+                      <span th:if="${dto.isCapstone.equals('true')}" class="project-type-tag">캡스톤디자인</span>
+
                       <h4 th:text="${dto.title}"></h4>
-                      <!--                      <span class="regist-date" th:text="${T(com.web.util.DateUtil).dotStyle(dto.createdDate)}"></span>-->
+<!--                      <span class="regist-date" th:text="${T(com.web.util.DateUtil).dotStyle(dto.createdDate)}"></span>-->
                     </div>
                     <div>
-                      <!--                      <span class="tag">New</span>-->
+<!--                      <span th:if="${T(com.web.util.DateUtil).passedDay(dto.createdDate) <= 5}" class="tag">New</span>-->
                       <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} > 0">
                         <span class="tag">모집중</span>
                         <span class="tag">D-[[${T(com.web.util.DateUtil).calcDday(dto.expireDate)}]]</span>
@@ -340,9 +329,9 @@
                       </th:block>
                     </div>
                   </div>
-                  <div class="project-field">
-                    분야: 개발,디자인,기획
-                  </div>
+<!--                  <div class="project-field">-->
+<!--                    분야: 개발,디자인,기획-->
+<!--                  </div>-->
                   <div class="project-summary">
                     <p><span>프로젝트규모:</span><b>[[${T(com.web.util.NumberUtil).commaFormat(dto.budget)}]]만원</b></p>
                     <p><span>수행기간:</span><b>[[${dto.term}]]일</b></p>
@@ -358,7 +347,12 @@
                     <div class="col-lg-4">
                       <dl>
                         <dd><b>기업명:</b> [[${dto.companyName}]]</dd>
-                        <dd><b>지역:</b> 구미 <br></dd>
+                        <dd><b>분야:</b>
+                          <th:block th:each="tech : ${dto.collaboRequestTechniqueList}">
+                            <span class="comma-separated">[[${tech.fieldCategoryName}]]</span>
+                          </th:block>
+                        </dd>
+                        <br>
                       </dl>
                     </div>
                   </div>
