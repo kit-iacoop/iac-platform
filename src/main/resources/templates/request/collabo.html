@@ -35,6 +35,22 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
+  <style>
+    .depth-1 {}
+
+    .depth-2 {
+      margin-left: 1rem;
+    }
+
+    .depth-3 {
+      margin-left: 2rem;
+    }
+
+    .depth-4 {
+      margin-left: 3rem;
+    }
+  </style>
 </head>
 
 <body>
@@ -84,7 +100,7 @@
             </ul>
           </li>
 
-          <li><a class="nav-link scrollto" href="#services">특허검색</a></li>
+          <li><a class="nav-link scrollto" href="/copyrights/list">특허검색</a></li>
           <li>
             <a class="nav-link scrollto" href="#portfolio">장비공유</a>
           </li>
@@ -131,13 +147,13 @@
                   <dt>프로젝트 형태</dt>
                   <dd>
                     <ul>
-                      <li><input type="radio" name="radio-btn" data-type="t1" checked="checked"
-                          id="project-type01"><label for="project-type01">장기</label></li>
-                      <li><input type="radio" name="radio-btn" data-type="t2" id="project-type02"><label
+                      <li><input type="radio" name="projectType" value="t1" checked="checked" id="project-type01"><label
+                          for="project-type01">장기</label></li>
+                      <li><input type="radio" name="projectType" value="t2" id="project-type02"><label
                           for="project-type02">단기</label></li>
-                      <li><input type="radio" name="radio-btn" data-type="t3" id="project-type03"><label
+                      <li><input type="radio" name="projectType" value="t3" id="project-type03"><label
                           for="project-type03">융합</label></li>
-                      <li><input type="radio" name="radio-btn" data-type="t4" id="project-type04"><label
+                      <li><input type="radio" name="projectType" value="t4" id="project-type04"><label
                           for="project-type04">캡스톤디자인</label></li>
                     </ul>
                   </dd>
@@ -146,20 +162,20 @@
                   <dt>전공</dt>
                   <dd>
                     <ul>
-                      <li><input type="checkbox" data-type="m1" id="major-electrical"><label
-                          for="major-electrical">전자</label></li>
-                      <li><input type="checkbox" data-type="m2" id="major-architectural"><label
-                          for="major-architectural">건축</label></li>
-                      <li><input type="checkbox" data-type="m3" id="major-industrial"><label
-                          for="major-industrial">산업</label></li>
-                      <li><input type="checkbox" data-type="m4" id="major-chemical"><label
-                          for="major-chemical">화학</label></li>
-                      <li><input type="checkbox" data-type="m5" id="major-mechanical"><label
-                          for="major-mechanical">기계</label></li>
-                      <li><input type="checkbox" data-type="m6" id="major-computer"><label
-                          for="major-computer">컴퓨터/IT</label></li>
-                      <li><input type="checkbox" data-type="m7" id="major-environmental"><label
-                          for="major-environmental">환경</label></li>
+                      <li class="depth-1"><input type="checkbox" name="fieldCategory" value="1"
+                          id="major-electrical"><label for="major-electrical">전자</label></li>
+                      <li class="depth-2"><input type="checkbox" name="fieldCategory" value="2"
+                          id="major-architectural"><label for="major-architectural">건축</label></li>
+                      <li class="depth-3"><input type="checkbox" name="fieldCategory" value="3"
+                          id="major-industrial"><label for="major-industrial">산업</label></li>
+                      <li class="depth-4"><input type="checkbox" name="fieldCategory" value="4"
+                          id="major-chemical"><label for="major-chemical">화학</label></li>
+                      <li class="depth-1"><input type="checkbox" name="fieldCategory" value="5"
+                          id="major-mechanical"><label for="major-mechanical">기계</label></li>
+                      <li class="depth-2"><input type="checkbox" name="fieldCategory" value="6"
+                          id="major-computer"><label for="major-computer">컴퓨터/IT</label></li>
+                      <li class="depth-2"><input type="checkbox" name="fieldCategory" value="7"
+                          id="major-environmental"><label for="major-environmental">환경</label></li>
                     </ul>
                   </dd>
                 </dl>
@@ -210,7 +226,7 @@
                 </div>
               </section>
             </div><!-- End of counter -->
-            <div class="project-list-container">
+            <div class="project-list-container" th:fragment="info-contents">
               <ul class="project-list-ul">
 <!--                <li class="project-list-li">-->
 <!--                  <div class="project-title">-->
@@ -302,13 +318,15 @@
                 <li class="project-list-li" th:each="dto : ${collaboRequestDtos}">
                   <div class="project-title">
                     <div>
-                      <span th:if="${T(com.web.util.NumberUtil).toLong(dto.term) > 100}" class="project-type-tag">장기</span>
-                      <span th:if="${T(com.web.util.NumberUtil).toLong(dto.term) <= 100}" class="project-type-tag">단기</span>
+                      <span th:if="${T(com.web.util.NumberUtil).toLong(dto.term) > 100}"
+                        class="project-type-tag">장기</span>
+                      <span th:if="${T(com.web.util.NumberUtil).toLong(dto.term) <= 100}"
+                        class="project-type-tag">단기</span>
                       <h4 th:text="${dto.title}"></h4>
-<!--                      <span class="regist-date" th:text="${T(com.web.util.DateUtil).dotStyle(dto.createdDate)}"></span>-->
+                      <!--                      <span class="regist-date" th:text="${T(com.web.util.DateUtil).dotStyle(dto.createdDate)}"></span>-->
                     </div>
                     <div>
-<!--                      <span class="tag">New</span>-->
+                      <!--                      <span class="tag">New</span>-->
                       <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} > 0">
                         <span class="tag">모집중</span>
                         <span class="tag">D-[[${T(com.web.util.DateUtil).calcDday(dto.expireDate)}]]</span>
