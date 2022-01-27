@@ -55,4 +55,14 @@ public class Student extends Account {
     public Account updateInformation(AccountInformationDTO accInfDto) {
         return null;
     }
+
+    @Override
+    public void acceptRegistration() {
+
+    }
+
+    @Override
+    public void rejectRegistration() {
+
+    }
 }

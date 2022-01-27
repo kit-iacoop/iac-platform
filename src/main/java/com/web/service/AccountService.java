@@ -33,5 +33,10 @@ public interface AccountService {
     public List<AccountSearchDTO> findProfessorContainName(String name);
 
     public List<AccountSearchDTO> findStudentContainName(String name);
+
+    public Account registrationAccept(Long accountId);
+    public Account registrationReject(Long accountId);
+
+    Account getPendingAccountById(Long accountId);
 }
 
