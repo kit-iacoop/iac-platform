@@ -5,11 +5,14 @@ import com.domain.common.RequestType;
 import com.domain.common.State;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 
 import java.util.List;
 
-public interface CollaboRequestRepository extends JpaRepository<CollaboRequest, Long> {
+public interface CollaboRequestRepository extends JpaRepository<CollaboRequest, Long>, CollaboRequestRepositoryCustom {
+
 
     Page<CollaboRequest> findByOfficer(Officer officer, Pageable pageable);
 
@@ -22,4 +25,5 @@ public interface CollaboRequestRepository extends JpaRepository<CollaboRequest, 
     Page<CollaboRequest> findAllByCompany_AccountIdAndTitleContains(Long companyId, String key, Pageable pageable);
 
     Page<CollaboRequest> findAllByIsCapstoneAndTitleContains(String isCapstone, String key, Pageable pageable);
+
 }

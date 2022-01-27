@@ -3,6 +3,7 @@ package com.web.service.Impl;
 import com.domain.account.*;
 import com.domain.collaboRequest.CollaboRequest;
 import com.domain.collaboRequest.CollaboRequestRepository;
+import com.domain.collaboRequest.RequestQueryCondition;
 import com.domain.collaboRequestProfessor.CollaboRequestProfessor;
 import com.domain.collaboRequestProfessor.CollaboRequestProfessorRepository;
 import com.domain.collaboRequestTechnique.CollaboRequestTechnique;
@@ -25,6 +26,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -96,6 +98,7 @@ public class RequestServiceImpl implements RequestService {
                 .title(collaboRequestDTO.getTitle())
                 .budget(collaboRequestDTO.getBudget())
                 .term(collaboRequestDTO.getTerm())
+                .termType(Integer.parseInt(collaboRequestDTO.getTermType()) < 100 ? "단기" : "장기")
                 .expireDate(LocalDate.parse(collaboRequestDTO.getExpireDate()))
                 .description(collaboRequestDTO.getDescription())
                 .status(State.valueOf(collaboRequestDTO.getStatus()))
@@ -169,5 +172,33 @@ public class RequestServiceImpl implements RequestService {
         }
 
         return 0;
+    }
+
+    @Override
+    public Page<CollaboRequestDTO> findRequestByQuery(String type, String term, String[] fields, String[] options, String key, Pageable pageable) {
+
+        List<FieldCategory> categories = fieldCategoryRepository.findAllById(Arrays.stream(fields).map(Long::valueOf).collect(Collectors.toList()));
+        Optional<String> isCapstone = Optional.empty();
+        Optional<String> isFusion = Optional.empty();
+        for (String op : options) {
+            if (op.equals("capstone")) {
+                isCapstone = Optional.of("true");
+            } else if (op.equals("fusion")) {
+                isFusion = Optional.of("true");
+            }
+        }
+
+        RequestQueryCondition build = RequestQueryCondition.builder()
+                .type(type.equals("ALL") ? null : RequestType.valueOf(type))
+                .key(key.isEmpty() ? null : key)
+                .termType(term.isEmpty() ? null : term)
+                .fieldCategoryList(categories.size() == 0 ? null : categories)
+                .isCapstone(isCapstone.orElse(null))
+                .isFusion(isFusion.orElse(null))
+                .build();
+
+        Page<CollaboRequest> search = collaboRequestRepository.search(build, pageable);
+
+        return search.map(CollaboRequestDTO::new);
     }
 }

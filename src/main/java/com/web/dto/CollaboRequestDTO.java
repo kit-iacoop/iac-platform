@@ -28,6 +28,7 @@ public class CollaboRequestDTO {
     private String companyName;
     private String title;
     private String term;
+    private String termType;
     private String expireDate;
     private String description;
     private String status;
@@ -53,6 +54,7 @@ public class CollaboRequestDTO {
         this.companyName = collaboRequest.getCompany().getName();
         this.title = collaboRequest.getTitle();
         this.term = collaboRequest.getTerm();
+        this.termType = collaboRequest.getTermType();
         this.expireDate = String.valueOf(collaboRequest.getExpireDate());
         this.description = collaboRequest.getDescription();
         this.status = String.valueOf(collaboRequest.getStatus());

@@ -18,4 +18,6 @@ public interface RequestService {
     int closeToOpen(Long id);
 
     int requestAttend(Long requestId, Long professorId);
+
+    Page<CollaboRequestDTO> findRequestByQuery(String type, String term, String[] fields, String[] options, String key, Pageable pageable);
 }

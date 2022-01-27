@@ -65,6 +65,21 @@ public class RequestController {
         return "request/collabo";
     }
 
+    @GetMapping("/list/query")
+    public String queriedRequestList(
+            @RequestParam(name = "type", defaultValue = "") String type, // 공개 비공개
+            @RequestParam(name = "term", defaultValue = "") String term, // 전체, 장기, 단기
+            @RequestParam(name = "fields[]", defaultValue = "") String[] fields, // 분야 id들 (없으면 all)
+            @RequestParam(name = "options[]", defaultValue = "") String[] options, // 캡스톤여부, 융합프로젝트 여부 (없으면 all)
+            @RequestParam(name = "key", defaultValue = "") String key, // 검색어
+            @PageableDefault(sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+
+        Page<CollaboRequestDTO> queriedList = requestService.findRequestByQuery(type, term, fields, options, key, pageable);
+
+        return "request/collabo :: info-contents";
+    }
+
     @GetMapping("/list/{id}")
     public String requestDetail(@PathVariable String id, Model model) {
 
