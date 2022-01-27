@@ -1,12 +1,12 @@
 package com.domain.collaboRequest;
 
 import com.domain.collaboRequestTechnique.CollaboRequestTechnique;
+import com.domain.collaboRequestTechnique.CollaboRequestTechniqueRepository;
 import com.domain.collaboRequestTechnique.QCollaboRequestTechnique;
 import com.domain.common.RequestType;
 import com.domain.fieldCategory.FieldCategory;
 import com.domain.fieldCategory.QFieldCategory;
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.core.types.dsl.ListPath;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -24,14 +24,15 @@ public class CollaboRequestRepositoryCustomImpl
 
     private final JPAQueryFactory queryFactory;
     private final QCollaboRequest collaboRequest = QCollaboRequest.collaboRequest;
-    private final QCollaboRequestTechnique collaboRequestTechnique = QCollaboRequestTechnique.collaboRequestTechnique;
+    private final QCollaboRequestTechnique qcollaboRequestTechnique = QCollaboRequestTechnique.collaboRequestTechnique;
     private final QFieldCategory fieldCategory = QFieldCategory.fieldCategory;
+    private final CollaboRequestTechniqueRepository collaboRequestTechniqueRepository;
 
     @Override
     public Page<CollaboRequest> search(RequestQueryCondition condition, Pageable pageable) {
 
         List<CollaboRequest> results = queryFactory
-                .select(collaboRequest).from(collaboRequest)
+                .select(collaboRequest).from(collaboRequest, qcollaboRequestTechnique).join(qcollaboRequestTechnique)
                 .where(
                         eqRequestType(condition.getType()),
                         eqTermType(condition.getTermType()),
@@ -72,7 +73,9 @@ public class CollaboRequestRepositoryCustomImpl
             return null;
         }
 
-        return collaboRequestTechnique.fieldCategory.fieldCategoryId.in(categories.stream().map(FieldCategory::getFieldCategoryId).collect(Collectors.toList()));
+        List<CollaboRequestTechnique> allByFieldCategoryIn = collaboRequestTechniqueRepository.findAllByFieldCategoryIn(categories);
+        return collaboRequest.collaboRequestId.eq(qcollaboRequestTechnique.collaboRequest.collaboRequestId)
+                .and(qcollaboRequestTechnique.collaboRequestTechniqueId.in(allByFieldCategoryIn.stream().map(CollaboRequestTechnique::getCollaboRequestTechniqueId).collect(Collectors.toList())));
     }
 
     private BooleanExpression containTitle(String title) {
