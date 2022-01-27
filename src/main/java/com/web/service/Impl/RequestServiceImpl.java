@@ -98,7 +98,7 @@ public class RequestServiceImpl implements RequestService {
                 .title(collaboRequestDTO.getTitle())
                 .budget(collaboRequestDTO.getBudget())
                 .term(collaboRequestDTO.getTerm())
-                .termType(Integer.parseInt(collaboRequestDTO.getTermType()) < 100 ? "단기" : "장기")
+                .termType(Integer.parseInt(collaboRequestDTO.getTerm()) < 100 ? "short" : "long")
                 .expireDate(LocalDate.parse(collaboRequestDTO.getExpireDate()))
                 .description(collaboRequestDTO.getDescription())
                 .status(State.valueOf(collaboRequestDTO.getStatus()))
