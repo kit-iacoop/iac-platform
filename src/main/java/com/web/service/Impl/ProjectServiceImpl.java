@@ -10,6 +10,7 @@ import com.domain.project.Project;
 import com.domain.project.ProjectRepository;
 import com.domain.projectProfessor.ProjectProfessor;
 import com.web.dto.BudgetDetailDTO;
+import com.web.dto.CollaboRequestDTO;
 import com.web.dto.ProjectDTO;
 import com.web.dto.ProjectProfessorDTO;
 import com.web.service.ProjectService;
@@ -106,4 +107,19 @@ public class ProjectServiceImpl implements ProjectService {
         projectRepository.save(project);
         return 0L;
     }
+
+    @Override
+    public ProjectDTO getProjectDetail(String id) {
+        Optional<Project> byId = projectRepository.findById(Long.valueOf(id));
+        ProjectDTO dto = null;
+        if (byId.isPresent()) {
+            dto = new ProjectDTO(byId.get());
+            dto.setCollaboRequestId(new CollaboRequestDTO(byId.get().getCollaboRequest()));
+            dto.setBudgetDetail(new BudgetDetailDTO(byId.get().getBudgetDetail()));
+        }
+
+        return dto;
+    }
+
+
 }

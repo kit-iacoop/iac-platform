@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>가족회사</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="/assets/img/favicon.png" rel="icon">
+  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="/assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: BizLand - v3.7.0
+  * Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class="d-flex align-items-center">
+    <div class="container d-flex justify-content-center justify-content-md-between">
+      <div class="contact-info d-flex align-items-center">
+        <i class="bi bi-envelope d-flex align-items-center"><a
+            href="mailto:contact@example.com">contact@example.com</a></i>
+        <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
+      </div>
+      <div class="social-links d-none d-md-flex align-items-center">
+        <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+      <h1 class="logo">
+        <a href="/"><span>기</span>업 <span>대</span>학 <span>지</span>역을 하나로</a>
+      </h1>
+      <!-- Uncomment below if you prefer to use an image logo -->
+      <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li class="dropdown">
+            <a href="#"><span>가족회사</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="https://www.google.com/">가족회사란?</a></li>
+              <li><a href="#">가족회사찾기</a></li>
+              <li><a href="#">가족회사가입</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="/requests/list"><span>애로기술해결</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="/requests/new">애로기술요청</a></li>
+              <li><a href="/requests/list">등록된애로기술</a></li>
+              <li><a href="#">코디네이터</a></li>
+            </ul>
+          </li>
+
+          <li><a class="nav-link scrollto" href="/copyrights/list">특허검색</a></li>
+          <li>
+            <a class="nav-link scrollto" href="#portfolio">장비공유</a>
+          </li>
+          <li><a class="nav-link scrollto" href="#team">커뮤니티</a></li>
+
+          <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav>
+      <!-- .navbar -->
+    </div>
+  </header>
+  <!-- End Header -->
+
+  <main id="main" data-aos="fade-up">
+
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Collaboration Details</h2>
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li>Portfolio Details</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- Breadcrumbs Section -->
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="collabo-project" class="collabo-details">
+      <div class="container">
+        <div class="row gy-4">
+          <div class="col-lg-2 sidebar">
+            <div class="sidebar-container shadow">
+              <div class="sidebar-header">
+                <h4>검색조건</h4>
+              </div>
+              <div class="sidebar-body">
+                <dl>
+                  <dt>프로젝트 형태</dt>
+                  <dd>
+                    <ul>
+                      <li><input type="radio" name="projectType" value="t1" checked="checked" id="project-type01"><label
+                          for="project-type01">장기</label></li>
+                      <li><input type="radio" name="projectType" value="t2" id="project-type02"><label
+                          for="project-type02">단기</label></li>
+                      <li><input type="radio" name="projectType" value="t3" id="project-type03"><label
+                          for="project-type03">융합</label></li>
+                      <li><input type="radio" name="projectType" value="t4" id="project-type04"><label
+                          for="project-type04">캡스톤디자인</label></li>
+                    </ul>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt>전공</dt>
+                  <dd>
+                    <ul>
+                      <li th:each="category : ${categories}" th:class="|depth-${category.level}|">
+                        <input type="checkbox" name="fieldCategory" th:value="${category.fieldCategoryId}" th:id="|category-${category.fieldCategoryId}|">
+                        <label th:for="|category-${category.fieldCategoryId}|" th:text="${category.categoryName}"></label>
+                      </li>
+                    </ul>
+                  </dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-10 body">
+            <div class="container" data-aos="fade-up">
+              <section id="counts" class="counts">
+                <div class="container" data-aos="fade-up">
+                  <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                      <div class="count-box shadow">
+                        <i class="bi bi-emoji-smile"></i>
+                        <span data-purecounter-start="0" data-purecounter-end="16" data-purecounter-duration="1.5"
+                          class="purecounter"></span>
+                        <p>장기프로젝트</p>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+                      <div class="count-box shadow">
+                        <i class="bi bi-journal-richtext"></i>
+                        <span data-purecounter-start="0" data-purecounter-end="32" data-purecounter-duration="1.5"
+                          class="purecounter"></span>
+                        <p>단기프로젝트</p>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                      <div class="count-box shadow">
+                        <i class="bi bi-headset"></i>
+                        <span data-purecounter-start="0" data-purecounter-end="11" data-purecounter-duration="1.5"
+                          class="purecounter"></span>
+                        <p>융합프로젝트</p>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+                      <div class="count-box shadow">
+                        <i class="bi bi-people"></i>
+                        <span data-purecounter-start="0" data-purecounter-end="13" data-purecounter-duration="1.5"
+                          class="purecounter"></span>
+                        <p>캡스톤디자인</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div><!-- End of counter -->
+            <div class="project-list-container" th:fragment="info-contents">
+              <ul class="project-list-ul">
+                <li class="project-list-li" th:each="dto : ${collaboRequestDtos}">
+                  <div class="project-title">
+                    <div>
+                      <span th:if="${T(com.web.util.NumberUtil).toLong(dto.term) > 100}"
+                        class="project-type-tag">장기</span>
+                      <span th:if="${T(com.web.util.NumberUtil).toLong(dto.term) <= 100}"
+                        class="project-type-tag">단기</span>
+                      <span th:if="${dto.isCapstone.equals('true')}" class="project-type-tag">캡스톤디자인</span>
+
+                      <h4 th:text="${dto.title}"></h4>
+<!--                      <span class="regist-date" th:text="${T(com.web.util.DateUtil).dotStyle(dto.createdDate)}"></span>-->
+                    </div>
+                    <div>
+<!--                      <span th:if="${T(com.web.util.DateUtil).passedDay(dto.createdDate) <= 5}" class="tag">New</span>-->
+                      <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} > 0">
+                        <span class="tag">모집중</span>
+                        <span class="tag">D-[[${T(com.web.util.DateUtil).calcDday(dto.expireDate)}]]</span>
+                      </th:block>
+                      <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} == 0">
+                        <span class="tag">마감임박</span>
+                        <span class="tag">D-Day</span>
+                      </th:block>
+                      <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} < 0">
+                        <span class="tag">모집완료</span>
+                      </th:block>
+                    </div>
+                  </div>
+                  <div class="project-summary">
+                    <p><span>프로젝트규모:</span><b>[[${T(com.web.util.NumberUtil).commaFormat(dto.budget)}]]만원</b></p>
+                    <p><span>수행기간:</span><b>[[${dto.term}]]일</b></p>
+                    <p><span>현 지원자수:</span><b>[[${dto.collaboRequestProfessorList.size()}]]명</b></p>
+                  </div>
+                  <div class="request-company">
+                    <div class="col-lg-8 p-break">
+                      <p>
+                        <b>요청내용</b><br>
+                        [[${dto.description}]]
+                      </p>
+                    </div>
+                    <div class="col-lg-4">
+                      <dl>
+                        <dd><b>기업명:</b> [[${dto.companyName}]]</dd>
+                        <dd><b>분야:</b>
+                          <th:block th:each="tech : ${dto.collaboRequestTechniqueList}">
+                            <span class="comma-separated">[[${tech.fieldCategoryName}]]</span>
+                          </th:block>
+                        </dd>
+                        <br>
+                      </dl>
+                    </div>
+                  </div>
+                </li>
+
+              </ul>
+            </div><!-- project list contanier -->
+          </div>
+        </div>
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/assets/vendor/purecounter/purecounter.js"></script>
+  <script src="/assets/vendor/aos/aos.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/assets/js/main.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="/assets/js/collabo.js"></script>
+
+</body>
+
+</html>

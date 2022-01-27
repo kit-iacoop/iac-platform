@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+
+  <title>가족회사</title>
+  <meta content="" name="description" />
+  <meta content="" name="keywords" />
+
+  <!-- Favicons -->
+  <link href="/assets/img/favicon.png" rel="icon" />
+  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet" />
+
+  <!-- Vendor CSS Files -->
+  <link href="/assets/vendor/aos/aos.css" rel="stylesheet" />
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
+  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
+  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
+  <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
+
+  <!-- Template Main CSS File -->
+  <link href="/assets/css/style.css" rel="stylesheet" />
+
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
+
+  <!-- =======================================================
+  * Template Name: BizLand - v3.7.0
+  * Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+  <main id="main" data-aos="fade-up">
+    <!-- ======= detail page main image Section ======= -->
+    <section class="detail-image container-fluid">
+      <div class="copyright-header-img img-responsive"></div>
+    </section>
+    <!-- detail page main image Section -->
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>특허검색</h2>
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li>Portfolio Details</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <!-- Breadcrumbs Section -->
+    <section id="copyright-board">
+      <div class="d-flex container">
+        <div class="col-lg-2 sidebar">
+          <div class="sidebar-container shadow">
+            <div class="sidebar-header">
+              <h4>검색조건</h4>
+            </div>
+            <div class="sidebar-body">
+              <dl>
+                <dt>전공</dt>
+                <dd>
+                  <ul>
+                    <li><input type="checkbox" data-type="m1" id="major-electrical"><label
+                        for="major-electrical">전자</label></li>
+                    <li><input type="checkbox" data-type="m2" id="major-architectural"><label
+                        for="major-architectural">건축</label></li>
+                    <li><input type="checkbox" data-type="m3" id="major-industrial"><label
+                        for="major-industrial">산업</label></li>
+                    <li><input type="checkbox" data-type="m4" id="major-chemical"><label for="major-chemical">화학</label>
+                    </li>
+                    <li><input type="checkbox" data-type="m5" id="major-mechanical"><label
+                        for="major-mechanical">기계</label></li>
+                    <li><input type="checkbox" data-type="m6" id="major-computer"><label
+                        for="major-computer">컴퓨터/IT</label></li>
+                    <li><input type="checkbox" data-type="m7" id="major-environmental"><label
+                        for="major-environmental">환경</label></li>
+                  </ul>
+                </dd>
+              </dl>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-10 board-container">
+          <div class="d-flex justify-content-end board-search-box">
+            <div>
+              <select class="form-select col-lg2" aria-label="Default select example">
+                <option value="1" selected>전체</option>
+                <option value="2">제목+내용</option>
+                <option value="3">제목</option>
+                <option value="4">내용</option>
+                <option value="5">작성자</option>
+              </select>
+            </div>
+
+            <form action="/copyrights/list" method="get" class="form-inline">
+              <div>
+                <input type="search" class="form-control rounded col-lg5" name="key" placeholder="Search"
+                  aria-label="Search" th:value="${key}" aria-describedby="search-addon" />
+              </div>
+              <div>
+                <button type="submit" class="btn btn-info col-lg2">검색</button>
+              </div>
+            </form>
+          </div>
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th colspan="2">구분</th>
+                <th colspan="2">전공</th>
+                <th colspan="5">제목</th>
+                <th colspan="2">발명자</th>
+                <th colspan="1">등록일</th>
+                <th colspan="1">상태</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:each="dto : ${copyrightDtos}"
+                th:onclick="'location.href=\''+ @{/copyrights/list/{id}(id=${dto.copyrightId})} + '\''">
+                <td colspan="2" th:text="${dto.copyrightType}"></td>
+                <td colspan="2" th:text="'-'"></td>
+                <td colspan="5" th:text="${dto.copyrightName}"></td>
+                <td colspan="2" th:text="${dto.representor}"></td>
+                <td colspan="1" th:text="${dto.declarationYear}"></td>
+                <td colspan="1" th:text="${dto.maintenanceState}"></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="d-flex justify-content-center">
+            <nav>
+              <ul class="pagination">
+                <li th:if="${page} > 1" class="page-item">
+                  <a class="page-link" th:href="@{/copyrights/list(page=${page+(-1)}, key=${key})}"
+                    aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+                <li th:if="${page} == 1" class="page-item disabled">
+                  <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                  </a>
+                </li>
+
+                <th:block th:with="ten=${(page+(-1))/10*10}">
+                  <th:block th:each="num : ${#numbers.sequence(ten+1, ten+10)}">
+                    <li th:if="${num} <= ${maxPage} and ${num} == ${page}" class="page-item active" aria-current="page">
+                      <a class="page-link" th:href="@{/copyrights/list(page=${num}, key=${key})}" th:text="${num}"><span
+                          class="sr-only">(current)</span></a>
+                    </li>
+                    <li th:if="${num} <= ${maxPage} and ${num} != ${page}" class="page-item"><a class="page-link"
+                        th:href="@{/copyrights/list(page=${num}, key=${key})}" th:text="${num}"></a></li>
+                  </th:block>
+                </th:block>
+
+                <li th:if="${page} < ${maxPage}" class="page-item">
+                  <a class="page-link" th:href="@{/copyrights/list(page=${page+1}, key=${key})}" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+                <li th:if="${page} >= ${maxPage}" class="page-item disabled">
+                  <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          </div>
+
+        </div>
+      </div>
+    </section>
+  </main>
+  <!-- End #main -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/assets/vendor/purecounter/purecounter.js"></script>
+  <script src="/assets/vendor/aos/aos.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/assets/js/main.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="/assets/js/tab.js"></script>
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</body>
+
+</html>
