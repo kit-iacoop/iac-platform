@@ -67,6 +67,7 @@ public class RequestController {
 
     @GetMapping("/list/query")
     public String queriedRequestList(
+            Model model,
             @RequestParam(name = "type", defaultValue = "") String type, // 공개 비공개
             @RequestParam(name = "term", defaultValue = "") String term, // 전체, 장기, 단기
             @RequestParam(name = "fields[]", defaultValue = "") String[] fields, // 분야 id들 (없으면 all)
@@ -77,6 +78,10 @@ public class RequestController {
 
         Page<CollaboRequestDTO> queriedList = requestService.findRequestByQuery(type, term, fields, options, key, pageable);
 
+        model.addAttribute("collaboRequestDtos", queriedList);
+        model.addAttribute("type", type);
+        model.addAttribute("page", pageable.getPageNumber() + 1);
+        model.addAttribute("maxPage", queriedList.getTotalPages());
         return "request/collabo :: info-contents";
     }
 

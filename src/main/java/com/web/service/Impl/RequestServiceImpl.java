@@ -178,23 +178,25 @@ public class RequestServiceImpl implements RequestService {
     public Page<CollaboRequestDTO> findRequestByQuery(String type, String term, String[] fields, String[] options, String key, Pageable pageable) {
 
         List<FieldCategory> categories = fieldCategoryRepository.findAllById(Arrays.stream(fields).map(Long::valueOf).collect(Collectors.toList()));
-        Optional<String> isCapstone = Optional.empty();
-        Optional<String> isFusion = Optional.empty();
+        String isCapstone = "";
+        String isFusion = "";
         for (String op : options) {
             if (op.equals("capstone")) {
-                isCapstone = Optional.of("true");
+                isCapstone = "true";
             } else if (op.equals("fusion")) {
-                isFusion = Optional.of("true");
+                isFusion = "true";
             }
         }
 
+        System.out.println("params : " + type + " " + term + " " + categories.size() + " " + Arrays.toString(options) + " " + key + " ");
+
         RequestQueryCondition build = RequestQueryCondition.builder()
-                .type(type.equals("ALL") ? null : RequestType.valueOf(type))
-                .key(key.isEmpty() ? null : key)
-                .termType(term.isEmpty() ? null : term)
-                .fieldCategoryList(categories.size() == 0 ? null : categories)
-                .isCapstone(isCapstone.orElse(null))
-                .isFusion(isFusion.orElse(null))
+                .type(type.equals("all") ? null : RequestType.valueOf(type.toUpperCase(Locale.ROOT)))
+                .key(key)
+                .termType(term)
+                .fieldCategoryList(categories)
+                .isCapstone(isCapstone)
+                .isFusion(isFusion)
                 .build();
 
         Page<CollaboRequest> search = collaboRequestRepository.search(build, pageable);
