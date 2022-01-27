@@ -1,18 +1,17 @@
 <div class="search">
     <div class="company-name-search">
-        <input type="text" placeholder="회사명">
-        <button>검색</button>
+        <input type="text" id="company-name" placeholder="회사명">
     </div>
     <div class="date-search">
-        <input type="date"> ~ <input type="date">
-        <button>검색</button>
+        <input id="start-day" type="date"> ~ <input id="end-day" type="date">
+        <button onclick="getRequest()">검색</button>
     </div>
     <div class="state-search">
-        <select>
-            <option>상태</option>
-            <option>승인</option>
-            <option>거절</option>
-            <option>대기</option>
+        <select id="state">
+            <option value="ALL">전체</option>
+            <option value="APPROVED">승인</option>
+            <option value="REJECTED">거절</option>
+            <option value="PENDING">대기</option>
         </select>
     </div>
 </div>
@@ -48,6 +47,35 @@
 <button onclick="postRequest('/reject')">거절</button>
 
 <script th:inline="javascript">
+    function getRequest() {
+        var companyName = document.getElementById("company-name").value;
+        var startDay = document.getElementById("start-day").value;
+        var endDay = document.getElementById("end-day").value;
+        var stateElement = document.getElementById("state");
+        var state = stateElement.options[stateElement.selectedIndex].value;
+
+        $.ajax({
+            method: "GET",
+            url: "/officer/annual-fee/payment-screening",
+            contentType: 'application/json',
+            data: {
+                "companyName": companyName,
+                "startDay": startDay,
+                "endDay": endDay,
+                "state": state
+            },
+            beforeSend: function (xhr) {
+				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
+			}
+        })
+        .done(function() {
+            document.getElementById("company-name").value = null;
+            document.getElementById("start-day").value = null;
+            document.getElementById("end-day").value = null;
+            document.getElementById("state").value = "ALL";
+        });
+    }
+
     function postRequest(path) {
         let sendData = [];
         var checkedIdLen = document.getElementsByName("checkedValue").length;
