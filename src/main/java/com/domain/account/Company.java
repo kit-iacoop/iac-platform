@@ -17,6 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -30,7 +31,7 @@ import java.util.List;
 @SuperBuilder
 
 @ToString(callSuper=true, exclude = {"temporaryAddress", "collaboRequest", "mileageRequest", "itemList", "projectList", "mileageList","annualFeeRequest","mentorProfessor", "annualSalesList"})
-
+@Slf4j
 @DiscriminatorValue("C")
 @Table(name = "COMPANY")
 @Entity
@@ -151,5 +152,24 @@ public class Company extends Account {
         subscriptionDate = LocalDate.parse(accDto.getSubscriptionDate(), DateTimeFormatter.ISO_DATE);
 
         return this;
+    }
+
+    @Override
+    public void acceptRegistration() {
+        if(!status.equals(State.PENDING)){
+//            throw Exception()
+        }
+        log.warn("status = State.NORMAL");
+        status = State.NORMAL;
+
+    }
+
+    @Override
+    public void rejectRegistration() {
+        if(!status.equals(State.PENDING)){
+//            throw Exception()
+        }
+        status = State.REJECTED;
+
     }
 }

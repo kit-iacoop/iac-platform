@@ -83,4 +83,14 @@ public class Officer extends Account {
 
         return this;
     }
+
+    @Override
+    public void acceptRegistration() {
+
+    }
+
+    @Override
+    public void rejectRegistration() {
+
+    }
 }
