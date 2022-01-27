@@ -1,6 +1,5 @@
 package com.web.dto;
 
-import com.domain.account.Account;
 import com.domain.copyright.Copyright;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +11,7 @@ import lombok.Setter;
 
 public class CopyrightDTO {
     private String copyrightId;
-    private String accountName;
+    private String accountId;
     //    private String accountType;
     private String copyrightName;
     private String declarationYear;
@@ -32,7 +31,7 @@ public class CopyrightDTO {
 
     public CopyrightDTO(Copyright copyright) {
         this.copyrightId = String.valueOf(copyright.getCopyrightId());
-        this.accountName = copyright.getAccountId().getName();
+        this.accountId = String.valueOf(copyright.getAccountId().getAccountId());
 //        this.accountType
         this.copyrightName = copyright.getTitle();
         this.declarationYear = copyright.getDeclarationYear();

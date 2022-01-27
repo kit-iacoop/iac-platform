@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body>
+    <div>
+        <form th:action="@{/requests/list}" th:object="${requestDto}" method="post">
+            <input type="hidden" name="status" value="PENDING">
+            <input type="hidden" name="officerId" value="5">
+            <table>
+                <tr>
+                    <th><label for="companyId">요청 기업</label></th>
+                    <td>
+                        <input type="hidden" th:field="*{companyId}" id="companyId">
+                        <input type="text" id="companyName" readonly>
+                        <button type="button" id="companyIdSearch"
+                            onclick="window.open('/accounts/search?dtypes=C&idTag=companyId&nameTag=companyName', '_blank', 'width=500,height=400');">검색</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="title">애로기술명</label></th>
+                    <td>
+                        <input type="text" th:field="*{title}" id="title" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="description">애로사항</label></th>
+                    <td>
+                        <textarea th:field="*{description}" id="description" cols="30" rows="5"></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="tech-depth-1">기술 분야</label></th>
+                    <td>
+                        <div id="tech-wrapper"></div>
+                        <select id="tech-depth-1" class="tech-select">
+                            <option disabled selected></option>
+                        </select>
+                        <select id="tech-depth-2" class="tech-select">
+                            <option disabled selected></option>
+                        </select>
+                        <select id="tech-depth-3" class="tech-select">
+                            <option disabled selected></option>
+                        </select>
+                        <select id="tech-depth-4" class="tech-select">
+                            <option disabled selected></option>
+                        </select>
+                        <button type="button" onclick="addTechniqueInput()">추가</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="term">프로젝트 기간</label></th>
+                    <td>
+                        <input type="text" th:field="*{term}" id="term" class="text-right" pattern="\d+" required>일
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="budget">예산</label></th>
+                    <td>
+                        <input type="text" th:field="*{budget}" id="budget" class="text-right" pattern="\d+" required>만원
+                    </td>
+                </tr>
+                <tr>
+                    <th><label>매칭 유형</label></th>
+                    <td>
+                        <input type="radio" id="OPEN" th:field="*{requestType}" value="OPEN" class="openclose">
+                        <label for="OPEN">공개 모집</label><br>
+                        <input type="radio" id="CLOSE" th:field="*{requestType}" value="CLOSE" class="openclose">
+                        <label for="CLOSE">비공개 우선(교수 지정)</label><br>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label>캡스톤 디자인 연계</label></th>
+                    <td>
+                        <input type="radio" id="isCapstone-true" th:field="*{isCapstone}" value="true">
+                        <label for="isCapstone-true">O</label><br>
+                        <input type="radio" id="isCapstone-false" th:field="*{isCapstone}" value="false">
+                        <label for="isCapstone-false">X</label><br>
+                    </td>
+                </tr>
+                <tr>
+                    <th><label for="expireDate">공개 모집 기간</label></th>
+                    <td>
+                        <input type="date" th:field="*{expireDate}" id="expireDate" required>까지
+                    </td>
+                </tr>
+                <tr class="close-show">
+                    <th><label for="professorId0">희망 교수</label></th>
+                    <td>
+                        <div>
+                            <input type="hidden" class="professorId" name="collaboRequestProfessorList[0].professorId"
+                                id="professorId0">
+                            <input type="text" id="professorName0" readonly>
+                            <button type="button" id="professorIdSearch"
+                                onclick="window.open('/accounts/search?dtypes=P&idTag=professorId0&nameTag=professorName0', '_blank', 'width=500,height=400');">검색</button>
+                        </div>
+                        <button type="button" onclick="addProfessorInput()" id="addProfessorBtn">교수 추가</button>
+                    </td>
+                </tr>
+            </table>
+            <a href="/requests/list" class="btn btn-outline-secondary">목록으로</a>
+            <button type="submit" class="btn btn-primary">등록</button>
+        </form>
+    </div>
+
+    <script>
+        $(function () {
+            $('form').submit(function () {
+                if (!$('#companyName').val()) {
+                    alert('요청 기업을 선택해야 합니다.');
+                    return false;
+                }
+            });
+
+            $('.openclose').change(function () {
+                if ($('#OPEN').is(':checked')) {
+                    $('.close-show').hide();
+                    $('.professorId').prop('disabled', true);
+                } else {
+                    $('.close-show').show();
+                    $('.professorId').prop('disabled', false);
+                }
+            });
+
+            $('#OPEN').prop("checked", true);
+            $('.close-show').hide();
+            $('.professorId').prop('disabled', true);
+            $('#isCapstone-false').prop("checked", true);
+
+            function updateSelect(selectBox, parent) {
+
+                let rightSelect = selectBox;
+                while (rightSelect.prop("tagName") == 'SELECT') {
+                    rightSelect.empty();
+                    rightSelect.append(`<option disabled selected></option>`);
+                    rightSelect = rightSelect.next();
+                }
+                // value로 자식 기술분야 검색
+                $.ajax({
+                    method: "GET",
+                    url: `/fields/${parent}/children`
+                })
+                    .done(function (json) {
+                        json.forEach(function (data, idx) {
+                            console.log(data);
+                            selectBox.append(`<option value="${data.fieldCategoryId}">${data.categoryName}</option>`);
+                        });
+                    });
+            }
+
+            $('.tech-select').change(function () {
+                if ($(this).next().prop("tagName") == 'SELECT') {
+                    updateSelect($(this).next(), $(this).val());
+                }
+            });
+
+            updateSelect($('#tech-depth-1'), -1);
+        });
+
+        let professorCnt = 1;
+        function addProfessorInput() {
+            $('#addProfessorBtn').before(`
+                <div>
+                    <input type="hidden" class="professorId" name="collaboRequestProfessorList[${professorCnt}].professorId" id="professorId${professorCnt}">
+                    <input type="text" id="professorName${professorCnt}" readonly>
+                    <button type="button" id="professorIdSearch" onclick="window.open('/accounts/search?dtypes=P&idTag=professorId${professorCnt}&nameTag=professorName${professorCnt}', '_blank', 'width=500,height=400');">검색</button>
+                </div>
+            `);
+            professorCnt++;
+        }
+
+        let techniqueCnt = 0;
+        function addTechniqueInput() {
+            let selectedTech = getNotNullElem();
+            $('#tech-wrapper').append(`
+                <div>
+                    <input type="hidden" name="collaboRequestTechniqueList[${techniqueCnt}].fieldCategoryId" id="techniqueId${techniqueCnt}"
+                        value="${selectedTech.val()}">
+                    <input type="text" id="techniqueName${techniqueCnt}" value="${selectedTech.find('option:checked').text().trim()}" readonly>
+                </div>
+            `);
+            techniqueCnt++;
+        }
+
+        function getNotNullElem() {
+            if ($('#tech-depth-4').val() != null)
+                return $('#tech-depth-4');
+            if ($('#tech-depth-3').val() != null)
+                return $('#tech-depth-3');
+            if ($('#tech-depth-2').val() != null)
+                return $('#tech-depth-2');
+            return $('#tech-depth-1');
+        }
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

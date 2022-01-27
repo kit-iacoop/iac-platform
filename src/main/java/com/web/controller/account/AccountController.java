@@ -9,23 +9,27 @@ import com.domain.account.Professor;
 import com.domain.common.State;
 import com.security.service.AccountContext;
 import com.web.dto.account.CompanyInformationDTO;
+import com.web.dto.account.*;
 import com.web.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 
 @AllArgsConstructor
 @Slf4j
@@ -41,9 +45,9 @@ public class AccountController {
     }
 
     @PostMapping("/register/company")
-    public ModelAndView registerCompany(@Validated @ModelAttribute CompanyInformationDTO companyDTO, Errors errors, ModelAndView mav){
+    public ModelAndView registerCompany(@Validated @ModelAttribute CompanyInformationDTO companyDTO, Errors errors, ModelAndView mav) {
 
-        if(errors.hasErrors()) {
+        if (errors.hasErrors()) {
 
             LinkedList<LinkedHashMap<String, String>> errorList = common.refineErrors(errors);
             log.warn("COMPANY 회원가입 예외 : " + errorList.toString()); //FE 필터 거치지 않았으므로 WARN으로 기록
@@ -64,7 +68,7 @@ public class AccountController {
     }
 
     @GetMapping("officer/family-company/screen")
-    public ModelAndView companyRegistrationScreen(ModelAndView mav){
+    public ModelAndView companyRegistrationScreen(ModelAndView mav) {
 
         mav.addObject("companyDtos", accountService.getAllPendingCompanies());
         mav.setViewName("officer/family-company/register");
@@ -128,4 +132,31 @@ public class AccountController {
         return mav;
     }
 
+    @GetMapping("accounts/search")
+    public String accountSearch(@RequestParam String[] dtypes, @RequestParam String idTag, @RequestParam String nameTag, Model model) {
+        model.addAttribute("dtypes", dtypes);
+        model.addAttribute("idTag", idTag);
+        model.addAttribute("nameTag", nameTag);
+        return "account/account-search";
+    }
+
+    @GetMapping("accounts/search-result")
+    public String accountSearchResult(@RequestParam String key, @RequestParam String dtype, Model model) {
+
+        List<AccountSearchDTO> list = new ArrayList<>();
+        if (dtype.equals("S")) {
+            list = accountService.findStudentContainName(key);
+        } else if (dtype.equals("P")) {
+            list = accountService.findProfessorContainName(key);
+        } else if (dtype.equals("C")) {
+            list = accountService.findCompanyContainName(key);
+        }
+        model.addAttribute("accountDtos", list);
+        for (AccountSearchDTO dto : list
+        ) {
+            System.out.println(dto.getAccountId());
+            System.out.println(dto.getName());
+        }
+        return "account/account-search :: account-search-result";
+    }
 }

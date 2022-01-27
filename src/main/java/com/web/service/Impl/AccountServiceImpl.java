@@ -4,11 +4,13 @@ import com.common.Common;
 import com.domain.account.Account;
 import com.domain.account.AccountRepository;
 import com.domain.common.State;
+import com.domain.account.*;
 import com.domain.security.role.Role;
 import com.domain.security.role.RoleRepository;
 import com.security.service.AccountContext;
 import com.web.dto.account.AccountInformationDTO;
 import com.web.dto.account.AccountRolesDTO;
+import com.web.dto.account.*;
 import com.web.dto.PendingCompanyDTO;
 import com.web.service.AccountService;
 import lombok.AllArgsConstructor;
@@ -22,10 +24,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transactional;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @AllArgsConstructor
 @Slf4j
@@ -35,6 +34,9 @@ public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
     private final UserDetailsService userDetailsService;
+    private final ProfessorRepository professorRepository;
+    private final CompanyRepository companyRepository;
+    private final StudentRepository studentRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final Common common;
@@ -141,7 +143,7 @@ public class AccountServiceImpl implements AccountService {
 
     @Transactional
     @Override
-    public void deleteAccountById(Long id){
+    public void deleteAccountById(Long id) {
         accountRepository.deleteById(id);
     }
 
@@ -150,7 +152,7 @@ public class AccountServiceImpl implements AccountService {
     public Account getAccountById(Long id) {
 
         Optional<Account> optionalAccount = accountRepository.findById(id);
-        if(optionalAccount.isEmpty()){
+        if (optionalAccount.isEmpty()) {
             return null;
         }
 
@@ -163,7 +165,7 @@ public class AccountServiceImpl implements AccountService {
 
         Account account = getAccountById(id);
 
-        if(account == null) {
+        if (account == null) {
             return null;
         }
 
@@ -186,12 +188,57 @@ public class AccountServiceImpl implements AccountService {
 
 
 
+    @Override
+    public List<AccountSearchDTO> findCompanyContainName(String name) {
+        List<AccountSearchDTO> list = new ArrayList<>();
+        List<Company> byNameContains = companyRepository.findByNameContains(name);
+        for (Company company : byNameContains) {
+            list.add(AccountSearchDTO.builder()
+                    .accountId(String.valueOf(company.getAccountId()))
+                    .dtype("C")
+                    .name(company.getName())
+                    .department(company.getName())
+                    .build());
+        }
+        return list;
+    }
+
+    @Override
+    public List<AccountSearchDTO> findProfessorContainName(String name) {
+        List<AccountSearchDTO> list = new ArrayList<>();
+        List<Professor> byNameContains = professorRepository.findByNameContains(name);
+        for (Professor professor : byNameContains) {
+            list.add(AccountSearchDTO.builder()
+                    .accountId(String.valueOf(professor.getAccountId()))
+                    .dtype("P")
+                    .name(professor.getName())
+                    .department(professor.getDepartment())
+                    .build());
+        }
+        return list;
+    }
+
+    @Override
+    public List<AccountSearchDTO> findStudentContainName(String name) {
+        List<AccountSearchDTO> list = new ArrayList<>();
+        List<Student> byNameContains = studentRepository.findByNameContains(name);
+        for (Student student : byNameContains) {
+            list.add(AccountSearchDTO.builder()
+                    .accountId(String.valueOf(student.getAccountId()))
+                    .dtype("S")
+                    .name(student.getName())
+                    .department(student.getDepartment())
+                    .build());
+        }
+        return list;
+    }
+
     @Transactional
     @Override
     public void updateAccountRoles(AccountRolesDTO accountRolesDto) {
         Account account = getAccountById(Long.parseLong(accountRolesDto.getId()));
 
-        if(accountRolesDto.getRoles() != null){
+        if (accountRolesDto.getRoles() != null) {
             Set<Role> roles = new HashSet<>();
 
             accountRolesDto.getRoles().forEach(role -> {
