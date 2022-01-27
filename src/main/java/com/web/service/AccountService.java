@@ -25,5 +25,10 @@ public interface AccountService {
     public List<PendingCompanyDTO>getAllPendingCompanies();
 
     public ModelAndView updateAccountInformation(HttpServletRequest req, AccountInformationDTO accountDto, ModelAndView mav);
+
+    public Account registrationAccept(Long accountId);
+    public Account registrationReject(Long accountId);
+
+    Account getPendingAccountById(Long accountId);
 }
 

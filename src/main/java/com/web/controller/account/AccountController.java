@@ -19,6 +19,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -66,10 +67,41 @@ public class AccountController {
     public ModelAndView companyRegistrationScreen(ModelAndView mav){
 
         mav.addObject("companyDtos", accountService.getAllPendingCompanies());
-        mav.setViewName("officer/family-company-accept/register");
+        mav.setViewName("officer/family-company/register");
 
         return mav;
     }
+
+    @GetMapping("/officer/family-company/screen/detail/{accountId}")
+    public ModelAndView registrationDetail(ModelAndView mav, @PathVariable Long accountId, Errors error){
+
+        Account account = accountService.getPendingAccountById(accountId);
+
+        mav.addObject("account", account);
+
+        mav.setViewName("officer/family-company/screen/detail");
+
+        return mav;
+    }
+
+    @PostMapping("officer/family-company/screen/detail/{accountId}/accept")
+    public ModelAndView registrationAccept(ModelAndView mav, @PathVariable Long accountId, Errors error){
+
+        accountService.registrationAccept(accountId);
+
+        mav.setViewName("redirect:/officer/family-company/screen");
+        return mav;
+    }
+    @PostMapping("officer/family-company/screen/detail/{accountId}/reject")
+    public ModelAndView registrationReject(ModelAndView mav, @PathVariable Long accountId, Errors error){
+
+        accountService.registrationReject(accountId);
+
+        mav.setViewName("redirect:/officer/family-company/screen");
+        return mav;
+    }
+
+
 
 
     @GetMapping(path = {"officer/mypage", "company/mypage", "professor/mypage"})

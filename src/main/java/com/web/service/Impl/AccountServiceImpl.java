@@ -3,6 +3,7 @@ package com.web.service.Impl;
 import com.common.Common;
 import com.domain.account.Account;
 import com.domain.account.AccountRepository;
+import com.domain.common.State;
 import com.domain.security.role.Role;
 import com.domain.security.role.RoleRepository;
 import com.security.service.AccountContext;
@@ -11,6 +12,7 @@ import com.web.dto.account.AccountRolesDTO;
 import com.web.dto.PendingCompanyDTO;
 import com.web.service.AccountService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,6 +28,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @AllArgsConstructor
+@Slf4j
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -78,6 +81,55 @@ public class AccountServiceImpl implements AccountService {
         mav.setViewName("redirect:/"+ common.getReqUrlPrefix(req) + "/mypage");
 
         return mav;
+    }
+
+    @Transactional
+    @Override
+    public Account registrationAccept(Long accountId) {
+        log.warn("registrationAccept()");
+        Account account = accountRepository.findByAccountId(accountId);
+
+        if(account == null){
+            //TODO : 해당 계정 존재하지 않는 예외 발생
+            return null;
+        }
+
+        account.acceptRegistration();
+
+        return account;
+    }
+
+    @Transactional
+    @Override
+    public Account registrationReject(Long accountId) {
+
+        Account account = accountRepository.findByAccountId(accountId);
+
+        if(account == null){
+//            throw new Exception();
+            return null;
+        }
+        account.rejectRegistration();
+
+        return account;
+    }
+
+    @Override
+    public Account getPendingAccountById(Long accountId) {
+
+        Account account = accountRepository.findByAccountId(accountId);
+
+        if(account == null){
+            // TODO : account 존재하지 않는다는 예외 throw
+            return null;
+        }
+
+        if(account.getStatus() != State.PENDING){
+            // TODO : 해당 어카운트는 문제 PENDING 상태가 아니라는 예외 throw
+            return null;
+        }
+
+        return account;
     }
 
 
