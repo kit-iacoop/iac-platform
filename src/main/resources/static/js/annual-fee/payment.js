@@ -10,6 +10,7 @@ function changePrice() {
 function allUseDiscount() {
     var myPoint = document.getElementById("my-point").textContent;
     var salePrice = document.getElementById("sale-price");
+    $('#use-point').val(myPoint);
     salePrice.innerHTML= salePrice.textContent - myPoint;
 }
 

@@ -2,17 +2,19 @@
 <script src="/js/annual-fee/payment.js"></script>
 
 <div class="current-info">
-    ooo 기업은 현재 [[${accountDTO.grade}]] 등급입니다.
+    [[${accountDTO.name}]]은 현재 [[${accountDTO.grade}]] 등급입니다.
 </div>
 <div class="main-calculate-wrapper">
     <div class="select-grade-wrapper">
         <select id="annual-fee-for-grade" onchange="changePrice()">
-            <option th:each="gradePolicy: ${gradePolicyDTOs}" th:value="${gradePolicy.price}" th:utext="${gradePolicy.grade}"></option>
+            <option>선택</option>
+            <option th:each="gradePolicy: ${gradePolicyDTOs}" th:value="${gradePolicy.price}" th:utext="${gradePolicy.grade}" 
+            th:selected="${gradePolicy.grade == accountDTO.grade}"></option>
         </select>
     </div>
     <div class="cash-calculate-wrapper">
         <div class="original-price">
-            <p>[[${annualFee}]]</p>원
+            <p id="original-price"></p>원
         </div>
         <div class="using-point-area">
             <input id="use-point" type="text"/>
@@ -21,10 +23,27 @@
             보유: <p id="my-point">[[${accountDTO.point}]]</p>포인트
         </div>
         <div class="sale-price">
-            <p id="sale-price">[[${annualFee}]]</p>원
+            <p id="sale-price"></p>원
         </div>
     </div>
 </div>
 <div class="btn-wrapper">
     <button>이체</button>
 </div>
+
+<script th:inline="javascript">
+    $(document).ready(function() {
+        let currentGrade = [[${accountDTO.grade}]];
+        let gradePolicyArr = [[${gradePolicyDTOs}]];
+        var originalPrice = document.getElementsByClassName("original-price")[0];
+        var salePrice = document.getElementsByClassName("sale-price")[0];
+        console.log(currentGrade);
+        console.log(gradePolicyArr);
+        gradePolicyArr.forEach(function(policy) {
+            if(currentGrade == policy.grade) {
+                originalPrice.innerHTML="<p id=\"original-price\">"+ policy.price + "<p>원";
+                salePrice.innerHTML="<p id=\"sale-price\">"+ policy.price + "<p>원";
+            }
+        });
+    });
+</script>
