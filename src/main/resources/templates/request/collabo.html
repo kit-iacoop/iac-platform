@@ -256,23 +256,28 @@
                       </div>
                       <div>
                         <!--                      <span th:if="${T(com.web.util.DateUtil).passedDay(dto.createdDate) <= 5}" class="tag">New</span>-->
-                        <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} > 0">
-                          <span class="tag">모집중</span>
-                          <span class="tag">D-[[${T(com.web.util.DateUtil).calcDday(dto.expireDate)}]]</span>
-                        </th:block>
-                        <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} == 0">
-                          <span class="tag">마감임박</span>
-                          <span class="tag">D-day</span>
-                        </th:block>
-                        <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} < 0">
-                          <span class="tag">모집마감</span>
+
+                        <th:block th:if="${dto.requestType.equals('OPEN')}">
+                          <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} > 0">
+                            <span class="tag">모집중</span>
+                            <span class="tag">D-[[${T(com.web.util.DateUtil).calcDday(dto.expireDate)}]]</span>
+                          </th:block>
+                          <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} == 0">
+                            <span class="tag">마감임박</span>
+                            <span class="tag">D-day</span>
+                          </th:block>
+                          <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} < 0">
+                            <span class="tag">모집마감</span>
+                          </th:block>
                         </th:block>
                       </div>
                     </div>
                     <div class="project-summary">
                       <p><span>프로젝트규모:</span><b>[[${T(com.web.util.NumberUtil).commaFormat(dto.budget)}]]만원</b></p>
                       <p><span>수행기간:</span><b>[[${dto.term}]]일</b></p>
-                      <p><span>현 지원자수:</span><b>[[${dto.collaboRequestProfessorList.size()}]]명</b></p>
+                      <p><span
+                          th:text="${dto.requestType.equals('OPEN')} ? '현 지원자수:' : '협력 희망 교수:'"></span><b>[[${dto.collaboRequestProfessorList.size()}]]명</b>
+                      </p>
                     </div>
                     <div class="request-company">
                       <div class="col-lg-8 p-break">

@@ -1668,6 +1668,17 @@ table {
   box-shadow: 3px 3px #ddd;
 }
 
+.sr-only {
+  position: absolute;
+  overflow: hidden;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  border: 0;
+  clip: rect(0,0,0,0);
+}
+
 .depth-1 {}
 
 .depth-2 {

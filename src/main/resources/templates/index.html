@@ -238,14 +238,13 @@
                       <i class="bx bxs-phone">애로기술요청</i>
                     </div>
                     <div>
-                      <h5><a href="">+</a></h5>
+                      <h5><a href="/requests/list">+</a></h5>
                     </div>
                   </div>
 
                   <table class="table table-hover">
                     <tbody>
-                      <tr th:each="dto : ${collaboRequestDtos}"
-                        th:onclick="'location.href=\''+ @{/requests/list/{id}(id=${dto.collaboRequestId})} + '\''">
+                      <tr th:each="dto : ${collaboRequestDtos}">
                         <td colspan="7" th:text="${dto.title}"></td>
                         <td colspan="1" th:if="${dto.collaboRequestTechniqueList.size() > 0}"
                           th:text="${dto.collaboRequestTechniqueList[0].fieldCategoryName}"></td>
