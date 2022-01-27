@@ -32,7 +32,7 @@
     </thaed>
     <tbody>
         <tr th:each="dto : ${annualFeeDTOs}">
-            <td><input type="checkbox" name="checkedValue" value="${dto.annualFeeId}"/></td>
+            <td><input type="checkbox" name="checkedValue" th:value="${dto.annualFeeId}"/></td>
             <td th:text="${dto.year}"></td>
             <td th:text="${dto.grade}"></td>
             <td th:text="${dto.companyName}"></td>
@@ -44,5 +44,35 @@
         </tbody>
 </table>
 
-<button>승인</button>
-<button>거절</button>
+<button onclick="postRequest('/accept')">승인</button>
+<button onclick="postRequest('/reject')">거절</button>
+
+<script th:inline="javascript">
+    function postRequest(path) {
+        let sendData = [];
+        var checkedIdLen = document.getElementsByName("checkedValue").length;
+        for (var i=0; i<checkedIdLen; i++) {
+            if (document.getElementsByName("checkedValue")[i].checked == true) {
+                sendData.push(document.getElementsByName("checkedValue")[i].value);
+            }
+        }
+
+        console.log(sendData);
+        $.ajax({
+            method: "POST",
+            url: "/officer/annual-fee/payment-screening" + path,
+            traditional: true,
+            contentType: 'application/json',
+            data: JSON.stringify({
+                "checkList": sendData
+            }),
+            beforeSend: function (xhr) {
+				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
+			}
+        })
+        .done(function() {
+            alert("성공적으로 처리되었습니다.");
+            window.close();
+        });
+    }
+</script>
