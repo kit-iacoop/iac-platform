@@ -7,7 +7,7 @@
         <button onclick="getRequest()">검색</button>
     </div>
     <div class="state-search">
-        <select id="state">
+        <select id="state" onchange="selectGetRequest(this.value);">
             <option value="ALL">전체</option>
             <option value="APPROVED">승인</option>
             <option value="REJECTED">거절</option>
@@ -47,6 +47,32 @@
 <button onclick="postRequest('/reject')">거절</button>
 
 <script th:inline="javascript">
+    function selectGetRequest(param) {
+        var companyName = document.getElementById("company-name").value;
+        var startDay = document.getElementById("start-day").value;
+        var endDay = document.getElementById("end-day").value;
+        $.ajax({
+            method: "GET",
+            url: "/officer/annual-fee/payment-screening",
+            contentType: 'application/json',
+            data: {
+                "companyName": companyName,
+                "startDay": startDay,
+                "endDay": endDay,
+                "state": param
+            },
+            beforeSend: function (xhr) {
+				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
+			},
+            success: function() {
+                console.log(companyName);
+                console.log(startDay);
+                console.log(endDay);
+                console.log(param);
+            }
+        });
+    }
+    
     function getRequest() {
         var companyName = document.getElementById("company-name").value;
         var startDay = document.getElementById("start-day").value;
@@ -66,7 +92,13 @@
             },
             beforeSend: function (xhr) {
 				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
-			}
+			},
+            success: function() {
+                console.log(companyName);
+                console.log(startDay);
+                console.log(endDay);
+                console.log(state);
+            }
         })
         .done(function() {
             document.getElementById("company-name").value = null;
