@@ -1,6 +1,6 @@
 <script language="javascript">
     function showPopup() {
-        window.open("company/industry-cooperation/project/activity-proof-register", "활동 증빙 등록", "width=400, height=300, left=100, top=50");
+        window.open("company/mileage/request", "활동 증빙 등록", "width=400, height=300, left=100, top=50");
     }
 </script>
 
@@ -40,8 +40,8 @@
             <td th:text="${dto.mileagePolicy.collaborationCategory.collaborationName}"></td>
             <td th:text="${dto.achivementCnt}"></td>
             <td th:text="${dto.status}"></td>
-            <td th:text="${dto.startDate}"></td>
-            <td th:text="${dto.endDate}"></td>
+            <td th:text="${#temporals.formatISO(dto.startDate)}"></td>
+            <td th:text="${#temporals.formatISO(dto.endDate)}"></td>
         </tr>
         </tbody>
 </table>

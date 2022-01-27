@@ -38,8 +38,8 @@
             <td th:text="${dto.mileagePolicy.collaborationCategory.collaborationName}"></td>
             <td th:text="${dto.achievementCnt}"></td>
             <td th:text="${dto.status}"></td>
-            <td th:text="${dto.startDate}"></td>
-            <td th:text="${dto.endDate}"></td>
+            <td th:text="${#temporals.formatISO(dto.startDate)}"></td>
+            <td th:text="${#temporals.formatISO(dto.endDate)}"></td>
         </tr>
         </tbody>
 </table>
