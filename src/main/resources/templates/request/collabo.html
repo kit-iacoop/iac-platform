@@ -128,32 +128,70 @@
                 <h4>검색조건</h4>
               </div>
               <div class="sidebar-body">
+                <input type="hidden" name="page" th:value="${page}">
                 <dl>
-                  <dt>프로젝트 형태</dt>
+                  <dt>프로젝트 기간</dt>
                   <dd>
                     <ul>
-                      <li><input type="radio" name="projectType" value="t1" checked="checked" id="project-type01"><label
-                          for="project-type01">장기</label></li>
-                      <li><input type="radio" name="projectType" value="t2" id="project-type02"><label
-                          for="project-type02">단기</label></li>
-                      <li><input type="radio" name="projectType" value="t3" id="project-type03"><label
-                          for="project-type03">융합</label></li>
-                      <li><input type="radio" name="projectType" value="t4" id="project-type04"><label
-                          for="project-type04">캡스톤디자인</label></li>
-                    </ul>
-                  </dd>
-                </dl>
-                <dl>
-                  <dt>전공</dt>
-                  <dd>
-                    <ul>
-                      <li th:each="category : ${categories}" th:class="|depth-${category.level}|">
-                        <input type="checkbox" name="fieldCategory" th:value="${category.fieldCategoryId}" th:id="|category-${category.fieldCategoryId}|">
-                        <label th:for="|category-${category.fieldCategoryId}|" th:text="${category.categoryName}"></label>
+                      <li>
+                        <input type="radio" name="term" value="all" id="term-all" checked>
+                        <label for="term-all">모두</label>
+                      </li>
+                      <li>
+                        <input type="radio" name="term" value="long" id="term-long">
+                        <label for="term-long">장기</label>
+                      </li>
+                      <li>
+                        <input type="radio" name="term" value="short" id="term-short">
+                        <label for="term-short">단기</label>
                       </li>
                     </ul>
                   </dd>
                 </dl>
+                <dl>
+                  <dt>매칭 유형</dt>
+                  <dd>
+                    <ul>
+                      <li>
+                        <input type="radio" name="type" value="open" id="type-open" checked>
+                        <label for="type-open">공개</label>
+                      </li>
+                      <li>
+                        <input type="radio" name="type" value="close" id="type-close">
+                        <label for="type-close">비공개</label>
+                      </li>
+                    </ul>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt>기타 옵션</dt>
+                  <dd>
+                    <ul>
+                      <li>
+                        <input type="checkbox" name="options" value="fusion" id="options-fusion">
+                        <label for="options-fusion">융합</label>
+                      </li>
+                      <li>
+                        <input type="checkbox" name="options" value="capstone" id="options-capstone">
+                        <label for="options-capstone">캡스톤디자인</label>
+                      </li>
+                    </ul>
+                  </dd>
+                </dl>
+                <dl>
+                  <dt>분야</dt>
+                  <dd>
+                    <ul>
+                      <li th:each="category : ${categories}" th:class="|depth-${category.level}|">
+                        <input type="checkbox" name="fieldCategory" th:value="${category.fieldCategoryId}"
+                          th:id="|category-${category.fieldCategoryId}|">
+                        <label th:for="|category-${category.fieldCategoryId}|"
+                          th:text="${category.categoryName}"></label>
+                      </li>
+                    </ul>
+                  </dd>
+                </dl>
+                <button type="button" id="filterBtn" class="btn btn-outline-primary">검색</button>
               </div>
             </div>
           </div>
@@ -201,62 +239,110 @@
                 </div>
               </section>
             </div><!-- End of counter -->
-            <div class="project-list-container" th:fragment="info-contents">
-              <ul class="project-list-ul">
-                <li class="project-list-li" th:each="dto : ${collaboRequestDtos}">
-                  <div class="project-title">
-                    <div>
-                      <span th:if="${T(com.web.util.NumberUtil).toLong(dto.term) > 100}"
-                        class="project-type-tag">장기</span>
-                      <span th:if="${T(com.web.util.NumberUtil).toLong(dto.term) <= 100}"
-                        class="project-type-tag">단기</span>
-                      <span th:if="${dto.isCapstone.equals('true')}" class="project-type-tag">캡스톤디자인</span>
+            <div class="project-list-container" th:remove="body">
+              <th:block th:fragment="info-contents">
+                <ul class="project-list-ul">
+                  <li class="project-list-li" th:each="dto : ${collaboRequestDtos}">
+                    <div class="project-title">
+                      <div>
+                        <span th:if="${T(com.web.util.NumberUtil).toLong(dto.term) > 100}"
+                          class="project-type-tag">장기</span>
+                        <span th:if="${T(com.web.util.NumberUtil).toLong(dto.term) <= 100}"
+                          class="project-type-tag">단기</span>
+                        <span th:if="${dto.isCapstone.equals('true')}" class="project-type-tag">캡스톤디자인</span>
 
-                      <h4 th:text="${dto.title}"></h4>
-<!--                      <span class="regist-date" th:text="${T(com.web.util.DateUtil).dotStyle(dto.createdDate)}"></span>-->
+                        <h4 th:text="${dto.title}"></h4>
+                        <!--                      <span class="regist-date" th:text="${T(com.web.util.DateUtil).dotStyle(dto.createdDate)}"></span>-->
+                      </div>
+                      <div>
+                        <!--                      <span th:if="${T(com.web.util.DateUtil).passedDay(dto.createdDate) <= 5}" class="tag">New</span>-->
+
+                        <th:block th:if="${dto.requestType.equals('OPEN')}">
+                          <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} > 0">
+                            <span class="tag">모집중</span>
+                            <span class="tag">D-[[${T(com.web.util.DateUtil).calcDday(dto.expireDate)}]]</span>
+                          </th:block>
+                          <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} == 0">
+                            <span class="tag">마감임박</span>
+                            <span class="tag">D-day</span>
+                          </th:block>
+                          <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} < 0">
+                            <span class="tag">모집마감</span>
+                          </th:block>
+                        </th:block>
+                      </div>
                     </div>
-                    <div>
-<!--                      <span th:if="${T(com.web.util.DateUtil).passedDay(dto.createdDate) <= 5}" class="tag">New</span>-->
-                      <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} > 0">
-                        <span class="tag">모집중</span>
-                        <span class="tag">D-[[${T(com.web.util.DateUtil).calcDday(dto.expireDate)}]]</span>
-                      </th:block>
-                      <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} == 0">
-                        <span class="tag">마감임박</span>
-                        <span class="tag">D-Day</span>
-                      </th:block>
-                      <th:block th:if="${T(com.web.util.DateUtil).calcDday(dto.expireDate)} < 0">
-                        <span class="tag">모집완료</span>
-                      </th:block>
-                    </div>
-                  </div>
-                  <div class="project-summary">
-                    <p><span>프로젝트규모:</span><b>[[${T(com.web.util.NumberUtil).commaFormat(dto.budget)}]]만원</b></p>
-                    <p><span>수행기간:</span><b>[[${dto.term}]]일</b></p>
-                    <p><span>현 지원자수:</span><b>[[${dto.collaboRequestProfessorList.size()}]]명</b></p>
-                  </div>
-                  <div class="request-company">
-                    <div class="col-lg-8 p-break">
-                      <p>
-                        <b>요청내용</b><br>
-                        [[${dto.description}]]
+                    <div class="project-summary">
+                      <p><span>프로젝트규모:</span><b>[[${T(com.web.util.NumberUtil).commaFormat(dto.budget)}]]만원</b></p>
+                      <p><span>수행기간:</span><b>[[${dto.term}]]일</b></p>
+                      <p><span
+                          th:text="${dto.requestType.equals('OPEN')} ? '현 지원자수:' : '협력 희망 교수:'"></span><b>[[${dto.collaboRequestProfessorList.size()}]]명</b>
                       </p>
                     </div>
-                    <div class="col-lg-4">
-                      <dl>
-                        <dd><b>기업명:</b> [[${dto.companyName}]]</dd>
-                        <dd><b>분야:</b>
-                          <th:block th:each="tech : ${dto.collaboRequestTechniqueList}">
-                            <span class="comma-separated">[[${tech.fieldCategoryName}]]</span>
-                          </th:block>
-                        </dd>
-                        <br>
-                      </dl>
+                    <div class="request-company">
+                      <div class="col-lg-8 p-break">
+                        <p>
+                          <b>요청내용</b><br>
+                          [[${dto.description}]]
+                        </p>
+                      </div>
+                      <div class="col-lg-4">
+                        <dl>
+                          <dd><b>기업명:</b> [[${dto.companyName}]]</dd>
+                          <dd><b>분야:</b>
+                            <th:block th:each="tech : ${dto.collaboRequestTechniqueList}">
+                              <span class="comma-separated">[[${tech.fieldCategoryName}]]</span>
+                            </th:block>
+                          </dd>
+                          <br>
+                        </dl>
+                      </div>
                     </div>
-                  </div>
-                </li>
+                  </li>
+                </ul>
+                <nav>
+                  <ul class="pagination justify-content-center">
+                    <li th:if="${page} > 1" class="page-item">
+                      <button class="page-link" aria-label="Previous" th:onclick="movePage([[${page+(-1)}]]);">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                      </button>
+                    </li>
+                    <li th:if="${page} == 1" class="page-item disabled">
+                      <button class="page-link" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                        <span class="sr-only">Previous</span>
+                      </button>
+                    </li>
 
-              </ul>
+                    <th:block th:with="ten=${(page+(-1))/10*10}">
+                      <th:block th:each="num : ${#numbers.sequence(ten+1, ten+10)}">
+                        <li th:if="${num} <= ${maxPage} and ${num} == ${page}" class="page-item active"
+                          aria-current="page">
+                          <button class="page-link" th:text="${num}" th:onclick="movePage([[${num}]]);"><span
+                              class="sr-only">(current)</span></button>
+                        </li>
+                        <li th:if="${num} <= ${maxPage} and ${num} != ${page}" class="page-item">
+                          <button class="page-link" th:text="${num}" th:onclick="movePage([[${num}]]);"></button>
+                        </li>
+                      </th:block>
+                    </th:block>
+
+                    <li th:if="${page} < ${maxPage}" class="page-item">
+                      <button class="page-link" aria-label="Next" th:onclick="movePage([[${page+1}]]);">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                      </button>
+                    </li>
+                    <li th:if="${page} >= ${maxPage}" class="page-item disabled">
+                      <button class="page-link" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                        <span class="sr-only">Next</span>
+                      </button>
+                    </li>
+                  </ul>
+                </nav>
+              </th:block>
             </div><!-- project list contanier -->
           </div>
         </div>
