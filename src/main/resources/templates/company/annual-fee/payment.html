@@ -28,7 +28,7 @@
     </div>
 </div>
 <div class="btn-wrapper">
-    <button>이체</button>
+    <button onclick="postRequest()">이체</button>
 </div>
 
 <script th:inline="javascript">
@@ -46,4 +46,29 @@
             }
         });
     });
+
+    function postRequest() {
+        var point = document.getElementById("use-point");
+        var cash = document.getElementById("sale-price");
+        var sendData = {
+            "point": point.value,
+            "cash": cash.textContent
+        };
+        console.log(JSON.stringify(sendData));
+        $.ajax({
+            method: "POST",
+            url: "/company/annual-fee/payment-application",
+            traditional: true,
+            contentType: 'application/json',
+            data: JSON.stringify(sendData),
+            beforeSend: function (xhr) {
+                /*<![CDATA[*/
+				xhr.setRequestHeader(/*[[${_csrf.headerName}]]*/,/*[[${_csrf.token}]]*/);
+                /*]]*/
+			}
+        })
+        .done(function() {
+            alert("계좌번호: 농협 123412-12-1234123\n자정까지 입급 바랍니다.");
+        });
+    };
 </script>
