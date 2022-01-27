@@ -5,19 +5,16 @@
 </script>
 
 <div class="search">
-    <div class="company-name-search">
-        <input type="text" placeholder="회사명">
-        <button>검색</button>
-    </div>
     <div class="date-search">
-        <input type="date"> ~ <input type="date">
-        <button>검색</button>
+        <input id="start-day" type="date"> ~ <input id="end-day" type="date">
+        <button onclick="getRequest()">검색</button>
     </div>
     <div class="state-search">
-        <select>
-            <option>상태</option>
-            <option>승인</option>
-            <option>대기</option>
+        <select id="state" onchange="selectGetRequest(this.value);">
+            <option value="ALL">전체</option>
+            <option value="APPROVED">승인</option>
+            <option value="REJECTED">거절</option>
+            <option value="PENDING">대기</option>
         </select>
     </div>
 </div>
@@ -50,3 +47,54 @@
 </table>
 
 <button onclick="showPopup()">등록</button>
+
+<script th:inline="javascript">
+    function selectGetRequest(param) {
+        var startDay = document.getElementById("start-day").value;
+        var endDay = document.getElementById("end-day").value;
+        $.ajax({
+            method: "GET",
+            url: "/officer/annual-fee/payment-screening",
+            contentType: 'application/json',
+            data: {
+                "startDay": startDay,
+                "endDay": endDay,
+                "state": param
+            },
+            beforeSend: function (xhr) {
+				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
+			},
+            success: function() {
+                console.log(startDay);
+                console.log(endDay);
+                console.log(param);
+            }
+        });
+    }
+    
+    function getRequest() {
+        var startDay = document.getElementById("start-day").value;
+        var endDay = document.getElementById("end-day").value;
+        var stateElement = document.getElementById("state");
+        var state = stateElement.options[stateElement.selectedIndex].value;
+
+        $.ajax({
+            method: "GET",
+            url: "/officer/annual-fee/payment-screening",
+            contentType: 'application/json',
+            data: {
+                "startDay": startDay,
+                "endDay": endDay,
+                "state": state
+            },
+            beforeSend: function (xhr) {
+				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
+			},
+            success: function() {
+                console.log(startDay);
+                console.log(endDay);
+                console.log(state);
+            }
+        });
+    }
+</script>
