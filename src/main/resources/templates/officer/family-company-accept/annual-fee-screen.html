@@ -8,7 +8,7 @@
     </div>
     <div class="state-search">
         <select id="state" onchange="selectGetRequest(this.value);">
-            <option value="ALL">전체</option>
+            <option value=>전체</option>
             <option value="APPROVED">승인</option>
             <option value="REJECTED">거절</option>
             <option value="PENDING">대기</option>
@@ -94,7 +94,8 @@
             beforeSend: function (xhr) {
 				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
 			},
-            success: function() {
+            success: function(res) {
+                console.log(res);
                 console.log(companyName);
                 console.log(startDay);
                 console.log(endDay);

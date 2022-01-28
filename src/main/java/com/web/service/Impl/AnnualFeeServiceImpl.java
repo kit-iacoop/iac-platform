@@ -2,9 +2,10 @@ package com.web.service.Impl;
 
 import com.domain.annualFee.AnnualFee;
 import com.domain.annualFee.AnnualFeeRepository;
-import com.web.dto.AnnualFeeHistoryDTO;
+import com.web.dto.annualfee.AnnualFeeHistoryDTO;
 
-import com.web.dto.AnnualFeeInfoDTO;
+import com.web.dto.annualfee.AnnualFeeInfoDTO;
+import com.web.dto.annualfee.QueryOptionDTO;
 import com.web.service.AnnualFeeService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Map;
 
 @AllArgsConstructor
 @Service
@@ -48,6 +50,12 @@ public class AnnualFeeServiceImpl implements AnnualFeeService {
     public void rejectPayment(ModelAndView mav, Long paymentId) {
         AnnualFee payment = annualFeeRepository.findByAnnualFeeId(paymentId);
         payment.reject();
+    }
+
+    @Override
+    public List<AnnualFeeInfoDTO> findInfoDtoListWithQDsl(QueryOptionDTO queryOption) {
+
+        return annualFeeRepository.findInfoDtoListWithQDsl(queryOption);
     }
 
 }

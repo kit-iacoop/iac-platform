@@ -1,11 +1,12 @@
 package com.web.service;
 
-import com.domain.annualFee.AnnualFee;
-import com.web.dto.AnnualFeeHistoryDTO;
-import com.web.dto.AnnualFeeInfoDTO;
+import com.web.dto.annualfee.AnnualFeeHistoryDTO;
+import com.web.dto.annualfee.AnnualFeeInfoDTO;
+import com.web.dto.annualfee.QueryOptionDTO;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
+import java.util.Map;
 
 public interface AnnualFeeService {
 
@@ -14,4 +15,6 @@ public interface AnnualFeeService {
 
     void acceptPayment(ModelAndView mav, Long paymentId);
     void rejectPayment(ModelAndView mav, Long paymentId);
+
+    List<AnnualFeeInfoDTO> findInfoDtoListWithQDsl(QueryOptionDTO queryOption);
 }

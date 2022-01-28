@@ -1,4 +1,4 @@
-package com.web.dto;
+package com.web.dto.annualfee;
 
 import com.domain.common.State;
 import lombok.*;
@@ -11,10 +11,12 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class AnnualFeeHistoryDTO {
+public class AnnualFeeInfoDTO {
 
+    private Long annualFeeId;
     private Integer year;
     private String grade;
+    private String companyName;
     private Long cash;
     private Long point;
     private State paymentStatus;

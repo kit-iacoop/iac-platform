@@ -2,21 +2,22 @@ package com.web.controller.annualfee;
 
 
 import com.domain.account.Company;
-import com.domain.annualFee.AnnualFee;
 import com.security.service.AccountContext;
-import com.web.dto.AnnualFeeHistoryDTO;
-import com.web.dto.AnnualFeeInfoDTO;
+import com.web.dto.annualfee.AnnualFeeHistoryDTO;
+import com.web.dto.annualfee.AnnualFeeInfoDTO;
+import com.web.dto.annualfee.QueryOptionDTO;
 import com.web.service.AnnualFeeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 
 @AllArgsConstructor
@@ -56,10 +57,22 @@ public class AnnualFeeController {
 
 
     @GetMapping("/officer/annual-fee/payment-screening")
-    public ModelAndView paymentScreening(ModelAndView mav){
+    public ModelAndView paymentScreening(ModelAndView mav, @ModelAttribute QueryOptionDTO queryOptionDTO, HttpServletRequest req){
+
+        System.out.println(req.getRequestURL());
+        System.out.println(req.getRequestURI());
+
+        System.out.println(queryOptionDTO.toString());
+
+
+        List<AnnualFeeInfoDTO> infoDTOs = annualFeeService.findInfoDtoListWithQDsl(queryOptionDTO);
+//        List<AnnualFeeInfoDTO> infoDTOs = annualFeeService.findAllInfoDto();
+//        infoDTOs = annualFeeService.findAllInfoDto();
+
+
 
         mav.setViewName("officer/family-company-accept/annual-fee-screen");
-        mav.addObject("annualFeeDTOs", annualFeeService.findAllInfoDto());
+        mav.addObject("annualFeeDTOs", infoDTOs);
 
         return mav;
     }
@@ -85,8 +98,5 @@ public class AnnualFeeController {
 
         return mav;
     }
-
-
-
 
 }
