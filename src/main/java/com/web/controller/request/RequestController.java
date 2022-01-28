@@ -115,9 +115,8 @@ public class RequestController {
     @PostMapping("/list/{id}/open")
     public String closeToOpen(@PathVariable String id) {
 
-        System.out.println("hello world");
         requestService.closeToOpen(Long.valueOf(id));
-        System.out.println(Long.valueOf(id));
+        
         return "redirect:/requests/list/" + id;
     }
 
