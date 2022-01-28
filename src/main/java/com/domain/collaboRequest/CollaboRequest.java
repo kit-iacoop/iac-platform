@@ -105,6 +105,6 @@ public class CollaboRequest extends BaseTimeEntity {
     }
 
     public void clearProfessorList() {
-        this.collaboRequestProfessorList = new ArrayList<>();
+        this.collaboRequestProfessorList.clear();
     }
 }
