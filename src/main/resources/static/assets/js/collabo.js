@@ -69,6 +69,12 @@ getProfessorList = function (id) {
           </li>
         `);
       });
+
+      if (json.requestType == 'OPEN') {
+        $('#openRequestBtn').hide();
+      } else {
+        $('#openRequestBtn').show();
+      }
     },
     error: function (errorThrown) {
       alert(errorThrown.statusText);
@@ -86,6 +92,7 @@ openRequest = function () {
     },
     success: function () {
       alert('처리가 완료되었습니다.');
+      location.reload();
     },
     error: function (errorThrown) {
       alert(errorThrown.statusText);

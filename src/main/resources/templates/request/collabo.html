@@ -377,26 +377,12 @@
         <!-- Modal body -->
         <div class="modal-body" id="modal-body">
           프로젝트에 포함할 교수를 선택해 주세요.
-          <ul id="professor-list">
-            <li>
-              <input type="" value="">
-              <input type="checkbox" id="professor1">
-              <label for="professor1">김OO 교수</label>
-            </li>
-            <li>
-              <input type="checkbox" id="professor2">
-              <label for="professor2">이OO 교수</label>
-            </li>
-            <li>
-              <input type="checkbox" id="professor3">
-              <label for="professor3">박OO 교수</label>
-            </li>
-          </ul>
+          <ul id="professor-list"></ul>
         </div>
 
         <!-- Modal footer -->
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" onclick="openRequest();">공개 모집으로 전환</button>
+          <button type="button" class="btn btn-primary" id="openRequestBtn" onclick="openRequest();">공개 모집으로 전환</button>
           <button type="button" class="btn btn-primary" onclick="location.href='#'">프로젝트 생성</button>
           <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
         </div>
