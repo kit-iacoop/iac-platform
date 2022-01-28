@@ -2,44 +2,13 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-
-  <title>가족회사</title>
-  <meta content="" name="description" />
-  <meta content="" name="keywords" />
-
-  <!-- Favicons -->
-  <link href="/assets/img/favicon.png" rel="icon" />
-  <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon" />
-
-  <!-- Google Fonts -->
-  <link
-    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-    rel="stylesheet" />
-
-  <!-- Vendor CSS Files -->
-  <link href="/assets/vendor/aos/aos.css" rel="stylesheet" />
-  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet" />
-  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet" />
-  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet" />
-  <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet" />
-
-  <!-- Template Main CSS File -->
-  <link href="/assets/css/style.css" rel="stylesheet" />
-
-  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css" />
-
-  <!-- =======================================================
-  * Template Name: BizLand - v3.7.0
-  * Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+  <div th:replace="fragments/portal/head :: template-head('특허 검색')"></div>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body>
+  <div th:replace="fragments/portal/header :: template-header"></div>
+
   <main id="main" data-aos="fade-up">
     <!-- ======= detail page main image Section ======= -->
     <section class="detail-image container-fluid">
@@ -128,7 +97,8 @@
             <tbody>
               <tr th:each="dto : ${copyrightDtos}"
                 th:onclick="'location.href=\''+ @{/copyrights/list/{id}(id=${dto.copyrightId})} + '\''">
-                <td colspan="2" th:text="${T(com.domain.common.CopyrightType).valueOf(dto.copyrightType).getName()}"></td>
+                <td colspan="2" th:text="${T(com.domain.common.CopyrightType).valueOf(dto.copyrightType).getName()}">
+                </td>
                 <td colspan="2" th:text="'-'"></td>
                 <td colspan="5" th:text="${dto.copyrightName}"></td>
                 <td colspan="2" th:text="${dto.representor}"></td>
