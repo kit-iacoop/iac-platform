@@ -35,6 +35,7 @@ public class CollaboRequestDTO {
     private String requestType;
     private String budget;
     private String isCapstone;
+    private String createdDate;
 
     // nullable true column list
     private String projectId = null;
@@ -61,6 +62,7 @@ public class CollaboRequestDTO {
         this.requestType = String.valueOf(collaboRequest.getRequestType());
         this.budget = collaboRequest.getBudget();
         this.isCapstone = collaboRequest.getIsCapstone();
+        this.createdDate = String.valueOf(collaboRequest.getCreatedDate());
 
         if (collaboRequest.getProjectId() != null) {
             this.projectId = String.valueOf(collaboRequest.getProjectId().getProjectId());

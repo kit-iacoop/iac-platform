@@ -28,6 +28,7 @@ public class CopyrightDTO {
     private String applicationNumber;
     private String registrationDate;
     private String registrationNumber;
+    private String createdDate;
 
     public CopyrightDTO(Copyright copyright) {
         this.copyrightId = String.valueOf(copyright.getCopyrightId());
@@ -44,6 +45,7 @@ public class CopyrightDTO {
         this.keyword = copyright.getKeyword();
         this.description = copyright.getDescription();
         this.maintenanceState = copyright.getMaintenanceState();
+        this.createdDate = String.valueOf(copyright.getCreatedDate());
         this.applicationDate = "";
         this.applicationNumber = "";
         this.registrationDate = "";

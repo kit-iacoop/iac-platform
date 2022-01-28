@@ -26,7 +26,6 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @RequiredArgsConstructor
@@ -188,8 +187,6 @@ public class RequestServiceImpl implements RequestService {
             }
         }
 
-        System.out.println("params : " + type + " " + term + " " + categories.size() + " " + Arrays.toString(options) + " " + key + " ");
-
         RequestQueryCondition build = RequestQueryCondition.builder()
                 .type(type.equals("all") ? null : RequestType.valueOf(type.toUpperCase(Locale.ROOT)))
                 .key(key)
@@ -203,4 +200,5 @@ public class RequestServiceImpl implements RequestService {
 
         return search.map(CollaboRequestDTO::new);
     }
+
 }
