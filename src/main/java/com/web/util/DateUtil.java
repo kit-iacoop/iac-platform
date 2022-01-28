@@ -1,6 +1,7 @@
 package com.web.util;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
@@ -18,6 +19,9 @@ public class DateUtil {
     }
 
     public static LocalDate toLocalDate(String date) {
+        if (date.length() > 10) {
+            return LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+        }
         return LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
     }
 }
