@@ -72,8 +72,10 @@ getProfessorList = function (id) {
 
       if (json.requestType == 'OPEN') {
         $('#openRequestBtn').hide();
+        $('.modal-title').text('지원 교수 목록');
       } else {
         $('#openRequestBtn').show();
+        $('.modal-title').text('협력 희망 교수 목록');
       }
     },
     error: function (errorThrown) {

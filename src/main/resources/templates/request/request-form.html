@@ -155,7 +155,7 @@
                                 <tr>
                                     <th colspan="2"><label for="tech-depth-1">기술 분야</label></th>
                                     <td colspan="5">
-                                        <select id="tech-depth-1" class="tech-select">
+                                        <select id="tech-depth-1" class="tech-select" required>
                                             <option disabled selected></option>
                                         </select>
                                         <select id="tech-depth-2" class="tech-select">
@@ -254,6 +254,7 @@
     <!-- Template Main JS File -->
     <script src="/assets/js/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="/assets/js/request-form.js"></script>
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"
         integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
@@ -263,96 +264,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-
-    <script>
-        $(function () {
-            $('form').submit(function () {
-                if (!$('#companyName').val()) {
-                    alert('요청 기업을 선택해야 합니다.');
-                    return false;
-                }
-            });
-
-            $('.openclose').change(function () {
-                if ($('#OPEN').is(':checked')) {
-                    $('.close-show').hide();
-                    $('.professorId').prop('disabled', true);
-                } else {
-                    $('.close-show').show();
-                    $('.professorId').prop('disabled', false);
-                }
-            });
-
-            $('#OPEN').prop("checked", true);
-            $('.close-show').hide();
-            $('.professorId').prop('disabled', true);
-            $('#isCapstone-false').prop("checked", true);
-
-            function updateSelect(selectBox, parent) {
-                let rightSelect = selectBox;
-                while (rightSelect.prop("tagName") == 'SELECT') {
-                    rightSelect.empty();
-                    rightSelect.append(`<option disabled selected></option>`);
-                    rightSelect = rightSelect.next();
-                }
-                // value로 자식 기술분야 검색
-                $.ajax({
-                    method: "GET",
-                    url: `/fields/${parent}/children`
-                })
-                    .done(function (json) {
-                        json.forEach(function (data, idx) {
-                            console.log(data);
-                            selectBox.append(`<option value="${data.fieldCategoryId}">${data.categoryName}</option>`);
-                        });
-                    });
-            }
-
-            $('.tech-select').change(function () {
-                if ($(this).next().prop("tagName") == 'SELECT') {
-                    updateSelect($(this).next(), $(this).val());
-                }
-            });
-
-            updateSelect($('#tech-depth-1'), -1);
-        });
-
-        let professorCnt = 1;
-        function addProfessorInput() {
-            $('#addProfessorBtn').before(`
-                <div>
-                    <input type="hidden" class="professorId" name="collaboRequestProfessorList[${professorCnt}].professorId" id="professorId${professorCnt}">
-                    <input type="text" id="professorName${professorCnt}" readonly>
-                    <button type="button" id="professorIdSearch" onclick="window.open('/accounts/search?dtypes=P&idTag=professorId${professorCnt}&nameTag=professorName${professorCnt}', '_blank', 'width=500,height=400');">검색</button>
-                </div>
-            `);
-            professorCnt++;
-        }
-
-        let techniqueCnt = 0;
-        function addTechniqueInput() {
-            let selectedTech = getNotNullElem();
-            $('#tech-wrapper').append(`
-                <div class="tag-wrapper">
-                    <input type="hidden" name="collaboRequestTechniqueList[${techniqueCnt}].fieldCategoryId" id="techniqueId${techniqueCnt}"
-                        value="${selectedTech.val()}">
-                    <input type="text" class="tag-design" id="techniqueName${techniqueCnt}" value="${selectedTech.find('option:checked').text().trim()}" readonly>
-                </div>
-            `);
-            techniqueCnt++;
-        }
-
-        function getNotNullElem() {
-            if ($('#tech-depth-4').val() != null)
-                return $('#tech-depth-4');
-            if ($('#tech-depth-3').val() != null)
-                return $('#tech-depth-3');
-            if ($('#tech-depth-2').val() != null)
-                return $('#tech-depth-2');
-            return $('#tech-depth-1');
-        }
-    </script>
-
 </body>
 
 </html>
