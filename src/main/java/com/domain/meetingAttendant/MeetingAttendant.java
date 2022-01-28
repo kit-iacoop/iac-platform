@@ -5,11 +5,13 @@ import com.domain.meeting.Meeting;
 import com.domain.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
+@SuperBuilder
 @Entity
 @Table(name = "MEETING_ATTENDANT")
 public class MeetingAttendant extends BaseTimeEntity {

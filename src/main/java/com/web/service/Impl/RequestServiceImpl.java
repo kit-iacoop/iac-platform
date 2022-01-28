@@ -1,5 +1,6 @@
 package com.web.service.Impl;
 
+import com.common.Common;
 import com.domain.account.*;
 import com.domain.collaboRequest.CollaboRequest;
 import com.domain.collaboRequest.CollaboRequestRepository;
@@ -12,10 +13,12 @@ import com.domain.common.RequestType;
 import com.domain.common.State;
 import com.domain.fieldCategory.FieldCategory;
 import com.domain.fieldCategory.FieldCategoryRepository;
+import com.domain.meeting.Meeting;
+import com.domain.meeting.MeetingRepository;
+import com.domain.meetingAttendant.MeetingAttendant;
+import com.domain.project.ProjectRepository;
 import com.security.service.AccountContext;
-import com.web.dto.CollaboRequestDTO;
-import com.web.dto.CollaboRequestProfessorDTO;
-import com.web.dto.CollaboRequestTechniqueDTO;
+import com.web.dto.*;
 import com.web.service.RequestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -38,6 +41,9 @@ public class RequestServiceImpl implements RequestService {
     private final ProfessorRepository professorRepository;
     private final FieldCategoryRepository fieldCategoryRepository;
     private final CollaboRequestProfessorRepository collaboRequestProfessorRepository;
+    private final ProjectRepository projectRepository;
+    private final AccountRepository accountRepository;
+    private final MeetingRepository meetingRepository;
 
     @Override
     public Page<CollaboRequestDTO> findRequestByTypeAndKey(String type, String key, Pageable pageable) {
@@ -199,6 +205,34 @@ public class RequestServiceImpl implements RequestService {
         Page<CollaboRequest> search = collaboRequestRepository.search(build, pageable);
 
         return search.map(CollaboRequestDTO::new);
+    }
+
+    // TODO: 작업중
+    @Override
+    public int insertNewMeeting(MeetingDTO meetingDTO) {
+
+        Meeting meeting = Meeting.builder()
+                .meetingName(meetingDTO.getMeetingName())
+                .collaboRequest(collaboRequestRepository.findById(Long.valueOf(meetingDTO.getCollaboRequestId())).orElse(null))
+                .project(projectRepository.findById(Long.valueOf(meetingDTO.getProjectId())).orElse(null))
+                .meetingLocation(meetingDTO.getMeetingLocation())
+                .meetingDate(LocalDate.parse(meetingDTO.getMeetingDate()))
+                .meetingTime(meetingDTO.getMeetingTime())
+                .meetingType(meetingDTO.getMeetingType())
+                .build();
+
+        List<String> accountIdList = meetingDTO.getMeetingAttendantList().stream().map(MeetingAttendantDTO::getAccountId).collect(Collectors.toList());
+        List<Account> accountList = accountRepository.findAllById(accountIdList.stream().map(Long::valueOf).collect(Collectors.toList()));
+
+        for (Account account : accountList) {
+            MeetingAttendant build = MeetingAttendant.builder().build();
+            build.setAccount(account);
+            build.setMeeting(meeting);
+        }
+
+        meetingRepository.save(meeting);
+
+        return 1;
     }
 
 }

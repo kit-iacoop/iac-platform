@@ -2,6 +2,7 @@ package com.web.service;
 
 import com.domain.common.RequestType;
 import com.web.dto.CollaboRequestDTO;
+import com.web.dto.MeetingDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -20,4 +21,7 @@ public interface RequestService {
     int requestAttend(Long requestId, Long professorId);
 
     Page<CollaboRequestDTO> findRequestByQuery(String type, String term, String[] fields, String[] options, String key, Pageable pageable);
+
+    int insertNewMeeting(MeetingDTO meetingDTO);
+
 }
