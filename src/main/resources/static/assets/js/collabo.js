@@ -53,6 +53,46 @@ requestProjectList = function () {
   });
 };
 
+getProfessorList = function (id) {
+  $('#requestId').val(id);
+  $.ajax({
+    method: "GET",
+    url: `/requests/list/${id}/json`,
+    success: function (json) {
+      $('#professor-list').empty();
+      json.collaboRequestProfessorList.forEach(function (item, idx, arr) {
+        $('#professor-list').append(`
+          <li>
+            <input type="hidden" value="${item.collaboRequestProfessorId}">
+            <input type="checkbox" id="professor${idx}">
+            <label for="professor${idx}">${item.professorName}</label>
+          </li>
+        `);
+      });
+    },
+    error: function (errorThrown) {
+      alert(errorThrown.statusText);
+    },
+  });
+};
+
+openRequest = function () {
+  let id = $('#requestId').val();
+  $.ajax({
+    method: "POST",
+    url: `/requests/list/${id}/open`,
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(csrfHeader, csrfToken);
+    },
+    success: function () {
+      alert('처리가 완료되었습니다.');
+    },
+    error: function (errorThrown) {
+      alert(errorThrown.statusText);
+    },
+  });
+}
+
 $(function () {
   $(".sidebar-body input[type='checkbox']").on({
     change: cascadingCheck,

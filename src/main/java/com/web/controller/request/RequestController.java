@@ -92,6 +92,12 @@ public class RequestController {
         return "request/request-detail";
     }
 
+    @GetMapping("/list/{id}/json")
+    @ResponseBody
+    public CollaboRequestDTO requestDetailJson(@PathVariable String id) {
+        return requestService.getRequestDetail(id);
+    }
+
     @GetMapping("/new")
     public String newRequestForm(Model model) {
         model.addAttribute("requestDto", new CollaboRequestDTO());
@@ -110,7 +116,7 @@ public class RequestController {
     public String closeToOpen(@PathVariable String id) {
 
         requestService.closeToOpen(Long.valueOf(id));
-
+        
         return "redirect:/requests/list/" + id;
     }
 

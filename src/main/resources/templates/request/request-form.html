@@ -2,115 +2,267 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>가족회사</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+
+    <!-- Favicons -->
+    <link href="/assets/img/favicon.png" rel="icon">
+    <link href="/assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+    <!-- Google Fonts -->
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
+
+    <!-- Vendor CSS Files -->
+    <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+    <!-- Template Main CSS File -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- =======================================================
+  * Template Name: BizLand - v3.7.0
+  * Template URL: https://bootstrapmade.com/bizland-bootstrap-business-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+
 </head>
 
 <body>
-    <div>
-        <form th:action="@{/requests/list}" th:object="${requestDto}" method="post">
-            <input type="hidden" name="status" value="PENDING">
-            <input type="hidden" name="officerId" value="5">
-            <table>
-                <tr>
-                    <th><label for="companyId">요청 기업</label></th>
-                    <td>
-                        <input type="hidden" th:field="*{companyId}" id="companyId">
-                        <input type="text" id="companyName" readonly>
-                        <button type="button" id="companyIdSearch"
-                            onclick="window.open('/accounts/search?dtypes=C&idTag=companyId&nameTag=companyName', '_blank', 'width=500,height=400');">검색</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th><label for="title">애로기술명</label></th>
-                    <td>
-                        <input type="text" th:field="*{title}" id="title" required>
-                    </td>
-                </tr>
-                <tr>
-                    <th><label for="description">애로사항</label></th>
-                    <td>
-                        <textarea th:field="*{description}" id="description" cols="30" rows="5"></textarea>
-                    </td>
-                </tr>
-                <tr>
-                    <th><label for="tech-depth-1">기술 분야</label></th>
-                    <td>
-                        <div id="tech-wrapper"></div>
-                        <select id="tech-depth-1" class="tech-select">
-                            <option disabled selected></option>
-                        </select>
-                        <select id="tech-depth-2" class="tech-select">
-                            <option disabled selected></option>
-                        </select>
-                        <select id="tech-depth-3" class="tech-select">
-                            <option disabled selected></option>
-                        </select>
-                        <select id="tech-depth-4" class="tech-select">
-                            <option disabled selected></option>
-                        </select>
-                        <button type="button" onclick="addTechniqueInput()">추가</button>
-                    </td>
-                </tr>
-                <tr>
-                    <th><label for="term">프로젝트 기간</label></th>
-                    <td>
-                        <input type="text" th:field="*{term}" id="term" class="text-right" pattern="\d+" required>일
-                    </td>
-                </tr>
-                <tr>
-                    <th><label for="budget">예산</label></th>
-                    <td>
-                        <input type="text" th:field="*{budget}" id="budget" class="text-right" pattern="\d+" required>만원
-                    </td>
-                </tr>
-                <tr>
-                    <th><label>매칭 유형</label></th>
-                    <td>
-                        <input type="radio" id="OPEN" th:field="*{requestType}" value="OPEN" class="openclose">
-                        <label for="OPEN">공개 모집</label><br>
-                        <input type="radio" id="CLOSE" th:field="*{requestType}" value="CLOSE" class="openclose">
-                        <label for="CLOSE">비공개 우선(교수 지정)</label><br>
-                    </td>
-                </tr>
-                <tr>
-                    <th><label>캡스톤 디자인 연계</label></th>
-                    <td>
-                        <input type="radio" id="isCapstone-true" th:field="*{isCapstone}" value="true">
-                        <label for="isCapstone-true">O</label><br>
-                        <input type="radio" id="isCapstone-false" th:field="*{isCapstone}" value="false">
-                        <label for="isCapstone-false">X</label><br>
-                    </td>
-                </tr>
-                <tr>
-                    <th><label for="expireDate">공개 모집 기간</label></th>
-                    <td>
-                        <input type="date" th:field="*{expireDate}" id="expireDate" required>까지
-                    </td>
-                </tr>
-                <tr class="close-show">
-                    <th><label for="professorId0">희망 교수</label></th>
-                    <td>
-                        <div>
-                            <input type="hidden" class="professorId" name="collaboRequestProfessorList[0].professorId"
-                                id="professorId0">
-                            <input type="text" id="professorName0" readonly>
-                            <button type="button" id="professorIdSearch"
-                                onclick="window.open('/accounts/search?dtypes=P&idTag=professorId0&nameTag=professorName0', '_blank', 'width=500,height=400');">검색</button>
-                        </div>
-                        <button type="button" onclick="addProfessorInput()" id="addProfessorBtn">교수 추가</button>
-                    </td>
-                </tr>
-            </table>
-            <a href="/requests/list" class="btn btn-outline-secondary">목록으로</a>
-            <button type="submit" class="btn btn-primary">등록</button>
-        </form>
-    </div>
+
+    <!-- ======= Top Bar ======= -->
+    <section id="topbar" class="d-flex align-items-center">
+        <div class="container d-flex justify-content-center justify-content-md-between">
+            <div class="contact-info d-flex align-items-center">
+                <i class="bi bi-envelope d-flex align-items-center"><a
+                        href="mailto:contact@example.com">contact@example.com</a></i>
+                <i class="bi bi-phone d-flex align-items-center ms-4"><span>+1 5589 55488 55</span></i>
+            </div>
+            <div class="social-links d-none d-md-flex align-items-center">
+                <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
+                <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
+                <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
+                <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></i></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ======= Header ======= -->
+    <header id="header" class="d-flex align-items-center">
+        <div class="container d-flex align-items-center justify-content-between">
+            <h1 class="logo">
+                <a href="/"><span>기</span>업 <span>대</span>학 <span>지</span>역을 하나로</a>
+            </h1>
+            <!-- Uncomment below if you prefer to use an image logo -->
+            <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
+
+            <nav id="navbar" class="navbar">
+                <ul>
+                    <li class="dropdown">
+                        <a href="#"><span>가족회사</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="https://www.google.com/">가족회사란?</a></li>
+                            <li><a href="#">가족회사찾기</a></li>
+                            <li><a href="#">가족회사가입</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="/requests/list"><span>애로기술해결</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="/requests/new">애로기술요청</a></li>
+                            <li><a href="/requests/list">등록된애로기술</a></li>
+                            <li><a href="#">코디네이터</a></li>
+                        </ul>
+                    </li>
+
+                    <li><a class="nav-link scrollto" href="/copyrights/list">특허검색</a></li>
+                    <li>
+                        <a class="nav-link scrollto" href="#portfolio">장비공유</a>
+                    </li>
+                    <li><a class="nav-link scrollto" href="#team">커뮤니티</a></li>
+
+                    <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
+                </ul>
+                <i class="bi bi-list mobile-nav-toggle"></i>
+            </nav>
+            <!-- .navbar -->
+        </div>
+    </header>
+    <!-- End Header -->
+
+    <main id="main" data-aos="fade-up">
+
+        <!-- ======= Breadcrumbs Section ======= -->
+        <section class="breadcrumbs">
+            <div class="container">
+
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2>Collaboration Details</h2>
+                    <ol>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="portfolio.html">Portfolio</a></li>
+                        <li>Portfolio Details</li>
+                    </ol>
+                </div>
+
+            </div>
+        </section><!-- Breadcrumbs Section -->
+
+        <!-- ======= Portfolio Details Section ======= -->
+        <section id="collabo-project" class="collabo-details">
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="form-container">
+                        <form th:action="@{/requests/list}" th:object="${requestDto}" method="post">
+                            <input type="hidden" name="status" value="PENDING">
+                            <input type="hidden" name="officerId" value="5">
+                            <table>
+                                <tr>
+                                    <th colspan="2"><label for="companyId">요청 기업</label></th>
+                                    <td colspan="5">
+                                        <input type="hidden" th:field="*{companyId}" id="companyId">
+                                        <input type="text" id="companyName" readonly>
+                                        <button type="button" id="companyIdSearch"
+                                            onclick="window.open('/accounts/search?dtypes=C&idTag=companyId&nameTag=companyName', '_blank', 'width=500,height=400');">검색</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2"><label for="title">애로기술명</label></th>
+                                    <td colspan="5">
+                                        <input type="text" th:field="*{title}" id="title" required>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2"><label for="description">애로사항</label></th>
+                                    <td colspan="5">
+                                        <textarea th:field="*{description}" id="description" cols="30"
+                                            rows="5"></textarea>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2"><label for="tech-depth-1">기술 분야</label></th>
+                                    <td colspan="5">
+                                        <select id="tech-depth-1" class="tech-select">
+                                            <option disabled selected></option>
+                                        </select>
+                                        <select id="tech-depth-2" class="tech-select">
+                                            <option disabled selected></option>
+                                        </select>
+                                        <select id="tech-depth-3" class="tech-select">
+                                            <option disabled selected></option>
+                                        </select>
+                                        <select id="tech-depth-4" class="tech-select">
+                                            <option disabled selected></option>
+                                        </select>
+                                        <button type="button" onclick="addTechniqueInput()">추가</button>
+                                        <div id="tech-wrapper"></div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2"><label for="term">프로젝트 기간</label></th>
+                                    <td colspan="5">
+                                        <input type="text" th:field="*{term}" id="term" class="text-right" pattern="\d+"
+                                            required> 일
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2"><label for="budget">예상비용</label></th>
+                                    <td colspan="5">
+                                        <input type="text" th:field="*{budget}" id="budget" class="text-right"
+                                            pattern="\d+" required> 만원
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2"><label>매칭 유형</label></th>
+                                    <td colspan="5">
+                                        <input type="radio" id="OPEN" th:field="*{requestType}" value="OPEN"
+                                            class="openclose">
+                                        <label for="OPEN">공개 모집</label><br>
+                                        <input type="radio" id="CLOSE" th:field="*{requestType}" value="CLOSE"
+                                            class="openclose">
+                                        <label for="CLOSE">비공개 우선(교수 지정)</label><br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2"><label>캡스톤 디자인 연계</label></th>
+                                    <td colspan="5">
+                                        <input type="radio" id="isCapstone-true" th:field="*{isCapstone}" value="true">
+                                        <label for="isCapstone-true">O</label>
+                                        <input type="radio" id="isCapstone-false" th:field="*{isCapstone}"
+                                            value="false">
+                                        <label for="isCapstone-false">X</label><br>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th colspan="2"><label for="expireDate">공개 모집 기간</label></th>
+                                    <td colspan="5">
+                                        <input type="date" th:field="*{expireDate}" id="expireDate" required> 까지
+                                    </td>
+                                </tr>
+                                <tr class="close-show">
+                                    <th colspan="2"><label for="professorId0">희망 교수</label></th>
+                                    <td colspan="5">
+                                        <div>
+                                            <input type="hidden" class="professorId"
+                                                name="collaboRequestProfessorList[0].professorId" id="professorId0">
+                                            <input type="text" id="professorName0" readonly>
+                                            <button type="button" id="professorIdSearch"
+                                                onclick="window.open('/accounts/search?dtypes=P&idTag=professorId0&nameTag=professorName0', '_blank', 'width=500,height=400');">검색</button>
+                                        </div>
+                                        <button type="button" onclick="addProfessorInput()" id="addProfessorBtn">교수
+                                            추가</button>
+                                    </td>
+                                </tr>
+                            </table>
+                            <a href="/requests/list" class="btn btn-outline-secondary">목록으로</a>
+                            <button type="submit" class="btn btn-primary">등록</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section><!-- End Portfolio Details Section -->
+
+    </main><!-- End #main -->
+
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+            class="bi bi-arrow-up-short"></i></a>
+
+    <!-- Vendor JS Files -->
+    <script src="/assets/vendor/purecounter/purecounter.js"></script>
+    <script src="/assets/vendor/aos/aos.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="/assets/vendor/php-email-form/validate.js"></script>
+
+    <!-- Template Main JS File -->
+    <script src="/assets/js/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 
     <script>
         $(function () {
@@ -137,7 +289,6 @@
             $('#isCapstone-false').prop("checked", true);
 
             function updateSelect(selectBox, parent) {
-
                 let rightSelect = selectBox;
                 while (rightSelect.prop("tagName") == 'SELECT') {
                     rightSelect.empty();
@@ -182,10 +333,10 @@
         function addTechniqueInput() {
             let selectedTech = getNotNullElem();
             $('#tech-wrapper').append(`
-                <div>
+                <div class="tag-wrapper">
                     <input type="hidden" name="collaboRequestTechniqueList[${techniqueCnt}].fieldCategoryId" id="techniqueId${techniqueCnt}"
                         value="${selectedTech.val()}">
-                    <input type="text" id="techniqueName${techniqueCnt}" value="${selectedTech.find('option:checked').text().trim()}" readonly>
+                    <input type="text" class="tag-design" id="techniqueName${techniqueCnt}" value="${selectedTech.find('option:checked').text().trim()}" readonly>
                 </div>
             `);
             techniqueCnt++;
@@ -202,14 +353,6 @@
         }
     </script>
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
-        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
-        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
-        crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-        crossorigin="anonymous"></script>
 </body>
 
 </html>
