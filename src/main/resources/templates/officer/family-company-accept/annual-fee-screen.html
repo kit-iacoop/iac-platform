@@ -38,7 +38,7 @@
             <td th:text="${dto.cash}"></td>
             <td th:text="${dto.point}"></td>
             <td th:text="${dto.paymentStatus}"></td>
-            <td th:text="${dto.confirmDate}"></td>
+            <td th:text="${#temporals.formatISO(dto.confirmDate)}"></td>
         </tr>
         </tbody>
 </table>
@@ -49,32 +49,6 @@
 <script src="/js/jquery.js"></script>
 <script th:inline="javascript">
     function selectGetRequest(param) {
-        var companyName = document.getElementById("company-name").value;
-        var startDay = document.getElementById("start-day").value;
-        var endDay = document.getElementById("end-day").value;
-        $.ajax({
-            method: "GET",
-            url: "/officer/annual-fee/payment-screening",
-            contentType: 'application/json',
-            data: {
-                "companyName": companyName,
-                "startDay": startDay,
-                "endDay": endDay,
-                "state": param
-            },
-            beforeSend: function (xhr) {
-				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
-			},
-            success: function() {
-                console.log(companyName);
-                console.log(startDay);
-                console.log(endDay);
-                console.log(param);
-            }
-        });
-    }
-    
-    function getRequest() {
         var companyName = document.getElementById("company-name").value;
         var startDay = document.getElementById("start-day").value;
         var endDay = document.getElementById("end-day").value;
@@ -94,12 +68,55 @@
             beforeSend: function (xhr) {
 				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
 			},
-            success: function(res) {
-                console.log(res);
+            success: function(data) {
+                console.log("===========");
                 console.log(companyName);
                 console.log(startDay);
                 console.log(endDay);
                 console.log(state);
+                $(".main-contents").empty();
+                $(".main-contents").append(data);
+                document.getElementById("company-name").value = companyName;
+                document.getElementById("start-day").value = startDay;
+                document.getElementById("end-day").value = endDay;
+            }
+        });
+    }
+    
+    function getRequest() {
+        var companyName = document.getElementById("company-name").value;
+        var startDay = document.getElementById("start-day").value;
+        var endDay = document.getElementById("end-day").value;
+        var stateElement = document.getElementById("state");
+        var state = stateElement.options[stateElement.selectedIndex].value;
+
+        $.ajax({
+            method: "GET",
+            url: "/officer/annual-fee/payment-screening",
+            contentType: 'application/json',
+            dataType: 'text',
+            data: {
+                "companyName": companyName,
+                "startDay": startDay,
+                "endDay": endDay,
+                "state": state
+            },
+            beforeSend: function (xhr) {
+				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
+			},
+            success: function(data) {
+                console.log("===========");
+                console.log(data);
+                console.log(companyName);
+                console.log(startDay);
+                console.log(endDay);
+                console.log(state);
+                $(".main-contents").empty();
+                $(".main-contents").append(data);
+                document.getElementById("company-name").value = companyName;
+                document.getElementById("start-day").value = startDay;
+                document.getElementById("end-day").value = endDay;
+                stateElement.options[stateElement.selectedIndex].value = state;
             }
         });
     }
