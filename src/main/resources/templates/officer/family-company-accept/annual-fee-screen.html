@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<table>
+<table id="result">
     <thaed>
         <tr>
             <th scope="col" class=""><span>선택</span></th>
@@ -40,7 +40,7 @@
             <td th:text="${dto.paymentStatus}"></td>
             <td th:text="${#temporals.formatISO(dto.confirmDate)}"></td>
         </tr>
-        </tbody>
+    </tbody>
 </table>
 
 <button onclick="postRequest('/accept')">승인</button>
@@ -68,14 +68,10 @@
             beforeSend: function (xhr) {
 				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
 			},
-            success: function(data) {
-                console.log("===========");
-                console.log(companyName);
-                console.log(startDay);
-                console.log(endDay);
-                console.log(state);
-                $(".main-contents").empty();
-                $(".main-contents").append(data);
+            success: function(res) {
+                $("#result").empty();
+                var refine = $("#result").html(res).find("table");
+                $("#result").html(refine);
                 document.getElementById("company-name").value = companyName;
                 document.getElementById("start-day").value = startDay;
                 document.getElementById("end-day").value = endDay;
@@ -104,15 +100,10 @@
             beforeSend: function (xhr) {
 				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
 			},
-            success: function(data) {
-                console.log("===========");
-                console.log(data);
-                console.log(companyName);
-                console.log(startDay);
-                console.log(endDay);
-                console.log(state);
-                $(".main-contents").empty();
-                $(".main-contents").append(data);
+            success: function(res) {
+                $("#result").empty();
+                var refine = $("#result").html(res).find("table");
+                $("#result").html(refine);
                 document.getElementById("company-name").value = companyName;
                 document.getElementById("start-day").value = startDay;
                 document.getElementById("end-day").value = endDay;
