@@ -2,6 +2,7 @@ package com.web.controller.annualfee;
 
 
 import com.domain.account.Company;
+import com.domain.common.State;
 import com.security.service.AccountContext;
 import com.web.dto.annualfee.AnnualFeeHistoryDTO;
 import com.web.dto.annualfee.AnnualFeeInfoDTO;
@@ -10,8 +11,11 @@ import com.web.service.AnnualFeeService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -57,12 +61,8 @@ public class AnnualFeeController {
 
 
     @GetMapping("/officer/annual-fee/payment-screening")
-    public ModelAndView paymentScreening(ModelAndView mav, @ModelAttribute QueryOptionDTO queryOptionDTO, HttpServletRequest req){
+    public ModelAndView paymentScreening(ModelAndView mav, @ModelAttribute @Validated QueryOptionDTO queryOptionDTO){
 
-        System.out.println(req.getRequestURL());
-        System.out.println(req.getRequestURI());
-
-        System.out.println(queryOptionDTO.toString());
 
 
         List<AnnualFeeInfoDTO> infoDTOs = annualFeeService.findInfoDtoListWithQDsl(queryOptionDTO);
@@ -97,6 +97,12 @@ public class AnnualFeeController {
         mav.setViewName("company/annual-fee/history");
 
         return mav;
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder) {
+        StringTrimmerEditor stringTimmerEditor = new StringTrimmerEditor(true);
+        dataBinder.registerCustomEditor(String.class, stringTimmerEditor);
     }
 
 }

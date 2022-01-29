@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 import static com.qdomain.annualFee.QAnnualFee.annualFee;
 
-
+@Getter
 @Setter
 @ToString
 
@@ -22,6 +22,14 @@ public class QueryOptionDTO {
     String startDay;
     String endDay;
     State state;
+
+    public void setStartDay(String startDay) {
+        this.startDay = startDay;
+    }
+
+    public void setEndDay(String endDay) {
+        this.endDay = endDay;
+    }
 
     public String getCompanyName() {
         return companyName;
