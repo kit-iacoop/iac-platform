@@ -8,7 +8,7 @@
     <div class="select-grade-wrapper">
         <select id="annual-fee-for-grade" onchange="changePrice()">
             <option>선택</option>
-            <option th:each="gradePolicy: ${gradePolicyDTOs}" th:value="${gradePolicy.price}" th:utext="${gradePolicy.grade}" 
+            <option th:each="gradePolicy: ${gradePolicyDTOS}" th:value="${gradePolicy.price}" th:utext="${gradePolicy.grade}" 
             th:selected="${gradePolicy.grade == accountDTO.grade}"></option>
         </select>
     </div>
