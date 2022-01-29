@@ -60,7 +60,7 @@ public class QueryOptionDTO {
         BooleanBuilder builder = new BooleanBuilder();
 
         if(companyName != null){
-            builder.and(annualFee.company.name.eq(companyName));
+            builder.and(annualFee.company.name.contains(companyName));
         }
 
         if(startDay != null){
