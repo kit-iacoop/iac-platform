@@ -100,6 +100,9 @@ public class Company extends Account {
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<CompanyAnnualSales> annualSalesList = new LinkedList<>();
 
+    public void renewGrade(String newGrade){
+        grade = newGrade;
+    }
     public void verification(String grade, Long mileage, Long point, State currentizationStatus){
         this.grade = grade;
         this.mileage = mileage;

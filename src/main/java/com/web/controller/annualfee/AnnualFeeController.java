@@ -1,12 +1,15 @@
 package com.web.controller.annualfee;
 
 
+import com.common.Common;
 import com.domain.account.Company;
+import com.domain.gradePolicy.GradePolicy;
 import com.security.service.AccountContext;
 import com.web.dto.annualfee.AnnualFeeHistoryDTO;
 import com.web.dto.annualfee.AnnualFeeInfoDTO;
 import com.web.dto.annualfee.QueryOptionDTO;
 import com.web.service.AnnualFeeService;
+import com.web.service.GradePolicyService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,10 +30,23 @@ import java.util.List;
 public class AnnualFeeController {
 
     @Autowired
-    AnnualFeeService annualFeeService;
+    private Common common;
+
+    @Autowired
+    private AnnualFeeService annualFeeService;
+
+    @Autowired
+    private GradePolicyService gradePolicyService;
 
     @GetMapping("/company/annual-fee/payment-application")
     public ModelAndView paymentApplication(ModelAndView mav){
+
+
+        mav.addObject("accountDTO", common.getAccountContext().getAccount());
+
+        List<GradePolicy> gp = gradePolicyService.findAll();
+        mav.addObject("gradePolicyDTOS", gp);
+
 
         mav.setViewName("company/annual-fee/payment");
 

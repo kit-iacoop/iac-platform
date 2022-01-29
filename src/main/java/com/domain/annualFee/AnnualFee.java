@@ -61,6 +61,8 @@ public class AnnualFee extends BaseTimeEntity {
          return false;
       }
 
+      company.renewGrade(gradePolicy.getGrade());
+
       paymentStatus = State.APPROVED;
       confirmDate = LocalDate.now();
 
