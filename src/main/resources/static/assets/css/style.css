@@ -2282,6 +2282,13 @@ input, textarea, select {
 }
 
 
+
+
+
+
+
+
+
 .form-inline {
     display: flex;
     -ms-flex-flow: row wrap;
@@ -2291,4 +2298,30 @@ input, textarea, select {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -webkit-box-align: center;
+}
+
+.pagination {
+    font-family: -apple-system;
+}
+
+.col-lg-2, .col-lg-10 {
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+thead {
+    border-top-color: inherit;
+    border-top-style: solid;
+    border-top-width: 1px;
+    border-bottom-color: inherit;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+.table>:not(:first-child) {
+    border-color: inherit;
+    border-style: solid;
+    border-width: 0;
 }
