@@ -8,7 +8,7 @@
     <div class="select-grade-wrapper">
         <select id="annual-fee-for-grade" onchange="changePrice()">
             <option>선택</option>
-            <option th:each="gradePolicy: ${gradePolicyDTOS}" th:value="${gradePolicy.price}" th:utext="${gradePolicy.grade}" 
+            <option th:each="gradePolicy: ${gradePolicyDTOS}" th:id="${gradePolicy.gradePolicyId}" th:value="${gradePolicy.price}" th:utext="${gradePolicy.grade}" 
             th:selected="${gradePolicy.grade == accountDTO.grade}"></option>
         </select>
     </div>
@@ -37,8 +37,7 @@
         let gradePolicyArr = [[${gradePolicyDTOs}]];
         var originalPrice = document.getElementsByClassName("original-price")[0];
         var salePrice = document.getElementsByClassName("sale-price")[0];
-        console.log(currentGrade);
-        console.log(gradePolicyArr);
+
         gradePolicyArr.forEach(function(policy) {
             if(currentGrade == policy.grade) {
                 originalPrice.innerHTML="<p id=\"original-price\">"+ policy.price + "<p>원";
@@ -48,13 +47,19 @@
     });
 
     function postRequest() {
+        console.log("=======");
         var point = document.getElementById("use-point");
         var cash = document.getElementById("sale-price");
+        var gradelement = document.getElementById("annual-fee-for-grade");
+        var grade = gradelement.options[gradelement.selectedIndex];
+  
         var sendData = {
+            "gradePolicyId": grade.getAttribute("id"),
             "point": point.value,
             "cash": cash.textContent
         };
         console.log(JSON.stringify(sendData));
+
         $.ajax({
             method: "POST",
             url: "/company/annual-fee/payment-application",
