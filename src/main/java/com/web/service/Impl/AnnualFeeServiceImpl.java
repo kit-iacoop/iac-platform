@@ -34,24 +34,25 @@ public class AnnualFeeServiceImpl implements AnnualFeeService {
 
     @Transactional
     @Override
-    public void acceptPayment(ModelAndView mav, Long paymentId) {
+    public void acceptPayments(List<Long>  idList) {
 
-        AnnualFee payment = annualFeeRepository.findByAnnualFeeId(paymentId);
-        Boolean isSuccess = payment.accept();
-
-        if(!isSuccess){
-            mav.addObject("error", true);
+        for(Long id : idList){
+            AnnualFee payment = annualFeeRepository.findByAnnualFeeId(id);
+            payment.accept();
         }
 
     }
 
     @Transactional
     @Override
-    public void rejectPayment(ModelAndView mav, Long paymentId) {
-        AnnualFee payment = annualFeeRepository.findByAnnualFeeId(paymentId);
-        payment.reject();
-    }
+    public void rejectPayments(List<Long>  idList) {
 
+        for (Long id : idList) {
+            AnnualFee payment = annualFeeRepository.findByAnnualFeeId(id);
+            payment.reject();
+        }
+
+    }
     @Override
     public List<AnnualFeeInfoDTO> findInfoDtoListWithQDsl(QueryOptionDTO queryOption) {
 

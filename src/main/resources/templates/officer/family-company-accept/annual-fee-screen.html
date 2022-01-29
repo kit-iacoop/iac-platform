@@ -134,11 +134,9 @@
         $.ajax({
             method: "POST",
             url: "/officer/annual-fee/payment-screening" + path,
-            traditional: true,
-            contentType: 'application/json',
-            data: JSON.stringify({
+            data: {
                 "checkList": sendData
-            }),
+            },
             beforeSend: function (xhr) {
 				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
 			}

@@ -2,7 +2,6 @@ package com.web.controller.annualfee;
 
 
 import com.domain.account.Company;
-import com.domain.common.State;
 import com.security.service.AccountContext;
 import com.web.dto.annualfee.AnnualFeeHistoryDTO;
 import com.web.dto.annualfee.AnnualFeeInfoDTO;
@@ -19,9 +18,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Map;
 
 
 @AllArgsConstructor
@@ -40,22 +37,22 @@ public class AnnualFeeController {
         return mav;
     }
 
-    @GetMapping("/officer/annual-fee/payment-screening/accept/{paymentId}")
-    public ModelAndView acceptPayment(ModelAndView mav, @PathVariable Long paymentId){
+    @PostMapping("/officer/annual-fee/payment-screening/accept")
+    public String acceptPayment(@RequestParam(value="checkList[]") List<Long> checkList){
 
-        annualFeeService.acceptPayment(mav, paymentId);
-        mav.setViewName("redirect:/officer/annual-fee/payment-screening");
+        System.out.println(checkList);
+        annualFeeService.acceptPayments(checkList);
 
-        return mav;
+        return "redirect:/officer/annual-fee/payment-screening";
     }
 
-    @GetMapping("/officer/annual-fee/payment-screening/reject/{paymentId}")
-    public ModelAndView rejectPayment(ModelAndView mav, @PathVariable Long paymentId){
+    @PostMapping("/officer/annual-fee/payment-screening/reject")
+    public String rejectPayment(@RequestParam(value="checkList[]") List<Long> checkList){
 
-        annualFeeService.rejectPayment(mav, paymentId);
-        mav.setViewName("redirect:/officer/annual-fee/payment-screening");
+        System.out.println(checkList);
+        annualFeeService.rejectPayments(checkList);
 
-        return mav;
+        return "redirect:/officer/annual-fee/payment-screening";
     }
 
 

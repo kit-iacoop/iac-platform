@@ -13,8 +13,8 @@ public interface AnnualFeeService {
     List<AnnualFeeHistoryDTO> findAllHistoryDtoByCompanyId(Long companyId);
     List<AnnualFeeInfoDTO> findAllInfoDto();
 
-    void acceptPayment(ModelAndView mav, Long paymentId);
-    void rejectPayment(ModelAndView mav, Long paymentId);
+    void acceptPayments(List<Long> idList);
+    void rejectPayments(List<Long> idList);
 
     List<AnnualFeeInfoDTO> findInfoDtoListWithQDsl(QueryOptionDTO queryOption);
 }
