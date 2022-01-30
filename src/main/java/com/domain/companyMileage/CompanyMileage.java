@@ -1,38 +1,58 @@
 package com.domain.companyMileage;
 
 import com.domain.account.Company;
-import com.domain.mileageRequest.MileageRequest;
+import com.domain.account.Officer;
+import com.domain.mileageFile.MileageFile;
+import com.domain.mileagePolicy.MileagePolicy;
 import com.domain.common.BaseTimeEntity;
 
+import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.util.List;
 
 @SuperBuilder
 @NoArgsConstructor
+@ToString(exclude={"mileageFileList"})
 @Getter
 @Entity
 @Table(name = "COMPANY_MILEAGE")
 public class CompanyMileage extends BaseTimeEntity {
-
    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
    @Column(name = "COMPANY_MILEAGE_ID", nullable = false, unique = true)
    private Long companyMileageId;
 
    @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "OFFICER_ACCOUNT_ID", nullable = false)
+   private Officer officer;
+
+   @ManyToOne(fetch = FetchType.LAZY)
    @JoinColumn(name = "COMPANY_ACCOUNT_ID", nullable = false)
    private Company company;
 
-   @OneToOne(fetch = FetchType.LAZY)
-   @JoinColumn(name = "MILEAGE_REQUEST_ID", nullable = false)
-   private MileageRequest mileageRequest;
+   @ManyToOne(fetch = FetchType.LAZY)
+   @JoinColumn(name = "MILEAGE_POLICY_ID", nullable = false)
+   private MileagePolicy mileagePolicy;
 
-   @Column(name = "MILEAGE", nullable = false)
-   private Long mileage;
+   @Column(name = "ACHIEVEMENT_CNT", nullable = false)
+   private Long achievementCnt;
 
-   @Column(name = "POINT", nullable = false)
-   private Long point;
+   @Column(name = "STATUS", nullable = false)
+   private State status;
+
+   @Column(name = "START_DATE", nullable = false)
+   private LocalDate startDate;
+
+   @Column(name = "END_DATE", nullable = false)
+   private LocalDate endDate;
+
+   @OneToMany(mappedBy = "companyMileage", fetch = FetchType.LAZY)
+   private List<MileageFile> mileageFileList;
+
 
 }

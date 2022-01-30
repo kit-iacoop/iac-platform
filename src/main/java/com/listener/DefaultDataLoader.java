@@ -5,13 +5,11 @@ import com.domain.collaborationCategory.CollaborationCategory;
 import com.domain.collaborationCategory.CollaborationCategoryRepository;
 import com.domain.common.Address;
 import com.domain.common.State;
-import com.domain.companyMileage.CompanyMileage;
-import com.domain.companyMileage.CompanyMileageRepository;
 import com.domain.mileageFile.MileageFileRepository;
 import com.domain.mileagePolicy.MileagePolicy;
 import com.domain.mileagePolicy.MileagePolicyRepository;
-import com.domain.mileageRequest.MileageRequest;
-import com.domain.mileageRequest.MileageRequestRepository;
+import com.domain.companyMileage.CompanyMileage;
+import com.domain.companyMileage.CompanyMileageRepository;
 import com.domain.security.resource.Resource;
 import com.domain.security.resource.ResourceRepository;
 import com.domain.security.role.Role;
@@ -28,9 +26,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.naming.CompositeName;
 import java.time.LocalDate;
-import java.util.Optional;
 
 
 @Slf4j
@@ -60,9 +56,6 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
     private CompanyMileageRepository companyMileageRepository;
 
     @Autowired
-    private MileageRequestRepository mileageRequestRepository;
-
-    @Autowired
     private MileageFileRepository mileageFileRepository;
 
     @Autowired
@@ -90,44 +83,12 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
     private void loadMileageData() {
 
         createMileagePolicyIfNotFound(1L, "중분류 테스트 1", 50L, 50L);
-        createMileageRequestIfNotFound(1L, "OFFICER0", "COMPANY0", 1L, 5L, State.PENDING, LocalDate.now(), LocalDate.now());
-        createMileageRequestIfNotFound(2L, "OFFICER0", "COMPANY0", 1L, 3L, State.APPROVED, LocalDate.now(), LocalDate.now());
-        createCompanyMileageIfNotFound(1L, "COMPANY0", 2L, 500L, 500L);
+        createCompanyMileageIfNotFound(1L, "OFFICER0", "COMPANY0", 1L, 5L, State.PENDING, LocalDate.now(), LocalDate.now());
+        createCompanyMileageIfNotFound(2L, "OFFICER0", "COMPANY0", 1L, 3L, State.APPROVED, LocalDate.now(), LocalDate.now());
 
     }
 
-    private CompanyMileage createCompanyMileageIfNotFound(Long id, String companyId, Long requestId, Long mileage, Long point) {
-
-
-        // 필요 객체 확인
-        Company company = (Company) accountRepository.findByLoginId(companyId);
-        MileageRequest mr = mileageRequestRepository.findByMileageRequestId(requestId);
-
-        if(company == null || mr == null){
-            log.warn("createCompanyMileageIfNotFound() : 필요 객체 null");
-            return null;
-        }
-
-        CompanyMileage companyMileage = companyMileageRepository.findByCompanyMileageId(id);
-
-        if(companyMileage != null){
-            log.warn("createCompanyMileageIfNotFound() : 이미 존재하는 객체");
-            return companyMileage;
-        }
-
-        CompanyMileage cm = CompanyMileage.builder()
-                .companyMileageId(id)
-                .company(company)
-                .mileageRequest(mr)
-                .mileage(mileage)
-                .point(point)
-                .build();
-
-
-        return companyMileageRepository.save(cm);
-    }
-
-    private MileageRequest createMileageRequestIfNotFound(Long reqId, String officerId, String companyId, Long mileagePolicyId, Long achievementCnt, State stat, LocalDate startDate, LocalDate endDate) {
+    private CompanyMileage createCompanyMileageIfNotFound(Long reqId, String officerId, String companyId, Long mileagePolicyId, Long achievementCnt, State stat, LocalDate startDate, LocalDate endDate) {
 
         // 필요 객체 확인
         MileagePolicy mileagePolicy = mileagePolicyRepository.findByMileagePolicyId(mileagePolicyId);
@@ -135,20 +96,20 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
         Officer officer = (Officer) accountRepository.findByLoginId(officerId);
 
         if(mileagePolicy == null || company == null || officer == null){
-            log.warn("createMileageRequestIfNotFound() : 필요 객체 null");
+            log.warn("createCompanyMileageIfNotFound() : 필요 객체 null");
             return null;
         }
 
-        MileageRequest mr = mileageRequestRepository.findByMileageRequestId(reqId);
+        CompanyMileage mr = companyMileageRepository.findByCompanyMileageId(reqId);
         if(mr != null){
-            log.warn("createMileageRequestIfNotFound() : 이미 존재하는 객체");
+            log.warn("createCompanyMileageIfNotFound() : 이미 존재하는 객체");
             return mr;
         }
 
         // 생성 &저장
 
-        mr = MileageRequest.builder()
-                .mileageRequestId(reqId)
+        mr = CompanyMileage.builder()
+                .companyMileageId(reqId)
                 .officer(officer)
                 .company(company)
                 .mileagePolicy(mileagePolicy)
@@ -158,7 +119,7 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
                 .endDate(endDate)
                 .build();
 
-        return mileageRequestRepository.save(mr);
+        return companyMileageRepository.save(mr);
     }
 
     private void loadCollaborationCategoryData() {

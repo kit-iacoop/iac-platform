@@ -7,7 +7,6 @@ import com.domain.item.Item;
 import com.domain.project.Project;
 import com.domain.annualFeeRequest.AnnualFeeRequest;
 import com.domain.companyMileage.CompanyMileage;
-import com.domain.mileageRequest.MileageRequest;
 
 import com.domain.common.State;
 import com.web.dto.account.AccountInformationDTO;
@@ -21,7 +20,6 @@ import lombok.experimental.SuperBuilder;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -75,7 +73,7 @@ public class Company extends Account {
 
     @Builder.Default
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-    private List<MileageRequest> mileageRequest = new LinkedList<>();
+    private List<CompanyMileage> companyMileage = new LinkedList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "company")
