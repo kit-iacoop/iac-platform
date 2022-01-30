@@ -10,4 +10,7 @@ public interface AccountRepository extends JpaRepository<Account, Long>, Account
 
     @Query("select new com.web.dto.PendingCompanyDTO(c.accountId, c.name, c.companyType, c.sector) from Company c where c.status = 'PENDING'")
     List<PendingCompanyDTO> getAllPendingCompanies();
+
+    Account findByAccountId(Long id);
+
 }

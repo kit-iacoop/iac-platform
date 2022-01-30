@@ -154,4 +154,19 @@ public class Company extends Account {
 
         return this;
     }
+
+    public Long usePoint(Long point){
+
+        if( this.point < point){
+            // throw 잔액부족 예외 발생
+            return null;
+        }
+
+        return (this.point -= point);
+    }
+
+    public Long refundPoint(Long point){
+        return (this.point += point);
+    }
+
 }

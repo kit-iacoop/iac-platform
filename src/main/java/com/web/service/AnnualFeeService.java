@@ -1,5 +1,6 @@
 package com.web.service;
 
+import com.domain.annualFee.AnnualFee;
 import com.web.dto.annualfee.AnnualFeeHistoryDTO;
 import com.web.dto.annualfee.AnnualFeeInfoDTO;
 import com.web.dto.annualfee.QueryOptionDTO;
@@ -17,4 +18,6 @@ public interface AnnualFeeService {
     void rejectPayments(List<Long> idList);
 
     List<AnnualFeeInfoDTO> findInfoDtoListWithQDsl(QueryOptionDTO queryOption);
+
+    AnnualFee requestPayment(Long gradePolicyId, Long point, Long cash);
 }

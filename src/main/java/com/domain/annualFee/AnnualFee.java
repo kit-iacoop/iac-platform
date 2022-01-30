@@ -25,7 +25,7 @@ public class AnnualFee extends BaseTimeEntity {
    private Long annualFeeId;
 
    @ManyToOne(fetch = FetchType.LAZY)
-   @JoinColumn(name = "OFFICER_ACCOUNT_ID", nullable = false)
+   @JoinColumn(name = "OFFICER_ACCOUNT_ID", nullable = true)
    private Officer officer;
 
    @ManyToOne(fetch = FetchType.LAZY)
@@ -77,7 +77,7 @@ public class AnnualFee extends BaseTimeEntity {
       if(paymentStatus != State.PENDING) { // pending 상태가 아니라면 비정상 경우
          return false;
       }
-
+      company.refundPoint(point);
       paymentStatus = State.REJECTED;
 
       return true;

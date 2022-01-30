@@ -41,8 +41,7 @@ public class AnnualFeeController {
     @GetMapping("/company/annual-fee/payment-application")
     public ModelAndView paymentApplication(ModelAndView mav){
 
-
-        mav.addObject("accountDTO", common.getAccountContext().getAccount());
+        mav.addObject("accountDTO", common.getAccount());
 
         List<GradePolicy> gp = gradePolicyService.findAll();
         mav.addObject("gradePolicyDTOS", gp);
@@ -52,6 +51,19 @@ public class AnnualFeeController {
 
         return mav;
     }
+
+
+    @PostMapping("/company/annual-fee/payment-application")
+    public ModelAndView paymentApplicationPost(ModelAndView mav, @RequestParam("gradePolicyId") Long gradePolicyId,
+                                               @RequestParam("point") Long point, @RequestParam("cash") Long cash){
+
+        annualFeeService.requestPayment(gradePolicyId, point, cash);
+
+        mav.setViewName("company/annual-fee/payment-success");
+
+        return mav;
+    }
+
 
     @PostMapping("/officer/annual-fee/payment-screening/accept")
     public String acceptPayment(@RequestParam(value="checkList[]") List<Long> checkList){
@@ -76,13 +88,7 @@ public class AnnualFeeController {
     @GetMapping("/officer/annual-fee/payment-screening")
     public ModelAndView paymentScreening(ModelAndView mav, @ModelAttribute @Validated QueryOptionDTO queryOptionDTO){
 
-
-
         List<AnnualFeeInfoDTO> infoDTOs = annualFeeService.findInfoDtoListWithQDsl(queryOptionDTO);
-//        List<AnnualFeeInfoDTO> infoDTOs = annualFeeService.findAllInfoDto();
-//        infoDTOs = annualFeeService.findAllInfoDto();
-
-
 
         mav.setViewName("officer/family-company-accept/annual-fee-screen");
         mav.addObject("annualFeeDTOs", infoDTOs);
