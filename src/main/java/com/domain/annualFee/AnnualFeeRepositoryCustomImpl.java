@@ -1,7 +1,6 @@
 package com.domain.annualFee;
-import static com.qdomain.annualFee.QAnnualFee.annualFee;
-import com.domain.common.State;
-import com.querydsl.core.BooleanBuilder;
+import static com.domain.annualFee.QAnnualFee.annualFee;
+
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.web.dto.annualfee.AnnualFeeInfoDTO;
@@ -9,10 +8,7 @@ import com.web.dto.annualfee.QueryOptionDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
 
 @RequiredArgsConstructor

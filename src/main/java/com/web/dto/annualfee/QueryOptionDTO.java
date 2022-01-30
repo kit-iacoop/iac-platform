@@ -1,4 +1,5 @@
 package com.web.dto.annualfee;
+import static com.domain.annualFee.QAnnualFee.annualFee;
 
 import com.domain.common.State;
 import com.querydsl.core.BooleanBuilder;
@@ -10,7 +11,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static com.qdomain.annualFee.QAnnualFee.annualFee;
 
 @Getter
 @Setter
