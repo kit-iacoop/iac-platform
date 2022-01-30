@@ -1,0 +1,22 @@
+<table>
+    <thaed>
+        <tr>
+            <th scope="col" class=""><span>년도</span></th>
+            <th scope="col" class=""><span>등급</span></th>
+            <th scope="col" class=""><span>금액</span></th>
+            <th scope="col" class=""><span>사용포인트</span></th>
+            <th scope="col" class=""><span>상태</span></th>
+            <th scope="col" class=""><span>승인일</span></th>
+        </tr>
+    </thaed>
+    <tbody>
+        <tr th:each="dto : ${annualFeeRequestDTO}">
+            <td th:text="${dto.year}"></td>
+            <td th:text="${dto.grade}"></td>
+            <td th:text="${dto.cash}"></td>
+            <td th:text="${dto.point}"></td>
+            <td th:text="${dto.paymentStatus}"></td>
+            <td th:text="${#temporals.formatISO(dto.confirmDate)}"></td>
+        </tr>
+        </tbody>
+</table>

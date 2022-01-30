@@ -13,6 +13,24 @@
     <body>
         <section>
                 <div class="task-contents">
+                    <div class="search">
+                        <div class="company-name-search">
+                            <input type="text" placeholder="회사명">
+                            <button>검색</button>
+                        </div>
+                        <div class="date-search">
+                            <input type="date"> ~ <input type="date">
+                            <button>검색</button>
+                        </div>
+                        <div class="state-search">
+                            <select>
+                                <option>상태</option>
+                                <option>승인</option>
+                                <option>거절</option>
+                                <option>대기</option>
+                            </select>
+                        </div>
+                    </div>
                     <form method="post">
                         <div>
                             <table>
@@ -42,6 +60,7 @@
                             </table>
                         </div>
                         <button type="submit">승인</button>
+                        <button type="submit">거절</button>
                     </form>
             </div>
         </section>

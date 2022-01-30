@@ -5,7 +5,7 @@ import com.domain.common.Address;
 import com.domain.companyAnnualSales.CompanyAnnualSales;
 import com.domain.item.Item;
 import com.domain.project.Project;
-import com.domain.annualFeeRequest.AnnualFeeRequest;
+import com.domain.annualFee.AnnualFee;
 import com.domain.companyMileage.CompanyMileage;
 
 import com.domain.common.State;
@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -27,7 +28,7 @@ import java.util.List;
 @Getter
 @SuperBuilder
 
-@ToString(callSuper=true, exclude = {"temporaryAddress", "collaboRequest", "mileageRequest", "itemList", "projectList", "mileageList","annualFeeRequest","mentorProfessor", "annualSalesList"})
+@ToString(callSuper=true, exclude = {"temporaryAddress", "collaboRequest", "mileageRequest", "itemList", "projectList", "mileageList","annualFee","mentorProfessor", "annualSalesList"})
 
 @DiscriminatorValue("C")
 @Table(name = "COMPANY")
@@ -89,7 +90,7 @@ public class Company extends Account {
 
     @Builder.Default
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-    private List<AnnualFeeRequest> annualFeeRequest = new LinkedList<>();
+    private List<AnnualFee> annualFee = new LinkedList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "MENTOR_PROFESSOR")
@@ -99,6 +100,9 @@ public class Company extends Account {
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<CompanyAnnualSales> annualSalesList = new LinkedList<>();
 
+    public void renewGrade(String newGrade){
+        grade = newGrade;
+    }
     public void verification(String grade, Long mileage, Long point, State currentizationStatus){
         this.grade = grade;
         this.mileage = mileage;
@@ -149,5 +153,38 @@ public class Company extends Account {
         subscriptionDate = LocalDate.parse(accDto.getSubscriptionDate(), DateTimeFormatter.ISO_DATE);
 
         return this;
+    }
+
+    public Long usePoint(Long point){
+
+        if( this.point < point){
+            // throw 잔액부족 예외 발생
+            return null;
+        }
+
+        return (this.point -= point);
+    }
+
+    public Long refundPoint(Long point){
+        return (this.point += point);
+    }
+
+
+    @Override
+    public void acceptRegistration() {
+        if(!status.equals(State.PENDING)){
+//            throw Exception()
+        }
+        status = State.NORMAL;
+
+    }
+
+    @Override
+    public void rejectRegistration() {
+        if(!status.equals(State.PENDING)){
+//            throw Exception()
+        }
+        status = State.REJECTED;
+
     }
 }

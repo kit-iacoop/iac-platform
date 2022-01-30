@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <th:block th:replace="fragments/common/section-head :: sectionHeadFragment"></th:block>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <meta id="_csrf" name="_csrf" th:content="${_csrf.token}"/>
+        <meta id="_csrf_header" name="_csrf_header" th:content="${_csrf.headerName}"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script th:inline="javascript">
+            function showPopup(accountId) {
+                window.open("/officer/family-company/screen/detail/" + accountId, "디테일", "width=400, height=300, left=100, top=50");
+
+                // $.ajax({
+                //     url: "/officer/menu",
+                //     method: "GET",
+                //     dataType: "html",
+                //     success: eventSuccess,
+                //     error: function(xhr, status, error) {
+                //         alert(error);
+                //     }
+                // });
+
+                // function eventSuccess(data) {
+                //     w.location.href = "officer/family-company/screen/detail/" + accountId;
+                // }
+            }
+
+            function batchAccpet() {
+                var csrfHeader = $('meta[name="_csrf_header"]').attr('content')
+                var csrfToken = $('meta[name="_csrf"]').attr('content')
+                xhr.setRequestHeader(csrfHeader, csrfToken);
+                $.ajax({
+                    method: "POST",
+                    url: "/officer/family-company/register"
+                })
+                .done(function() {
+                    alert("성공적으로 처리되었습니다.");
+                });
+            }
+        </script>
+    </head>
+    <body>
+        <section>
+                <div class="task-contents">
+                    <form method="post">
+                        <div>
+                            <select>
+                                <option checked>선택</option>
+                                <option>승인</option>
+                                <option>대기</option>
+                            </select>
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th scope="col" class=""><span>선택</span></th>
+                                    <th scope="col" class=""><span>구분</span></th>
+                                    <th scope="col" class=""><span>업종</span></th>
+                                    <th scope="col" class=""><span>회사명</span></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="dto : ${companyDtos}">
+                                    <td><input type="checkbox" name="checkedValue" value="${dto.accountId}"/></td>
+                                    <td th:text="${dto.companyType}"></td>
+                                    <td th:text="${dto.sector}"></td>
+                                    <td><a th:onclick="|showPopup('${dto.accountId}')|" th:text="${dto.name}"></a></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <button type="submit" onclick="batchAccpet()">일괄승인</button>
+                    </form>
+            </div>
+        </section>
+    </body>
+</html>

@@ -47,7 +47,7 @@
 //    private CopyrightService copyrightService;
 //
 //
-//    @Test
+//
 //    @DisplayName("기술 조회 테스트")
 //    public void copyright_MVC_TEST() throws Exception {
 //        University university = University.builder()

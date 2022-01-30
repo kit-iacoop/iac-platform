@@ -1,9 +1,19 @@
 package com.web.controller;
 
 import com.common.Common;
+import com.web.dto.CollaboRequestDTO;
+import com.web.dto.CopyrightDTO;
+import com.web.service.CopyrightService;
+import com.web.service.RequestService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -15,10 +25,14 @@ import javax.servlet.http.HttpServletRequest;
 public class HomeController {
 
     private final Common common;
+    private final RequestService requestService;
 
     @GetMapping(value="/")
-    public String home() {
-        return "home";
+    public String home(Model model) {
+        Pageable page = PageRequest.of(0, 4, Sort.by("createdDate").descending());
+        Page<CollaboRequestDTO> allRequest = requestService.findRequestByTypeAndKey("open", "", page);
+        model.addAttribute("collaboRequestDtos", allRequest);
+        return "index";
     }
 
     @GetMapping( "/register")

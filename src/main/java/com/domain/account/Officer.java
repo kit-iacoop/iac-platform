@@ -1,7 +1,7 @@
 package com.domain.account;
 
 import com.domain.collaboRequest.CollaboRequest;
-import com.domain.annualFeeRequest.AnnualFeeRequest;
+import com.domain.annualFee.AnnualFee;
 import com.domain.common.Address;
 import com.domain.companyMileage.CompanyMileage;
 import com.domain.university.University;
@@ -42,7 +42,7 @@ public class Officer extends Account {
 
     @Builder.Default
     @OneToMany(mappedBy = "officer", fetch = FetchType.LAZY)
-    private List<AnnualFeeRequest> annualFeeRequest = new LinkedList<>();
+    private List<AnnualFee> annualFee = new LinkedList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "officer")
@@ -81,5 +81,15 @@ public class Officer extends Account {
         address = new Address(accDto.getCity(), accDto.getStreet(), accDto.getZipCode());
 
         return this;
+    }
+
+    @Override
+    public void acceptRegistration() {
+
+    }
+
+    @Override
+    public void rejectRegistration() {
+
     }
 }

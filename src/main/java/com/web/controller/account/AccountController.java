@@ -38,7 +38,7 @@ public class AccountController {
     private final Common common;
 
     @GetMapping("/register/company")
-    public ModelAndView registerCompany() {
+    public ModelAndView registerCompany(){
         return new ModelAndView("register/company").addObject(new CompanyInformationDTO());
     }
 
@@ -69,16 +69,47 @@ public class AccountController {
     public ModelAndView companyRegistrationScreen(ModelAndView mav) {
 
         mav.addObject("companyDtos", accountService.getAllPendingCompanies());
-        mav.setViewName("officer/family-company-accept/register");
+        mav.setViewName("officer/family-company/register");
 
         return mav;
     }
+
+    @GetMapping("/officer/family-company/screen/detail/{accountId}")
+    public ModelAndView registrationDetail(ModelAndView mav, @PathVariable Long accountId, Errors error){
+
+        Account account = accountService.getPendingAccountById(accountId);
+
+        mav.addObject("account", account);
+
+        mav.setViewName("officer/family-company/screen/detail");
+
+        return mav;
+    }
+
+    @PostMapping("officer/family-company/screen/detail/{accountId}/accept")
+    public ModelAndView registrationAccept(ModelAndView mav, @PathVariable Long accountId, Errors error){
+
+        accountService.registrationAccept(accountId);
+
+        mav.setViewName("redirect:/officer/family-company/screen");
+        return mav;
+    }
+    @PostMapping("officer/family-company/screen/detail/{accountId}/reject")
+    public ModelAndView registrationReject(ModelAndView mav, @PathVariable Long accountId, Errors error){
+
+        accountService.registrationReject(accountId);
+
+        mav.setViewName("redirect:/officer/family-company/screen");
+        return mav;
+    }
+
+
 
 
     @GetMapping(path = {"officer/mypage", "company/mypage", "professor/mypage"})
     public ModelAndView mypage(HttpServletRequest req, ModelAndView mav){
 
-        Account account = ((AccountContext) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccount();
+        Account account = ((AccountContext)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccount();
 
         mav.addObject("account", account.toInformationDTO());
 
@@ -100,7 +131,10 @@ public class AccountController {
     }
 
     @GetMapping("accounts/search")
-    public String accountSearch() {
+    public String accountSearch(@RequestParam String[] dtypes, @RequestParam String idTag, @RequestParam String nameTag, Model model) {
+        model.addAttribute("dtypes", dtypes);
+        model.addAttribute("idTag", idTag);
+        model.addAttribute("nameTag", nameTag);
         return "account/account-search";
     }
 

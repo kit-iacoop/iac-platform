@@ -117,4 +117,9 @@ public abstract class Account extends BaseTimeEntity {
    }
 
     public abstract Account updateInformation(AccountInformationDTO accInfDto);
+
+    public abstract void acceptRegistration();
+
+   public abstract void rejectRegistration();
+
 }

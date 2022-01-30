@@ -1,10 +1,14 @@
 package com.listener;
 
 import com.domain.account.*;
+import com.domain.annualFee.AnnualFee;
+import com.domain.annualFee.AnnualFeeRepository;
 import com.domain.collaborationCategory.CollaborationCategory;
 import com.domain.collaborationCategory.CollaborationCategoryRepository;
 import com.domain.common.Address;
 import com.domain.common.State;
+import com.domain.gradePolicy.GradePolicy;
+import com.domain.gradePolicy.GradePolicyRepository;
 import com.domain.mileageFile.MileageFileRepository;
 import com.domain.mileagePolicy.MileagePolicy;
 import com.domain.mileagePolicy.MileagePolicyRepository;
@@ -23,6 +27,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,18 +71,68 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
     private CollaborationCategoryRepository collaborationCategoryRepository;
 
 
+    @Autowired
+    private AnnualFeeRepository annualFeeRepository;
+
+    @Autowired
+    private GradePolicyRepository gradePolicyRepository;
+
+
+
     @Override
     @Transactional
     public void onApplicationEvent(final ContextRefreshedEvent event) {
 
-        if(activate){
+        if (activate) {
             loadUniversityData();
             loadRoleData();
             loadAccountData();
             loadResourceData();
+            loadGradePolicyData();
+            loadAnnualFeeData();
             loadCollaborationCategoryData();
             loadMileageData();
         }
+
+    }
+
+
+
+    private void loadAnnualFeeData(){
+        createAnnualFeeIfNotFound(1L, 2021, 9000L, 1000L, "BRONZE",State.APPROVED, LocalDate.now());
+        createAnnualFeeIfNotFound(2L, 2022, 40000L, 10000L, "SILVER",State.PENDING, null);
+
+    }
+
+
+    private void loadGradePolicyData(){
+        createGradePolicyIfNotFound("BRONZE", 10000L);
+        createGradePolicyIfNotFound("SILVER", 50000L);
+        createGradePolicyIfNotFound("GOLD", 100000L);
+
+    }
+
+    private AnnualFee createAnnualFeeIfNotFound(Long annualFeeId, Integer year,  Long cash, Long point, String grade, State paymentStatus, LocalDate confirmDate){
+        // 중복 검사
+        AnnualFee annualFee = annualFeeRepository.findByAnnualFeeId(annualFeeId);
+        if(annualFee != null){
+            return annualFee;
+        }
+        // 생성 & 삽입
+
+
+        return annualFeeRepository.save(AnnualFee.builder()
+                .annualFeeId(annualFeeId)
+                .officer((Officer) accountRepository.findByLoginId("OFFICER0"))
+                .company((Company) accountRepository.findByLoginId("COMPANY0"))
+                .gradePolicy(gradePolicyRepository.findByGrade(grade))
+                .year(year)
+                .cash(cash)
+                .point(point)
+                .paymentStatus(paymentStatus)
+                .confirmDate(confirmDate)
+                .build());
+    }
 
     }
 
@@ -86,6 +142,20 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
         createCompanyMileageIfNotFound(1L, "OFFICER0", "COMPANY0", 1L, 5L, State.PENDING, LocalDate.now(), LocalDate.now());
         createCompanyMileageIfNotFound(2L, "OFFICER0", "COMPANY0", 1L, 3L, State.APPROVED, LocalDate.now(), LocalDate.now());
 
+    private GradePolicy createGradePolicyIfNotFound(String grade, Long price){
+        // 중복 검사
+        GradePolicy gradePolicy = gradePolicyRepository.findByGrade(grade);
+        if(gradePolicy != null){
+            return gradePolicy;
+        }
+
+        // 생성 & 삽입
+        gradePolicy = GradePolicy.builder()
+                .grade(grade)
+                .price(price)
+                .build();
+
+        return gradePolicyRepository.save(gradePolicy);
     }
 
     private CompanyMileage createCompanyMileageIfNotFound(Long reqId, String officerId, String companyId, Long mileagePolicyId, Long achievementCnt, State stat, LocalDate startDate, LocalDate endDate) {
@@ -194,7 +264,8 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
 
 
 
-    private void loadUniversityData(){
+
+    private void loadUniversityData() {
         createUniversityIfNotFound("금오공과대학교");
         createUniversityIfNotFound("대나무학교");
 
@@ -204,9 +275,7 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
 
         // 중복 검사
         University university = universityRepository.findByUniversityName(universityName);
-        if(university != null){
-            log.warn("createUniversityIfNotFound() : 이미 존재하는 객체");
-
+        if (university != null) {
             return university;
         }
 
@@ -253,8 +322,6 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
         // 중복 검사
         Role role = roleRepository.findByRoleName(roleName);
         if(role != null){
-            log.warn("createRoleIfNotFound() : 이미 존재하는 객체");
-
             return role;
         }
 
@@ -276,6 +343,7 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
         if(resource != null){
             log.warn("createResourceIfNotFound() : 이미 존재하는 객체");
 
+        if (resource != null) {
             return resource;
         }
 
@@ -287,9 +355,9 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
                 .orderNum(priority)
                 .build();
 
-        for(String roleName : roleNames){
+        for (String roleName : roleNames) {
             Role role = roleRepository.findByRoleName(roleName);
-            if(role != null){
+            if (role != null) {
                 resource.addRole(role);
             }
         }
@@ -298,9 +366,8 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
     }
 
 
-
     @Transactional
-    public Admin createAdminIfNotFound(final String loginId, final String password){
+    public Admin createAdminIfNotFound(final String loginId, final String password) {
 
         // 중복 검사
         Account account = accountRepository.findByLoginId(loginId);
