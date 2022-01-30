@@ -134,13 +134,14 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
                 .build());
     }
 
-    }
+
 
     private void loadMileageData() {
 
         createMileagePolicyIfNotFound(1L, "중분류 테스트 1", 50L, 50L);
         createCompanyMileageIfNotFound(1L, "OFFICER0", "COMPANY0", 1L, 5L, State.PENDING, LocalDate.now(), LocalDate.now());
         createCompanyMileageIfNotFound(2L, "OFFICER0", "COMPANY0", 1L, 3L, State.APPROVED, LocalDate.now(), LocalDate.now());
+    }
 
     private GradePolicy createGradePolicyIfNotFound(String grade, Long price){
         // 중복 검사
@@ -261,10 +262,6 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
     }
 
 
-
-
-
-
     private void loadUniversityData() {
         createUniversityIfNotFound("금오공과대학교");
         createUniversityIfNotFound("대나무학교");
@@ -340,8 +337,9 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
 
         // 중복 검사
         Resource resource = resourceRepository.findByResourceNameAndHttpMethod(name, httpMethod);
-        if(resource != null){
+        if(resource != null) {
             log.warn("createResourceIfNotFound() : 이미 존재하는 객체");
+        }
 
         if (resource != null) {
             return resource;
