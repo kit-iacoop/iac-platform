@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8" />
@@ -77,17 +77,17 @@
           <li class="dropdown">
             <a href="/requests/list"><span>애로기술해결</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#">애로기술요청</a></li>
-              <li><a href="#">등록된애로기술</a></li>
+              <li><a href="/requests/new">애로기술요청</a></li>
+              <li><a href="/requests/list">등록된애로기술</a></li>
               <li><a href="#">코디네이터</a></li>
             </ul>
           </li>
 
-          <li><a class="nav-link scrollto" href="copyright.html">특허검색</a></li>
+          <li><a class="nav-link scrollto" href="/copyrights/list">특허검색</a></li>
           <li>
-            <a class="nav-link scrollto" href="#">장비공유</a>
+            <a class="nav-link scrollto" href="https://kumohlab.kr/default.asp">장비공유</a>
           </li>
-          <li><a class="nav-link scrollto" href="community.html">커뮤니티</a></li>
+          <li><a class="nav-link scrollto" href="#">커뮤니티</a></li>
 
           <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
         </ul>
@@ -244,37 +244,13 @@
 
                   <table class="table table-hover">
                     <tbody>
-                      <tr>
-                        <td colspan="7">
-                          Lorem, ipsum dolor sit amet consectetur adipisicing
-                          elit. Dolorem, illum!
-                        </td>
-                        <td colspan="1">new</td>
-                        <td colspan="2">2022-01-19</td>
-                      </tr>
-                      <tr>
-                        <td colspan="7">
-                          Lorem, ipsum dolor sit amet consectetur adipisicing
-                          elit. Dolorem, illum!
-                        </td>
-                        <td colspan="1">new</td>
-                        <td colspan="2">2022-01-19</td>
-                      </tr>
-                      <tr>
-                        <td colspan="7">
-                          Lorem, ipsum dolor sit amet consectetur adipisicing
-                          elit. Dolorem, illum!
-                        </td>
-                        <td colspan="1">new</td>
-                        <td colspan="2">2022-01-19</td>
-                      </tr>
-                      <tr>
-                        <td colspan="7">
-                          Lorem, ipsum dolor sit amet consectetur adipisicing
-                          elit. Dolorem, illum!
-                        </td>
-                        <td colspan="1">new</td>
-                        <td colspan="2">2022-01-19</td>
+                      <tr th:each="dto : ${collaboRequestDtos}"
+                        th:onclick="'location.href=\''+ @{/requests/list/{id}(id=${dto.collaboRequestId})} + '\''">
+                        <td colspan="7" th:text="${dto.title}"></td>
+                        <td colspan="1" th:if="${dto.collaboRequestTechniqueList.size() > 0}"
+                          th:text="${dto.collaboRequestTechniqueList[0].fieldCategoryName}"></td>
+                        <td colspan="1" th:if="${dto.collaboRequestTechniqueList.size() == 0}">-</td>
+                        <td colspan="2" th:text="${dto.expireDate}"></td>
                       </tr>
                     </tbody>
                   </table>

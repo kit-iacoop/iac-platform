@@ -10,4 +10,6 @@ public interface ProjectService {
     ProjectDTO makeProjectFormDTO(Long id);
 
     Long makeProject(ProjectDTO projectDTO);
+
+    ProjectDTO getProjectDetail(String id);
 }

@@ -6,11 +6,15 @@ import com.domain.account.Account;
 import com.domain.security.role.Role;
 import com.security.service.AccountContext;
 import com.web.dto.CollaboRequestDTO;
+import com.web.dto.FieldCategoryDTO;
 import com.web.dto.ProjectDTO;
+import com.web.service.FieldService;
 import com.web.service.ProjectService;
 import com.web.service.RequestService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -18,21 +22,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Set;
 
 @RequestMapping("requests")
 @Controller
+@RequiredArgsConstructor
 public class RequestController {
     private final RequestService requestService;
     private final ProjectService projectService;
-
-    public RequestController(
-            RequestService requestService,
-            ProjectService projectService) {
-
-        this.requestService = requestService;
-        this.projectService = projectService;
-    }
+    private final Common common;
+    private final FieldService fieldService;
 
     @GetMapping({"/"})
     public String redirectList() {
@@ -44,7 +44,7 @@ public class RequestController {
     public String requestList(
             @RequestParam(name = "type", defaultValue = "open") String type,
             @RequestParam(name = "key", required = false) String key,
-            @PageableDefault Pageable pageable, Model model) {
+            @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable, Model model) {
 
         if (!type.equals("all") & !type.equals("close") & !type.equals("my") & !type.equals("capstone")) {
             type = "open";
@@ -54,17 +54,20 @@ public class RequestController {
         }
 
         Page<CollaboRequestDTO> allRequest = requestService.findRequestByTypeAndKey(type, key, pageable);
+        List<FieldCategoryDTO> allCategory = fieldService.getAllCategory();
 
         model.addAttribute("collaboRequestDtos", allRequest);
+        model.addAttribute("categories", allCategory);
         model.addAttribute("type", type);
         model.addAttribute("page", pageable.getPageNumber() + 1);
         model.addAttribute("maxPage", allRequest.getTotalPages());
         model.addAttribute("key", key);
-        return "request/request-list";
+        return "request/collabo";
     }
 
     @GetMapping("/list/{id}")
     public String requestDetail(@PathVariable String id, Model model) {
+
         model.addAttribute("requestDto", requestService.getRequestDetail(id));
         return "request/request-detail";
     }
@@ -85,46 +88,47 @@ public class RequestController {
 
     @PostMapping("/list/{id}/open")
     public String closeToOpen(@PathVariable String id) {
+
         requestService.closeToOpen(Long.valueOf(id));
 
-        return "redirect:/request/list/" + id;
+        return "redirect:/requests/list/" + id;
     }
 
-    @PostMapping("/list/{id}/attend")
+    @PostMapping("/list/{id}/join")
     public String requestAttend(@PathVariable String id) {
-        AccountContext principal = (AccountContext) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Account account = principal.getAccount();
-        Set<Role> accountRoles = account.getAccountRoles();
-        for (Role r : accountRoles) {
-            if (r.getRoleName().equals("ROLE_PROFESSOR")) {
-                requestService.requestAttend(Long.valueOf(id), account.getAccountId());
-                return "redirect:/request/list/" + id;
-            }
+        AccountContext context = common.getAccountContext();
+        Account account = context.getAccount();
+
+        if (context.hasRole("PROFESSOR")) {
+            requestService.requestAttend(Long.valueOf(id), account.getAccountId());
+            return "redirect:/requests/list/" + id;
         }
-        return "redirect:/request/list/";
+
+        return "redirect:/requests/list";
     }
 
     @GetMapping("/list/{id}/project")
     public String makeProjectForm(@PathVariable String id, Model model) {
-        AccountContext principal = (AccountContext) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Account account = principal.getAccount();
-        if (account.getAccountRoles().contains(Common.getOfficerRoleInstance())) {
+        AccountContext context = common.getAccountContext();
+
+        if (context.hasRole("PROFESSOR")) {
             ProjectDTO projectDTO = projectService.makeProjectFormDTO(Long.valueOf(id));
             model.addAttribute("projectDto", projectDTO);
             return "request/project-form";
         }
-        return "redirect:/request/list/" + id;
+        return "redirect:/requests/list/" + id;
 
     }
 
     @PostMapping("/list/{id}/project")
     public String makeProject(@PathVariable String id, @RequestBody @ModelAttribute @Valid ProjectDTO projectDTO, Model model) {
-        AccountContext principal = (AccountContext) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        Account account = principal.getAccount();
-        if (account.getAccountRoles().contains(Common.getOfficerRoleInstance())) {
+        AccountContext context = common.getAccountContext();
+        Account account = context.getAccount();
+
+        if (context.hasRole("OFFICER")) {
             Long projectId = projectService.makeProject(projectDTO);
-            return "redirect:/project/list/" + projectId;
+            return "redirect:/projects/list/" + projectId;
         }
-        return "redirect:/request/list/" + id;
+        return "redirect:/requests/list/" + id;
     }
 }
