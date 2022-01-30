@@ -1,6 +1,6 @@
 <script language="javascript">
     function showPopup() {
-        window.open("company/mileage/request", "활동 증빙 등록", "width=400, height=300, left=100, top=50");
+        window.open("/company/mileage/request", "활동 증빙 등록", "width=400, height=300, left=100, top=50");
     }
 </script>
 
@@ -11,7 +11,7 @@
     </div>
     <div class="state-search">
         <select id="state" onchange="selectGetRequest(this.value);">
-            <option value="ALL">전체</option>
+            <option value=>전체</option>
             <option value="APPROVED">승인</option>
             <option value="REJECTED">거절</option>
             <option value="PENDING">대기</option>
@@ -19,7 +19,7 @@
     </div>
 </div>
 
-<table>
+<table id="result">
     <thaed>
         <tr>
             <th scope="col" class=""><span>선택</span></th>
@@ -52,10 +52,22 @@
     function selectGetRequest(param) {
         var startDay = document.getElementById("start-day").value;
         var endDay = document.getElementById("end-day").value;
+
+        if(startDay == "") {
+            startDay = null;
+        }
+
+        if(endDay == "") {
+            endDay = null;
+        }
+
+        if(param == "") {
+            param = null;
+        }
+
         $.ajax({
             method: "GET",
-            url: "/officer/annual-fee/payment-screening",
-            contentType: 'application/json',
+            url: "/company/mileage/history",
             data: {
                 "startDay": startDay,
                 "endDay": endDay,
@@ -64,10 +76,14 @@
             beforeSend: function (xhr) {
 				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
 			},
-            success: function() {
+            success: function(res) {
                 console.log(startDay);
                 console.log(endDay);
                 console.log(param);
+
+                $("#result").empty();
+                var refine = $("#result").html(res).find("table");
+                $("#result").html(refine);
             }
         });
     }
@@ -78,10 +94,21 @@
         var stateElement = document.getElementById("state");
         var state = stateElement.options[stateElement.selectedIndex].value;
 
+        if(startDay == "") {
+            startDay = null;
+        }
+
+        if(endDay == "") {
+            endDay = null;
+        }
+
+        if(state == "") {
+            state = null;
+        }
+
         $.ajax({
             method: "GET",
-            url: "/officer/annual-fee/payment-screening",
-            contentType: 'application/json',
+            url: "/company/mileage/history",
             data: {
                 "startDay": startDay,
                 "endDay": endDay,
@@ -90,10 +117,14 @@
             beforeSend: function (xhr) {
 				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
 			},
-            success: function() {
+            success: function(res) {
                 console.log(startDay);
                 console.log(endDay);
                 console.log(state);
+                
+                $("#result").empty();
+                var refine = $("#result").html(res).find("table");
+                $("#result").html(refine);
             }
         });
     }
