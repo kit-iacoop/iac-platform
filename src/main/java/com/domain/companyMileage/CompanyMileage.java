@@ -18,7 +18,7 @@ import java.util.List;
 
 @SuperBuilder
 @NoArgsConstructor
-@ToString(exclude={"mileageFileList"})
+@ToString(exclude={"officer", "company", "mileagePolicy", "mileageFileList"})
 @Getter
 @Entity
 @Table(name = "COMPANY_MILEAGE")

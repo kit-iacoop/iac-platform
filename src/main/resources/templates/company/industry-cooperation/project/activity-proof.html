@@ -23,7 +23,6 @@
     <thaed>
         <tr>
             <th scope="col" class=""><span>선택</span></th>
-            <th scope="col" class=""><span>활동구분</span></th>
             <th scope="col" class=""><span>활동</span></th>
             <th scope="col" class=""><span>회차</span></th>
             <th scope="col" class=""><span>상태</span></th>
@@ -36,7 +35,6 @@
     <tbody>
         <tr th:each="dto : ${mileageHistoryDTOs}">
             <td><input type="checkbox" name="checkedValue" value="${dto.companyMileageId}"/></td>
-            <td th:text="${dto.parentCollaborationName}"></td>
             <td th:text="${dto.collaborationName}"></td>
             <td th:text="${dto.achievementCnt}"></td>
             <td th:text="${dto.status}"></td>
@@ -49,7 +47,7 @@
 </table>
 
 <button onclick="showPopup()">등록</button>
-
+<script src="/js/jquery.js"></script>
 <script th:inline="javascript">
     function selectGetRequest(param) {
         var startDay = document.getElementById("start-day").value;

@@ -7,12 +7,21 @@ import com.domain.companyMileage.CompanyMileageRepository;
 import com.domain.mileageFile.MileageFileRepository;
 import com.domain.mileagePolicy.MileagePolicyRepository;
 
+import com.web.dto.mileage.QueryOptionDTO;
+import com.web.dto.mileage.MileageHistoryDTO;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Slf4j
@@ -26,11 +35,11 @@ public class MileageController {
 
 
     @GetMapping("/company/mileage/history")
-    public ModelAndView mileageHistory(ModelAndView mav){
+    public ModelAndView mileageHistory(ModelAndView mav, @ModelAttribute @Validated QueryOptionDTO queryOptionDTO){
 
-        companyMileageRepository.findAllHistoryDTOByCompanyId(common.getAccountContext().getAccount().getAccountId());
+        List<MileageHistoryDTO> dtos = companyMileageRepository.findAllHistoryDTOByCompanyIdAndDOption(common.getAccountContext().getAccount().getAccountId(), queryOptionDTO);
 
-        mav.addObject("companyMileageDTOs");
+        mav.addObject("mileageHistoryDTOs", dtos);
         mav.setViewName("company/industry-cooperation/project/activity-proof");
 
         return mav;
@@ -44,6 +53,11 @@ public class MileageController {
         return mav;
     }
 
+    @InitBinder
+    public void initBinder(WebDataBinder dataBinder) {
+        StringTrimmerEditor stringTimmerEditor = new StringTrimmerEditor(true);
+        dataBinder.registerCustomEditor(String.class, stringTimmerEditor);
+    }
 
 
 }

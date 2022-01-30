@@ -7,9 +7,8 @@ import java.time.LocalDate;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 @ToString
+@RequiredArgsConstructor
 
 public class MileageHistoryDTO {
 
@@ -22,4 +21,16 @@ public class MileageHistoryDTO {
     private Long point;
     private LocalDate startDate;
     private LocalDate endDate;
+
+    public MileageHistoryDTO(Long companyMileageId, String collaborationName, Long achievementCnt, State status, Long mileage, Long point, LocalDate startDate, LocalDate endDate) {
+        this.companyMileageId = companyMileageId;
+        this.parentCollaborationName = parentCollaborationName;
+        this.collaborationName = collaborationName;
+        this.achievementCnt = achievementCnt;
+        this.status = status;
+        this.mileage = mileage;
+        this.point = point;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
 }
