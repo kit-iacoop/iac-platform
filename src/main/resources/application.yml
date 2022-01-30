@@ -49,10 +49,6 @@ spring:
     hibernate:
       ddl-auto: create
 
-    properties:
-      hibernate:
-        format_sql: false #To beautify or pretty print the SQL
-
 ---
 
 spring:

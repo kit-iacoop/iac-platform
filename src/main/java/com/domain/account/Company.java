@@ -176,7 +176,6 @@ public class Company extends Account {
         if(!status.equals(State.PENDING)){
 //            throw Exception()
         }
-        log.warn("status = State.NORMAL");
         status = State.NORMAL;
 
     }
