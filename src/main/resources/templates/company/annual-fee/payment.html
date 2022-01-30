@@ -63,9 +63,7 @@
         $.ajax({
             method: "POST",
             url: "/company/annual-fee/payment-application",
-            traditional: true,
-            contentType: 'application/json',
-            data: JSON.stringify(sendData),
+            data: sendData,
             beforeSend: function (xhr) {
                 /*<![CDATA[*/
 				xhr.setRequestHeader(/*[[${_csrf.headerName}]]*/,/*[[${_csrf.token}]]*/);
