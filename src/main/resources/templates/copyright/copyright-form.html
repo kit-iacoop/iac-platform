@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/copyright/copyright-form.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 
 <body>
@@ -25,25 +27,25 @@
                 <tr>
                     <th><label for="copyrightName">특허명</label></th>
                     <td>
-                        <input type="text" th:field="*{copyrightName}" id="copyrightName">
+                        <input type="text" th:field="*{copyrightName}" id="copyrightName" required>
                     </td>
                 </tr>
                 <tr>
                     <th><label for="maintenanceState">상태</label></th>
                     <td>
-                        <input type="text" th:field="*{maintenanceState}" id="maintenanceState">
+                        <input type="text" th:field="*{maintenanceState}" id="maintenanceState" required>
                     </td>
                 </tr>
                 <tr>
                     <th><label for="cooperation">공동</label></th>
                     <td>
-                        <input type="text" th:field="*{cooperation}" id="cooperation">
+                        <input type="text" th:field="*{cooperation}" id="cooperation" required>
                     </td>
                 </tr>
                 <tr>
                     <th><label for="declarationYear">공개년도</label></th>
                     <td>
-                        <input type="text" th:field="*{declarationYear}" id="declarationYear">
+                        <input type="text" th:field="*{declarationYear}" id="declarationYear" pattern="\d{4}" required>
                     </td>
                 </tr>
                 <tr>
@@ -59,40 +61,49 @@
                     </td>
                 </tr>
                 <tr>
+                    <th><label for="accountId">소유자</label></th>
+                    <td>
+                        <input type="hidden" th:field="*{accountId}" id="accountId">
+                        <input type="text" id="accountName" readonly>
+                        <button type="button" id="accountIdSearch"
+                            onclick="window.open('/accounts/search?dtypes=S,P,C&idTag=accountId&nameTag=accountName', '_blank', 'width=500,height=400');">검색</button>
+                    </td>
+                </tr>
+                <tr>
                     <th><label for="representor">대표자</label></th>
                     <td>
-                        <input type="text" th:field="*{representor}" id="representor">
+                        <input type="text" th:field="*{representor}" id="representor" required>
                     </td>
                 </tr>
                 <tr>
                     <th><label for="professorName">교수</label></th>
                     <td>
-                        <input type="text" th:field="*{professorName}" id="professorName">
+                        <input type="text" th:field="*{professorName}" id="professorName" required>
                     </td>
                 </tr>
                 <tr>
                     <th><label for="professorDept">교수 전공</label></th>
                     <td>
-                        <input type="text" th:field="*{professorDept}" id="professorDept">
+                        <input type="text" th:field="*{professorDept}" id="professorDept" required>
                     </td>
                 </tr>
                 <!--            <tr>-->
                 <!--                <th><label for="cooperation">교수 기여율</label></th>-->
                 <!--                <td>-->
-                <!--                    <input type="text" th:field="*{cooperation}" id="cooperation">-->
+                <!--                    <input type="text" th:field="*{cooperation}" id="cooperation" required>-->
                 <!--                </td>-->
                 <!--            </tr>-->
                 <tr>
                     <th><label for="applicationDate">출원일자</label></th>
                     <td>
-                        <input type="date" th:field="*{applicationDate}" id="applicationDate">
+                        <input type="date" th:field="*{applicationDate}" id="applicationDate" required>
                     </td>
                 </tr>
                 <tr>
                     <th><label for="applicationNumber">출원번호</label></th>
                     <td>
                         <input type="text" th:field="*{applicationNumber}" id="applicationNumber"
-                            pattern="\d{2}-?\d{4}-?\d{7}">
+                            pattern="\d{2}-?\d{4}-?\d{7}" required>
                     </td>
                 </tr>
                 <tr>
@@ -109,10 +120,31 @@
                     </td>
                 </tr>
             </table>
-            <a href="/copyrights/list" class="button">목록으로</a>
-            <button type="submit">등록</button>
+            <a href="/copyrights/list" class="btn btn-outline-secondary">목록으로</a>
+            <button type="submit" class="btn btn-primary">등록</button>
         </form>
     </div>
+
+    <script>
+        $(function () {
+            $('form').submit(function () {
+                if (!$('#accountName').val()) {
+                    alert('소유자(?)를 선택해야 합니다.');
+                    return false;
+                }
+            });
+        });
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

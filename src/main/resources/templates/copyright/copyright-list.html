@@ -6,63 +6,89 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="/css/copyright/copyright-list.css">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/common.css">
 </head>
 
 <body>
-    <div>
-        <form action="/copyrights/list" method="get">
-            <input type="hidden" name="page" value="1">
-            <input type="text" name="key">
-            <button type="submit">검색</button>
-        </form>
+    <div class="container">
+        <div class="d-flex justify-content-end">
+            <form action="/copyrights/list" method="get" class="form-inline justify-content-end my-2">
+                <input type="search" class="form-control mr-sm-2" name="key" aria-label="Search" th:value="${key}">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">검색</button>
+            </form>
+        </div>
+        <div>
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col" class=""><span>특허구분</span></th>
+                        <th scope="col" class=""><span>특허명</span></th>
+                        <th scope="col" class=""><span>발명자</span></th>
+                        <th scope="col" class=""><span>상태</span></th>
+                        <th scope="col" class=""><span>일자</span></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="dto : ${copyrightDtos}"
+                        th:onclick="'location.href=\''+ @{/copyrights/list/{id}(id=${dto.copyrightId})} + '\''">
+                        <td th:text="${dto.copyrightType}"></td>
+                        <td th:text="${dto.copyrightName}"></td>
+                        <td th:text="${dto.representor}"></td>
+                        <td th:text="${dto.copyrightState}"></td>
+                        <td th:text="${dto.declarationYear}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="position-relative">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center my-0">
+                    <li th:if="${page} > 1" class="page-item">
+                        <a class="page-link" th:href="@{/copyrights/list(page=${page+(-1)}, key=${key})}" tabindex="-1"
+                            aria-disabled="true">Prev</a>
+                    </li>
+                    <li th:if="${page} == 1" class="page-item disabled">
+                        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+                    </li>
+
+                    <th:block th:with="ten=${(page+(-1))/10*10}">
+                        <th:block th:each="num : ${#numbers.sequence(ten+1, ten+10)}">
+                            <li th:if="${num} <= ${maxPage} and ${num} == ${page}" class="page-item active"
+                                aria-current="page"><a class="page-link"
+                                    th:href="@{/copyrights/list(page=${num}, key=${key})}" th:text="${num}"><span
+                                        class="sr-only">(current)</span></a></li>
+                            <li th:if="${num} <= ${maxPage} and ${num} != ${page}" class="page-item"><a
+                                    class="page-link" th:href="@{/copyrights/list(page=${num}, key=${key})}"
+                                    th:text="${num}"></a></li>
+                        </th:block>
+                    </th:block>
+
+                    <li th:if="${page} < ${maxPage}" class="page-item">
+                        <a class="page-link" th:href="@{/copyrights/list(page=${page+1}, key=${key})}">Next</a>
+                    </li>
+                    <li th:if="${page} >= ${maxPage}" class="page-item disabled">
+                        <a class="page-link" href="#">Next</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="position-absolute top-right">
+                <a href="/copyrights/new" class="btn btn-outline-primary">특허 정보 등록</a>
+            </div>
+        </div>
     </div>
 
-    <div>
-        <table>
-            <thead>
-                <tr>
-                    <th scope="col" class=""><span>특허구분</span></th>
-                    <th scope="col" class=""><span>특허명</span></th>
-                    <th scope="col" class=""><span>발명자</span></th>
-                    <th scope="col" class=""><span>상태</span></th>
-                    <th scope="col" class=""><span>일자</span></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="dto : ${copyrightDtos}">
-                    <td th:text="${dto.copyrightType}"></td>
-                    <td><a th:href="@{/copyrights/list/{id}(id=${dto.copyrightId})}" th:text="${dto.copyrightName}"></a>
-                    </td>
-                    <td th:text="${dto.representor}"></td>
-                    <td th:text="${dto.copyrightState}"></td>
-                    <td th:text="${dto.declarationYear}"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div>
-        <div>
-            <a th:if="${page} > 1" th:href="@{/copyrights/list(page=${page+(-1)}, key=${key})}">prev</a>
-            <a th:if="${page} == 1" href="#">prev</a>
-        </div>
-        <div>
-            <th:block th:with="ten=${(page+(-1))/10*10}">
-                <th:block th:each="num : ${#numbers.sequence(ten+1, ten+10)}">
-                    <a th:if="${num} <= ${maxPage}" th:href="@{/copyrights/list(page=${num}, key=${key})}"
-                        th:text="${num}"></a>
-                    <a th:if="${num} > ${maxPage}" href="#" th:text="${num}"></a>
-                </th:block>
-            </th:block>
-        </div>
-        <div>
-            <a th:if="${page} < ${maxPage}" th:href="@{/copyrights/list(page=${page+1}, key=${key})}">next</a>
-            <a th:if="${page} >= ${maxPage}" href="#">next</a>
-        </div>
-    </div>
-    <div>
-        <a href="/copyrights/new" class="button">특허 정보 등록</a>
-    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>

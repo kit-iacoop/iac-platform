@@ -36,31 +36,13 @@ public class CopyrightServiceImpl implements CopyrightService {
     @Override
     public Page<CopyrightDTO> findCopyright(Pageable pageable) {
         Page<Copyright> list = copyrightRepository.findAll(pageable);
-        List<CopyrightDTO> dtoList = new ArrayList<>();
-
-        for (Copyright e : list) {
-            dtoList.add(new CopyrightDTO(e));
-        }
-
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), dtoList.size());
-
-        return new PageImpl<>(dtoList.subList(start, end), pageable, dtoList.size());
+        return list.map(CopyrightDTO::new);
     }
 
     @Override
     public Page<CopyrightDTO> findCopyrightByKey(Pageable pageable, String title) {
         Page<Copyright> list = copyrightRepository.findByTitleContaining(pageable, title);
-        List<CopyrightDTO> dtoList = new ArrayList<>();
-        for (Copyright e : list) {
-            dtoList.add(new CopyrightDTO(e));
-        }
-
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), dtoList.size());
-
-
-        return new PageImpl<>(dtoList.subList(start, end), pageable, dtoList.size());
+        return list.map(CopyrightDTO::new);
     }
 
     @Override
@@ -88,26 +70,25 @@ public class CopyrightServiceImpl implements CopyrightService {
                 .participantCopyrightList(new ArrayList<>())
                 .build();
 
-        Account account = accountRepository.findAll().get(0);
-
-        copyright.setAccount(account);
+        Optional<Account> maybeAccount = accountRepository.findById(Long.valueOf(dto.getAccountId()));
+        maybeAccount.ifPresent(copyright::setAccount);
 
         ApplicationRegistration applic = ApplicationRegistration.builder()
                 .issueDate(LocalDate.parse(dto.getApplicationDate()))
                 .number(dto.getApplicationNumber())
                 .type("출원")
                 .build();
-
-        ApplicationRegistration regist = ApplicationRegistration.builder()
-                .issueDate(LocalDate.parse(dto.getRegistrationDate()))
-                .number(dto.getRegistrationNumber())
-                .type("등록")
-                .build();
-
         applic.setCopyright(copyright);
-        regist.setCopyright(copyright);
+
+        if (!dto.getRegistrationDate().isEmpty() & !dto.getRegistrationNumber().isEmpty()) {
+            ApplicationRegistration regist = ApplicationRegistration.builder()
+                    .issueDate(LocalDate.parse(dto.getRegistrationDate()))
+                    .number(dto.getRegistrationNumber())
+                    .type("등록")
+                    .build();
+            regist.setCopyright(copyright);
+        }
 
         copyrightRepository.save(copyright);
-
     }
 }

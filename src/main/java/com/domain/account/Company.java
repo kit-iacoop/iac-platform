@@ -17,6 +17,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+import lombok.extern.slf4j.Slf4j;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -169,4 +170,23 @@ public class Company extends Account {
         return (this.point += point);
     }
 
+
+    @Override
+    public void acceptRegistration() {
+        if(!status.equals(State.PENDING)){
+//            throw Exception()
+        }
+        log.warn("status = State.NORMAL");
+        status = State.NORMAL;
+
+    }
+
+    @Override
+    public void rejectRegistration() {
+        if(!status.equals(State.PENDING)){
+//            throw Exception()
+        }
+        status = State.REJECTED;
+
+    }
 }
