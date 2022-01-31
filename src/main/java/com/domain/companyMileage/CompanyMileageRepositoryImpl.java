@@ -20,13 +20,31 @@ public class CompanyMileageRepositoryImpl implements CompanyMileageRepositoryCus
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
+    public List<MileageHistoryDTO> findAllHistoryDTOWithDOption(QueryOptionDTO queryOptionDTO) {
+        return jpaQueryFactory
+                .select(Projections.constructor(MileageHistoryDTO.class,
+                        companyMileage.companyMileageId,
+                        companyMileage.company.name,
+                        companyMileage.mileagePolicy.collaborationCategory.collaborationName,
+                        companyMileage.achievementCnt,
+                        companyMileage.status,
+                        companyMileage.mileagePolicy.mileage,
+                        companyMileage.mileagePolicy.point,
+                        companyMileage.startDate,
+                        companyMileage.endDate
+                ))
+                .from(companyMileage)
+                .where(queryOptionDTO.getQueryBuilder())
+                .fetch();
+    }
+
+    @Override
     public List<MileageHistoryDTO> findAllHistoryDTOByCompanyIdAndDOption(Long accountId, QueryOptionDTO qoption) {
 
 
         return jpaQueryFactory
                 .select(Projections.constructor(MileageHistoryDTO.class,
                         companyMileage.companyMileageId,
-//                        companyMileage.mileagePolicy.collaborationCategory.parentCategory.collaborationName,
                         companyMileage.mileagePolicy.collaborationCategory.collaborationName,
                         companyMileage.achievementCnt,
                         companyMileage.status,

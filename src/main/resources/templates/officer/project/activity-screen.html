@@ -8,7 +8,7 @@
     </div>
     <div class="state-search">
         <select id="state" onchange="selectGetRequest(this.value);">
-            <option value="ALL">전체</option>
+            <option value=>전체</option>
             <option value="APPROVED">승인</option>
             <option value="REJECTED">거절</option>
             <option value="PENDING">대기</option>
@@ -21,7 +21,6 @@
         <tr>
             <th scope="col" class=""><span>선택</span></th>
             <th scope="col" class=""><span>회사</span></th>
-            <th scope="col" class=""><span>활동구분</span></th>
             <th scope="col" class=""><span>활동</span></th>
             <th scope="col" class=""><span>회차</span></th>
             <th scope="col" class=""><span>상태</span></th>
@@ -30,12 +29,11 @@
         </tr>
     </thaed>
     <tbody>
-        <form id="mileage" th:action="@{/company/industry-cooperation/project/activity-proof-register}" th:object="${mileageRequestDTO}" method="post">
-        <tr th:each="dto : ${mileageRequestDTO}">
-            <td><input type="checkbox" name="checkedValue" value="${dto.mileageRequestId}" th:field="*{mileageRequestId}"/></td>
-            <td th:text="${dto.company.name}"></td>
-            <td th:text="${dto.mileagePolicy.collaborationCategory.parentCategory.collaborationName}"></td>
-            <td th:text="${dto.mileagePolicy.collaborationCategory.collaborationName}"></td>
+        <form id="mileage" th:action="@{/company/industry-cooperation/project/activity-proof-register}" th:object="${mileageHistoryDTO}" method="post">
+        <tr th:each="dto : ${mileageHistoryDTOs}">
+            <td><input type="checkbox" name="checkedValue" value="${dto.companyMileageId}"/></td>
+            <td th:text="${dto.companyName}"></td>
+            <td th:text="${dto.collaborationName}"></td>
             <td th:text="${dto.achievementCnt}"></td>
             <td th:text="${dto.status}"></td>
             <td th:text="${#temporals.formatISO(dto.startDate)}"></td>

@@ -7,4 +7,6 @@ import java.util.List;
 
 public interface CompanyMileageRepositoryCustom {
     List<MileageHistoryDTO> findAllHistoryDTOByCompanyIdAndDOption(Long accountId, QueryOptionDTO qoption);
+
+    List<MileageHistoryDTO> findAllHistoryDTOWithDOption(QueryOptionDTO queryOptionDTO);
 }

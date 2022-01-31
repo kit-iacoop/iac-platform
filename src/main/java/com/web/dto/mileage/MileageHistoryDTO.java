@@ -13,6 +13,7 @@ import java.time.LocalDate;
 public class MileageHistoryDTO {
 
     private Long companyMileageId;
+    private String companyName;
     private String parentCollaborationName;
     private String collaborationName;
     private Long achievementCnt;
@@ -24,7 +25,18 @@ public class MileageHistoryDTO {
 
     public MileageHistoryDTO(Long companyMileageId, String collaborationName, Long achievementCnt, State status, Long mileage, Long point, LocalDate startDate, LocalDate endDate) {
         this.companyMileageId = companyMileageId;
-        this.parentCollaborationName = parentCollaborationName;
+        this.collaborationName = collaborationName;
+        this.achievementCnt = achievementCnt;
+        this.status = status;
+        this.mileage = mileage;
+        this.point = point;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public MileageHistoryDTO(Long companyMileageId, String companyName, String collaborationName, Long achievementCnt, State status, Long mileage, Long point, LocalDate startDate, LocalDate endDate) {
+        this.companyMileageId = companyMileageId;
+        this.companyName = companyName;
         this.collaborationName = collaborationName;
         this.achievementCnt = achievementCnt;
         this.status = status;
