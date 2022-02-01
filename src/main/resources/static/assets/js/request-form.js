@@ -82,7 +82,7 @@ addProfessorInput = function () {
         <div>
             <input type="hidden" class="professorId" name="collaboRequestProfessorList[${professorCnt}].professorId" id="professorId${professorCnt}">
             <input type="text" id="professorName${professorCnt}" readonly>
-            <button type="button" id="professorIdSearch" onclick="window.open('/accounts/search?dtypes=P&idTag=professorId${professorCnt}&nameTag=professorName${professorCnt}', '_blank', 'width=500,height=400');">검색</button>
+            <button type="button" id="professorIdSearch" class="btn btn-outline-primary" onclick="window.open('/accounts/search?dtypes=P&idTag=professorId${professorCnt}&nameTag=professorName${professorCnt}', '_blank', 'width=500,height=400');">검색</button>
         </div>
     `);
     professorCnt++;

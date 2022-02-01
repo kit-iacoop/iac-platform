@@ -77,6 +77,10 @@ getProfessorList = function (id) {
         $('#openRequestBtn').show();
         $('.modal-title').text('협력 희망 교수 목록');
       }
+
+      $('#createProject').click(function () {
+        location.href = `/requests/list/${id}/project`;
+      });
     },
     error: function (errorThrown) {
       alert(errorThrown.statusText);

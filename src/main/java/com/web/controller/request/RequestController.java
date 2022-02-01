@@ -137,12 +137,12 @@ public class RequestController {
     public String makeProjectForm(@PathVariable String id, Model model) {
         AccountContext context = common.getAccountContext();
 
-        if (context.hasRole("PROFESSOR")) {
+        if (context.hasRole("OFFICER")) {
             ProjectDTO projectDTO = projectService.makeProjectFormDTO(Long.valueOf(id));
             model.addAttribute("projectDto", projectDTO);
             return "request/project-form";
         }
-        return "redirect:/requests/list/" + id;
+        return "redirect:/requests/list";
 
     }
 

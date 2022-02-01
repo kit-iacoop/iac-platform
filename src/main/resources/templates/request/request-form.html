@@ -3,6 +3,7 @@
 
 <head>
     <div th:replace="fragments/portal/head :: template-head('애로기술 요청')"></div>
+    <link rel="stylesheet" href="/assets/css/form-style.css">
 </head>
 
 <body>
@@ -40,7 +41,7 @@
                                     <td colspan="5">
                                         <input type="hidden" th:field="*{companyId}" id="companyId">
                                         <input type="text" id="companyName" readonly>
-                                        <button type="button" id="companyIdSearch"
+                                        <button type="button" id="companyIdSearch" class="btn btn-outline-primary"
                                             onclick="window.open('/accounts/search?dtypes=C&idTag=companyId&nameTag=companyName', '_blank', 'width=500,height=400');">
                                             검색
                                         </button>
@@ -74,21 +75,21 @@
                                         <select id="tech-depth-4" class="tech-select">
                                             <option disabled selected></option>
                                         </select>
-                                        <button type="button" onclick="addTechniqueInput()">추가</button>
+                                        <button type="button" class="btn btn-outline-primary" onclick="addTechniqueInput()">추가</button>
                                         <div id="tech-wrapper"></div>
                                     </td>
                                 </tr>
                                 <tr>
                                     <th colspan="2"><label for="term">프로젝트 기간</label></th>
                                     <td colspan="5">
-                                        <input type="text" th:field="*{term}" id="term" class="text-right" pattern="\d+"
-                                            required> 일
+                                        <input type="text" th:field="*{term}" id="term" class="input-number"
+                                            pattern="\d+" required> 일
                                     </td>
                                 </tr>
                                 <tr>
                                     <th colspan="2"><label for="budget">예상비용</label></th>
                                     <td colspan="5">
-                                        <input type="text" th:field="*{budget}" id="budget" class="text-right"
+                                        <input type="text" th:field="*{budget}" id="budget" class="input-number"
                                             pattern="\d+" required> 만원
                                     </td>
                                 </tr>
@@ -126,19 +127,21 @@
                                             <input type="hidden" class="professorId"
                                                 name="collaboRequestProfessorList[0].professorId" id="professorId0">
                                             <input type="text" id="professorName0" readonly>
-                                            <button type="button" id="professorIdSearch"
+                                            <button type="button" id="professorIdSearch" class="btn btn-outline-primary"
                                                 onclick="window.open('/accounts/search?dtypes=P&idTag=professorId0&nameTag=professorName0', '_blank', 'width=500,height=400');">
                                                 검색
                                             </button>
                                         </div>
-                                        <button type="button" onclick="addProfessorInput()" id="addProfessorBtn">교수
+                                        <button type="button" class="btn btn-outline-primary" onclick="addProfessorInput()" id="addProfessorBtn">교수
                                             추가
                                         </button>
                                     </td>
                                 </tr>
                             </table>
-                            <a href="/requests/list" class="btn btn-outline-secondary">목록으로</a>
-                            <button type="submit" class="btn btn-primary">등록</button>
+                            <div class="d-flex justify-content-center mt-3">
+                                <a href="/requests/list" class="btn btn-outline-secondary mx-2">목록으로</a>
+                                <button type="submit" class="btn btn-primary mx-2">등록</button>
+                            </div>
                         </form>
                     </div>
                 </div>
