@@ -153,6 +153,16 @@
 
 <div th:replace="fragments/portal/footer :: template-footer"></div>
 <div th:replace="fragments/portal/js :: template-js"></div>
+<script>
+    $(function () {
+        $('form').submit(function () {
+            if (!$('#accountName').val()) {
+                alert('소유자를 선택해야 합니다.');
+                return false;
+            }
+        });
+    });
+</script>
 </body>
 
 </html>
