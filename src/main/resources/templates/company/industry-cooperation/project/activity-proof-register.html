@@ -20,11 +20,11 @@
 </div>
 <div class="activity-proof">
     <label>시작일</label>
-    <input type="datetime" id="start-time">
+    <input type="datetime-local" id="start-time">
 </div>
 <div class="activity-proof">
     <label>종료일</label>
-    <input type="datetime" id="end-time">
+    <input type="datetime-local" id="end-time">
 </div>
 <div class="activity-proof">
     <label>첨부파일</label>
@@ -39,7 +39,7 @@
         let categories = [[${categoryDTOs}]];
 
         $("#mid-categories").empty();
-        
+
         categories.forEach(function(category) {
             if(category['parentCategoryId'] == selected) {
                 console.log("카테고리 이름: " + category['collaborationName']);
@@ -51,9 +51,27 @@
 
 
     function postRequest(path) {
+        var bigCtgElements = document.getElementById("big-categories");
+        var midCtgElements = document.getElementById("mid-categories");
+        var bigCtg = bigCtgElements.options[bigCtgElements.selectedIndex].value;
+        var midCtg = midCtgElements.options[midCtgElements.selectedIndex].value;
+
+        var achievementCnt = document.getElementById("achievement-count").value;
+        var startDateTime = document.getElementById("start-time").value;
+        var endDateTime = document.getElementById("end-time").value;
+        var filepath = document.getElementById("filepath").value;
+
         $.ajax({
             method: "POST",
             url: "/company/mileage/request",
+            data: {
+                // "bigCtg": bigCtg,
+                "midCtg": midCtg,
+                "achievementCnt": achievementCnt,
+                "startDateTime": startDateTime,
+                "endDateTime": endDateTime,
+                "filepath": filepath
+            },
             beforeSend: function (xhr) {
 				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
 			}
