@@ -22,19 +22,17 @@
 <table id="result">
     <thaed>
         <tr>
-            <th scope="col" class=""><span>선택</span></th>
             <th scope="col" class=""><span>활동</span></th>
             <th scope="col" class=""><span>회차</span></th>
             <th scope="col" class=""><span>상태</span></th>
             <th scope="col" class=""><span>마일리지</span></th>
             <th scope="col" class=""><span>포인트</span></th>
-            <th scope="col" class=""><span>시작일</span></th>
-            <th scope="col" class=""><span>종료일</span></th>
+            <th scope="col" class=""><span>시작시간</span></th>
+            <th scope="col" class=""><span>종료시간</span></th>
         </tr>
     </thaed>
     <tbody>
         <tr th:each="dto : ${mileageHistoryDTOs}">
-            <td><input type="checkbox" name="checkedValue" value="${dto.companyMileageId}"/></td>
             <td th:text="${dto.collaborationName}"></td>
             <td th:text="${dto.achievementCnt}"></td>
             <td th:text="${dto.status}"></td>
