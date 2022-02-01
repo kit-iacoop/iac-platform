@@ -88,6 +88,22 @@ getProfessorList = function (id) {
   });
 };
 
+join = function (id) {
+  if (confirm('지원하시겠습니까?')) {
+    $.ajax({
+      method: "POST",
+      url: `/requests/list/${id}/join`,
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader(csrfHeader, csrfToken);
+      },
+      success: function () {
+        alert('처리가 완료되었습니다.');
+        location.reload();
+      }
+    })
+  }
+}
+
 openRequest = function () {
   let id = $('#requestId').val();
   $.ajax({
