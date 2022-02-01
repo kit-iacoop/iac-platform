@@ -155,10 +155,12 @@
                   <table class="table table-hover">
                     <tbody>
                       <tr th:each="dto : ${collaboRequestDtos}">
-                        <td colspan="7" th:text="${dto.title}"></td>
-                        <td colspan="1" th:if="${dto.collaboRequestTechniqueList.size() > 0}"
-                          th:text="${dto.collaboRequestTechniqueList[0].fieldCategoryName}"></td>
-                        <td colspan="1" th:if="${dto.collaboRequestTechniqueList.size() == 0}">-</td>
+                        <td colspan="6" th:text="${dto.title}"></td>
+                        <td colspan="2">
+                          <th:block th:each="tech : ${dto.collaboRequestTechniqueList}">
+                            <span class="comma-separated">[[${tech.fieldCategoryName}]]</span>
+                          </th:block>
+                        </td>
                         <td colspan="2" th:text="${dto.expireDate}"></td>
                       </tr>
                     </tbody>

@@ -73,6 +73,18 @@
                                     <input type="date" th:field="*{endDate}" id="endDate" required>
                                 </td>
                             </tr>
+                            <tr>
+                                <th colspan="2"><label>참여 교수</label></th>
+                                <td colspan="5">
+                                    <ul>
+                                        <li th:each="professorDto, stat : ${projectDto.projectProfessorDTOList}">
+                                            <input type="checkbox" th:name="|projectProfessorDTOList[${stat.index}].professorId|"
+                                                   th:value="${professorDto.professorId}" th:id="|professor${stat.index}|">
+                                            <label th:for="|professor${stat.index}|" th:text="${professorDto.professorName}"></label>
+                                        </li>
+                                    </ul>
+                                </td>
+                            </tr>
                         </table>
                         <div class="d-flex justify-content-center mt-3">
                             <a href="/requests/list" class="btn btn-outline-secondary mx-2">애로기술 목록으로</a>

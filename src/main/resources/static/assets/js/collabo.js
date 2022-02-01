@@ -61,13 +61,7 @@ getProfessorList = function (id) {
     success: function (json) {
       $('#professor-list').empty();
       json.collaboRequestProfessorList.forEach(function (item, idx, arr) {
-        $('#professor-list').append(`
-          <li>
-            <input type="hidden" value="${item.collaboRequestProfessorId}">
-            <input type="checkbox" id="professor${idx}">
-            <label for="professor${idx}">${item.professorName}</label>
-          </li>
-        `);
+        $('#professor-list').append(`<li>${item.professorName}</li>`);
       });
 
       if (json.requestType == 'OPEN') {

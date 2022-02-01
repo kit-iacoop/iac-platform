@@ -5,9 +5,7 @@ import com.common.Common;
 import com.domain.account.Account;
 import com.domain.security.role.Role;
 import com.security.service.AccountContext;
-import com.web.dto.CollaboRequestDTO;
-import com.web.dto.FieldCategoryDTO;
-import com.web.dto.ProjectDTO;
+import com.web.dto.*;
 import com.web.service.FieldService;
 import com.web.service.ProjectService;
 import com.web.service.RequestService;
@@ -24,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RequestMapping("requests")
 @Controller
@@ -139,6 +138,17 @@ public class RequestController {
 
         if (context.hasRole("OFFICER")) {
             ProjectDTO projectDTO = projectService.makeProjectFormDTO(Long.valueOf(id));
+
+            projectDTO.getProjectProfessorDTOList().addAll(
+                    projectDTO.getCollaboRequestId().getCollaboRequestProfessorList()
+                            .stream().map(collaboRequestProfessorDTO -> {
+                                ProjectProfessorDTO projectProfessorDTO = new ProjectProfessorDTO();
+                                projectProfessorDTO.setProfessorId(collaboRequestProfessorDTO.getProfessorId());
+                                projectProfessorDTO.setProfessorName(collaboRequestProfessorDTO.getProfessorName());
+                                return projectProfessorDTO;
+                            }).collect(Collectors.toList())
+            );
+
             model.addAttribute("projectDto", projectDTO);
             return "request/project-form";
         }
