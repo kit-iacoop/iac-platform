@@ -16,7 +16,7 @@
     </div>
 </div>
 
-<table>
+<table id="result">
     <thaed>
         <tr>
             <th scope="col" class=""><span>선택</span></th>
@@ -29,9 +29,7 @@
         </tr>
     </thaed>
     <tbody>
-        <form id="mileage" th:action="@{/company/industry-cooperation/project/activity-proof-register}" th:object="${mileageHistoryDTO}" method="post">
-        <tr th:each="dto : ${mileageHistoryDTOs}">
-            <td><input type="checkbox" name="checkedValue" value="${dto.companyMileageId}"/></td>
+            <tr th:each="dto : ${mileageHistoryDTOs}">
             <td th:text="${dto.companyName}"></td>
             <td th:text="${dto.collaborationName}"></td>
             <td th:text="${dto.achievementCnt}"></td>
@@ -42,8 +40,6 @@
         </tbody>
 </table>
 
-<button onclick="postRequest('/accept')">승인</button>
-<button onclick="postRequest('/reject')">거절</button>
 <script src="/js/jquery.js"></script>
 <script th:inline="javascript">
     function selectGetRequest(param) {
@@ -63,11 +59,13 @@
             beforeSend: function (xhr) {
 				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
 			},
-            success: function() {
-                console.log(companyName);
-                console.log(startDay);
-                console.log(endDay);
-                console.log(param);
+            success: function(res) {
+                $("#result").empty();
+                var refine = $("#result").html(res).find("table");
+                $("#result").html(refine);
+                document.getElementById("company-name").value = companyName;
+                document.getElementById("start-day").value = startDay;
+                document.getElementById("end-day").value = endDay;
             }
         });
     }
@@ -92,40 +90,15 @@
             beforeSend: function (xhr) {
 				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
 			},
-            success: function() {
-                console.log(companyName);
-                console.log(startDay);
-                console.log(endDay);
-                console.log(state);
+            success: function(res) {
+                $("#result").empty();
+                var refine = $("#result").html(res).find("table");
+                $("#result").html(refine);
+                document.getElementById("company-name").value = companyName;
+                document.getElementById("start-day").value = startDay;
+                document.getElementById("end-day").value = endDay;
+                stateElement.options[stateElement.selectedIndex].value = state;
             }
-        });
-    }
-
-    function postRequest(path) {
-        let sendData = [];
-        var checkedIdLen = document.getElementsByName("checkedValue").length;
-        for (var i=0; i<checkedIdLen; i++) {
-            if (document.getElementsByName("checkedValue")[i].checked == true) {
-                sendData.push(document.getElementsByName("checkedValue")[i].value);
-            }
-        }
-
-        console.log(sendData);
-        $.ajax({
-            method: "POST",
-            url: "/officer/mileage/screening" + path,
-            traditional: true,
-            contentType: 'application/json',
-            data: JSON.stringify({
-                "checkList": sendData
-            }),
-            beforeSend: function (xhr) {
-				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
-			}
-        })
-        .done(function() {
-            alert("성공적으로 처리되었습니다.");
-            window.close();
         });
     }
 </script>
