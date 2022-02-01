@@ -77,7 +77,7 @@
                                 <th colspan="2"><label>참여 교수</label></th>
                                 <td colspan="5">
                                     <ul>
-                                        <li th:each="professorDto, stat : ${projectDto.projectProfessorDTOList}">
+                                        <li th:each="professorDto, stat : ${projectDto.collaboRequestId.collaboRequestProfessorList}">
                                             <input type="checkbox" th:name="|projectProfessorDTOList[${stat.index}].professorId|"
                                                    th:value="${professorDto.professorId}" th:id="|professor${stat.index}|">
                                             <label th:for="|professor${stat.index}|" th:text="${professorDto.professorName}"></label>
