@@ -1,6 +1,15 @@
+<script th:inline="javascript">
+    function showPopup(activityId) {
+        window.open("/officer/mileage/screening/detail/" + activityId, "디테일", "width=400, height=300, left=100, top=50");
+    }
+</script>
+
 <div class="search">
     <div class="company-name-search">
         <input type="text" id="company-name" placeholder="회사명">
+    </div>
+    <div class="activity-name-search">
+        <input type="text" id="activity-name" placeholder="활동명">
     </div>
     <div class="date-search">
         <input id="start-day" type="date"> ~ <input id="end-day" type="date">
@@ -25,6 +34,7 @@
             <th scope="col" class=""><span>상태</span></th>
             <th scope="col" class=""><span>시작시간</span></th>
             <th scope="col" class=""><span>종료시간</span></th>
+            <th scope="col" class=""><span>상세보기</span></th>
         </tr>
     </thaed>
     <tbody>
@@ -35,6 +45,9 @@
             <td th:text="${dto.status}"></td>
             <td th:text="${#temporals.formatISO(dto.startDate)}"></td>
             <td th:text="${#temporals.formatISO(dto.endDate)}"></td>
+            <td>
+                <button th:onclick="|showPopup('${dto.companyMileageId}')|">더보기</button>
+            </td>
         </tr>
         </tbody>
 </table>
@@ -43,6 +56,7 @@
 <script th:inline="javascript">
     function selectGetRequest(param) {
         var companyName = document.getElementById("company-name").value;
+        var activityName = document.getElementById("activity-name").value;
         var startDay = document.getElementById("start-day").value;
         var endDay = document.getElementById("end-day").value;
         $.ajax({
@@ -51,6 +65,7 @@
             contentType: 'application/json',
             data: {
                 "companyName": companyName,
+                "activityName": activityName,
                 "startDay": startDay,
                 "endDay": endDay,
                 "state": param
@@ -63,6 +78,7 @@
                 var refine = $("#result").html(res).find("table");
                 $("#result").html(refine);
                 document.getElementById("company-name").value = companyName;
+                document.getElementById("activity-name").value = activityName;
                 document.getElementById("start-day").value = startDay;
                 document.getElementById("end-day").value = endDay;
             }
@@ -71,6 +87,7 @@
     
     function getRequest() {
         var companyName = document.getElementById("company-name").value;
+        var activityName = document.getElementById("activity-name").value;
         var startDay = document.getElementById("start-day").value;
         var endDay = document.getElementById("end-day").value;
         var stateElement = document.getElementById("state");
@@ -82,6 +99,7 @@
             contentType: 'application/json',
             data: {
                 "companyName": companyName,
+                "activityName": activityName,
                 "startDay": startDay,
                 "endDay": endDay,
                 "state": state
@@ -94,6 +112,7 @@
                 var refine = $("#result").html(res).find("table");
                 $("#result").html(refine);
                 document.getElementById("company-name").value = companyName;
+                document.getElementById("activity-name").value = activityName;
                 document.getElementById("start-day").value = startDay;
                 document.getElementById("end-day").value = endDay;
                 stateElement.options[stateElement.selectedIndex].value = state;

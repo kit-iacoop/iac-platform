@@ -1,0 +1,57 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<h1>활동 증빙</h1>
+<div class="activity-proof">
+    <label>대분류</label>
+    [[${mileageHistoryDTO.parentCollaborationName}]]
+</div>
+<div class="activity-proof">
+    <label>중분류</label>
+    [[${mileageHistoryDTO.collaborationName}]]
+</div>
+<div class="activity-proof">
+    <label>회사명</label>
+    [[${mileageHistoryDTO.companyName}]]
+</div>
+<div class="activity-proof">
+    <label>회차</label>
+    [[${mileageHistoryDTO.achievementCnt}]]
+</div>
+<div class="activity-proof">
+    <label>마일리지</label>
+    [[${mileageHistoryDTO.mileage}]]
+</div>
+<div class="activity-proof">
+    <label>포인트</label>
+    [[${mileageHistoryDTO.point}]]
+</div>
+<div class="activity-proof">
+    <label>시작일</label>
+    [[${#temporals.formatISO(mileageHistoryDTO.startDate)}]]
+</div>
+<div class="activity-proof">
+    <label>종료일</label>
+    [[${#temporals.formatISO(mileageHistoryDTO.endDate)}]]
+</div>
+<div class="activity-proof">
+    <label>첨부파일</label>
+</div>
+
+<button type="submit" onclick="postRequest('/accept')">승인</button>
+<button type="submit" onclick="postRequest('/reject')">거절</button>
+
+
+<script th:inline="javascript">
+    function postRequest(path) {
+        $.ajax({
+            method: "POST",
+            url: "/officer/mileage/screening/detail/" + [[${mileageHistoryDTO.companyMileageId}]] + path,
+            beforeSend: function (xhr) {
+				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
+			}
+        })
+        .done(function() {
+            alert("성공적으로 처리되었습니다.");
+            window.close();
+        });
+    }
+</script>
