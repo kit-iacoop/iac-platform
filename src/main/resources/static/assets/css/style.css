@@ -1918,40 +1918,6 @@ table {
     box-shadow: 3px 3px #ddd;
 }
 
-.sr-only {
-    position: absolute;
-    overflow: hidden;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    border: 0;
-    clip: rect(0, 0, 0, 0);
-}
-
-.depth-1 {
-}
-
-.depth-2 {
-    margin-left: 1rem;
-}
-
-.depth-3 {
-    margin-left: 2rem;
-}
-
-.depth-4 {
-    margin-left: 3rem;
-}
-
-.comma-separated:after {
-    content: ", ";
-}
-
-.comma-separated:last-child:after {
-    content: "";
-}
-
 #collabo-project {
     background-color: #f0f0f0;
 }
@@ -2021,31 +1987,6 @@ table {
 
 .project-list-li .regist-date {
     color: #aaa;
-}
-
-.project-title {
-    margin-top: 0.3rem !important;
-    margin-bottom: 0.6rem !important;
-}
-
-.p-break {
-    word-break: break-all;
-    white-space: normal;
-}
-
-.modal-header .close {
-    padding: 1rem 1rem;
-    margin: -1rem -1rem -1rem auto;
-    cursor: pointer;
-    background-color: transparent;
-    border: 0;
-    font-size: 1.5rem;
-    font-weight: 700;
-    opacity: .5;
-}
-
-.regist-date {
-    margin-top: 0.3rem;
 }
 
 .project-list-li div {
@@ -2324,4 +2265,73 @@ thead {
     border-color: inherit;
     border-style: solid;
     border-width: 0;
+}
+
+
+
+
+
+
+
+.sr-only {
+    position: absolute;
+    overflow: hidden;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+}
+
+.depth-1 {
+}
+
+.depth-2 {
+    margin-left: 1rem;
+}
+
+.depth-3 {
+    margin-left: 2rem;
+}
+
+.depth-4 {
+    margin-left: 3rem;
+}
+
+.comma-separated:after {
+    content: ", ";
+}
+
+.comma-separated:last-child:after {
+    content: "";
+}
+
+
+
+
+
+.project-title {
+    margin-top: 0.3rem !important;
+    margin-bottom: 0.6rem !important;
+}
+
+.p-break {
+    word-break: break-all;
+    white-space: normal;
+}
+
+.modal-header .close {
+    padding: 1rem 1rem;
+    margin: -1rem -1rem -1rem auto;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+    opacity: .5;
+}
+
+.regist-date {
+    margin-top: 0.3rem;
 }
