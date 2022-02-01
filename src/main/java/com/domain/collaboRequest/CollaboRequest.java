@@ -48,6 +48,9 @@ public class CollaboRequest extends BaseTimeEntity {
     @Column(name = "TERM", nullable = false)
     private String term;
 
+    @Column(name = "TERM_TYPE", nullable = false)
+    private String termType;
+
     @Column(name = "EXPIRE_DATE", nullable = false)
     private LocalDate expireDate;
 
@@ -102,6 +105,6 @@ public class CollaboRequest extends BaseTimeEntity {
     }
 
     public void clearProfessorList() {
-        this.collaboRequestProfessorList = new ArrayList<>();
+        this.collaboRequestProfessorList.clear();
     }
 }

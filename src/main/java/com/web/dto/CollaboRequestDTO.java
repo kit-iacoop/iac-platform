@@ -28,12 +28,14 @@ public class CollaboRequestDTO {
     private String companyName;
     private String title;
     private String term;
+    private String termType;
     private String expireDate;
     private String description;
     private String status;
     private String requestType;
     private String budget;
     private String isCapstone;
+    private String createdDate;
 
     // nullable true column list
     private String projectId = null;
@@ -53,12 +55,14 @@ public class CollaboRequestDTO {
         this.companyName = collaboRequest.getCompany().getName();
         this.title = collaboRequest.getTitle();
         this.term = collaboRequest.getTerm();
+        this.termType = collaboRequest.getTermType();
         this.expireDate = String.valueOf(collaboRequest.getExpireDate());
         this.description = collaboRequest.getDescription();
         this.status = String.valueOf(collaboRequest.getStatus());
         this.requestType = String.valueOf(collaboRequest.getRequestType());
         this.budget = collaboRequest.getBudget();
         this.isCapstone = collaboRequest.getIsCapstone();
+        this.createdDate = String.valueOf(collaboRequest.getCreatedDate());
 
         if (collaboRequest.getProjectId() != null) {
             this.projectId = String.valueOf(collaboRequest.getProjectId().getProjectId());

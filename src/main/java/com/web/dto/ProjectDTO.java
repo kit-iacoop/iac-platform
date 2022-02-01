@@ -19,6 +19,7 @@ public class ProjectDTO {
 
     private BudgetDetailDTO budgetDetail = null;
 
+    private String title;
     private String companyId;
     private String companyName;
     private String startDate;

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/portal/head :: template-head('프로젝트 생성')"></div>
+    <link rel="stylesheet" href="/assets/css/form-style.css">
+</head>
+
+<body>
+<div th:replace="fragments/portal/header :: template-header"></div>
+
+<main id="main" data-aos="fade-up">
+
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Collaboration Details</h2>
+                <ol>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li>Portfolio Details</li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- Breadcrumbs Section -->
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="collabo-project" class="collabo-details">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="form-container">
+                    <form th:action="@{/requests/list/{id}/project(id=${projectDto.collaboRequestId.collaboRequestId})}" th:object="${projectDto}" method="post">
+                        <input type="hidden" th:field="*{collaboRequestId.collaboRequestId}">
+                        <table>
+                            <tr>
+                                <th colspan="2"><label for="title">프로젝트 명</label></th>
+                                <td colspan="5">
+                                    <input type="text" th:field="*{title}" id="title" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="2"><label for="humanCostRate">인건비</label></th>
+                                <td colspan="5">
+                                    <input type="text" class="input-number" th:field="*{budgetDetail.humanCostRate}" id="humanCostRate" required> 만원
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="2"><label for="researchActivityRate">연구활동비</label></th>
+                                <td colspan="5">
+                                    <input type="text" class="input-number" th:field="*{budgetDetail.researchActivityRate}" id="researchActivityRate" required> 만원
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="2"><label for="indirectCostRate">간접비</label></th>
+                                <td colspan="5">
+                                    <input type="text" class="input-number" th:field="*{budgetDetail.indirectCostRate}" id="indirectCostRate" required> 만원
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="2"><label for="total">총 예산액</label></th>
+                                <td colspan="5">
+                                    <input type="text" class="input-number" th:field="*{budgetDetail.total}" id="total" required> 만원
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="2"><label for="startDate">프로젝트 기간</label></th>
+                                <td colspan="5">
+                                    <input type="date" th:field="*{startDate}" id="startDate" required>
+                                    ~
+                                    <input type="date" th:field="*{endDate}" id="endDate" required>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="d-flex justify-content-center mt-3">
+                            <a href="/requests/list" class="btn btn-outline-secondary mx-2">애로기술 목록으로</a>
+                            <button type="submit" class="btn btn-primary mx-2">등록</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Portfolio Details Section -->
+
+</main><!-- End #main -->
+
+<div th:replace="fragments/portal/footer :: template-footer"></div>
+<div th:replace="fragments/portal/js :: template-js"></div>
+</body>
+
+</html>

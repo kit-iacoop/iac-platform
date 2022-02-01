@@ -1,8 +1,7 @@
-//검색조건 input에 이벤트 넣기
-// const SearchFilterState = {
-//   projectType: "t1", //기본적으로 장기 프로젝트가 선택되어있다고 가정
-//   major: [],
-// };
+movePage = function (page) {
+  $("input[name='page']").val(page);
+  requestProjectList();
+}
 
 getDepth = function (elem) {
   return elem.attr('class').slice(-1) * 1;
@@ -21,44 +20,32 @@ cascadingCheck = function () {
 
 getValues = function () {
   let searchFilterState = {};
-  searchFilterState.projectType = $("input[name='projectType']:checked").val();
+
+  searchFilterState.page = $("input[name='page']").val();
+  searchFilterState.term = $("input[name='term']:checked").val();
+  searchFilterState.type = $("input[name='type']:checked").val();
+
+  searchFilterState.options = [];
+  $.each($("input[name='options']:checked"), function () {
+    searchFilterState.options.push($(this).val());
+  });
+  
   searchFilterState.fields = [];
   $.each($("input[name='fieldCategory']:checked"), function () {
     searchFilterState.fields.push($(this).val());
   });
-  return searchFilterState;
 
-  // var eleType = target.attr("type");
-  // var value = target.attr("data-type");
-  // if (eleType === "radio") {
-  //   SerachFilterState.projectType = value;
-  // }
-  // if (eleType === "checkbox") {
-  //   var index = SerachFilterState.major.indexOf(value);
-  //   //이미 있다면 이것은 uncheck하겠다는 의미
-  //   if (index !== -1) {
-  //     SerachFilterState.major.splice(index, 1);
-  //   } else {
-  //     //없다면 이것은 새로 check되었다는 의미
-  //     SerachFilterState.major.push(value);
-  //     SerachFilterState.major.sort();
-  //   }
-  // }
+  return searchFilterState;
 };
 
 requestProjectList = function () {
-  const searchFilterState = getValues();
-
-  // console.log(searchFilterState);
-  console.log(JSON.stringify(searchFilterState));
-
   $.ajax({
-    // contentType: "application/json",
     method: "GET",
-    url: "/requests/list/filter",
-    data: searchFilterState,
+    url: "/requests/list/query",
+    data: getValues(),
     success: function (fragment) {
-      $('.project-list-container').replaceWith(fragment);
+      $('.project-list-container').html(fragment);
+      $("html, body").animate({ scrollTop: 0 }, "fast");
     },
     error: function (errorThrown) {
       alert(errorThrown.statusText);
@@ -66,12 +53,83 @@ requestProjectList = function () {
   });
 };
 
+getProfessorList = function (id) {
+  $('#requestId').val(id);
+  $.ajax({
+    method: "GET",
+    url: `/requests/list/${id}/json`,
+    success: function (json) {
+      $('#professor-list').empty();
+      json.collaboRequestProfessorList.forEach(function (item, idx, arr) {
+        $('#professor-list').append(`
+          <li>
+            <input type="hidden" value="${item.collaboRequestProfessorId}">
+            <input type="checkbox" id="professor${idx}">
+            <label for="professor${idx}">${item.professorName}</label>
+          </li>
+        `);
+      });
+
+      if (json.requestType == 'OPEN') {
+        $('#openRequestBtn').hide();
+        $('.modal-title').text('지원 교수 목록');
+      } else {
+        $('#openRequestBtn').show();
+        $('.modal-title').text('협력 희망 교수 목록');
+      }
+
+      $('#createProject').click(function () {
+        location.href = `/requests/list/${id}/project`;
+      });
+    },
+    error: function (errorThrown) {
+      alert(errorThrown.statusText);
+    },
+  });
+};
+
+join = function (id) {
+  if (confirm('지원하시겠습니까?')) {
+    $.ajax({
+      method: "POST",
+      url: `/requests/list/${id}/join`,
+      beforeSend: function (xhr) {
+        xhr.setRequestHeader(csrfHeader, csrfToken);
+      },
+      success: function () {
+        alert('처리가 완료되었습니다.');
+        location.reload();
+      }
+    })
+  }
+}
+
+openRequest = function () {
+  let id = $('#requestId').val();
+  $.ajax({
+    method: "POST",
+    url: `/requests/list/${id}/open`,
+    beforeSend: function (xhr) {
+      xhr.setRequestHeader(csrfHeader, csrfToken);
+    },
+    success: function () {
+      alert('처리가 완료되었습니다.');
+      location.reload();
+    },
+    error: function (errorThrown) {
+      alert(errorThrown.statusText);
+    },
+  });
+}
+
 $(function () {
   $(".sidebar-body input[type='checkbox']").on({
     change: cascadingCheck,
   });
 
-  $(".sidebar-body input").on({
-    change: requestProjectList,
+  $("#filterBtn").on({
+    click: requestProjectList,
   });
+
+  movePage(1);
 });
