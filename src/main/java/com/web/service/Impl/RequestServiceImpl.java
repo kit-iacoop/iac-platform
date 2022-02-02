@@ -1,6 +1,5 @@
 package com.web.service.Impl;
 
-import com.common.Common;
 import com.domain.account.*;
 import com.domain.collaboRequest.CollaboRequest;
 import com.domain.collaboRequest.CollaboRequestRepository;
@@ -8,7 +7,6 @@ import com.domain.collaboRequest.RequestQueryCondition;
 import com.domain.collaboRequestProfessor.CollaboRequestProfessor;
 import com.domain.collaboRequestProfessor.CollaboRequestProfessorRepository;
 import com.domain.collaboRequestTechnique.CollaboRequestTechnique;
-import com.domain.collaboRequestTechnique.CollaboRequestTechniqueRepository;
 import com.domain.common.RequestType;
 import com.domain.common.State;
 import com.domain.fieldCategory.FieldCategory;
@@ -233,5 +231,4 @@ public class RequestServiceImpl implements RequestService {
 
         return 1;
     }
-
 }
