@@ -8,4 +8,6 @@ import java.util.List;
 public interface CompanyMileageService {
     List<MileageHistoryDTO> findAllHistoryDTOByCompanyIdAndDOption(Long accountId, QueryOptionDTO queryOptionDTO);
     List<MileageHistoryDTO> findAllHistoryDTOWithDOption(QueryOptionDTO queryOptionDTO);
+
+    MileageHistoryDTO findHistoryDTOById(Long activityId);
 }

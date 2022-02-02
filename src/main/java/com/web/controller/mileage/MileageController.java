@@ -4,8 +4,10 @@ package com.web.controller.mileage;
 
 import com.common.Common;
 
+import com.domain.collaborationCategory.CollaborationCategory;
 import com.web.dto.mileage.QueryOptionDTO;
 import com.web.dto.mileage.MileageHistoryDTO;
+import com.web.service.CollaborationCategoryService;
 import com.web.service.CompanyMileageService;
 import com.web.service.MileageFileService;
 import com.web.service.MileagePolicyService;
@@ -16,10 +18,7 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -32,6 +31,7 @@ public class MileageController {
     private final Common common;
 //    private final MileageFileService mileageFileService;
     private final CompanyMileageService companyMileageService;
+    private final CollaborationCategoryService collaborationCategoryService;
 //    private final MileagePolicyService mileagePolicyService;
 
 
@@ -56,10 +56,23 @@ public class MileageController {
         return mav;
     }
 
+    @GetMapping("/officer/mileage/screening/detail/{activityId}")
+    public ModelAndView mileageScreeningDetail(ModelAndView mav, @PathVariable Long activityId){
 
-    @GetMapping("/officer/mileage/request")
+        mav.addObject("mileageHistoryDTO",  companyMileageService.findHistoryDTOById(activityId));
+        mav.setViewName("officer/project/activity-detail");
+        return mav;
+    }
+
+
+
+    @GetMapping("/company/mileage/request")
     public ModelAndView requestMileage(ModelAndView mav){
 
+
+        System.out.println(collaborationCategoryService.findAllDTO().toString());
+
+        mav.addObject("categoryDTOs", collaborationCategoryService.findAllDTO());
 
         mav.setViewName("company/industry-cooperation/project/activity-proof-register");
         return mav;

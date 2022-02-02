@@ -24,4 +24,9 @@ public class CompanyMileageServiceImpl implements CompanyMileageService {
     public List<MileageHistoryDTO> findAllHistoryDTOWithDOption(QueryOptionDTO queryOptionDTO) {
         return companyMileageRepository.findAllHistoryDTOWithDOption(queryOptionDTO);
     }
+
+    @Override
+    public MileageHistoryDTO findHistoryDTOById(Long activityId) {
+        return companyMileageRepository.findHistoryDTOById(activityId);
+    }
 }
