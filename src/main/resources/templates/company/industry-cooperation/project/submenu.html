@@ -63,7 +63,7 @@
     function selectTabMenu(statusItem) {
         var tabmenuId = $(statusItem).attr('value');
         console.log(tabmenuId);
-        $("."+tabmenuId).load("company/industry-cooperation/project/"+tabmenuId, function() {
+        $("."+tabmenuId).load("company/mileage/"+tabmenuId, function() {
             $(this).show();
         });
     } 
@@ -71,7 +71,7 @@
 
 <div id="css_tabs">
     <input id="tab1" onclick="selectTabMenu(this)" value="info" type="radio" name="tab" checked="checked" />
-    <input id="tab2" onclick="selectTabMenu(this)" value="activity-proof" type="radio" name="tab" />
+    <input id="tab2" onclick="selectTabMenu(this)" value="history" type="radio" name="tab" />
     <input id="tab3" onclick="selectTabMenu(this)" value="cost-proof" type="radio" name="tab" />
     <input id="tab4" onclick="selectTabMenu(this)" value="mid-result" type="radio" name="tab" />
     <label for="tab1">정보</label>
@@ -79,7 +79,7 @@
     <label for="tab3">매출 증빙</label>
     <label for="tab4">중간 결과물</label>
     <div class="info"></div>
-    <div class="activity-proof"></div>
+    <div class="history"></div>
     <div class="cost-proof"></div>
     <div class="mid-result"></div>
 </div>

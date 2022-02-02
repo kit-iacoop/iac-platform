@@ -75,4 +75,5 @@ configurations {
     }
     querydsl.extendsFrom compileClasspath
 }
+compileQuerydsl.doFirst { if(file(querydslDir).exists() ) delete(file(querydslDir)) }
 //querydsl 추가 끝

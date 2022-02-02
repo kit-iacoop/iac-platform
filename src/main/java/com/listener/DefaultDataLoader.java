@@ -84,13 +84,13 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
     public void onApplicationEvent(final ContextRefreshedEvent event) {
 
         if (activate) {
-            loadUniversityData();
-            loadRoleData();
-            loadAccountData();
-            loadResourceData();
-            loadGradePolicyData();
-            loadAnnualFeeData();
-            loadCollaborationCategoryData();
+            // loadUniversityData();
+            // loadRoleData();
+            // loadAccountData();
+            // loadResourceData();
+            // loadGradePolicyData();
+            // loadAnnualFeeData();
+            // loadCollaborationCategoryData();
             loadMileageData();
         }
 
@@ -138,7 +138,7 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
 
     private void loadMileageData() {
 
-        createMileagePolicyIfNotFound(1L, "중분류 테스트 1", 50L, 50L);
+        createMileagePolicyIfNotFound(1L, "mid 1", 50L, 50L);
         createCompanyMileageIfNotFound(1L, "OFFICER0", "COMPANY0", 1L, 5L, State.PENDING, LocalDate.now(), LocalDate.now());
         createCompanyMileageIfNotFound(2L, "OFFICER0", "COMPANY0", 1L, 3L, State.APPROVED, LocalDate.now(), LocalDate.now());
     }
@@ -195,12 +195,12 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
 
     private void loadCollaborationCategoryData() {
         // 되도록이면 변경하지 말고 추가할 것
-        createCollaborationCategoryIfNotFound(1L, null, "대분류 테스트 1", 1);
-        createCollaborationCategoryIfNotFound(2L, null, "대분류 테스트 2", 1);
-        createCollaborationCategoryIfNotFound(3L, null, "대분류 테스트 3", 1);
-        createCollaborationCategoryIfNotFound(4L, 1L, "중분류 테스트 1", 2);
-        createCollaborationCategoryIfNotFound(5L, 1L, "중분류 테스트 2", 2);
-        createCollaborationCategoryIfNotFound(6L, 1L, "중분류 테스트 3", 2);
+        createCollaborationCategoryIfNotFound(1L, null, "big 1", 1);
+        createCollaborationCategoryIfNotFound(2L, null, "big 2", 1);
+        createCollaborationCategoryIfNotFound(3L, null, "big 3", 1);
+        createCollaborationCategoryIfNotFound(4L, 1L, "mid 1", 2);
+        createCollaborationCategoryIfNotFound(5L, 1L, "mid 2", 2);
+        createCollaborationCategoryIfNotFound(6L, 1L, "mid 3", 2);
     }
 
     private CollaborationCategory createCollaborationCategoryIfNotFound(Long id, Long parentId, String name, Integer level){
@@ -263,8 +263,8 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
 
 
     private void loadUniversityData() {
-        createUniversityIfNotFound("금오공과대학교");
-        createUniversityIfNotFound("대나무학교");
+        createUniversityIfNotFound("kit");
+        createUniversityIfNotFound("tree");
 
     }
 
@@ -285,11 +285,11 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
     }
 
     private void loadRoleData() {
-        createRoleIfNotFound("ROLE_ADMIN", "어드민 권한");
-        createRoleIfNotFound("ROLE_COMPANY", "회사 권한");
-        createRoleIfNotFound("ROLE_PROFESSOR", "교수 권한");
-        createRoleIfNotFound("ROLE_OFFICER", "직원 권한");
-        createRoleIfNotFound("ROLE_STUDENT", "학생 권한");
+        createRoleIfNotFound("ROLE_ADMIN", "admin");
+        createRoleIfNotFound("ROLE_COMPANY", "company");
+        createRoleIfNotFound("ROLE_PROFESSOR", "professor");
+        createRoleIfNotFound("ROLE_OFFICER", "officer");
+        createRoleIfNotFound("ROLE_STUDENT", "student");
     }
 
     private void loadAccountData(){
@@ -420,7 +420,7 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
                 .status(state)
                 .businessRegistrationNumber(123456789L)
                 .employeeNumber(1234L)
-                .sector("섹터섹터섹터")
+                .sector("sector")
                 .owner("test owner")
                 .grade("test grade")
                 .companyType("test company type")
@@ -464,7 +464,7 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
                 .status(State.NORMAL)
                 .department("test department name")
                 .officeLocation("test office location")
-                .university(universityRepository.findByUniversityName("금오공과대학교"))
+                .university(universityRepository.findByUniversityName("kit"))
                 .build();
 
 
@@ -499,7 +499,7 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
                 .telephone("010-0000-0000")
                 .status(State.NORMAL)
                 .officeLocation("test office location")
-                .university(universityRepository.findByUniversityName("금오공과대학교"))
+                .university(universityRepository.findByUniversityName("kit"))
                 .build();
 
 
@@ -537,8 +537,8 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
                 .telephone("010-0000-0000")
                 .status(State.NORMAL)
                 .studentNumber(1234L)
-                .department("컴퓨터소프트웨어공학과")
-                .university(universityRepository.findByUniversityName("금오공과대학교"))
+                .department("se")
+                .university(universityRepository.findByUniversityName("kit"))
                 .build();
 
 

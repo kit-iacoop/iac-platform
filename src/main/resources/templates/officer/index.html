@@ -19,6 +19,7 @@
 
     <!-- Custom styles for this template-->
     <link href="/business/css/sb-admin-2.min.css" rel="stylesheet">
+    <link href="/css/section-submenu.css" rel="stylesheet">
 
     <script>
         function selectMainMenu(statusItem) {
@@ -384,7 +385,10 @@
 
                 <!-- Begin Sub Navbar -->
                 <div class="subnav">
-
+                    <div class="row" id="mypage">
+                        <div class="col-sm-1"><a value="/officer/mypage" onclick="selectSubMenu(this)">내 정보</a></div>
+                        <div class="col-sm-1"><a value="/officer/mypage/update" onclick="selectSubMenu(this)">정보 수정</a></div>
+                    </div>
                 </div>
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
@@ -398,6 +402,7 @@
 
                     <!-- Content Row -->
                     <div class="row1">
+     
                         <!-- Earnings (Monthly) Card Example -->
                         <!-- <div class="col-xl-3 col-md-6 mb-4">
                             <div class="card border-left-primary shadow h-100 py-2">

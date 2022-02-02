@@ -1,0 +1,18 @@
+#mypage, #industry-cooperation, #family-company, 
+#project, #share, #mileage-point {
+    background-color: #8ea5eb;
+    padding: 1.5rem;
+    color: white;
+}
+#mypage .col-sm-1 , #industry-cooperation .col-sm-1,
+#family-company .col-sm-1, #project .col-sm-1,
+#share .col-sm-1, #mileage-point .col-sm-1 {
+    text-align: center;
+    margin-left: 1rem;
+    white-space: pre;
+}
+
+.container-fluid {
+    padding: 3rem;
+    /* background-color: blueviolet; */
+}
