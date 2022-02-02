@@ -26,7 +26,7 @@
         function selectMainMenu(statusItem) {
             var mainmenuId = $(statusItem).attr('value');
             console.log(mainmenuId);
-            $(".subnav").load("menu #"+mainmenuId, function() {
+            $(".subnav").load("/officer/menu #"+mainmenuId, function() {
                 $(this).show();
             });
         } 
