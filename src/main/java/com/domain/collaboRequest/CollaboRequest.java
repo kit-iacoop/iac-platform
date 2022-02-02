@@ -98,6 +98,7 @@ public class CollaboRequest extends BaseTimeEntity {
 
     public void setProjectId(Project projectId) {
         this.projectId = projectId;
+        projectId.setCollaboRequest(this);
     }
 
     public void changeTypeOpen() {
