@@ -7,13 +7,6 @@ th {
     vertical-align: top;
 }
 
-.form-container {
-    border-radius: 5px;
-    background-color: #fff;
-    padding: 5rem 18rem;
-    box-shadow: 3px 3px #ddd;
-}
-
 #description {
     width: 100%;
     padding: 10px;
