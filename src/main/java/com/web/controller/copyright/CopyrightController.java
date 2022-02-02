@@ -64,7 +64,7 @@ public class CopyrightController {
 
         model.addAttribute("copyrightDto", copyrightService.findCopyrightDetail(id));
 
-        return "copyright/copyright-detail";
+        return "copyright/copyright :: info-contents";
     }
 
     @GetMapping("/new")
