@@ -81,17 +81,15 @@ public class MileageController {
 
 
 
-    @PostMapping("/officer/mileage/screening/accept")
+    @PostMapping("/officer/mileage/screening/detail/{activityId}/accept")
     public ModelAndView acceptMileage(ModelAndView mav){
-
-
+        mav.setViewName("officer/project/activity-screen");
         return mav;
     }
 
-    @PostMapping("/officer/mileage/screening/reject")
+    @PostMapping("/officer/mileage/screening/detail/{activityId}/reject")
     public ModelAndView rejectMileage(ModelAndView mav){
-
-
+        mav.setViewName("officer/project/activity-screen");
         return mav;
     }
 
