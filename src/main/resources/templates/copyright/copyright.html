@@ -3,6 +3,7 @@
 
 <head>
   <div th:replace="fragments/portal/head :: template-head('특허 검색')"></div>
+  <link rel="stylesheet" href="/assets/css/copyright.css">
 </head>
 
 <body>
@@ -168,46 +169,46 @@
           <div class="modal-body">
             <table>
               <tr>
-                <th>구분</th>
-                <td th:text="${copyrightDto.copyrightType}"></td>
-                <th>상태</th>
-                <td th:text="${copyrightDto.maintenanceState}"></td>
+                <th colspan="3">구분</th>
+                <td colspan="7" th:text="${T(com.domain.common.CopyrightType).valueOf(copyrightDto.copyrightType).getName()}"></td>
+                <th colspan="3">상태</th>
+                <td colspan="7" th:text="${copyrightDto.maintenanceState}"></td>
               </tr>
               <tr>
-                <th>공개년도</th>
-                <td th:text="${copyrightDto.declarationYear}"></td>
-                <th>공동</th>
-                <td th:text="${copyrightDto.cooperation}"></td>
+                <th colspan="3">공개년도</th>
+                <td colspan="7" th:text="${copyrightDto.declarationYear}"></td>
+                <th colspan="3">공동</th>
+                <td colspan="7" th:text="${copyrightDto.cooperation}"></td>
               </tr>
               <tr>
-                <th>대표자</th>
-                <td th:text="${copyrightDto.representor}"></td>
-                <th>교수</th>
-                <td th:text="${copyrightDto.professorName}"></td>
+                <th colspan="3">대표자</th>
+                <td colspan="7" th:text="${copyrightDto.representor}"></td>
+                <th colspan="3">교수</th>
+                <td colspan="7" th:text="${copyrightDto.professorName}"></td>
               </tr>
               <tr>
-                <th>출원일자</th>
-                <td th:text="${copyrightDto.applicationDate}"></td>
-                <th>출원번호</th>
-                <td>
+                <th colspan="3">출원일자</th>
+                <td colspan="7" th:text="${copyrightDto.applicationDate}"></td>
+                <th colspan="3">출원번호</th>
+                <td colspan="7">
                   <a th:href="@{http://kpat.kipris.or.kr/kpat/resulta.do?expression=AN=[{appNum}](appNum=${copyrightDto.applicationNumber})}"
                      th:text="${copyrightDto.applicationNumber}"></a></td>
               </tr>
               <tr>
-                <th>등록일자</th>
-                <td th:text="${copyrightDto.registrationDate}"></td>
-                <th>등록번호</th>
-                <td>
+                <th colspan="3">등록일자</th>
+                <td colspan="7" th:text="${copyrightDto.registrationDate}"></td>
+                <th colspan="3">등록번호</th>
+                <td colspan="7">
                   <a th:href="@{http://kpat.kipris.or.kr/kpat/resulta.do?expression=GN=[{appNum}](appNum=${copyrightDto.registrationNumber})}"
                      th:text="${copyrightDto.registrationNumber}"></a></td>
               </tr>
               <tr>
-                <th>설명</th>
-                <td colspan="3" th:text="${copyrightDto.description}"></td>
+                <th colspan="3">설명</th>
+                <td colspan="17" th:text="${copyrightDto.description}"></td>
               </tr>
               <tr>
-                <th>키워드</th>
-                <td colspan="3" th:text="${copyrightDto.keyword}"></td>
+                <th colspan="3">키워드</th>
+                <td colspan="17" th:text="${copyrightDto.keyword}"></td>
               </tr>
             </table>
           </div>

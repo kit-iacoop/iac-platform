@@ -2174,53 +2174,8 @@ section .section-title {
     margin: 0;
 }
 
-/*--------------------------------------------------------------
-# collabo request
---------------------------------------------------------------*/
 
-.form-container {
-    border-radius: 5px;
-    background-color: #fff;
-    padding: 5rem 14rem;
-    box-shadow: 3px 3px #ddd;
-}
 
-.tech-select {
-    width: 5rem;
-}
-
-#description {
-    width: 100%;
-    padding: 10px;
-    border-radius: 3px;
-    height: 138px;
-    resize: none;
-}
-
-.container table {
-    width: 100%;
-}
-
-.tag-wrapper {
-    display: inline-flex;
-}
-
-.tag-design {
-    text-align: center;
-    margin: 0.2rem;
-    width: 6rem;
-    height: 2rem;
-    text-decoration: none;
-    background-color: #eeeeee;
-    padding: 5px 15px 5px 15px;
-    border-radius: 0.75rem;
-    border: none;
-}
-
-input, textarea, select {
-    border: 1px solid #cccccc;
-    border-radius: 0.25rem;
-}
 
 
 
