@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <div th:replace="fragments/portal/head :: template-head('특허 검색')"></div>
@@ -63,7 +63,8 @@
         </div>
         <div class="col-lg-10 board-container px-lg-3">
           <div class="d-flex justify-content-between board-search-box mb-lg-2">
-            <a href="/copyrights/new" class="btn btn-primary">&#43;</a>
+            <a sec:authorize="hasRole('ROLE_OFFICER')" href="/copyrights/new" class="btn btn-primary">&#43;</a>
+            <div></div>
             <form action="/copyrights/list" method="get" class="d-flex">
               <div class="me-lg-2">
                 <select class="form-select col-lg2" aria-label="Default select example">

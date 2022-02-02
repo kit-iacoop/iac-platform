@@ -4,6 +4,8 @@ movePage = function (page) {
 }
 
 getDepth = function (elem) {
+  if (!elem.attr('class'))
+    return -1;
   return elem.attr('class').slice(-1) * 1;
 }
 
@@ -24,6 +26,9 @@ getValues = function () {
   searchFilterState.page = $("input[name='page']").val();
   searchFilterState.term = $("input[name='term']:checked").val();
   searchFilterState.type = $("input[name='type']:checked").val();
+  if (!searchFilterState.type) {
+    searchFilterState.type = 'open';
+  }
 
   searchFilterState.options = [];
   $.each($("input[name='options']:checked"), function () {

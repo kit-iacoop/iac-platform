@@ -67,3 +67,7 @@ select {
 .container table {
     width: 100%;
 }
+
+.form-container {
+    padding: 5rem 18rem;
+}
