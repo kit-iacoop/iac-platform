@@ -33,8 +33,8 @@ public class NoticeBoardDTO {
 
     public NoticeBoard toEntity() {
         // 작성자 정보는 서비스에서 가져오도록 한다.
+        // id는 generate 해야한다.
         return NoticeBoard.builder()
-                .noticeBoardId(Long.valueOf(this.noticeBoardId))
                 .noticeBoardTitle(this.noticeBoardTitle)
                 .noticeBoardContent(this.noticeBoardContent)
                 .build();
