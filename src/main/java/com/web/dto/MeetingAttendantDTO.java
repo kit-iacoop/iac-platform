@@ -1,5 +1,7 @@
 package com.web.dto;
 
+import com.domain.account.Account;
+import com.domain.meeting.Meeting;
 import com.domain.meetingAttendant.MeetingAttendant;
 import com.domain.security.role.Role;
 import lombok.*;

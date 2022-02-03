@@ -150,11 +150,7 @@ public class AccountController {
             list = accountService.findCompanyContainName(key);
         }
         model.addAttribute("accountDtos", list);
-        for (AccountSearchDTO dto : list
-        ) {
-            System.out.println(dto.getAccountId());
-            System.out.println(dto.getName());
-        }
+
         return "account/account-search :: account-search-result";
     }
 }

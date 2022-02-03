@@ -65,11 +65,37 @@ public class RequestController {
         return "request/collabo";
     }
 
+    @GetMapping("/list/query")
+    public String queriedRequestList(
+            Model model,
+            @RequestParam(name = "type", defaultValue = "") String type, // 공개 비공개
+            @RequestParam(name = "term", defaultValue = "") String term, // 전체, 장기, 단기
+            @RequestParam(name = "fields[]", defaultValue = "") String[] fields, // 분야 id들 (없으면 all)
+            @RequestParam(name = "options[]", defaultValue = "") String[] options, // 캡스톤여부, 융합프로젝트 여부 (없으면 all)
+            @RequestParam(name = "key", defaultValue = "") String key, // 검색어
+            @PageableDefault(sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable
+    ) {
+
+        Page<CollaboRequestDTO> queriedList = requestService.findRequestByQuery(type, term, fields, options, key, pageable);
+
+        model.addAttribute("collaboRequestDtos", queriedList);
+        model.addAttribute("type", type);
+        model.addAttribute("page", pageable.getPageNumber() + 1);
+        model.addAttribute("maxPage", queriedList.getTotalPages());
+        return "request/collabo :: info-contents";
+    }
+
     @GetMapping("/list/{id}")
     public String requestDetail(@PathVariable String id, Model model) {
 
         model.addAttribute("requestDto", requestService.getRequestDetail(id));
         return "request/request-detail";
+    }
+
+    @GetMapping("/list/{id}/json")
+    @ResponseBody
+    public CollaboRequestDTO requestDetailJson(@PathVariable String id) {
+        return requestService.getRequestDetail(id);
     }
 
     @GetMapping("/new")
@@ -90,7 +116,7 @@ public class RequestController {
     public String closeToOpen(@PathVariable String id) {
 
         requestService.closeToOpen(Long.valueOf(id));
-
+        
         return "redirect:/requests/list/" + id;
     }
 
@@ -111,12 +137,12 @@ public class RequestController {
     public String makeProjectForm(@PathVariable String id, Model model) {
         AccountContext context = common.getAccountContext();
 
-        if (context.hasRole("PROFESSOR")) {
+        if (context.hasRole("OFFICER")) {
             ProjectDTO projectDTO = projectService.makeProjectFormDTO(Long.valueOf(id));
             model.addAttribute("projectDto", projectDTO);
             return "request/project-form";
         }
-        return "redirect:/requests/list/" + id;
+        return "redirect:/requests/list";
 
     }
 
