@@ -4,10 +4,12 @@ import com.domain.account.Account;
 import com.domain.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
+@SuperBuilder
 @Getter
 @Entity
 @Table(name = "NOTICE_BOARD")
@@ -15,15 +17,15 @@ public class NoticeBoard extends BaseTimeEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "NOTICE_BOARD_ID", nullable = false)
-    private Long noticeBoardContentId;
+    private Long noticeBoardId;
 
     @Column(name = "NOTICE_BOARD_TITLE", nullable = false)
-    private String noticeBoardContentTitle;
+    private String noticeBoardTitle;
 
     @Column(name = "NOTICE_BOARD_CONTENT", nullable = false)
-    private String noticeBoardContentContent;
+    private String noticeBoardContent;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "AUTHOR", nullable = false)
     private Account account;
 
