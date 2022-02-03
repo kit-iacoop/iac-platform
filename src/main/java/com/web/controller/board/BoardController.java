@@ -57,7 +57,9 @@ public class BoardController {
 
     @GetMapping("/list/{id}")
     public String viewBoardDetail(@PathVariable Long id, Model model) {
-        model.addAttribute("boardDTO", boardService.findBoard(id));
+        model.addAttribute("curBoardDTO", boardService.findBoard(id));
+        model.addAttribute("prevBoardDTO", boardService.findPrevBoard(id));
+        model.addAttribute("nextBoardDTO", boardService.findNextBoard(id));
 
         return "board/board-detail";
     }

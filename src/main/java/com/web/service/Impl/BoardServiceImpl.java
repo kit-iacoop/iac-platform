@@ -7,6 +7,7 @@ import com.web.dto.NoticeBoardDTO;
 import com.web.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -48,6 +49,24 @@ public class BoardServiceImpl implements BoardService {
                 .accountId(String.valueOf(noticeBoard.getAccount().getAccountId()))
                 .accountName(noticeBoard.getAccount().getName())
                 .build();
+    }
+
+    @Override
+    public NoticeBoardDTO findNextBoard(Long id) {
+        Page<NoticeBoardDTO> nextBoardId = noticeBoardRepository.findNextBoardId(id, PageRequest.of(0, 1));
+        if (nextBoardId.getTotalElements() == 0) {
+            return new NoticeBoardDTO();
+        }
+        return nextBoardId.toList().get(0);
+    }
+
+    @Override
+    public NoticeBoardDTO findPrevBoard(Long id) {
+        Page<NoticeBoardDTO> prevBoardId = noticeBoardRepository.findPrevBoardId(id, PageRequest.of(0, 1));
+        if (prevBoardId.getTotalElements() == 0) {
+            return new NoticeBoardDTO();
+        }
+        return prevBoardId.toList().get(0);
     }
 
 
