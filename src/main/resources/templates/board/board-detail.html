@@ -3,57 +3,8 @@
 
 <head>
     <div th:replace="fragments/portal/head :: template-head('특허 검색')"></div>
-    <style>
-        .board-container {
-            width: 100%;
-        }
-
-        #copyright-board .container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        dl {
-            display: flex;
-        }
-
-        .prev-next {
-            padding: 1.5rem 0.875rem;
-        }
-
-        .prev-next dt {
-            margin-right: 1rem;
-        }
-
-        h4, dl, dd, p {
-            margin: 0;
-        }
-
-        .contents-wrapper {
-            border-top: 2px solid #66747e;
-        }
-
-        .contents-title-wrapper, .contents-info-wrapper, .contents-body-wrapper, .prev-next {
-            border-bottom: 1px solid #e0e0e0;
-            padding: 1.5rem;
-        }
-
-        .contents-body-wrapper {
-            padding: 3rem 1.5rem;
-        }
-
-        .contents-wrapper a {
-            color: inherit;
-        }
-
-        .contents-info-wrapper dl {
-            margin-right: 2.5rem;
-        }
-
-        .contents-info-wrapper dt {
-            margin-right: 0.875rem;
-        }
-    </style>
+    <link rel="stylesheet" href="/assets/css/board.css">
+    <link rel="stylesheet" href="/assets/css/board-detail.css">
 </head>
 
 <body>
@@ -79,7 +30,7 @@
         </div>
     </section>
     <!-- Breadcrumbs Section -->
-    <section id="copyright-board">
+    <section id="notice-board">
         <div class="d-flex container">
             <div class="board-container px-lg-3">
                 <div class="contents-wrapper">
