@@ -187,4 +187,12 @@ public class Company extends Account {
         status = State.REJECTED;
 
     }
+
+    public Long savePoint(Long value){
+        return (point += value);
+    }
+
+    public Long saveMileage(Long value){
+        return (mileage += value);
+    }
 }

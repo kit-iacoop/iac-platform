@@ -4,6 +4,7 @@ import com.domain.common.State;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -20,10 +21,10 @@ public class MileageHistoryDTO {
     private State status;
     private Long mileage;
     private Long point;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
-    public MileageHistoryDTO(Long companyMileageId, String collaborationName, Long achievementCnt, State status, Long mileage, Long point, LocalDate startDate, LocalDate endDate) {
+    public MileageHistoryDTO(Long companyMileageId, String collaborationName, Long achievementCnt, State status, Long mileage, Long point, LocalDateTime startDate, LocalDateTime endDate) {
         this.companyMileageId = companyMileageId;
         this.collaborationName = collaborationName;
         this.achievementCnt = achievementCnt;
@@ -34,7 +35,7 @@ public class MileageHistoryDTO {
         this.endDate = endDate;
     }
 
-    public MileageHistoryDTO(Long companyMileageId, String companyName, String collaborationName, Long achievementCnt, State status, Long mileage, Long point, LocalDate startDate, LocalDate endDate) {
+    public MileageHistoryDTO(Long companyMileageId, String companyName, String collaborationName, Long achievementCnt, State status, Long mileage, Long point, LocalDateTime startDate, LocalDateTime endDate) {
         this.companyMileageId = companyMileageId;
         this.companyName = companyName;
         this.collaborationName = collaborationName;

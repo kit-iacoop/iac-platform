@@ -21,6 +21,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @AllArgsConstructor
@@ -78,21 +80,32 @@ public class MileageController {
         return mav;
     }
 
+    @PostMapping("/company/mileage/request")
+    public ModelAndView requestMileagePost(ModelAndView mav, @RequestParam("midCtg")Long midCtg, @RequestParam("achievementCnt") Long cnt,
+                                           @RequestParam("startDateTime") String startDateTime, @RequestParam("endDateTime") String endDateTime ){
 
+
+        companyMileageService.createCompanyMileage(midCtg, cnt, LocalDateTime.parse(startDateTime), LocalDateTime.parse(endDateTime));
+
+        mav.setViewName("company/industry-cooperation/project/activity-proof-register");
+
+        return mav;
+    }
 
 
     @PostMapping("/officer/mileage/screening/detail/{activityId}/accept")
-    public ModelAndView acceptMileage(ModelAndView mav){
+    public ModelAndView acceptMileage(ModelAndView mav, @PathVariable Long activityId){
         mav.setViewName("officer/project/activity-screen");
+        companyMileageService.acceptMileage(activityId);
         return mav;
     }
 
     @PostMapping("/officer/mileage/screening/detail/{activityId}/reject")
-    public ModelAndView rejectMileage(ModelAndView mav){
+    public ModelAndView rejectMileage(ModelAndView mav, @PathVariable Long activityId){
         mav.setViewName("officer/project/activity-screen");
+        companyMileageService.rejectMileage(activityId);
         return mav;
     }
-
 
 
 

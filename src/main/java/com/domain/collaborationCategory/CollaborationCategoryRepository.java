@@ -14,4 +14,5 @@ public interface CollaborationCategoryRepository extends JpaRepository<Collabora
 
     @Query("select new com.web.dto.CollaborationCategoryDTO(cc.collaborationCategoryId, cc.collaborationName, cc.level, cc.parentCategory.collaborationCategoryId) from CollaborationCategory cc")
     List<CollaborationCategoryDTO> findAllDTO();
+
 }

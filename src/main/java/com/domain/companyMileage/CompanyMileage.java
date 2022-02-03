@@ -14,6 +14,7 @@ import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @SuperBuilder
@@ -28,7 +29,7 @@ public class CompanyMileage extends BaseTimeEntity {
    private Long companyMileageId;
 
    @ManyToOne(fetch = FetchType.LAZY)
-   @JoinColumn(name = "OFFICER_ACCOUNT_ID", nullable = false)
+   @JoinColumn(name = "OFFICER_ACCOUNT_ID", nullable = true)
    private Officer officer;
 
    @ManyToOne(fetch = FetchType.LAZY)
@@ -46,13 +47,23 @@ public class CompanyMileage extends BaseTimeEntity {
    private State status;
 
    @Column(name = "START_DATE", nullable = false)
-   private LocalDate startDate;
+   private LocalDateTime startDate;
 
    @Column(name = "END_DATE", nullable = false)
-   private LocalDate endDate;
+   private LocalDateTime endDate;
 
    @OneToMany(mappedBy = "companyMileage", fetch = FetchType.LAZY)
    private List<MileageFile> mileageFileList;
 
+
+   public void accept(){
+      company.savePoint(mileagePolicy.getPoint() * achievementCnt);
+      company.saveMileage(mileagePolicy.getMileage() * achievementCnt);
+      status = State.APPROVED;
+   }
+   public void reject(){
+      status = State.REJECTED;
+
+   }
 
 }

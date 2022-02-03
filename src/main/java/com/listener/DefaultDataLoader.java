@@ -33,6 +33,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Slf4j
@@ -116,8 +117,10 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
     private void loadMileageData() {
 
         createMileagePolicyIfNotFound(1L, "mid 1", 50L, 50L);
-        createCompanyMileageIfNotFound(1L, "OFFICER0", "COMPANY0", 1L, 5L, State.PENDING, LocalDate.now(), LocalDate.now());
-        createCompanyMileageIfNotFound(2L, "OFFICER0", "COMPANY0", 1L, 3L, State.APPROVED, LocalDate.now(), LocalDate.now());
+        createMileagePolicyIfNotFound(2L, "mid 2", 50L, 50L);
+        createMileagePolicyIfNotFound(3L, "mid 3", 50L, 50L);
+        createCompanyMileageIfNotFound(1L, "OFFICER0", "COMPANY0", 1L, 5L, State.PENDING, LocalDateTime.now(), LocalDateTime.now());
+        createCompanyMileageIfNotFound(2L, "OFFICER0", "COMPANY0", 1L, 3L, State.APPROVED, LocalDateTime.now(), LocalDateTime.now());
     }
 
     private void loadCollaborationCategoryData() {
@@ -207,7 +210,7 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
         return gradePolicyRepository.save(gradePolicy);
     }
 
-    private CompanyMileage createCompanyMileageIfNotFound(Long reqId, String officerId, String companyId, Long mileagePolicyId, Long achievementCnt, State stat, LocalDate startDate, LocalDate endDate) {
+    private CompanyMileage createCompanyMileageIfNotFound(Long reqId, String officerId, String companyId, Long mileagePolicyId, Long achievementCnt, State stat, LocalDateTime startDate, LocalDateTime endDate) {
 
         // 필요 객체 확인
         MileagePolicy mileagePolicy = mileagePolicyRepository.findByMileagePolicyId(mileagePolicyId);
