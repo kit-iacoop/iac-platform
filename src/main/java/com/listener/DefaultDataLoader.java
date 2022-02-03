@@ -112,6 +112,61 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
 
     }
 
+
+    private void loadMileageData() {
+
+        createMileagePolicyIfNotFound(1L, "mid 1", 50L, 50L);
+        createCompanyMileageIfNotFound(1L, "OFFICER0", "COMPANY0", 1L, 5L, State.PENDING, LocalDate.now(), LocalDate.now());
+        createCompanyMileageIfNotFound(2L, "OFFICER0", "COMPANY0", 1L, 3L, State.APPROVED, LocalDate.now(), LocalDate.now());
+    }
+
+    private void loadCollaborationCategoryData() {
+        // 되도록이면 변경하지 말고 추가할 것
+        createCollaborationCategoryIfNotFound(1L, null, "big 1", 1);
+        createCollaborationCategoryIfNotFound(2L, null, "big 2", 1);
+        createCollaborationCategoryIfNotFound(3L, null, "big 3", 1);
+        createCollaborationCategoryIfNotFound(4L, 1L, "mid 1", 2);
+        createCollaborationCategoryIfNotFound(5L, 1L, "mid 2", 2);
+        createCollaborationCategoryIfNotFound(6L, 1L, "mid 3", 2);
+    }
+
+
+    private void loadUniversityData() {
+        createUniversityIfNotFound("kit");
+        createUniversityIfNotFound("tree");
+
+    }
+
+    private void loadRoleData() {
+        createRoleIfNotFound("ROLE_ADMIN", "admin");
+        createRoleIfNotFound("ROLE_COMPANY", "company");
+        createRoleIfNotFound("ROLE_PROFESSOR", "professor");
+        createRoleIfNotFound("ROLE_OFFICER", "officer");
+        createRoleIfNotFound("ROLE_STUDENT", "student");
+    }
+
+    private void loadAccountData(){
+        createAdminIfNotFound("ADMIN", "1234");
+        createCompanyIfNotFound("COMPANY0", "1234", State.NORMAL);
+        createCompanyIfNotFound("PENDING_COMPANY0", "1234", State.PENDING);
+        createProfessorIfNotFound("PROFESSOR0", "1234");
+        createOfficerIfNotFound("OFFICER0", "1234");
+        createStudentIfNotFound("STUDENT0", "1234");
+
+    }
+
+    private void loadResourceData() {
+        createResourceIfNotFound("/**", "url", "", 0, "ROLE_USER", "ROLE_OFFICER", "ROLE_PROFESSOR", "ROLE_STUDENT", "ROLE_ADMIN", "ROLE_COMPANY");
+        createResourceIfNotFound("/admin/**", "url", "", 1000, "ROLE_ADMIN");
+        createResourceIfNotFound("/company/**", "url", "", 999, "ROLE_COMPANY");
+        createResourceIfNotFound("/professor/**", "url", "", 998, "ROLE_PROFESSOR");
+        createResourceIfNotFound("/officer/**", "url", "", 997, "ROLE_OFFICER");
+        createResourceIfNotFound("/student/**", "url", "", 996, "ROLE_STUDENT");
+        filterInvocationSecurityMetadataSource.reload();
+
+    }
+
+
     private AnnualFee createAnnualFeeIfNotFound(Long annualFeeId, Integer year,  Long cash, Long point, String grade, State paymentStatus, LocalDate confirmDate){
         // 중복 검사
         AnnualFee annualFee = annualFeeRepository.findByAnnualFeeId(annualFeeId);
@@ -135,13 +190,6 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
     }
 
 
-
-    private void loadMileageData() {
-
-        createMileagePolicyIfNotFound(1L, "mid 1", 50L, 50L);
-        createCompanyMileageIfNotFound(1L, "OFFICER0", "COMPANY0", 1L, 5L, State.PENDING, LocalDate.now(), LocalDate.now());
-        createCompanyMileageIfNotFound(2L, "OFFICER0", "COMPANY0", 1L, 3L, State.APPROVED, LocalDate.now(), LocalDate.now());
-    }
 
     private GradePolicy createGradePolicyIfNotFound(String grade, Long price){
         // 중복 검사
@@ -193,15 +241,7 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
         return companyMileageRepository.save(mr);
     }
 
-    private void loadCollaborationCategoryData() {
-        // 되도록이면 변경하지 말고 추가할 것
-        createCollaborationCategoryIfNotFound(1L, null, "big 1", 1);
-        createCollaborationCategoryIfNotFound(2L, null, "big 2", 1);
-        createCollaborationCategoryIfNotFound(3L, null, "big 3", 1);
-        createCollaborationCategoryIfNotFound(4L, 1L, "mid 1", 2);
-        createCollaborationCategoryIfNotFound(5L, 1L, "mid 2", 2);
-        createCollaborationCategoryIfNotFound(6L, 1L, "mid 3", 2);
-    }
+
 
     private CollaborationCategory createCollaborationCategoryIfNotFound(Long id, Long parentId, String name, Integer level){
 
@@ -262,11 +302,6 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
     }
 
 
-    private void loadUniversityData() {
-        createUniversityIfNotFound("kit");
-        createUniversityIfNotFound("tree");
-
-    }
 
     private University createUniversityIfNotFound(String universityName) {
 
@@ -284,34 +319,6 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
         return universityRepository.save(university);
     }
 
-    private void loadRoleData() {
-        createRoleIfNotFound("ROLE_ADMIN", "admin");
-        createRoleIfNotFound("ROLE_COMPANY", "company");
-        createRoleIfNotFound("ROLE_PROFESSOR", "professor");
-        createRoleIfNotFound("ROLE_OFFICER", "officer");
-        createRoleIfNotFound("ROLE_STUDENT", "student");
-    }
-
-    private void loadAccountData(){
-        createAdminIfNotFound("ADMIN", "1234");
-        createCompanyIfNotFound("COMPANY0", "1234", State.NORMAL);
-        createCompanyIfNotFound("PENDING_COMPANY0", "1234", State.PENDING);
-        createProfessorIfNotFound("PROFESSOR0", "1234");
-        createOfficerIfNotFound("OFFICER0", "1234");
-        createStudentIfNotFound("STUDENT0", "1234");
-
-    }
-
-    private void loadResourceData() {
-        createResourceIfNotFound("/**", "url", "", 0, "ROLE_USER", "ROLE_OFFICER", "ROLE_PROFESSOR", "ROLE_STUDENT", "ROLE_ADMIN", "ROLE_COMPANY");
-        createResourceIfNotFound("/admin/**", "url", "", 1000, "ROLE_ADMIN");
-        createResourceIfNotFound("/company/**", "url", "", 999, "ROLE_COMPANY");
-        createResourceIfNotFound("/professor/**", "url", "", 998, "ROLE_PROFESSOR");
-        createResourceIfNotFound("/officer/**", "url", "", 997, "ROLE_OFFICER");
-        createResourceIfNotFound("/student/**", "url", "", 996, "ROLE_STUDENT");
-        filterInvocationSecurityMetadataSource.reload();
-
-    }
 
 
     public Role createRoleIfNotFound(String roleName, String roleDesc) {
