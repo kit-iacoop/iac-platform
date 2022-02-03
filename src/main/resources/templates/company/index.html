@@ -26,7 +26,7 @@
         function selectMainMenu(statusItem) {
             var mainmenuId = $(statusItem).attr('value');
             console.log(mainmenuId);
-            $(".subnav").load("/officer/menu #"+mainmenuId, function() {
+            $(".subnav").load("/company/menu #"+mainmenuId, function() {
                 $(this).show();
             });
         } 
@@ -89,21 +89,10 @@
                 </a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" value="family-company" onclick="selectMainMenu(this)">
-                    <span>가족회사 검토</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" value="project" onclick="selectMainMenu(this)">
-                    <span>프로젝트 검토</span>
-                </a>
-            </li>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" value="share" onclick="selectMainMenu(this)">
-                    <span>대여 검토</span>
+                    <span>대여</span>
                 </a>
             </li>
 
@@ -113,6 +102,11 @@
                 </a>
             </li>
 
+            <li class="nav-item">
+                <a class="nav-link collapsed" value="annual-fee" onclick="selectMainMenu(this)">
+                    <span>연회비 납부</span>
+                </a>
+            </li>
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -387,8 +381,9 @@
                 <!-- Begin Sub Navbar -->
                 <div class="subnav">
                     <div class="row" id="mypage">
-                        <div class="col-sm-1"><a value="/officer/mypage" onclick="selectSubMenu(this)">내 정보</a></div>
-                        <div class="col-sm-1"><a value="/officer/mypage/update" onclick="selectSubMenu(this)">정보 수정</a></div>
+                        <div class="col-sm-1"><a value="/company/mypage" onclick="selectSubMenu(this)">내 정보</a></div>
+                        <div class="col-sm-1"><a value="/company/mypage/update" onclick="selectSubMenu(this)">정보 수정</a></div>
+                        <div class="col-sm-1"><a value="/company/mypage/currented" onclick="selectSubMenu(this)">현행화</a></div>
                     </div>
                 </div>
                 <!-- Begin Page Content -->

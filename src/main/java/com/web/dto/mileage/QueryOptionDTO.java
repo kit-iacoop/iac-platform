@@ -1,6 +1,6 @@
-package com.web.dto.annualfee;
-import static com.domain.annualFee.QAnnualFee.annualFee;
+package com.web.dto.mileage;
 
+import static com.domain.companyMileage.QCompanyMileage.companyMileage;
 import com.domain.common.State;
 import com.querydsl.core.BooleanBuilder;
 import lombok.Getter;
@@ -12,10 +12,10 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 
+
 @Getter
 @Setter
 @ToString
-
 public class QueryOptionDTO {
 
     String companyName;
@@ -60,19 +60,19 @@ public class QueryOptionDTO {
         BooleanBuilder builder = new BooleanBuilder();
 
         if(companyName != null){
-            builder.and(annualFee.company.name.contains(companyName));
+            builder.and(companyMileage.company.name.contains(companyName));
         }
 
         if(startDay != null){
-            builder.and(annualFee.createdDate.after(getStartDayTime()));
+            builder.and(companyMileage.createdDate.after(getStartDayTime()));
         }
 
         if(endDay != null){
-            builder.and(annualFee.createdDate.before(getEndDayTime()));
+            builder.and(companyMileage.createdDate.before(getEndDayTime()));
         }
 
         if(state != null){
-            builder.and(annualFee.paymentStatus.eq(state));
+            builder.and(companyMileage.status.eq(state));
         }
 
         return builder;

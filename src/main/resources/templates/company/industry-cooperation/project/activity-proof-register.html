@@ -1,0 +1,121 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<link href="/css/officer/project/activity-screen.css" rel="stylesheet">
+<link href="/business/css/sb-admin-2.min.css" rel="stylesheet">
+<div class="title">
+    <h1 id="title">활동 증빙 자료 업로드</h1>
+</div>
+
+<table id="activity-proof" class="table">
+    <tr>
+        <th>대분류</th>
+        <td>
+            <select id="big-categories">
+                <option>선택</option>
+                <option th:each="category: ${categoryDTOs}" th:if="${category.level} == 1" th:value="${category.categoryId}" th:utext="${category.collaborationName}"></option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <th>중분류</th>
+        <td>
+            <select id="mid-categories">
+                <option>선택</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <th>회차</th>
+        <td><input type="text" id="achievement-count"></td>
+    </tr>
+    <tr>
+        <th>시작일시</th>
+        <td><input type="datetime-local" id="start-time"></td>
+    </tr>
+    <tr>
+        <th>종료일시</th>
+        <td><input type="datetime-local" id="end-time"></td>
+    </tr>
+    <tr>
+        <th>첨부파일</th>
+        <td><input type="file" id="filepath"></td>
+    </tr>
+</table>
+<!-- <div class="activity-proof">
+    <label>대분류</label>
+    
+</div>
+<div class="activity-proof">
+    <label>중분류</label>
+    
+</div>
+<div class="activity-proof">
+    <label>회차</label>
+    <input type="text" id="achievement-count">
+</div>
+<div class="activity-proof">
+    <label>시작일</label>
+    <input type="datetime-local" id="start-time">
+</div>
+<div class="activity-proof">
+    <label>종료일</label>
+    <input type="datetime-local" id="end-time">
+</div>
+<div class="activity-proof">
+    <label>첨부파일</label>
+    <input type="file" id="filepath">
+</div> -->
+<div class="submit-btn-wrapper">
+    <button type="submit" onclick="postRequest()">등록</button>
+</div>
+
+
+<script th:inline="javascript">
+
+    $("#big-categories").on('change', function() {
+        let selected = this.value;
+        let categories = [[${categoryDTOs}]];
+
+        $("#mid-categories").empty();
+
+        categories.forEach(function(category) {
+            if(category['parentCategoryId'] == selected) {
+                console.log("카테고리 이름: " + category['collaborationName']);
+                var option = $("<option value=\"" + category['categoryId']+ "\">" + category['collaborationName'] + "</option>");
+                $("#mid-categories").append(option);
+            }
+        });
+    });
+
+
+    function postRequest(path) {
+        var bigCtgElements = document.getElementById("big-categories");
+        var midCtgElements = document.getElementById("mid-categories");
+        var bigCtg = bigCtgElements.options[bigCtgElements.selectedIndex].value;
+        var midCtg = midCtgElements.options[midCtgElements.selectedIndex].value;
+
+        var achievementCnt = document.getElementById("achievement-count").value;
+        var startDateTime = document.getElementById("start-time").value;
+        var endDateTime = document.getElementById("end-time").value;
+        var filepath = document.getElementById("filepath").value;
+
+        $.ajax({
+            method: "POST",
+            url: "/company/mileage/request",
+            data: {
+                // "bigCtg": bigCtg,
+                "midCtg": midCtg,
+                "achievementCnt": achievementCnt,
+                "startDateTime": startDateTime,
+                "endDateTime": endDateTime,
+                "filepath": filepath
+            },
+            beforeSend: function (xhr) {
+				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
+			}
+        })
+        .done(function() {
+            alert("성공적으로 처리되었습니다.");
+            window.close();
+        });
+    }
+</script>

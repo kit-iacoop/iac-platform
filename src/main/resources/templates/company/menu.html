@@ -1,25 +1,26 @@
-<ul id="mypage">
-    <li><a value="company/mypage" onclick="selectSubMenu(this)">내 정보</a></li>
-    <li><a value="company/mypage/update" onclick="selectSubMenu(this)">정보 수정</a></li>
-    <li><a value="" onclick="selectSubMenu(this)">현행화</a></li>
-</ul>
+<div class="row" id="mypage">
+    <div class="col-sm-1"><a value="/company/mypage" onclick="selectSubMenu(this)">내 정보</a></div>
+    <div class="col-sm-1"><a value="/company/mypage/update" onclick="selectSubMenu(this)">정보 수정</a></div>
+    <div class="col-sm-1"><a value="/company/mypage/currentized" onclick="selectSubMenu(this)">현행화</a></div>
+</div>
 
-<ul id="industry-cooperation">
-    <li id="">애로기술 조회</li>
-    <li id="">지식재산권 조회</li>
-    <li id="">참여내역 조회</li>
-</ul>
+<div class="row" id="industry-cooperation">
+    <div class="col-sm-1"><a value="" onclick="selectSubMenu(this)">애로기술 조회</a></div>
+    <div class="col-sm-1"><a value="" onclick="selectSubMenu(this)">지식재산권 조회</a></div>
+    <div class="col-sm-1"><a value="/company/industry-cooperation/project/submenu" onclick="selectSubMenu(this)">참여내역 조회</a></div>
+</div>
 
-<ul id="share-accpet">
-    <li id="">장비 대여</li>
-    <li id="">공간 대여</li>
-    <li id="">대여 내역</li>
-</ul>
+<div class="row" id="share">
+    <div class="col-sm-1"><a value="" onclick="selectSubMenu(this)">장비 등록</a></div>
+    <div class="col-sm-1"><a value="" onclick="selectSubMenu(this)">공간 등록</a></div>
+    <div class="col-sm-1"><a value="" onclick="selectSubMenu(this)">대여 내역</a></div>
+</div>
 
-<ul id="mileage-point">
-    <li id="">적립 내역</li>
-</ul>
+<div class="row" id="mileage-point">
+    <div class="col-sm-1"><a value="" onclick="selectSubMenu(this)">적립 내역</a></div>
+</div>
 
-<ul id="annual-fee">
-    <li><a value="company/annual-fee/payment-application" onclick="selectSubMenu(this)">연회비 납부</a></li>
-</ul>
+<div class="row" id="annual-fee">
+    <div class="col-sm-1"><a value="/company/annual-fee/payment" onclick="selectSubMenu(this)">연회비 납부</a></div>
+    <div class="col-sm-1"><a value="/company/annual-fee/history" onclick="selectSubMenu(this)">연회비 납부내역</a></div>
+</div>

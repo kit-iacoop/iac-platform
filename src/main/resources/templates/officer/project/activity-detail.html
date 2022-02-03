@@ -1,0 +1,65 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<!-- <link href="/assets/css/style.css" rel="stylesheet" /> -->
+<link href="/css/officer/project/activity-screen.css" rel="stylesheet">
+<link href="/business/css/sb-admin-2.min.css" rel="stylesheet">
+
+<div class="title">
+    <h1 id="title">활동 증빙</h1>
+</div>
+<table id="activity-proof" class="table">
+    <tr>
+        <th>중분류</th>
+        <td>[[${mileageHistoryDTO.collaborationName}]]</td>
+    </tr>
+    <tr>
+        <th>회사명</th>
+        <td>[[${mileageHistoryDTO.companyName}]]</td>
+    </tr>
+    <tr>
+        <th>회차</th>
+        <td>[[${mileageHistoryDTO.achievementCnt}]]</td>
+    </tr>
+    <tr>
+        <th>마일리지</th>
+        <td>[[${mileageHistoryDTO.mileage}]]</td>
+    </tr>
+    <tr>
+        <th>포인트</th>
+        <td>[[${mileageHistoryDTO.point}]]</td>
+    </tr>
+    <tr>
+        <th>시작일</th>
+        <td>[[${#temporals.formatISO(mileageHistoryDTO.startDate)}]]</td>
+    </tr>
+    <tr>
+        <th>종료일</th>
+        <td>[[${#temporals.formatISO(mileageHistoryDTO.endDate)}]]</td>
+    </tr>
+    <tr>
+        <th>첨부파일</th>
+        <td>[[${mileageHistoryDTO.collaborationName}]]_[[${mileageHistoryDTO.companyName}]]_[[${mileageHistoryDTO.achievementCnt}]].hwp <button>다운로드</button></td>
+    </tr>
+</table>
+
+<div class="screen-button-wrapper">
+    <button type="submit" onclick="postRequest('/accept')">승인</button>
+    <button type="submit" onclick="postRequest('/reject')">거절</button>
+</div>
+
+
+
+<script th:inline="javascript">
+    function postRequest(path) {
+        $.ajax({
+            method: "POST",
+            url: "/officer/mileage/screening/detail/" + [[${mileageHistoryDTO.companyMileageId}]] + path,
+            beforeSend: function (xhr) {
+				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
+			}
+        })
+        .done(function() {
+            alert("성공적으로 처리되었습니다.");
+            window.close();
+        });
+    }
+</script>

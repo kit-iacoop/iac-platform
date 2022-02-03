@@ -9,7 +9,14 @@
         <section>
             <div class="task-contents">
                 <th:block th:replace="fragments/mypage/common-info-inquire :: commonInfoInquireFragment"></th:block>
-                <th:block th:replace="fragments/mypage/officer-info-inquire :: officerInfoInquireFragment"></th:block>
+                <div class="member-info">
+                    <label>대학</label>
+                    <div>[[${account.university}]]</div>
+                </div>
+                <div class="member-info">
+                    <label>사무실</label>
+                    <div>[[${account.officeLocation}]]</div>
+                </div>
             </div>
         </section>
     </body>

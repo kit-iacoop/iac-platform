@@ -1,0 +1,129 @@
+<script language="javascript">
+    function showPopup() {
+        window.open("/company/mileage/request", "활동 증빙 등록", "width=800, height=600, left=100, top=50");
+    }
+</script>
+
+<div class="search">
+    <div class="date-search">
+        <input id="start-day" type="date"> ~ <input id="end-day" type="date">
+        <button onclick="getRequest()">검색</button>
+    </div>
+    <div class="state-search">
+        <select id="state" onchange="selectGetRequest(this.value);">
+            <option value=>전체</option>
+            <option value="APPROVED">승인</option>
+            <option value="REJECTED">거절</option>
+            <option value="PENDING">대기</option>
+        </select>
+    </div>
+</div>
+
+<table id="result" class="table">
+    <thaed>
+        <tr>
+            <th scope="col" class=""><span>활동</span></th>
+            <th scope="col" class=""><span>회차</span></th>
+            <th scope="col" class=""><span>상태</span></th>
+            <th scope="col" class=""><span>마일리지</span></th>
+            <th scope="col" class=""><span>포인트</span></th>
+            <th scope="col" class=""><span>시작시간</span></th>
+            <th scope="col" class=""><span>종료시간</span></th>
+        </tr>
+    </thaed>
+    <tbody>
+        <tr th:each="dto : ${mileageHistoryDTOs}">
+            <td th:text="${dto.collaborationName}"></td>
+            <td th:text="${dto.achievementCnt}"></td>
+            <td th:text="${dto.status}"></td>
+            <td th:text="${dto.mileage}"></td>
+            <td th:text="${dto.point}"></td>
+            <td th:text="${#temporals.formatISO(dto.startDate)}"></td>
+            <td th:text="${#temporals.formatISO(dto.endDate)}"></td>
+        </tr>
+        </tbody>
+</table>
+
+<button onclick="showPopup()">등록</button>
+<script src="/js/jquery.js"></script>
+<script th:inline="javascript">
+    function selectGetRequest(param) {
+        var startDay = document.getElementById("start-day").value;
+        var endDay = document.getElementById("end-day").value;
+
+        if(startDay == "") {
+            startDay = null;
+        }
+
+        if(endDay == "") {
+            endDay = null;
+        }
+
+        if(param == "") {
+            param = null;
+        }
+
+        $.ajax({
+            method: "GET",
+            url: "/company/mileage/history",
+            data: {
+                "startDay": startDay,
+                "endDay": endDay,
+                "state": param
+            },
+            beforeSend: function (xhr) {
+				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
+			},
+            success: function(res) {
+                console.log(startDay);
+                console.log(endDay);
+                console.log(param);
+
+                $("#result").empty();
+                var refine = $("#result").html(res).find("table");
+                $("#result").html(refine);
+            }
+        });
+    }
+    
+    function getRequest() {
+        var startDay = document.getElementById("start-day").value;
+        var endDay = document.getElementById("end-day").value;
+        var stateElement = document.getElementById("state");
+        var state = stateElement.options[stateElement.selectedIndex].value;
+
+        if(startDay == "") {
+            startDay = null;
+        }
+
+        if(endDay == "") {
+            endDay = null;
+        }
+
+        if(state == "") {
+            state = null;
+        }
+
+        $.ajax({
+            method: "GET",
+            url: "/company/mileage/history",
+            data: {
+                "startDay": startDay,
+                "endDay": endDay,
+                "state": state
+            },
+            beforeSend: function (xhr) {
+				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
+			},
+            success: function(res) {
+                console.log(startDay);
+                console.log(endDay);
+                console.log(state);
+                
+                $("#result").empty();
+                var refine = $("#result").html(res).find("table");
+                $("#result").html(refine);
+            }
+        });
+    }
+</script>

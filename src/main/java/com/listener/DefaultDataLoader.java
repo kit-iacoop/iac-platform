@@ -3,10 +3,17 @@ package com.listener;
 import com.domain.account.*;
 import com.domain.annualFee.AnnualFee;
 import com.domain.annualFee.AnnualFeeRepository;
+import com.domain.collaborationCategory.CollaborationCategory;
+import com.domain.collaborationCategory.CollaborationCategoryRepository;
 import com.domain.common.Address;
 import com.domain.common.State;
 import com.domain.gradePolicy.GradePolicy;
 import com.domain.gradePolicy.GradePolicyRepository;
+import com.domain.mileageFile.MileageFileRepository;
+import com.domain.mileagePolicy.MileagePolicy;
+import com.domain.mileagePolicy.MileagePolicyRepository;
+import com.domain.companyMileage.CompanyMileage;
+import com.domain.companyMileage.CompanyMileageRepository;
 import com.domain.security.resource.Resource;
 import com.domain.security.resource.ResourceRepository;
 import com.domain.security.role.Role;
@@ -15,6 +22,7 @@ import com.domain.university.University;
 import com.domain.university.UniversityRepository;
 import com.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
 import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.ApplicationListener;
@@ -27,10 +35,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 
 
+@Slf4j
 @Setter
 @ConfigurationProperties(prefix = "property.default-data-loader")
 @Component
-public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEvent> {
+public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedEvent> {
 
     private boolean activate = false; // application.yml에 의해 주입됨
 
@@ -48,6 +57,19 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
     @Autowired
     private UrlFilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource;
+
+    @Autowired
+    private CompanyMileageRepository companyMileageRepository;
+
+    @Autowired
+    private MileageFileRepository mileageFileRepository;
+
+    @Autowired
+    private MileagePolicyRepository mileagePolicyRepository;
+
+    @Autowired
+    private CollaborationCategoryRepository collaborationCategoryRepository;
+
 
     @Autowired
     private AnnualFeeRepository annualFeeRepository;
@@ -68,6 +90,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
             loadResourceData();
             loadGradePolicyData();
             loadAnnualFeeData();
+            loadCollaborationCategoryData();
+            loadMileageData();
         }
 
     }
@@ -110,6 +134,15 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
                 .build());
     }
 
+
+
+    private void loadMileageData() {
+
+        createMileagePolicyIfNotFound(1L, "mid 1", 50L, 50L);
+        createCompanyMileageIfNotFound(1L, "OFFICER0", "COMPANY0", 1L, 5L, State.PENDING, LocalDate.now(), LocalDate.now());
+        createCompanyMileageIfNotFound(2L, "OFFICER0", "COMPANY0", 1L, 3L, State.APPROVED, LocalDate.now(), LocalDate.now());
+    }
+
     private GradePolicy createGradePolicyIfNotFound(String grade, Long price){
         // 중복 검사
         GradePolicy gradePolicy = gradePolicyRepository.findByGrade(grade);
@@ -126,10 +159,112 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         return gradePolicyRepository.save(gradePolicy);
     }
 
+    private CompanyMileage createCompanyMileageIfNotFound(Long reqId, String officerId, String companyId, Long mileagePolicyId, Long achievementCnt, State stat, LocalDate startDate, LocalDate endDate) {
+
+        // 필요 객체 확인
+        MileagePolicy mileagePolicy = mileagePolicyRepository.findByMileagePolicyId(mileagePolicyId);
+        Company company = (Company) accountRepository.findByLoginId(companyId);
+        Officer officer = (Officer) accountRepository.findByLoginId(officerId);
+
+        if(mileagePolicy == null || company == null || officer == null){
+            log.warn("createCompanyMileageIfNotFound() : 필요 객체 null");
+            return null;
+        }
+
+        CompanyMileage mr = companyMileageRepository.findByCompanyMileageId(reqId);
+        if(mr != null){
+            log.warn("createCompanyMileageIfNotFound() : 이미 존재하는 객체");
+            return mr;
+        }
+
+        // 생성 &저장
+
+        mr = CompanyMileage.builder()
+                .companyMileageId(reqId)
+                .officer(officer)
+                .company(company)
+                .mileagePolicy(mileagePolicy)
+                .achievementCnt(achievementCnt)
+                .status(stat)
+                .startDate(startDate)
+                .endDate(endDate)
+                .build();
+
+        return companyMileageRepository.save(mr);
+    }
+
+    private void loadCollaborationCategoryData() {
+        // 되도록이면 변경하지 말고 추가할 것
+        createCollaborationCategoryIfNotFound(1L, null, "big 1", 1);
+        createCollaborationCategoryIfNotFound(2L, null, "big 2", 1);
+        createCollaborationCategoryIfNotFound(3L, null, "big 3", 1);
+        createCollaborationCategoryIfNotFound(4L, 1L, "mid 1", 2);
+        createCollaborationCategoryIfNotFound(5L, 1L, "mid 2", 2);
+        createCollaborationCategoryIfNotFound(6L, 1L, "mid 3", 2);
+    }
+
+    private CollaborationCategory createCollaborationCategoryIfNotFound(Long id, Long parentId, String name, Integer level){
+
+        //부모 존재 확인
+        CollaborationCategory parentCategory = collaborationCategoryRepository.findByCollaborationCategoryId(parentId);
+        if(parentId != null && parentCategory == null){
+            log.warn("createCollaborationCategoryIfNotFound() : 부모 객체 null");
+            return null;
+        }
+
+        // 중복 검사
+        CollaborationCategory collaborationCategory = collaborationCategoryRepository.findByCollaborationCategoryId(id);
+
+        if(collaborationCategory != null){
+            log.warn("createMileageRequestIfNotFound() : 이미 존재하는 객체");
+            return collaborationCategory;
+        }
+
+        collaborationCategory = CollaborationCategory.builder()
+                .collaborationCategoryId(id)
+                .parentCategory(parentCategory)
+                .collaborationName(name)
+                .level(level)
+                .build();
+
+        return collaborationCategoryRepository.save(collaborationCategory);
+    }
+
+
+
+    private MileagePolicy createMileagePolicyIfNotFound(Long id, String categoryName, Long mileage, Long point){
+
+        //필요 객체 확인
+        CollaborationCategory collaboration = collaborationCategoryRepository.findByCollaborationName(categoryName);
+        if(collaboration == null){
+            log.warn("createMileagePolicyIfNotFound() : 필요 객체 null");
+            return null;
+        }
+
+        //중복 확인
+        MileagePolicy mileagePolicy = mileagePolicyRepository.findByMileagePolicyId(id);
+
+        if(mileagePolicy != null){
+            log.warn("createMileagePolicyIfNotFound() : 이미 존재하는 객체");
+            return mileagePolicy;
+        }
+
+        // 생성 & 저장
+
+        mileagePolicy = MileagePolicy.builder()
+                .mileagePolicyId(id)
+                .collaborationCategory(collaboration)
+                .mileage(mileage)
+                .point(point)
+                .build();
+
+        return mileagePolicyRepository.save(mileagePolicy);
+    }
+
 
     private void loadUniversityData() {
-        createUniversityIfNotFound("금오공과대학교");
-        createUniversityIfNotFound("대나무학교");
+        createUniversityIfNotFound("kit");
+        createUniversityIfNotFound("tree");
 
     }
 
@@ -150,14 +285,14 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
     }
 
     private void loadRoleData() {
-        createRoleIfNotFound("ROLE_ADMIN", "어드민 권한");
-        createRoleIfNotFound("ROLE_COMPANY", "회사 권한");
-        createRoleIfNotFound("ROLE_PROFESSOR", "교수 권한");
-        createRoleIfNotFound("ROLE_OFFICER", "직원 권한");
-        createRoleIfNotFound("ROLE_STUDENT", "학생 권한");
+        createRoleIfNotFound("ROLE_ADMIN", "admin");
+        createRoleIfNotFound("ROLE_COMPANY", "company");
+        createRoleIfNotFound("ROLE_PROFESSOR", "professor");
+        createRoleIfNotFound("ROLE_OFFICER", "officer");
+        createRoleIfNotFound("ROLE_STUDENT", "student");
     }
 
-    private void loadAccountData() {
+    private void loadAccountData(){
         createAdminIfNotFound("ADMIN", "1234");
         createCompanyIfNotFound("COMPANY0", "1234", State.NORMAL);
         createCompanyIfNotFound("PENDING_COMPANY0", "1234", State.PENDING);
@@ -174,7 +309,6 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         createResourceIfNotFound("/professor/**", "url", "", 998, "ROLE_PROFESSOR");
         createResourceIfNotFound("/officer/**", "url", "", 997, "ROLE_OFFICER");
         createResourceIfNotFound("/student/**", "url", "", 996, "ROLE_STUDENT");
-        createResourceIfNotFound("/requests/**", "url", "", 995, "ROLE_USER", "ROLE_OFFICER", "ROLE_PROFESSOR", "ROLE_STUDENT", "ROLE_ADMIN", "ROLE_COMPANY");
         filterInvocationSecurityMetadataSource.reload();
 
     }
@@ -184,7 +318,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
         // 중복 검사
         Role role = roleRepository.findByRoleName(roleName);
-        if (role != null) {
+        if(role != null){
             return role;
         }
 
@@ -203,6 +337,10 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
 
         // 중복 검사
         Resource resource = resourceRepository.findByResourceNameAndHttpMethod(name, httpMethod);
+        if(resource != null) {
+            log.warn("createResourceIfNotFound() : 이미 존재하는 객체");
+        }
+
         if (resource != null) {
             return resource;
         }
@@ -232,6 +370,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         // 중복 검사
         Account account = accountRepository.findByLoginId(loginId);
         if (account != null) {
+            log.warn("createAdminIfNotFound() : 이미 존재하는 객체");
+
             return (Admin) account;
         }
 
@@ -262,6 +402,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         Account account = accountRepository.findByLoginId(loginId);
 
         if (account != null) {
+            log.warn("createCompanyIfNotFound() : 이미 존재하는 객체");
+
             return (Company) account;
         }
 
@@ -278,7 +420,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
                 .status(state)
                 .businessRegistrationNumber(123456789L)
                 .employeeNumber(1234L)
-                .sector("섹터섹터섹터")
+                .sector("sector")
                 .owner("test owner")
                 .grade("test grade")
                 .companyType("test company type")
@@ -305,6 +447,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         Account account = accountRepository.findByLoginId(loginId);
 
         if (account != null) {
+            log.warn("createProfessorIfNotFound() : 이미 존재하는 객체");
+
             return (Professor) account;
         }
 
@@ -320,7 +464,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
                 .status(State.NORMAL)
                 .department("test department name")
                 .officeLocation("test office location")
-                .university(universityRepository.findByUniversityName("금오공과대학교"))
+                .university(universityRepository.findByUniversityName("kit"))
                 .build();
 
 
@@ -339,6 +483,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         Account account = accountRepository.findByLoginId(loginId);
 
         if (account != null) {
+            log.warn("createOfficerIfNotFound() : 이미 존재하는 객체");
+
             return (Officer) account;
         }
 
@@ -353,7 +499,7 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
                 .telephone("010-0000-0000")
                 .status(State.NORMAL)
                 .officeLocation("test office location")
-                .university(universityRepository.findByUniversityName("금오공과대학교"))
+                .university(universityRepository.findByUniversityName("kit"))
                 .build();
 
 
@@ -374,6 +520,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
         Account account = accountRepository.findByLoginId(loginId);
 
         if (account != null) {
+            log.warn("createStudentIfNotFound() : 이미 존재하는 객체");
+
             return (Student) account;
         }
 
@@ -389,8 +537,8 @@ public class DefaultDataLoader implements ApplicationListener<ContextRefreshedEv
                 .telephone("010-0000-0000")
                 .status(State.NORMAL)
                 .studentNumber(1234L)
-                .department("컴퓨터소프트웨어공학과")
-                .university(universityRepository.findByUniversityName("금오공과대학교"))
+                .department("se")
+                .university(universityRepository.findByUniversityName("kit"))
                 .build();
 
 

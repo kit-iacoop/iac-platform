@@ -1,0 +1,124 @@
+<!-- <link href="/assets/css/style.css" rel="stylesheet" /> -->
+
+<script th:inline="javascript">
+    function showPopup(activityId) {
+        window.open("/officer/mileage/screening/detail/" + activityId, "디테일", "width=800, height=600, left=100, top=50");
+    }
+</script>
+
+<div class="search">
+    <div class="company-name-search">
+        <input type="text" id="company-name" placeholder="회사명">
+    </div>
+    <div class="activity-name-search">
+        <input type="text" id="activity-name" placeholder="활동명">
+    </div>
+    <div class="date-search">
+        <input id="start-day" type="date"> ~ <input id="end-day" type="date">
+        <button onclick="getRequest()">검색</button>
+    </div>
+    <div class="state-search">
+        <select id="state" onchange="selectGetRequest(this.value);">
+            <option value=>전체</option>
+            <option value="APPROVED">승인</option>
+            <option value="REJECTED">거절</option>
+            <option value="PENDING">대기</option>
+        </select>
+    </div>
+</div>
+
+<table id="result" class="table">
+    <thaed>
+        <tr>
+            <th scope="col" class=""><span>회사</span></th>
+            <th scope="col" class=""><span>활동</span></th>
+            <th scope="col" class=""><span>회차</span></th>
+            <th scope="col" class=""><span>상태</span></th>
+            <th scope="col" class=""><span>시작시간</span></th>
+            <th scope="col" class=""><span>종료시간</span></th>
+            <th scope="col" class=""><span>상세보기</span></th>
+        </tr>
+    </thaed>
+    <tbody>
+            <tr th:each="dto : ${mileageHistoryDTOs}">
+            <td th:text="${dto.companyName}"></td>
+            <td th:text="${dto.collaborationName}"></td>
+            <td th:text="${dto.achievementCnt}"></td>
+            <td th:text="${dto.status}"></td>
+            <td th:text="${#temporals.formatISO(dto.startDate)}"></td>
+            <td th:text="${#temporals.formatISO(dto.endDate)}"></td>
+            <td>
+                <button th:onclick="|showPopup('${dto.companyMileageId}')|">더보기</button>
+            </td>
+        </tr>
+        </tbody>
+</table>
+
+<script src="/js/jquery.js"></script>
+<script th:inline="javascript">
+    function selectGetRequest(param) {
+        var companyName = document.getElementById("company-name").value;
+        var activityName = document.getElementById("activity-name").value;
+        var startDay = document.getElementById("start-day").value;
+        var endDay = document.getElementById("end-day").value;
+        $.ajax({
+            method: "GET",
+            url: "/officer/mileage/screening",
+            contentType: 'application/json',
+            data: {
+                "companyName": companyName,
+                "activityName": activityName,
+                "startDay": startDay,
+                "endDay": endDay,
+                "state": param
+            },
+            beforeSend: function (xhr) {
+				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
+			},
+            success: function(res) {
+                $("#result").empty();
+                var refine = $("#result").html(res).find("table");
+                $("#result").html(refine);
+                document.getElementById("company-name").value = companyName;
+                document.getElementById("activity-name").value = activityName;
+                document.getElementById("start-day").value = startDay;
+                document.getElementById("end-day").value = endDay;
+            }
+        });
+    }
+    
+    function getRequest() {
+        var companyName = document.getElementById("company-name").value;
+        var activityName = document.getElementById("activity-name").value;
+        var startDay = document.getElementById("start-day").value;
+        var endDay = document.getElementById("end-day").value;
+        var stateElement = document.getElementById("state");
+        var state = stateElement.options[stateElement.selectedIndex].value;
+
+        $.ajax({
+            method: "GET",
+            url: "/officer/mileage/screening",
+            contentType: 'application/json',
+            data: {
+                "companyName": companyName,
+                "activityName": activityName,
+                "startDay": startDay,
+                "endDay": endDay,
+                "state": state
+            },
+            beforeSend: function (xhr) {
+				xhr.setRequestHeader([[${_csrf.headerName}]],[[${_csrf.token}]]);
+			},
+            success: function(res) {
+                $("#result").empty();
+                var refine = $("#result").html(res).find("table");
+                $("#result").html(refine);
+                document.getElementById("company-name").value = companyName;
+                document.getElementById("activity-name").value = activityName;
+                document.getElementById("start-day").value = startDay;
+                document.getElementById("end-day").value = endDay;
+                stateElement.options[stateElement.selectedIndex].value = state;
+            }
+        });
+    }
+</script>

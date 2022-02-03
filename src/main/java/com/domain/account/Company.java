@@ -7,7 +7,6 @@ import com.domain.item.Item;
 import com.domain.project.Project;
 import com.domain.annualFee.AnnualFee;
 import com.domain.companyMileage.CompanyMileage;
-import com.domain.mileageRequest.MileageRequest;
 
 import com.domain.common.State;
 import com.web.dto.account.AccountInformationDTO;
@@ -75,7 +74,7 @@ public class Company extends Account {
 
     @Builder.Default
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
-    private List<MileageRequest> mileageRequest = new LinkedList<>();
+    private List<CompanyMileage> companyMileage = new LinkedList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "company")

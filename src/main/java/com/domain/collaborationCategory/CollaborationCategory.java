@@ -3,9 +3,13 @@ package com.domain.collaborationCategory;
 import com.domain.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
+@SuperBuilder
 @NoArgsConstructor
 @Getter
 @Entity
@@ -17,7 +21,7 @@ public class CollaborationCategory extends BaseTimeEntity {
     @Column(name = "COLLABORATION_CATEGORY_ID", nullable = false)
     private Long collaborationCategoryId;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PARENT_CATEGORY_ID")
     private CollaborationCategory parentCategory;
 
@@ -26,6 +30,9 @@ public class CollaborationCategory extends BaseTimeEntity {
 
     @Column(name = "LEVEL", nullable = false)
     private Integer level;
+
+    @OneToMany(mappedBy =  "parentCategory", fetch = FetchType.LAZY)
+    private List<CollaborationCategory> children = new ArrayList<>();
 
 
 }

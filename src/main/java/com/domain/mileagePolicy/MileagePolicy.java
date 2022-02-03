@@ -5,9 +5,10 @@ import com.domain.common.BaseTimeEntity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
-
+@SuperBuilder
 @NoArgsConstructor
 @Getter
 @Entity
@@ -18,7 +19,7 @@ public class MileagePolicy extends BaseTimeEntity {
    private Long mileagePolicyId;
 
    @OneToOne(fetch = FetchType.LAZY)
-   @JoinColumn(name = "COLLABORATION_CATEGORY_ID", nullable = false)
+   @JoinColumn(name = "COLLABORATION_CATEGORY_ID", nullable = false, unique = true)
    private CollaborationCategory collaborationCategory;
 
    @Column(name = "MILEAGE", nullable = false)
@@ -27,8 +28,8 @@ public class MileagePolicy extends BaseTimeEntity {
    @Column(name = "POINT", nullable = false)
    private Long point;
 
-   @Column(name = "IN_OR_OUT", nullable = false)
-   private String inOrOut;
+   // @Column(name = "IN_OR_OUT", nullable = true)
+   // private String inOrOut;
 
 
 }

@@ -3,7 +3,7 @@ package com.domain.account;
 import com.domain.collaboRequest.CollaboRequest;
 import com.domain.annualFee.AnnualFee;
 import com.domain.common.Address;
-import com.domain.mileageRequest.MileageRequest;
+import com.domain.companyMileage.CompanyMileage;
 import com.domain.university.University;
 
 import com.web.dto.account.AccountInformationDTO;
@@ -38,7 +38,7 @@ public class Officer extends Account {
 
     @Builder.Default
     @OneToMany(mappedBy = "officer", fetch = FetchType.LAZY)
-    private List<MileageRequest> mileageRequest = new LinkedList<>();
+    private List<CompanyMileage> companyMileage = new LinkedList<>();
 
     @Builder.Default
     @OneToMany(mappedBy = "officer", fetch = FetchType.LAZY)

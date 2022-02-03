@@ -42,8 +42,21 @@ public class HomeController {
 
     @GetMapping(path = {"/company", "/professor", "/officer"})
     public String accountHome(HttpServletRequest req) {
-        return (common.getReqUrlPrefix(req) +"/main");
+        return (common.getReqUrlPrefix(req) +"/index");
     }
 
+    @GetMapping("/company/menu")
+    public String menuForC() {
+        return "/company/menu";
+    }
 
+    @GetMapping("/officer/menu")
+    public String menuForO() {
+        return "/officer/menu";
+    }
+
+    @GetMapping("/company/industry-cooperation/project/submenu")
+    public String submenuForC() {
+        return "company/industry-cooperation/project/submenu";
+    }
 }

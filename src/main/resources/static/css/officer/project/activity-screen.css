@@ -1,0 +1,56 @@
+.content-wrapper {
+    /* background-color: red; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.search {
+    /* background-color: lime; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: right;
+    /* padding-right: 5rem; */
+}
+
+.company-name-search, .activity-name-search,
+.date-search, .state-search {
+    height: calc(100% / 4);
+    padding: 2px;
+}
+
+.state-search {
+    text-align: left;
+}
+.company-name-search, .activity-name-search {
+    padding-right: 3.3rem;
+}
+
+.button-wrapper {
+    /* background-color: brown; */
+    display: flex;
+    justify-content: right;
+}
+
+button {
+    background-color: #8ea5eb;
+    color: white;
+}
+
+table {
+    text-align: center;
+}
+
+.screen-button-wrapper {
+    text-align: center;
+}
+
+.title {
+    background-color: #4e73df;
+    padding: 1rem;
+}
+
+#title {
+    color: white;
+}
