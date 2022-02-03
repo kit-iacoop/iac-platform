@@ -9,4 +9,6 @@ public interface BoardService {
     void insertBoard(NoticeBoardDTO dto);
 
     Page<NoticeBoardDTO> findAllBoard(Pageable pageable, String key);
+
+    NoticeBoardDTO findBoard(Long id);
 }

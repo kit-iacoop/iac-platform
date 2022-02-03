@@ -55,4 +55,11 @@ public class BoardController {
         return "redirect:/boards/list";
     }
 
+    @GetMapping("/list/{id}")
+    public String viewBoardDetail(@PathVariable Long id, Model model) {
+        model.addAttribute("boardDTO", boardService.findBoard(id));
+
+        return "board/board-detail";
+    }
+
 }

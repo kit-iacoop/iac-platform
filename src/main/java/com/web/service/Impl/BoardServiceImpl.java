@@ -33,4 +33,22 @@ public class BoardServiceImpl implements BoardService {
         return noticeBoardPage.map(NoticeBoardDTO::new);
     }
 
+    @Override
+    public NoticeBoardDTO findBoard(Long id) {
+        NoticeBoard noticeBoard = noticeBoardRepository.findById(id).orElse(null);
+        if (noticeBoard == null) {
+            return null;
+        }
+
+        return NoticeBoardDTO.builder()
+                .noticeBoardId(String.valueOf(noticeBoard.getNoticeBoardId()))
+                .noticeBoardTitle(noticeBoard.getNoticeBoardTitle())
+                .noticeBoardContent(noticeBoard.getNoticeBoardContent())
+                .noticeBoardDate(String.valueOf(noticeBoard.getCreatedDate()))
+                .accountId(String.valueOf(noticeBoard.getAccount().getAccountId()))
+                .accountName(noticeBoard.getAccount().getName())
+                .build();
+    }
+
+
 }

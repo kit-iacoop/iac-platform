@@ -2,13 +2,11 @@ package com.web.dto;
 
 import com.domain.noticeBoard.NoticeBoard;
 import com.web.dto.account.AccountInformationDTO;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Getter
 @Setter
 public class NoticeBoardDTO {
