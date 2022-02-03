@@ -1,5 +1,5 @@
 package com.web.dto.annualfee;
-import static com.domain.annualFee.QAnnualFee.annualFee;
+//import static com.domain.annualFee.QAnnualFee.annualFee;
 
 import com.domain.annualFee.QAnnualFee;
 import com.domain.common.State;
@@ -19,7 +19,6 @@ import java.time.format.DateTimeFormatter;
 
 public class QueryOptionDTO {
     static final QAnnualFee annualFee = QAnnualFee.annualFee;
-
 
     String companyName;
     String startDay;

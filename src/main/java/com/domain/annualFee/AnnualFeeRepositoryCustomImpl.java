@@ -7,7 +7,7 @@ import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.web.dto.annualfee.AnnualFeeInfoDTO;
-import com.web.dto.annualfee.QueryOptionDTO;
+import com.web.dto.annualfee.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
@@ -20,7 +20,7 @@ public class AnnualFeeRepositoryCustomImpl implements AnnualFeeRepositoryCustom 
 
     private final JPAQueryFactory jpaQueryFactory;
 
-    static final QAnnualFee annualFee = QAnnualFee.annualFee;
+//    static final QAnnualFee annualFee = QAnnualFee.annualFee;
 
     public List<AnnualFeeInfoDTO> findInfoDtoListWithQDsl(QueryOptionDTO queryOption) {
 
