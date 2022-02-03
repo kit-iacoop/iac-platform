@@ -34,7 +34,7 @@
                     <div class="form-container">
                         <form th:action="@{/requests/list}" th:object="${requestDto}" method="post">
                             <input type="hidden" name="status" value="PENDING">
-                            <input type="hidden" name="officerId" value="5">
+                            <input type="hidden" name="officerId" th:value="${#authentication.principal.getAccount().accountId}">
                             <table>
                                 <tr>
                                     <th colspan="2"><label for="companyId">요청 기업</label></th>
