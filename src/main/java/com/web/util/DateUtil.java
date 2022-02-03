@@ -18,10 +18,22 @@ public class DateUtil {
         return toLocalDate(date).format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
     }
 
+    public static String dotStyleWithTime(String date) {
+        return toLocalDateTime(date).format(DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss"));
+    }
+
+    public static String dotStyleWithoutTime(String date) {
+        return toLocalDateTime(date).format(DateTimeFormatter.ofPattern("yyyy.MM.dd"));
+    }
+
     public static LocalDate toLocalDate(String date) {
         if (date.length() > 10) {
             return LocalDate.parse(date, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
         }
         return LocalDate.parse(date, DateTimeFormatter.ISO_DATE);
+    }
+
+    public static LocalDateTime toLocalDateTime(String date) {
+        return LocalDateTime.parse(date, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
     }
 }

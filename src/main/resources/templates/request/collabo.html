@@ -159,7 +159,7 @@
 
                         <h4 th:text="${dto.title}"></h4>
                         <span class="regist-date"
-                          th:text="${T(com.web.util.DateUtil).dotStyle(dto.createdDate)}"></span>
+                          th:text="${T(com.web.util.DateUtil).dotStyleWithoutTime(dto.createdDate)}"></span>
                       </div>
                       <div>
                         <span th:if="${T(com.web.util.DateUtil).passedDay(dto.createdDate) <= 5}" class="tag">New</span>
