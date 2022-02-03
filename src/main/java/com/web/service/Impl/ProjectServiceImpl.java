@@ -77,10 +77,12 @@ public class ProjectServiceImpl implements ProjectService {
 
 
         Project project = Project.builder()
+                .company(request.getCompany())
                 .startDate(LocalDate.parse(projectDTO.getStartDate()))
                 .endDate(LocalDate.parse(projectDTO.getEndDate()))
                 .meetingList(new ArrayList<>())
                 .projectOutputList(new ArrayList<>())
+                .professorList(new ArrayList<>())
                 .salesHistoryList(new ArrayList<>())
                 .build();
 

@@ -1,6 +1,7 @@
 package com.web.dto.annualfee;
 import static com.domain.annualFee.QAnnualFee.annualFee;
 
+import com.domain.annualFee.QAnnualFee;
 import com.domain.common.State;
 import com.querydsl.core.BooleanBuilder;
 import lombok.Getter;
@@ -17,6 +18,8 @@ import java.time.format.DateTimeFormatter;
 @ToString
 
 public class QueryOptionDTO {
+    static final QAnnualFee annualFee = QAnnualFee.annualFee;
+
 
     String companyName;
     String startDay;
@@ -34,9 +37,10 @@ public class QueryOptionDTO {
     public String getCompanyName() {
         return companyName;
     }
+
     public LocalDateTime getStartDayTime() {
 
-        if(startDay == null){
+        if (startDay == null) {
             return null;
         }
 
@@ -44,7 +48,7 @@ public class QueryOptionDTO {
     }
 
     public LocalDateTime getEndDayTime() {
-        if(endDay == null){
+        if (endDay == null) {
             return null;
         }
 
@@ -55,26 +59,27 @@ public class QueryOptionDTO {
         return state;
     }
 
-    public BooleanBuilder getQueryBuilder(){
+    public BooleanBuilder getQueryBuilder() {
 
         BooleanBuilder builder = new BooleanBuilder();
 
-        if(companyName != null){
+        if (companyName != null) {
             builder.and(annualFee.company.name.contains(companyName));
         }
 
-        if(startDay != null){
+        if (startDay != null) {
             builder.and(annualFee.createdDate.after(getStartDayTime()));
         }
 
-        if(endDay != null){
+        if (endDay != null) {
             builder.and(annualFee.createdDate.before(getEndDayTime()));
         }
 
-        if(state != null){
+        if (state != null) {
             builder.and(annualFee.paymentStatus.eq(state));
         }
 
         return builder;
     }
+
 }

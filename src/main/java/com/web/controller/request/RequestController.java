@@ -116,7 +116,7 @@ public class RequestController {
     public String closeToOpen(@PathVariable String id) {
 
         requestService.closeToOpen(Long.valueOf(id));
-        
+
         return "redirect:/requests/list/" + id;
     }
 

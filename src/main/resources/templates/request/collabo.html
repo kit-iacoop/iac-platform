@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
   <div th:replace="fragments/portal/head :: template-head('등록된 애로기술')"></div>
@@ -56,7 +56,7 @@
                     </ul>
                   </dd>
                 </dl>
-                <dl>
+                <dl sec:authorize="hasRole('ROLE_OFFICER')">
                   <dt>매칭 유형</dt>
                   <dd>
                     <ul>
@@ -203,12 +203,14 @@
                           </dd>
                           <dd>
                             <button type="button" id="modal-btn"
-                              th:onclick="getProfessorList([[${dto.collaboRequestId}]]);" class="btn btn-primary"
+                              th:onclick="getProfessorList([[${dto.collaboRequestId}]]);"
+                              sec:authorize="hasRole('ROLE_OFFICER')" class="btn btn-primary"
                               data-bs-toggle="modal" data-bs-target="#exampleModal">
                               &#43;
                             </button>
                             <button type="button" class="btn btn-primary"
-                                    th:onclick="join([[${dto.collaboRequestId}]]);">
+                                    th:onclick="join([[${dto.collaboRequestId}]]);"
+                                    sec:authorize="hasRole('ROLE_PROFESSOR')">
                               참여 지원하기
                             </button>
                           </dd>
@@ -278,7 +280,6 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          프로젝트에 포함할 교수를 선택해 주세요.
           <ul id="professor-list"></ul>
         </div>
         <div class="modal-footer">

@@ -38,7 +38,7 @@
                             <tr>
                                 <th colspan="2"><label for="title">프로젝트 명</label></th>
                                 <td colspan="5">
-                                    <input type="text" th:field="*{title}" id="title" required>
+                                    <input type="text" th:field="*{title}" id="title" class="long-input" required>
                                 </td>
                             </tr>
                             <tr>
@@ -71,6 +71,18 @@
                                     <input type="date" th:field="*{startDate}" id="startDate" required>
                                     ~
                                     <input type="date" th:field="*{endDate}" id="endDate" required>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th colspan="2"><label>참여 교수</label></th>
+                                <td colspan="5">
+                                    <ul>
+                                        <li th:each="professorDto, stat : ${projectDto.collaboRequestId.collaboRequestProfessorList}">
+                                            <input type="checkbox" th:name="|projectProfessorDTOList[${stat.index}].professorId|"
+                                                   th:value="${professorDto.professorId}" th:id="|professor${stat.index}|">
+                                            <label th:for="|professor${stat.index}|" th:text="${professorDto.professorName}"></label>
+                                        </li>
+                                    </ul>
                                 </td>
                             </tr>
                         </table>
