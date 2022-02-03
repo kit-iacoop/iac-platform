@@ -4,6 +4,7 @@ import com.domain.copyright.Copyright;
 import com.domain.meetingAttendant.MeetingAttendant;
 import com.domain.common.Address;
 import com.domain.common.BaseTimeEntity;
+import com.domain.noticeBoard.NoticeBoard;
 import com.domain.security.role.Role;
 import com.domain.common.State;
 import com.web.dto.account.AccountInformationDTO;
@@ -71,6 +72,10 @@ public abstract class Account extends BaseTimeEntity {
    @ManyToMany(fetch = FetchType.LAZY, cascade={CascadeType.ALL})
    @JoinTable(name = "account_roles", joinColumns = { @JoinColumn(name = "account_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
    protected Set<Role> accountRoles = new HashSet<>();
+
+   @Builder.Default
+   @OneToMany(mappedBy = "account")
+   protected List<NoticeBoard> boardContents = new LinkedList<>();
 
    public abstract AccountInformationDTO toInformationDTO();
 
