@@ -49,16 +49,16 @@
                         <div class="contents-body-wrapper"><p th:text="${curBoardDTO.noticeBoardContent}"></p></div>
                     </div>
                     <div>
-                        <a th:href="@{/boards/list/{id}(id=${prevBoardDTO.noticeBoardId})}">
-                            <dl class="prev-next">
-                                <dt>이전글</dt>
-                                <dd th:text="${prevBoardDTO.noticeBoardTitle}"></dd>
-                            </dl>
-                        </a>
-                        <a th:href="@{/boards/list/{id}(id=${nextBoardDTO.noticeBoardId})}">
+                        <a th:href="${nextBoardDTO.noticeBoardId == null} ? '#' : @{/boards/list/{id}(id=${nextBoardDTO.noticeBoardId})}">
                             <dl class="prev-next">
                                 <dt>다음글</dt>
-                                <dd th:text="${nextBoardDTO.noticeBoardTitle}"></dd>
+                                <dd th:text="${nextBoardDTO.noticeBoardId == null} ? '다음글이 없습니다.' : ${nextBoardDTO.noticeBoardTitle}"></dd>
+                            </dl>
+                        </a>
+                        <a th:href="${prevBoardDTO.noticeBoardId == null} ? '#' : @{/boards/list/{id}(id=${prevBoardDTO.noticeBoardId})}">
+                            <dl class="prev-next">
+                                <dt>이전글</dt>
+                                <dd th:text="${prevBoardDTO.noticeBoardId == null} ? '이전글이 없습니다.' : ${prevBoardDTO.noticeBoardTitle}"></dd>
                             </dl>
                         </a>
                     </div>
