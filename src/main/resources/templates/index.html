@@ -109,7 +109,7 @@
                           th:onclick="'location.href=\''+ @{/boards/list/{id}(id=${dto.noticeBoardId})} + '\''">
                         <td colspan="6" th:text="${dto.noticeBoardTitle}"></td>
                         <td colspan="2" th:text="${dto.accountName}"></td>
-                        <td colspan="2" th:text="${T(com.web.util.DateUtil).dotStyle(dto.noticeBoardDate)}"></td>
+                        <td colspan="2" th:text="${T(com.web.util.DateUtil).dotStyleWithoutTime(dto.noticeBoardDate)}"></td>
                       </tr>
                     </tbody>
                   </table>
@@ -135,7 +135,7 @@
                             <span class="comma-separated">[[${tech.fieldCategoryName}]]</span>
                           </th:block>
                         </td>
-                        <td colspan="2" th:text="${dto.expireDate}"></td>
+                        <td colspan="2" th:text="${T(com.web.util.DateUtil).dotStyle(dto.expireDate)}"></td>
                       </tr>
                     </tbody>
                   </table>
