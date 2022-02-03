@@ -3,6 +3,8 @@ package com.web.controller;
 import com.common.Common;
 import com.web.dto.CollaboRequestDTO;
 import com.web.dto.CopyrightDTO;
+import com.web.dto.NoticeBoardDTO;
+import com.web.service.BoardService;
 import com.web.service.CopyrightService;
 import com.web.service.RequestService;
 import lombok.AllArgsConstructor;
@@ -26,12 +28,17 @@ public class HomeController {
 
     private final Common common;
     private final RequestService requestService;
+    private final BoardService boardService;
 
     @GetMapping(value="/")
     public String home(Model model) {
         Pageable page = PageRequest.of(0, 4, Sort.by("createdDate").descending());
+
         Page<CollaboRequestDTO> allRequest = requestService.findRequestByTypeAndKey("open", "", page);
+        Page<NoticeBoardDTO> boardPage = boardService.findAllBoard(page, "");
+
         model.addAttribute("collaboRequestDtos", allRequest);
+        model.addAttribute("boardDtos", boardPage);
         return "index";
     }
 

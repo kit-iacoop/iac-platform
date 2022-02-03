@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <div th:replace="fragments/portal/head :: template-head('특허 검색')"></div>
+    <link rel="stylesheet" href="/assets/css/board.css">
+    <link rel="stylesheet" href="/assets/css/board-detail.css">
+</head>
+
+<body>
+<div th:replace="fragments/portal/header :: template-header"></div>
+
+<main id="main" data-aos="fade-up">
+    <!-- ======= detail page main image Section ======= -->
+    <section class="detail-image container-fluid">
+        <div class="copyright-header-img img-responsive"></div>
+    </section>
+    <!-- detail page main image Section -->
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>게시글 목록</h2>
+                <ol>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li>Portfolio Details</li>
+                </ol>
+            </div>
+        </div>
+    </section>
+    <!-- Breadcrumbs Section -->
+    <section id="notice-board">
+        <div class="d-flex container">
+            <div class="board-container px-lg-3">
+                <div class="contents-wrapper">
+                    <div>
+                        <div class="contents-title-wrapper"><h4 th:text="${curBoardDTO.noticeBoardTitle}"></h4></div>
+                        <div class="contents-info-wrapper d-flex">
+                            <dl>
+                                <dt>작성자</dt>
+                                <dd th:text="${curBoardDTO.accountName}"></dd>
+                            </dl>
+                            <dl>
+                                <dt>등록일시</dt>
+                                <dd th:text="${T(com.web.util.DateUtil).dotStyleWithTime(curBoardDTO.noticeBoardDate)}"></dd>
+                            </dl>
+                        </div>
+                        <div class="contents-body-wrapper"><p th:text="${curBoardDTO.noticeBoardContent}"></p></div>
+                    </div>
+                    <div>
+                        <a th:href="${nextBoardDTO.noticeBoardId == null} ? '#' : @{/boards/list/{id}(id=${nextBoardDTO.noticeBoardId})}">
+                            <dl class="prev-next">
+                                <dt>다음글</dt>
+                                <dd th:text="${nextBoardDTO.noticeBoardId == null} ? '다음글이 없습니다.' : ${nextBoardDTO.noticeBoardTitle}"></dd>
+                            </dl>
+                        </a>
+                        <a th:href="${prevBoardDTO.noticeBoardId == null} ? '#' : @{/boards/list/{id}(id=${prevBoardDTO.noticeBoardId})}">
+                            <dl class="prev-next">
+                                <dt>이전글</dt>
+                                <dd th:text="${prevBoardDTO.noticeBoardId == null} ? '이전글이 없습니다.' : ${prevBoardDTO.noticeBoardTitle}"></dd>
+                            </dl>
+                        </a>
+                    </div>
+                    <div class="d-flex justify-content-end mt-lg-4"><a href="/boards/list" class="btn btn-outline-secondary">목록으로</a></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<!-- End #main -->
+
+<div th:replace="fragments/portal/footer :: template-footer"></div>
+<div th:replace="fragments/portal/js :: template-js"></div>
+</body>
+
+</html>

@@ -2160,11 +2160,6 @@ section .section-title {
     text-align: center;
 }
 
-#copyright-board .container {
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
 .detail-image .copyright-header-img {
     height: 30vh;
     background: url("../img/hero-bg.jpg") center center;
@@ -2174,6 +2169,16 @@ section .section-title {
     margin: 0;
 }
 
+/* register company */
+#register-board {
+    background-color: #f0f0f0;
+}
+
+#register-table th{
+    text-align: center;
+    padding-right: 4rem;
+    text-align: right;
+}
 
 
 
@@ -2270,18 +2275,16 @@ section .section-title {
 }
 
 /*--------------------------------------------------------------
-# copyright.html
+# board list
 --------------------------------------------------------------*/
 .table>:not(:first-child) {
     border-top-width: 0;
 }
-/* register company */
-#register-board {
-    background-color: #f0f0f0;
-}
 
-#register-table th{
-    text-align: center;
-    padding-right: 4rem;
-    text-align: right;
+/*--------------------------------------------------------------
+# copyright.html
+--------------------------------------------------------------*/
+#copyright-board .container {
+    max-width: 1200px;
+    margin: 0 auto;
 }

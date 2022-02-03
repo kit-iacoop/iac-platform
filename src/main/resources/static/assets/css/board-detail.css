@@ -1,0 +1,40 @@
+dl {
+    display: flex;
+}
+
+.prev-next {
+    padding: 1.5rem 0.875rem;
+}
+
+.prev-next dt {
+    margin-right: 1rem;
+}
+
+h4, dl, dd, p {
+    margin: 0;
+}
+
+.contents-wrapper {
+    border-top: 2px solid #66747e;
+}
+
+.contents-title-wrapper, .contents-info-wrapper, .contents-body-wrapper, .prev-next {
+    border-bottom: 1px solid #e0e0e0;
+    padding: 1.5rem;
+}
+
+.contents-body-wrapper {
+    padding: 3rem 1.5rem;
+}
+
+.contents-wrapper a {
+    color: inherit;
+}
+
+.contents-info-wrapper dl {
+    margin-right: 2.5rem;
+}
+
+.contents-info-wrapper dt {
+    margin-right: 0.875rem;
+}
