@@ -2335,3 +2335,14 @@ thead {
 .regist-date {
     margin-top: 0.3rem;
 }
+
+/* register company */
+#register-board {
+    background-color: #f0f0f0;
+}
+
+#register-table th{
+    text-align: center;
+    padding-right: 4rem;
+    text-align: right;
+}

@@ -10,9 +10,9 @@
     padding: 0 5rem;
 }
 
-h2 {
+/* h2 {
     font-size: 20px;
-}
+} */
 
 .top-menu-wrapper {
     text-align: center;
@@ -36,7 +36,7 @@ li {
 }
 
 /* contents */
-.login-area {
+/* .login-area {
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -46,27 +46,25 @@ li {
     padding-top: 3rem;
     padding-bottom: 3rem;
     padding-left: -5rem;
-}
+} */
 
 .login-title-area {
     display: flex;
     flex-direction: row;
-    padding-left: 35rem;
+    margin-left: 15rem;
 }
 
 .login-text-area {
-    margin-left: 0.5rem;
+    margin-left: 2rem;
+    margin-top: 0.5rem;
 }
 
-.login-text-area h2 {
+.login-text-area .login-text-h2 {
     color: #0273e1;
-    font-size: 24px;
-    margin-left: -10rem;
 }
 
-.login-text-area h4 {
-    padding-left: 0.7rem;
-    margin-top: -0.5rem;
+.login-text-area .login-text-h4 {
+    font-size: 18px;
 }
 
 .form-login-wrapper {
@@ -74,15 +72,16 @@ li {
     display: flex;
     flex-direction: row;
     margin-top: 1rem;
+    margin-left: 15rem;
 }
 
 .form-login-area-id-pwd {
     align-items: center;    
 }
 
-.form-login-area {
+/* .form-login-area {
     padding-left: 35rem
-}
+} */
 
 #member_id, #member_pw {
     padding: 0.5rem;
@@ -100,7 +99,7 @@ input[type="submit"] {
     width: 7rem;
 }
 
-.login-submenu {
+/* .login-submenu {
     text-align: center;
     display: flex;
     align-items: center;
@@ -123,7 +122,7 @@ input[type="submit"] {
     background-color: #5A6F88;
     color: #ffffff;
     padding: 0.5rem 3.5rem;
-}
+} */
 
 /* footer */
 .footer-wrapper {

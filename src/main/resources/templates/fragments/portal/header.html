@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <th:block th:fragment="template-header">
     <!-- ======= Top Bar ======= -->
     <section id="topbar" class="d-flex align-items-center">
@@ -26,7 +26,7 @@
             </h1>
             <!-- Uncomment below if you prefer to use an image logo -->
             <!-- <a href="index.html" class="logo"><img src="assets/img/logo.png" alt=""></a>-->
-
+            
             <nav id="navbar" class="navbar">
                 <ul>
                     <li class="dropdown">
@@ -34,7 +34,7 @@
                         <ul>
                             <li><a href="#">가족회사란?</a></li>
                             <li><a href="#">가족회사찾기</a></li>
-                            <li><a href="#">가족회사가입</a></li>
+                            <li><a href="/register">가족회사가입</a></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -53,6 +53,25 @@
                     <li><a class="nav-link scrollto" href="#">커뮤니티</a></li>
 
                     <li><a class="nav-link scrollto" href="#">Contact</a></li>
+
+                    <li sec:authorize="isAnonymous()" class="login-icon-wrapper">
+                        <a th:href="@{/login}">로그인</a>
+                    </li>
+                    <li sec:authorize="isAuthenticated()" class="login-icon-wrapper">
+                        <a th:href="@{/logout}">로그아웃</a>
+                    </li>
+                    <li sec:authorize="hasAuthority('ROLE_ADMIN')" class="login-icon-wrapper">
+                        <a th:href="@{/admin}" target="_blank">어드민</a>
+                    </li>
+                    <li sec:authorize="hasAuthority('ROLE_COMPANY')" class="login-icon-wrapper">
+                        <a th:href="@{/company}" target="_blank">메인화면</a>
+                    </li>
+                    <li sec:authorize="hasAuthority('ROLE_PROFESSOR')" class="login-icon-wrapper">
+                        <a th:href="@{/professor}" target="_blank">메인화면</a>
+                    </li>
+                    <li sec:authorize="hasAuthority('ROLE_OFFICER')" class="login-icon-wrapper">
+                        <a th:href="@{/officer}" target="_blank">메인화면</a>
+                    </li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>

@@ -37,12 +37,12 @@ public class AccountController {
     private final AccountService accountService;
     private final Common common;
 
-    @GetMapping("/register/company")
+    @GetMapping("/register")
     public ModelAndView registerCompany(){
         return new ModelAndView("register/company").addObject(new CompanyInformationDTO());
     }
 
-    @PostMapping("/register/company")
+    @PostMapping("/register")
     public ModelAndView registerCompany(@Validated @ModelAttribute CompanyInformationDTO companyDTO, Errors errors, ModelAndView mav) {
 
         if (errors.hasErrors()) {
@@ -60,9 +60,14 @@ public class AccountController {
         Company companyEntity = companyDTO.toEntity();
         companyEntity.verification("BRONZE", 0L, 0L, State.NORMAL); //TODO : 가입 승인 페이지 생길 때 까지..
         accountService.createAccount(companyEntity);
-        mav.setViewName("register/success");
+        mav.setViewName("login/logIn");
 
         return mav;
+    }
+
+    @GetMapping("/register/success")
+    public String success() {
+        return "register/success";
     }
 
     @GetMapping("officer/family-company/screen")

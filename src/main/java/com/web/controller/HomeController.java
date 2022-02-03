@@ -35,10 +35,10 @@ public class HomeController {
         return "index";
     }
 
-    @GetMapping( "/register")
-    public String register() {
-        return "register/main";
-    }
+    // @GetMapping( "/register")
+    // public String register() {
+    //     return "register/main";
+    // }
 
     @GetMapping(path = {"/company", "/professor", "/officer"})
     public String accountHome(HttpServletRequest req) {

@@ -1,22 +1,69 @@
 <!DOCTYPE html>
-<html lang="ko">
-    <head>
-        <th:block th:replace="fragments/common/head :: headFragment"></th:block>
-        <link href="/css/signup.css" rel="stylesheet" type="text/css">
-    </head>
-    <body>
-        <th:block th:replace="fragments/common/header :: headerFragment"></th:block>
-        <section>
-            <div class="signup-area">
-                <div class="success-msg">  
-                    <h1>회원가입이 완료되었습니다.</h1>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/portal/head :: template-head('로그인')"></div>
+    <link href="/css/login.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div th:replace="fragments/portal/header :: template-header"></div>
+
+  <main id="main" data-aos="fade-up">
+    <!-- ======= detail page main image Section ======= -->
+    <section class="detail-image container-fluid">
+      <div class="copyright-header-img img-responsive"></div>
+    </section>
+    <!-- detail page main image Section -->
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>로그인</h2>
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li>Portfolio Details</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <!-- Breadcrumbs Section -->
+    <section id="register-board">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="form-container">
+                    <div class="login-title-area">
+                        <img width="90px" height="90px" src="https://www.kumoh.ac.kr/_common/img/icon/icon_symbol01.png">
+                        <div class="login-text-area">
+                            <h2 class="login-text-h2">LOGIN</h2>
+                            <h4 class="login-text-h4">아이디와 비밀번호를 입력해 주세요.</h4>
+                        </div>
+                    </div>
+                    <form id="loginForm" th:action="@{/login}" method="post">
+                        <div class="form-login-wrapper">
+                            <div class ="form-login-area-id-pwd">
+                                <div class="form-login-area">
+                                    <input type="text" id="member_id" name="username" required="required"
+                                    placeholder="아이디" title="로그인 할 아이디를 입력하세요.">
+                                </div>
+                                <div class="form-login-area">
+                                    <input type="password" id="member_pw" name="password" required="required"
+                                    placeholder="비밀번호" title="로그인 할 비밀번호를 입력하세요.">
+                                </div>
+                            </div>
+                            <input class="login-btn" type="submit" name value="로그인" title="로그인">
+                        </div>
+                    </form>
                 </div>
-                <ul class="success-submenu">
-                    <li><a id="home" href="/">홈 바로 가기</a></li>
-                    <li><a id="login" href="/login">로그인 바로 가기</a></li>
-                </ul>
             </div>
-        </section>
-        <th:block th:replace="fragments/common/footer :: footerFragment"></th:block>
-    </body>
+        </div>
+    </section>
+  </main>
+  <!-- End #main -->
+
+  <div th:replace="fragments/portal/footer :: template-footer"></div>
+  <div th:replace="fragments/portal/js :: template-js"></div>
+</body>
+
 </html>
