@@ -1,0 +1,8 @@
+.board-container {
+    width: 100%;
+}
+
+#notice-board .container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
