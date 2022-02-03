@@ -46,7 +46,7 @@
                                 <dd th:text="${T(com.web.util.DateUtil).dotStyleWithTime(curBoardDTO.noticeBoardDate)}"></dd>
                             </dl>
                         </div>
-                        <div class="contents-body-wrapper"><p th:text="${curBoardDTO.noticeBoardContent}"></p></div>
+                        <div class="contents-body-wrapper"><p class="p-break" th:text="${curBoardDTO.noticeBoardContent}"></p></div>
                     </div>
                     <div>
                         <a th:href="${nextBoardDTO.noticeBoardId == null} ? '#' : @{/boards/list/{id}(id=${nextBoardDTO.noticeBoardId})}">
