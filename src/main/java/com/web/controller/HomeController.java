@@ -66,4 +66,9 @@ public class HomeController {
     public String submenuForC() {
         return "company/industry-cooperation/project/submenu";
     }
+
+    @GetMapping("/about")
+    public String aboutFamily() {
+        return "about/about-family";
+    }
 }

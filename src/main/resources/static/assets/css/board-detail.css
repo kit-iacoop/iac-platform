@@ -31,6 +31,10 @@ h4, dl, dd, p {
     color: inherit;
 }
 
+.contents-wrapper a dl:hover {
+    background: #f9f9f9;
+}
+
 .contents-info-wrapper dl {
     margin-right: 2.5rem;
 }

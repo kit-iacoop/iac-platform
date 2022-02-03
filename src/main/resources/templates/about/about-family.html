@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/portal/head :: template-head('가족회사 소개')"></div>
+    <style>
+        h4 {
+            padding-left: 30px;
+            margin-bottom: 15px;
+            font-family: "Nanum Gothic", "Open Sans", sans-serif;
+            color: #4194e2;
+            font-size: 24px;
+            line-height: 32px;
+            font-weight: 700;
+            background: url(https://www.kumoh.ac.kr/_res/ko/img/bul/bul_type0101.png) no-repeat left 5px;
+            background-size: 22px 22px;
+        }
+
+        p {
+            line-height: 28px;
+            word-break: keep-all;
+            white-space: normal;
+            margin-bottom: 0;
+        }
+
+        dl {
+            margin-bottom: 3rem;
+        }
+
+        dl div div {
+            width: 50%;
+        }
+
+        .table {
+            margin: 2rem 0 1.5rem 0;
+        }
+
+        thead {
+            background-color: #f4f4f4;
+        }
+
+        td span {
+            background-color: lightgoldenrodyellow;
+        }
+    </style>
+</head>
+
+<body>
+<div th:replace="fragments/portal/header :: template-header"></div>
+
+<main id="main" data-aos="fade-up">
+
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Collaboration Details</h2>
+                <ol>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li>Portfolio Details</li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- Breadcrumbs Section -->
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="collabo-project" class="collabo-details">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="form-container">
+                    <dl>
+                        <dt><h4>가족회사란?</h4></dt>
+                        <dd><p>대학과 기업 간 맞춤형 교육연구 협력 기반의 인적 물적 자원을 상호 공유하는 시스템으로 대학은 수요자 중심의 교육을 추진하고, 기업은 기술경쟁력 향상을 통해 수익을 창출할 수 있는 동반자적 프로그램</p></dd>
+                    </dl>
+                    <dl>
+                        <dt><h4>운영체계</h4></dt>
+                        <dd>
+                            <ul>
+                                <li><p>기업은 대학의 기술인력 연구실 공용장비 등을 연구개발에 활용</p></li>
+                                <li><p>대학은 현장기술 인력과 생산설비를 갖춘 기업을 학생의 현장실습 교원의 현장, 연수 공동연구과제 수행 겸임교수 등으로 활용</p></li>
+                                <li><p>산업체 현장수요를 반영한 맞춤식 교육으로 현장 적응력이 우수한 전문인력을 양성 기업에 공급하여 기술력 향상에 기여</p></li>
+                            </ul>
+                        </dd>
+                        <dd class="d-flex justify-content-center mt-5"><img src="https://sanhak.eulji.ac.kr/sanhak/images/sub/arithmetic_center_pg04_02_img02.png"></dd>
+                    </dl>
+                    <dl>
+                        <dt><h4>지원분야</h4></dt>
+                        <dd>
+                            <ul>
+                                <li><p>산업체 공동연구</p></li>
+                                <li><p>기술이전</p></li>
+                                <li><p>공용장비 운영</p></li>
+                                <li><p>기업협업센터(ICC) 운영</p></li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><h4>멤버십 제도</h4></dt>
+                        <dd><p>산학협력 참여도에 따라 기업을 다음과 같이 1촌, 2촌, 3촌, 4촌의 4개 등급으로 분류하여 각기 다른 혜택 제공</p></dd>
+                        <dd>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" scope="col">구분</th>
+                                        <th colspan="1" scope="col">연회비</th>
+                                        <th colspan="2" scope="col">제공 혜택</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="3"><span><1촌></span> 1st D. R (First-Degree Relation)</td>
+                                        <td colspan="1">100만원</td>
+                                        <td colspan="2">기본혜택 + (선택) 6개 제공</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><span><2촌></span> 2nd D. R (Second-Degree Relation)</td>
+                                        <td colspan="1">60만원</td>
+                                        <td colspan="2">기본혜택 + (선택) 4개 제공</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><span><3촌></span> 3rd D. R (Third-Degree Relation)</td>
+                                        <td colspan="1">30만원</td>
+                                        <td colspan="2">기본혜택 + (선택) 2개 제공</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3"><span><4촌></span> 4rd D. R (Fourth-Degree Relation)</td>
+                                        <td colspan="1">무료</td>
+                                        <td colspan="2">기본혜택 제공</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </dd>
+                        <div class="d-flex">
+                            <div>
+                                <dd><p>기본 혜택</p></dd>
+                                <dd>
+                                    <ul>
+                                        <li><p>산학공동 기술개발과제 발굴</p></li>
+                                        <li><p>사업계획서 작성 지도 서비스 지원</p></li>
+                                        <li><p>컨설팅 / 현장지도 지원</p></li>
+                                        <li><p>기술(경영) 지도</p></li>
+                                        <li><p>교내 문화활동 참여 기회 제공</p></li>
+                                        <li><p>대학 홍보물 지원</p></li>
+                                        <li><p>워크샵 및 연찬회 개최</p></li>
+                                    </ul>
+                                </dd>
+                            </div>
+                            <div>
+                                <dd><p>등급별 혜택 (선택)</p></dd>
+                                <dd>
+                                    <ul>
+                                        <li><p>담당 인력 매칭</p></li>
+                                        <li><p>국가 R&BD 협력</p></li>
+                                        <li><p>All-SET 기업 지원</p></li>
+                                        <li><p>산학공동체분과 운영 지원</p></li>
+                                        <li><p>HRD 교육 지원</p></li>
+                                        <li><p>국내외 원문자료, 해외기술자료 번역 서비스 지원</p></li>
+                                        <li><p>기업 경쟁력 진단 컨설팅</p></li>
+                                        <li><p>공용장비 활용</p></li>
+                                        <li><p>교내 시설물 활용</p></li>
+                                        <li><p>국내 학술대회 및 컨벤션 참여 지원</p></li>
+                                    </ul>
+                                </dd>
+                            </div>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </section><!-- End Portfolio Details Section -->
+
+</main><!-- End #main -->
+
+<div th:replace="fragments/portal/footer :: template-footer"></div>
+<div th:replace="fragments/portal/js :: template-js"></div>
+</body>
+
+</html>
