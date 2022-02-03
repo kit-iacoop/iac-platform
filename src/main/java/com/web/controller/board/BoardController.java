@@ -39,7 +39,7 @@ public class BoardController {
         model.addAttribute("page", pageable.getPageNumber() + 1);
         model.addAttribute("maxPage", boardPage.getTotalPages());
 
-        return "board/list";
+        return "board/board-list";
     }
 
     @GetMapping("/new")

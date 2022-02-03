@@ -99,43 +99,17 @@
                       <i class="bx bxs-buildings">가족회사</i>
                     </div>
                     <div>
-                      <h5><a href="">+</a></h5>
+                      <h5><a href="/boards/list">+</a></h5>
                     </div>
                   </div>
 
                   <table class="table table-hover">
                     <tbody>
-                      <tr>
-                        <td colspan="7">
-                          Lorem, ipsum dolor sit amet consectetur adipisicing
-                          elit. Dolorem, illum!
-                        </td>
-                        <td colspan="1">new</td>
-                        <td colspan="2">2022-01-19</td>
-                      </tr>
-                      <tr>
-                        <td colspan="7">
-                          Lorem, ipsum dolor sit amet consectetur adipisicing
-                          elit. Dolorem, illum!
-                        </td>
-                        <td colspan="1">new</td>
-                        <td colspan="2">2022-01-19</td>
-                      </tr>
-                      <tr>
-                        <td colspan="7">
-                          Lorem, ipsum dolor sit amet consectetur adipisicing
-                          elit. Dolorem, illum!
-                        </td>
-                        <td colspan="1">new</td>
-                        <td colspan="2">2022-01-19</td>
-                      </tr>
-                      <tr>
-                        <td colspan="7">
-                          Lorem, ipsum dolor sit amet consectetur adipisicing
-                          elit. Dolorem, illum!
-                        </td>
-                        <td colspan="1">new</td>
-                        <td colspan="2">2022-01-19</td>
+                      <tr th:each="dto : ${boardDtos}"
+                          th:onclick="'location.href=\''+ @{/boards/list/{id}(id=${dto.noticeBoardId})} + '\''">
+                        <td colspan="6" th:text="${dto.noticeBoardTitle}"></td>
+                        <td colspan="2" th:text="${dto.accountName}"></td>
+                        <td colspan="2" th:text="${T(com.web.util.DateUtil).dotStyle(dto.noticeBoardDate)}"></td>
                       </tr>
                     </tbody>
                   </table>

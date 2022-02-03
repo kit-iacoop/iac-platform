@@ -7,7 +7,7 @@ th {
     vertical-align: top;
 }
 
-#description {
+textarea {
     width: 100%;
     padding: 10px;
     border-radius: 3px;
