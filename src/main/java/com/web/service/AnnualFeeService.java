@@ -20,4 +20,5 @@ public interface AnnualFeeService {
     List<AnnualFeeInfoDTO> findInfoDtoListWithQDsl(QueryOptionDTO queryOption);
 
     AnnualFee requestPayment(Long gradePolicyId, Long point, Long cash);
+    Boolean currentizedCheck();
 }

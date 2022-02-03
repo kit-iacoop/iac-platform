@@ -1,5 +1,6 @@
 package com.domain.annualFee;
 
+import com.domain.account.Company;
 import com.web.dto.annualfee.AnnualFeeHistoryDTO;
 import com.web.dto.annualfee.AnnualFeeInfoDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,5 +18,5 @@ public interface AnnualFeeRepository extends JpaRepository<AnnualFee, Long>, Ann
     List<AnnualFeeInfoDTO> findAllInfoDto();
 
 
-
+    AnnualFee findByCompanyAndYear(Company company, int year);
 }

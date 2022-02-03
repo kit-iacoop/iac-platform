@@ -90,4 +90,9 @@ public class AnnualFeeServiceImpl implements AnnualFeeService {
 
     }
 
+    @Override
+    public Boolean currentizedCheck() {
+        return annualFeeRepository.findByCompanyAndYear((Company) common.getAccount(), LocalDate.now().getYear()) != null;
+    }
+
 }
