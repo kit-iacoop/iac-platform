@@ -175,7 +175,7 @@ public class Company extends Account {
         employeeNumber = accDto.getEmployeeNumber();
         telephone = accDto.getTelephone();
         businessRegistrationNumber = accDto.getBusinessRegistrationNumber();
-        subscriptionDate = LocalDate.parse(accDto.getSubscriptionDate(), DateTimeFormatter.ISO_DATE);
+        subscriptionDate = accDto.getSubscriptionDate();
 
         return this;
     }

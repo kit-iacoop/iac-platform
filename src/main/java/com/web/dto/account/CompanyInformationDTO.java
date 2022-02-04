@@ -58,7 +58,7 @@ public class CompanyInformationDTO extends AccountInformationDTO {
                 .companyType(companyType)
                 .sector(sector)
                 .owner(owner)
-                .subscriptionDate(LocalDate.parse(subscriptionDate, DateTimeFormatter.ISO_DATE))
+                .subscriptionDate(subscriptionDate)
                 .employeeNumber(employeeNumber)
                 .build()
                 ;
