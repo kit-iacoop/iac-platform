@@ -44,7 +44,7 @@ public class AnnualFeeController {
         mav.addObject("accountDTO", common.getAccount());
 
         List<GradePolicy> gp = gradePolicyService.findAll();
-        mav.addObject("gradePolicyDTOS", gp);
+        mav.addObject("gradePolicyDTOs", gp);
 
 
         mav.setViewName("company/annual-fee/payment");
@@ -104,8 +104,11 @@ public class AnnualFeeController {
         AccountContext ac = (AccountContext)(SecurityContextHolder.getContext().getAuthentication()).getPrincipal();
         Long companyId = ((Company)ac.getAccount()).getAccountId();
 
+        System.out.println("계정: " + companyId);
         List<AnnualFeeHistoryDTO> dtos = annualFeeService.findAllHistoryDtoByCompanyId(companyId);
-
+        for(int i = 0; i < dtos.size(); i++) {
+            System.out.println(dtos.get(i));
+        }
         log.warn("findAllHistoryDtoByCompanyId()");
         mav.addObject("annualFeeRequestDTO", dtos);
 

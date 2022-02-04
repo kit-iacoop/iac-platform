@@ -1,51 +1,44 @@
 <link href="/css/annual-fee/payment.css" rel="stylesheet" type="text/css">
 <script src="/js/annual-fee/payment.js"></script>
 
-<div class="current-info">
-    [[${accountDTO.name}]]은 현재 [[${accountDTO.grade}]] 등급입니다.
-</div>
-<div class="main-calculate-wrapper">
-    <div class="select-grade-wrapper">
-        <select id="annual-fee-for-grade" onchange="changePrice()">
-            <option>선택</option>
-            <option th:each="gradePolicy: ${gradePolicyDTOS}" th:id="${gradePolicy.gradePolicyId}" th:value="${gradePolicy.price}" th:utext="${gradePolicy.grade}" 
-            th:selected="${gradePolicy.grade == accountDTO.grade}"></option>
-        </select>
+<div class="container">
+    <div class="row gy-4">
+        <div class="main-task">
+            <div class="current-info">
+                <span id="company-name">[[${accountDTO.name}]]</span>은 현재 <span id="company-grade">[[${accountDTO.grade}]]</span> 등급입니다.
+            </div>
+            <div class="main-calculate-wrapper">
+                <div class="select-grade-wrapper">
+                    <select id="annual-fee-for-grade" onchange="changePrice()">
+                        <option>선택</option>
+                        <option th:each="gradePolicy: ${gradePolicyDTOs}" th:id="${gradePolicy.gradePolicyId}" th:value="${gradePolicy.price}" th:utext="${gradePolicy.grade}" 
+                        th:selected="${gradePolicy.grade == accountDTO.grade}"></option>
+                    </select>
+                </div>
+                <div class="cash-calculate-wrapper">
+                    <div class="original-price">
+                        <p th:each="gradePolicy: ${gradePolicyDTOs}" th:if="${gradePolicy.grade == accountDTO.grade}" th:utext="${gradePolicy.price}" id="original-price"></p>원
+                    </div>
+                    <div class="using-point-area">
+                        <input id="use-point" type="text"/>
+                        <button onclick="discount()">사용</button>
+                        <button onclick="allUseDiscount()">모두 사용</button>
+                        보유: <p id="my-point">[[${accountDTO.point}]]</p>포인트
+                    </div>
+                    <div class="sale-price">
+                        <p th:each="gradePolicy: ${gradePolicyDTOs}" th:if="${gradePolicy.grade == accountDTO.grade}" th:utext="${gradePolicy.price}" id="sale-price"></p>원
+                    </div>
+                </div>
+            </div>
+            <div class="btn-wrapper">
+                <button onclick="postRequest()">이체</button>
+            </div>
+        </div>
     </div>
-    <div class="cash-calculate-wrapper">
-        <div class="original-price">
-            <p id="original-price"></p>원
-        </div>
-        <div class="using-point-area">
-            <input id="use-point" type="text"/>
-            <button onclick="discount()">사용</button>
-            <button onclick="allUseDiscount()">모두 사용</button>
-            보유: <p id="my-point">[[${accountDTO.point}]]</p>포인트
-        </div>
-        <div class="sale-price">
-            <p id="sale-price"></p>원
-        </div>
-    </div>
 </div>
-<div class="btn-wrapper">
-    <button onclick="postRequest()">이체</button>
-</div>
+
 <script src="/js/jquery.js"></script>
 <script th:inline="javascript">
-    $(document).ready(function() {
-        let currentGrade = [[${accountDTO.grade}]];
-        let gradePolicyArr = [[${gradePolicyDTOs}]];
-        var originalPrice = document.getElementsByClassName("original-price")[0];
-        var salePrice = document.getElementsByClassName("sale-price")[0];
-
-        gradePolicyArr.forEach(function(policy) {
-            if(currentGrade == policy.grade) {
-                originalPrice.innerHTML="<p id=\"original-price\">"+ policy.price + "<p>원";
-                salePrice.innerHTML="<p id=\"sale-price\">"+ policy.price + "<p>원";
-            }
-        });
-    });
-
     function postRequest() {
         console.log("=======");
         var point = document.getElementById("use-point");

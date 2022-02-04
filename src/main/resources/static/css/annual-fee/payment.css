@@ -1,3 +1,14 @@
 p {
     display: inline;
 }
+
+.main-task {
+    border-radius: 5px;
+    background-color: white;
+    padding: 3rem 14rem;
+    box-shadow: 3px 3px #ddd;
+}
+
+#company-name, #company-grade {
+    font-weight: bold;
+}
