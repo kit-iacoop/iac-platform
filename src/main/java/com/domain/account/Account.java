@@ -36,7 +36,7 @@ public abstract class Account extends BaseTimeEntity {
    @Column(name = "NAME", nullable = false)
    protected String name;
 
-   @Column(name = "BIRTH_DATE", nullable = false)
+   @Column(name = "BIRTH_DATE", nullable = true)
    protected LocalDate birthDate;
 
    @Embedded
@@ -48,7 +48,7 @@ public abstract class Account extends BaseTimeEntity {
    @Column(name = "PASSWORD", nullable = false)
    protected String password;
 
-   @Column(name = "EMAIL", nullable = false)
+   @Column(name = "EMAIL", nullable = true)
    protected String email;
 
    @Column(name = "TELEPHONE", nullable = true)
