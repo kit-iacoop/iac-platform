@@ -30,9 +30,9 @@ public class CompanyController {
     private final Common common;
 
     @PostMapping("company/mypage/update")
-    public ModelAndView updateInformation(@Validated @ModelAttribute CompanyInformationDTO accInfDto, Errors errors, ModelAndView mav, HttpServletRequest req){
+    public ModelAndView updateInformation(@Validated @ModelAttribute CompanyInformationDTO accInfDto, Errors errors, ModelAndView mav, HttpServletRequest req) {
 
-        if(errors.hasErrors()) {    // Validation 통과 못할 시
+        if (errors.hasErrors()) {    // Validation 통과 못할 시
             LinkedList<LinkedHashMap<String, String>> errorList = common.refineErrors(errors);
             mav.addObject("errors", errorList);
             mav.setViewName("redirect:/error");
@@ -45,13 +45,13 @@ public class CompanyController {
     }
 
     @GetMapping("company/mypage/currentized")
-    public ModelAndView currentized(ModelAndView mav){
-        Boolean infoUpdate = common.getAccount().getModifiedDate().isAfter(LocalDateTime.of(LocalDateTime.now().getYear(), 1, 1, 0,0,0));
+    public ModelAndView currentized(ModelAndView mav) {
+        Boolean infoUpdate = common.getAccount().getModifiedDate().isAfter(LocalDateTime.of(LocalDateTime.now().getYear(), 1, 1, 0, 0, 0));
         mav.addObject("infoUpdate", infoUpdate); // 기업 정보
 
         mav.addObject("annualFee", annualFeeService.currentizedCheck()); // 연회비 갱신
 
-        mav.addObject("saleUpdate", false); // 매출 갱신
+        mav.addObject("saleUpdate", true); // 매출 갱신
 
         mav.setViewName("company/mypage/currentized");
         return mav;
