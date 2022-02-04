@@ -118,6 +118,9 @@ public class AccountController {
 
         mav.addObject("account", account.toInformationDTO());
         mav.addObject("accountDTO", common.getAccount());
+        mav.addObject("key", 1);
+        mav.addObject("page", 1);
+        mav.addObject("maxPage", 5);
         mav.setViewName(common.getReqUrlPrefix(req) + "/mypage/inquire-info");
 
         return mav;

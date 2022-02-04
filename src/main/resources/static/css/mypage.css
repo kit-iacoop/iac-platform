@@ -21,7 +21,7 @@
 
 .container-fluid {
     background-color: #f0f0f0;
-    padding: 2rem 0;
+    padding: 1rem 0;
 }
 
 .table-container, .form-container {
@@ -75,7 +75,7 @@
 
 .countbox-wrapper {
     width: 15rem;
-    margin-left: 2rem;
+    margin-left: 5rem;
 }
 
 #point {
@@ -83,13 +83,37 @@
 }
 
 #my-mileage-point {
-    padding: 3rem 6rem;
+    padding: 1rem 6rem;
 }
 
 #mileage-history {
-    padding: 1.5rem 6rem;
+    padding: 1rem 6rem;
+}
+
+.search-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.select-search {
+    margin-top: 2rem;
+}
+
+#company-infomation {
+    width: 90%;
 }
 
 #inquire-table {
-    padding: 3.5rem 14rem;
+    padding: 5.5rem 5rem;
 }
+
+.inline-area {
+    display: inline;
+}
+
+#company-mileage {
+    width: 115%;
+    margin-left: -7rem;
+}
+

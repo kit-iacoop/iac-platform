@@ -1,7 +1,8 @@
 /* business format */
 #mypage, #industry-cooperation, #family-company, 
 #project, #share, #mileage-point, #annual-fee{
-    background-color: #8ea5eb;
+    /* background-color: #8ea5eb; */
+    background-color: #7588e6;
     padding: 1.5rem;
     color: white;
 }
