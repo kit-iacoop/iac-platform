@@ -6,32 +6,102 @@
         <link href="/css/mypage.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <section>
-            <div class="task-contents">
-                <th:block th:replace="fragments/mypage/common-info-inquire :: commonInfoInquireFragment"></th:block>
-                <div class="member-info">
-                    <label>대표</label>
-                    <div>[[${account.owner}]]</div>
+        <section class="mypage-table">
+            <div class="container">
+                <div class="row gy-4">
+                        <div class="table-container" id="inquire-table">
+                            <table id="member-info" class="table">
+                                <th:block th:replace="fragments/mypage/common-info-inquire :: commonInfoInquireFragment"></th:block>
+                                <tr>
+                                    <th>대표</th>
+                                    <td>[[${account.owner}]]</td>
+                                </tr>
+                                <tr>
+                                    <th>구분</th>
+                                    <td>[[${account.companyType}]]</td>
+                                </tr>
+                                <tr>
+                                    <th>업종</th>
+                                    <td>[[${account.sector}]]</td>
+                                </tr>
+                                <tr>
+                                    <th>사원 수</th>
+                                    <td>[[${account.employeeNumber}]]</td>
+                                </tr>
+                                <tr>
+                                    <th>사업자번호</th>
+                                    <td>[[${account.businessRegistrationNumber}]]</td>
+                                </tr>
+                                <tr>
+                                    <th>협약일</th>
+                                    <td>[[${account.subscriptionDate}]]</td>
+                                </tr>
+                            </table>
+                        </div>
                 </div>
-                <div class="member-info">
-                    <label>구분</label>
-                    <div>[[${account.companyType}]]</div>
-                </div>
-                <div class="member-info">
-                    <label>업종</label>
-                    <div>[[${account.sector}]]</div>
-                </div>
-                <div class="member-info">
-                    <label>사원 수</label>
-                    <div>[[${account.employeeNumber}]]</div>
-                </div>
-                <div class="member-info">
-                    <label>사업자번호</label>
-                    <div>[[${account.businessRegistrationNumber}]]</div>
-                </div>
-                <div class="member-info">
-                    <label>협약일</label>
-                    <div>[[${account.subscriptionDate}]]</div>
+            </div>
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="table-container" id="my-mileage-point">
+                        <div id="counts" class="counts">
+                            <div class="container" id="count-boxes">
+                              <div class="countbox-wrapper" id="mileage">
+                                  <div class="count-box">
+                                    <i class="bi bi-emoji-smile"></i>
+                                    <span data-purecounter-start="0" th:data-purecounter-end="${accountDTO.mileage}" data-purecounter-duration="0"
+                                      class="purecounter">[[${accountDTO.mileage}]]</span>
+                                    <p>마일리지</p>
+                                  </div>
+                              </div>
+                              <div class="countbox-wrapper" id="point">
+                                <div class="count-box">
+                                    <i class="fas fa-coins"></i>
+                                  <span data-purecounter-start="0" th:data-purecounter-end="${accountDTO.point}" data-purecounter-duration="0"
+                                    class="purecounter">[[${accountDTO.point}]]</span>
+                                  <p>포인트</p>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-container" id="mileage-history">
+                        <table id="mileage-history" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class=""><span>날짜</span></th>
+                                    <th scope="col" class=""><span>사용내역</span></th>
+                                    <th scope="col" class=""><span>마일리지</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td scope="col" class="">2022-02-03</td>
+                                    <td scope="col" class=""><span>활동 B 참여</span></td>
+                                    <td scope="col" class=""><span>+5</span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="col" class="">2022-02-01</td>
+                                    <td scope="col" class=""><span>연회비 납부</span></td>
+                                    <td scope="col" class=""><span>-1000</span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="col" class="">2022-01-31</td>
+                                    <td scope="col" class=""><span>활동 A 참여</span></td>
+                                    <td scope="col" class=""><span>+10</span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="col" class="">2022-01-15</td>
+                                    <td scope="col" class=""><span>활동 C 참여</span></td>
+                                    <td scope="col" class=""><span>+7</span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="col" class="">2022-01-08</td>
+                                    <td scope="col" class=""><span>활동 A 참여</span></td>
+                                    <td scope="col" class=""><span>+10</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </section>

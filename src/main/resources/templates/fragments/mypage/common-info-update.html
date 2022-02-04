@@ -51,48 +51,48 @@
                     }).open();
                 }
             </script>
-        <div class="common-info">
-            <div class="member-info">
-                <label>아이디</label>
-                <input type="text" class="update-info" name="member_name" placeholder="" th:field="*{loginId}" readonly>
-            </div>
-        </div>
-            <div class="member-info">
-                <label>이름</label>
-                <input type="text" class="update-info" name="member_name" placeholder="" th:field="*{name}">
-                </div>
-            </div>
-            <div class="member-info">
-                <label>생일</label>
-                <input type="date" class="update-info" id="birthday" name="member_birthday" placeholder="" th:field="*{birthDate}">
-            </div>
-            <div class="search-address">
-                <div class="member-info">
-                    <label for="address" class="address">주소</label>
+            <tr>
+                <th>아이디</th>
+                <td><input type="text" class="update-info" name="member_id" placeholder="" th:field="*{loginId}" readonly></td>
+            </tr>
+            <tr>
+                <th>이름</th>
+                <td><input type="text" class="update-info" name="member_name" placeholder="" th:field="*{name}"></td>
+            </tr>
+            <tr>
+                <th>생일</th>
+                <td><input type="date" class="update-info" id="birthday" name="member_birthday" placeholder="" th:field="*{birthDate}"></td>
+            </tr>
+            <tr>
+                <th>주소</th>
+                <td>
                     <input type="text" class="update-info" id="sample6_postcode" name="member_zipcode" placeholder="" th:field="*{zipCode}">
                     <input id="search-btn" type="button" onclick="sample6_execDaumPostcode()" value="검색">
-                </div>
-               
-            </div>
-            <div class="member-info">
-                <label for="address" class="address"></label>
-                <input type="text" class="update-info" id="address" name="member_city" placeholder="" th:field="*{city}">
-            </div>
-            <div class="member-info">
-                <label for="detail_address" class="address"></label>
-                <input type="text" class="update-info" id="detail_address" name="member_street" placeholder="" th:field="*{street}">
-            </div>
-            <div class="member-info">
-                <label>비밀번호</label>
-                <input type="password" class="update-info" name="member_pw" placeholder="" th:field="*{password}">
-            </div>
-            <div class="member-info">
-                <label>이메일</label>
-                <input type="text" class="update-info" name="member_email" placeholder="" th:field="*{email}">
-            </div>
-            <div class="member-info">
-                <label>전화번호</label>
-                <input type="text" class="update-info" name="member_telephone" placeholder="" th:field="*{telephone}">
-            </div>
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <input type="text" class="update-info" id="address" name="member_city" placeholder="" th:field="*{city}">
+                </td>
+            </tr>
+            <tr>
+                <th></th>
+                <td>
+                    <input type="text" class="update-info" id="detail_address" name="member_street" placeholder="" th:field="*{street}">
+                </td>
+            </tr>
+            <tr>
+                <th>비밀번호</th>
+                <td><input type="password" class="update-info" name="member_pw" placeholder="" th:field="*{password}" readonly></td>
+            </tr>
+            <tr>
+                <th>이메일</th>
+                <td><input type="text" class="update-info" name="member_email" placeholder="" th:field="*{email}"></td>
+            </tr>
+            <tr>
+                <th>전화번호</th>
+                <td><input type="text" class="update-info" name="member_telephone" placeholder="" th:field="*{telephone}"></td>
+            </tr>
     </th:block>
 </html>

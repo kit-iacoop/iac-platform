@@ -11,21 +11,85 @@
     margin: 0 40rem 0 40rem;
 }
 
-.member-info > label {
-    /* background-color: maroon; */
-    padding-right: 2rem;
-}
-
-.member-info > div {
-    /* background-color: aqua; */
-    padding-left: 2rem;
-}
-
-
 #sample6_postcode {
     width: 6rem;
 }
 
 #birthday {
     width: 10.5rem;
+}
+
+.container-fluid {
+    background-color: #f0f0f0;
+    padding: 2rem 0;
+}
+
+.table-container, .form-container {
+    border-radius: 5px;
+    background-color: white;
+    padding: 3rem 14rem;
+    box-shadow: 3px 3px #ddd;
+}
+
+.counts {
+    padding: 40px 0 40px;
+}
+
+.counts .count-box {
+    padding: 2rem 0;
+    width: 100%;
+    position: relative;
+    text-align: center;
+    background: #f1f6fe;
+}
+
+.counts .count-box i {
+    position: absolute;
+    top: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+    background: #106eea;
+    color: #fff;
+    width: 56px;
+    height: 56px;
+    line-height: 0;
+    border-radius: 50px;
+    border: 5px solid #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.counts .count-box span {
+    font-size: 36px;
+    display: block;
+    font-weight: 600;
+    color: #062b5b;
+}
+
+#count-boxes {
+    display: flex;
+    flex-direction: row;
+}
+
+.countbox-wrapper {
+    width: 15rem;
+    margin-left: 2rem;
+}
+
+#point {
+    margin-left: 3rem;
+}
+
+#my-mileage-point {
+    padding: 3rem 6rem;
+}
+
+#mileage-history {
+    padding: 1.5rem 6rem;
+}
+
+#inquire-table {
+    padding: 3.5rem 14rem;
 }

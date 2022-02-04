@@ -117,7 +117,7 @@ public class AccountController {
         Account account = ((AccountContext)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccount();
 
         mav.addObject("account", account.toInformationDTO());
-
+        mav.addObject("accountDTO", common.getAccount());
         mav.setViewName(common.getReqUrlPrefix(req) + "/mypage/inquire-info");
 
         return mav;
