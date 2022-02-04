@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="fragments/portal/head :: template-head('마일리지 정책')"></div>
+    <link href="/css/home.css" rel="stylesheet" type="text/css">
+    <style>
+        h4 {
+            padding-left: 30px;
+            margin-bottom: 15px;
+            font-family: "Nanum Gothic", "Open Sans", sans-serif;
+            color: #4194e2;
+            font-size: 24px;
+            line-height: 32px;
+            font-weight: 700;
+            background: url(https://www.kumoh.ac.kr/_res/ko/img/bul/bul_type0101.png) no-repeat left 5px;
+            background-size: 22px 22px;
+        }
+
+        p {
+            line-height: 28px;
+            word-break: keep-all;
+            white-space: normal;
+            margin-bottom: 0;
+        }
+
+        dl {
+            margin-bottom: 3rem;
+        }
+
+        dl div div {
+            width: 50%;
+        }
+
+        .table {
+            margin: 2rem 0 1.5rem 0;
+        }
+
+        thead {
+            background-color: #f4f4f4;
+        }
+
+        td span {
+            background-color: lightgoldenrodyellow;
+        }
+
+        #activity, #mileage-save {
+            text-align: center;
+        }
+
+        #remark {
+            background-color: white;
+            font-size: 14px;
+        }
+
+    </style>
+</head>
+
+<body>
+  <div th:replace="fragments/portal/header :: template-header"></div>
+
+  <main id="main" data-aos="fade-up">
+    <!-- ======= detail page main image Section ======= -->
+    <!-- <section class="detail-image container-fluid">
+      <div class="copyright-header-img img-responsive"></div>
+    </section> -->
+    <!-- detail page main image Section -->
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+      <div class="container">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>마일리지 정책</h2>
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li>Portfolio Details</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <!-- Breadcrumbs Section -->
+    <section id="register-board">
+        <div class="container">
+            <div class="row gy-4">
+                <div class="form-container">
+                    <dl>
+                        <dt><h4>추진 방향</h4></dt>
+                        <dd class="d-flex justify-content-center mt-5"><img src="/img/mileage-policy-02.png" width="80%"></dd>
+                        <dd class="d-flex justify-content-center mt-5"><img src="/img/mileage-policy-01.png"></dd>
+                    </dl>
+                    <dl>
+                        <dt><h4>산학협력 마일리지 적립 대상 분야/활동</h4></dt>
+                        <dd>
+                            <table id="activity" class="table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="1" scope="col">분야</th>
+                                        <th colspan="3" scope="col">분야별 활동</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td rowspan="3" colspan="1">인력양성</td>
+                                        <td colspan="3">대학생 현장실습</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">산학협력 교육과정<br>(계약학과, 주문식 교육과정, 캡스톤디자인 등)</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">학생 채용</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1">연구개발</td>
+                                        <td colspan="3">산업체 과제 수행</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1">기술이전</td>
+                                        <td colspan="3">기술 이전</td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2" colspan="1">인프라 등</td>
+                                        <td colspan="3">공용장비 활용</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">산학협력 장학금 등</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><h4>산학협력 활동별 마일리지 적립기준</h4></dt>
+                        <dd>
+                            <table id="mileage-save" class="table">
+                                <thead>
+                                    <tr>
+                                        <th colspan="1" scope="col">분야</th>
+                                        <th colspan="2" scope="col">분야별 활동</th>
+                                        <th colspan="3" scope="col">적립기준</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td rowspan="3" colspan="1">인력양성</td>
+                                        <td colspan="2">대학생 현장실습</td>
+                                        <td colspan="3"><strong>표준</strong> 현장실습학기제 <strong>실습지원비 1만원당 1마일리지</strong></td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">산학협력 교육과정</td>
+                                        <td colspan="3"><strong>기업부담 </strong>경비*<span id="remark">(등록금 지원 등)</span> <strong>1만원 당 1마일리지</strong>
+                                            <br><span id="remark">* 계약학과, 주문식 교육과정, 캡스톤디자인 운영 관련 경비 등</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">학생 채용</td>
+                                        <td colspan="3">산학협력 교육과정* 이수학생 <strong>채용 1명당 300마일리지</strong>
+                                            <br><span id="remark">* 대학생 현장실습, 계약학과, 주문식 교육과정, 캡스톤 디자인 등</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1">연구개발</td>
+                                        <td colspan="2">산업체 과제 수행</td>
+                                        <td colspan="3"><strong>(산업체입금액* / 10,000만원)<sup>0.6</sup></strong> X 1,000마일리지
+                                            <br><span id="remark">* 산학공동연구/위탁연구 시 대학(산단)에 납부한 연구비</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1">기술이전</td>
+                                        <td colspan="2">기술 이전</td>
+                                        <td colspan="3"><strong>(산업체입금액* / 5,000만원)<sup>0.7</sup></strong> X 1,000마일리지
+                                            <br><span id="remark">* 대학(산단)명의 기술이전계약 체경레 따른 기술이전료</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td rowspan="2" colspan="1">인프라 등</td>
+                                        <td colspan="2">공용장비 활용</td>
+                                        <td colspan="3"><strong>(산업체입금액* / 5,000만원)<sup>0.7</sup></strong> X 1,000마일리지
+                                            <br><span id="remark">* 대학(산단)보유 공용장비 활용 후 입금한 사용료</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="2">산학협력 장학금 등</td>
+                                        <td colspan="3"><strong>(산업체입금액* / 1,000만원)<sup>0.56</sup></strong> X 1,000마일리지
+                                            <br><span id="remark">* 기업이 학생/대학에 기부한 장학금/발전기금 등</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt><h4>마일리지 사용 범위</h4></dt>
+                        <dd>사용범위 자료 받아야함</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </section>
+  </main>
+  <!-- End #main -->
+
+  <div th:replace="fragments/portal/footer :: template-footer"></div>
+  <div th:replace="fragments/portal/js :: template-js"></div>
+</body>
+
+</html>

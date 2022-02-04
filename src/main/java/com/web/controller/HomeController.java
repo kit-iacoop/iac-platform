@@ -17,6 +17,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -48,8 +49,10 @@ public class HomeController {
     // }
 
     @GetMapping(path = {"/company", "/professor", "/officer"})
-    public String accountHome(HttpServletRequest req) {
-        return (common.getReqUrlPrefix(req) +"/index");
+    public ModelAndView accountHome(ModelAndView mav, HttpServletRequest req) {
+        mav.addObject("accountDTO", common.getAccount());
+        mav.setViewName(common.getReqUrlPrefix(req) +"/index");
+        return mav;
     }
 
     @GetMapping("/company/menu")
@@ -70,5 +73,10 @@ public class HomeController {
     @GetMapping("/about")
     public String aboutFamily() {
         return "about/about-family";
+    }
+    
+    @GetMapping("/about/mileage")
+    public String mileage() {
+        return "about/about-mileage";
     }
 }
