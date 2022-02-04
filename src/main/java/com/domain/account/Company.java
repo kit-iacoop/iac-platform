@@ -41,7 +41,7 @@ public class Company extends Account {
     @Column(name = "EMPLOYEE_NUMBER", nullable = false) // 임시 nullable
     private Long employeeNumber;
 
-    @Column(name = "SECTOR", nullable = false)
+    @Column(name = "SECTOR", nullable = true)
     private String sector; // 업종.. ?
 
     @Column(name = "OWNER", nullable = false)
