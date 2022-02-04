@@ -63,10 +63,31 @@ public class Company extends Account {
     private Long point;
 
     @Column(name = "SUBSCRIPTION_DATE", nullable = true)
-    private LocalDate subscriptionDate; // 협약일
+    private String subscriptionDate; // 협약일
 
     @Column(name = "CURRENTIZATION_STATUS", nullable = false)
     private State currentizationStatus; // 현행화 상태
+
+
+    // additional field
+    @Column(name = "MENTOR_PROF_RONLY", nullable = true)
+    private String mentorProfessorROnly;
+
+    @Column(name = "MENTOR_PROF_DEPT_RONLY", nullable = true)
+    private String mentorProfessorDeptROnly;
+
+    @Column(name = "MENTOR_PROF_RET", nullable = true)
+    private Boolean mentorProfessorRET;
+
+    @Column(name = "CLOSURE", nullable = true)
+    private Boolean closure;
+
+    @Column(name = "CLOSURE_DATE", nullable = true)
+    private String closureDate;
+
+
+
+    // relation field
 
     @Builder.Default
     @OneToMany(mappedBy = "company")
@@ -99,6 +120,10 @@ public class Company extends Account {
     @Builder.Default
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
     private List<CompanyAnnualSales> annualSalesList = new LinkedList<>();
+
+
+
+    // methods
 
     public void renewGrade(String newGrade){
         grade = newGrade;
