@@ -65,6 +65,7 @@ public class Company extends Account {
     @Column(name = "SUBSCRIPTION_DATE", nullable = true)
     private String subscriptionDate; // 협약일
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "CURRENTIZATION_STATUS", nullable = false)
     private State currentizationStatus; // 현행화 상태
 
