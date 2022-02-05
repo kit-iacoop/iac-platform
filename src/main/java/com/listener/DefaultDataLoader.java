@@ -437,7 +437,7 @@ public class DefaultDataLoader implements  ApplicationListener<ContextRefreshedE
                 .temporaryAddress("test temporary address")
                 .mileage(123456L)
                 .point(123456L)
-                .subscriptionDate(LocalDate.now())
+                .subscriptionDate(LocalDate.now().toString())
                 .currentizationStatus(State.NORMAL)
                 .build();
 
