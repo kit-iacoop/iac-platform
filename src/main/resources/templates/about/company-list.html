@@ -48,17 +48,17 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th colspan="5">기업명</th>
                         <th colspan="2">업종</th>
-                        <th colspan="2">주소</th>
+                        <th colspan="4">기업명</th>
+                        <th colspan="4">주소</th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="dto : ${companyDtos}" class="modalToggle" data-bs-toggle="modal" data-bs-target="#exampleModal">
                         <input type="hidden" th:value="${dto.accountId}">
-                        <td colspan="5" th:text="${dto.name}"></td>
                         <td colspan="2" th:text="${dto.sector}"></td>
-                        <td colspan="2">[[${dto.city}]] [[${dto.street}]]</td>
+                        <td colspan="4" th:text="${dto.name}"></td>
+                        <td colspan="4">[[${dto.city}]] [[${dto.street}]]</td>
                     </tr>
                     </tbody>
                 </table>

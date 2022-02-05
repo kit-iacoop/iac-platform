@@ -88,11 +88,10 @@
             <thead>
               <tr>
                 <th colspan="2">구분</th>
-                <th colspan="2">전공</th>
-                <th colspan="5">제목</th>
-                <th colspan="2">발명자</th>
-                <th colspan="2">등록일</th>
-                <th colspan="1">상태</th>
+                <th colspan="3">전공</th>
+                <th colspan="7">제목</th>
+                <th colspan="1">발명자</th>
+                <th colspan="2">상태</th>
               </tr>
             </thead>
             <tbody>
@@ -100,11 +99,10 @@
                 <input type="hidden" th:value="${dto.copyrightId}">
                 <td colspan="2" th:text="${T(com.domain.common.CopyrightType).valueOf(dto.copyrightType).getName()}">
                 </td>
-                <td colspan="2" th:text="${dto.professorDept}"></td>
-                <td colspan="5" th:text="${dto.copyrightName}"></td>
-                <td colspan="2" th:text="${dto.representor}"></td>
-                <td colspan="2" th:text="${T(com.web.util.DateUtil).dotStyleWithoutTime(dto.createdDate)}"></td>
-                <td colspan="1" th:text="${dto.maintenanceState}"></td>
+                <td colspan="3" th:text="${dto.professorDept}"></td>
+                <td colspan="7" th:text="${dto.copyrightName}"></td>
+                <td colspan="1" th:text="${dto.representor}"></td>
+                <td colspan="2" th:text="${dto.maintenanceState}"></td>
               </tr>
             </tbody>
           </table>
