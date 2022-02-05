@@ -13,6 +13,8 @@ public interface CopyrightRepository extends JpaRepository<Copyright, Long> {
 
     Page<Copyright> findAll(Pageable pageable);
 
-    Page<Copyright> findByTitleContaining(Pageable pageable, String title);
+    Page<Copyright> findAllByTitleNot(Pageable pageable, String title);
+
+    Page<Copyright> findByTitleContainingAndTitleNot(Pageable pageable, String contains, String notEquals);
 
 }

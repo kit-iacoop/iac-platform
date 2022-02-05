@@ -29,13 +29,13 @@ public class CopyrightServiceImpl implements CopyrightService {
 
     @Override
     public Page<CopyrightDTO> findCopyright(Pageable pageable) {
-        Page<Copyright> list = copyrightRepository.findAll(pageable);
+        Page<Copyright> list = copyrightRepository.findAllByTitleNot(pageable, "0");
         return list.map(CopyrightDTO::new);
     }
 
     @Override
     public Page<CopyrightDTO> findCopyrightByKey(Pageable pageable, String title) {
-        Page<Copyright> list = copyrightRepository.findByTitleContaining(pageable, title);
+        Page<Copyright> list = copyrightRepository.findByTitleContainingAndTitleNot(pageable, title, "0");
         return list.map(CopyrightDTO::new);
     }
 
