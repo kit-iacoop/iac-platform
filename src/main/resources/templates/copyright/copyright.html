@@ -100,7 +100,7 @@
                 <input type="hidden" th:value="${dto.copyrightId}">
                 <td colspan="2" th:text="${T(com.domain.common.CopyrightType).valueOf(dto.copyrightType).getName()}">
                 </td>
-                <td colspan="2" th:text="'-'"></td>
+                <td colspan="2" th:text="${dto.professorDept}"></td>
                 <td colspan="5" th:text="${dto.copyrightName}"></td>
                 <td colspan="2" th:text="${dto.representor}"></td>
                 <td colspan="2" th:text="${T(com.web.util.DateUtil).dotStyleWithoutTime(dto.createdDate)}"></td>

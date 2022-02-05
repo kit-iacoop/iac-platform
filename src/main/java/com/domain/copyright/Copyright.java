@@ -60,7 +60,7 @@ public class Copyright extends BaseTimeEntity {
     @Column(name = "KEYWORD")
     private String keyword;
 
-    @Column(name = "DESCRIPTION")
+    @Column(name = "DESCRIPTION", length = 1500)
     private String description;
 
     @Column(name = "MAINTENANCE_STATE")

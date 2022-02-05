@@ -12,7 +12,6 @@ import lombok.Setter;
 public class CopyrightDTO {
     private String copyrightId;
     private String accountId;
-    //    private String accountType;
     private String copyrightName;
     private String declarationYear;
     private String cooperation;
@@ -33,7 +32,6 @@ public class CopyrightDTO {
     public CopyrightDTO(Copyright copyright) {
         this.copyrightId = String.valueOf(copyright.getCopyrightId());
         this.accountId = String.valueOf(copyright.getAccountId().getAccountId());
-//        this.accountType
         this.copyrightName = copyright.getTitle();
         this.declarationYear = copyright.getDeclarationYear();
         this.cooperation = copyright.getCooperation();
@@ -50,7 +48,6 @@ public class CopyrightDTO {
         this.applicationNumber = "";
         this.registrationDate = "";
         this.registrationNumber = "";
-
         if (copyright.getApplicationRegistrationList().size() != 0) {
             this.applicationDate = copyright.getApplicationRegistrationList().get(0).getIssueDate().toString();
             this.applicationNumber = copyright.getApplicationRegistrationList().get(0).getNumber();
@@ -61,5 +58,4 @@ public class CopyrightDTO {
         }
 
     }
-
 }

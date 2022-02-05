@@ -1,7 +1,7 @@
 package com.domain.applicationRegistration;
 
-import com.domain.copyright.Copyright;
 import com.domain.common.BaseTimeEntity;
+import com.domain.copyright.Copyright;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
@@ -20,7 +20,7 @@ public class ApplicationRegistration extends BaseTimeEntity {
     @Column(name = "APPLICATION_REGISTRATION_ID", nullable = false)
     private Long applicationRegistrationId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "COPYRIGTH_ID")
     private Copyright copyright;
 
