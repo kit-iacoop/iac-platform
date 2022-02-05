@@ -58,4 +58,18 @@ public abstract class AccountInformationDTO {
     protected State status;
 
     abstract public Account toEntity();
+
+    public AccountInformationDTO(Account account) {
+        this.accountId = account.getAccountId();
+        this.loginId = account.getLoginId();
+        this.password = account.getPassword();
+        this.name = account.getName();
+        this.birthDate = String.valueOf(account.getBirthDate());
+        this.zipCode = account.getAddress().getZipCode();
+        this.city = account.getAddress().getCity();
+        this.street = account.getAddress().getStreet();
+        this.email = account.getEmail();
+        this.telephone = account.getTelephone();
+        this.status = account.getStatus();
+    }
 }

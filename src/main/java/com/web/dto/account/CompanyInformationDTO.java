@@ -1,5 +1,6 @@
 package com.web.dto.account;
 
+import com.domain.account.Account;
 import com.domain.account.Company;
 import com.domain.common.Address;
 import com.domain.common.State;
@@ -41,6 +42,16 @@ public class CompanyInformationDTO extends AccountInformationDTO {
 //    @NotEmpty
     private String subscriptionDate;
 
+    public CompanyInformationDTO(Account account) {
+        super(account);
+        Company company = (Company) account;
+        this.businessRegistrationNumber = company.getBusinessRegistrationNumber();
+        this.employeeNumber = company.getEmployeeNumber();
+        this.companyType = company.getCompanyType();
+        this.sector = company.getSector();
+        this.owner = company.getOwner();
+        this.subscriptionDate = company.getSubscriptionDate();
+    }
 
     public Company toEntity(){
         return Company.builder()
