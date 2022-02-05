@@ -86,7 +86,7 @@ public class HomeController {
 
     @GetMapping("/about/companies/list")
     public String findAllCompany(
-            @PageableDefault(sort = "name", direction = Sort.Direction.ASC) Pageable page,
+            @PageableDefault(size = 20, sort = "name", direction = Sort.Direction.ASC) Pageable page,
             @RequestParam(required = false, value = "key") String key, Model model) {
 
         Page<CompanyInformationDTO> dtoList;
