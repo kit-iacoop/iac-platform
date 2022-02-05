@@ -73,7 +73,7 @@ public class RequestController {
             @RequestParam(name = "fields[]", defaultValue = "") String[] fields, // 분야 id들 (없으면 all)
             @RequestParam(name = "options[]", defaultValue = "") String[] options, // 캡스톤여부, 융합프로젝트 여부 (없으면 all)
             @RequestParam(name = "key", defaultValue = "") String key, // 검색어
-            @PageableDefault(sort = "createDate", direction = Sort.Direction.DESC) Pageable pageable
+            @PageableDefault(sort = "createdDate", direction = Sort.Direction.DESC) Pageable pageable
     ) {
 
         Page<CollaboRequestDTO> queriedList = requestService.findRequestByQuery(type, term, fields, options, key, pageable);

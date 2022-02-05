@@ -6,7 +6,10 @@ import com.domain.collaboRequestTechnique.QCollaboRequestTechnique;
 import com.domain.common.RequestType;
 import com.domain.fieldCategory.FieldCategory;
 import com.domain.fieldCategory.QFieldCategory;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -40,11 +43,19 @@ public class CollaboRequestRepositoryCustomImpl
                         containTitle(condition.getKey()),
                         eqCategories(condition.getFieldCategoryList())
                 ).distinct()
+                .orderBy(sortOrder(pageable))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
         return new PageImpl<>(results, pageable, results.size());
+    }
+
+    private OrderSpecifier[] sortOrder(Pageable pageable) {
+        return pageable.getSort().stream().map(order -> new OrderSpecifier(
+                order.isAscending() ? Order.ASC : Order.DESC,
+                Expressions.path(Object.class, collaboRequest, order.getProperty())
+        )).toArray(OrderSpecifier[]::new);
     }
 
     private BooleanExpression eqRequestType(RequestType type) {
