@@ -63,7 +63,7 @@
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-center">
-                    <div th:replace="fragments/portal/pagination :: template-pagination('/about/companies/list', ${page}, ${maxPage}, ${key})"></div>
+                    <div th:replace="fragments/portal/pagination :: template-pagination('/about/companies/list', ${companyDtos}, ${key})"></div>
                 </div>
             </div>
         </div>

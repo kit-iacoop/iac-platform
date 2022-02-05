@@ -97,8 +97,6 @@ public class HomeController {
         }
 
         model.addAttribute("key", key);
-        model.addAttribute("page", page.getPageNumber() + 1);
-        model.addAttribute("maxPage", dtoList.getTotalPages());
         model.addAttribute("companyDtos", dtoList);
         return "about/company-list";
     }

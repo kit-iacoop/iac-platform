@@ -107,7 +107,7 @@
             </tbody>
           </table>
           <div class="d-flex justify-content-center">
-            <div th:replace="fragments/portal/pagination :: template-pagination('/copyrights/list', ${page}, ${maxPage}, ${key})"></div>
+            <div th:replace="fragments/portal/pagination :: template-pagination('/copyrights/list', ${copyrightDtos}, ${key})"></div>
           </div>
         </div>
       </div>

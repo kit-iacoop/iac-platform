@@ -72,7 +72,7 @@
                     </tbody>
                 </table>
                 <div class="d-flex justify-content-center">
-                    <div th:replace="fragments/portal/pagination :: template-pagination('/boards/list', ${page}, ${maxPage}, ${key})"></div>
+                    <div th:replace="fragments/portal/pagination :: template-pagination('/boards/list', ${boardDtos}, ${key})"></div>
                 </div>
             </div>
         </div>

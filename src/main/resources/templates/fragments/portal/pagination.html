@@ -1,42 +1,42 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<th:block th:fragment="template-pagination(url, page, maxPage, key)">
+<th:block th:fragment="template-pagination(url, page, key)" th:with="curPage=${page.getPageable().getPageNumber() + 1}, totalPage=${page.getTotalPages()}, isFirst=${page.isFirst()}, isLast=${page.isLast()}">
     <nav>
         <ul class="pagination">
-            <li th:if="${page} > 1" class="page-item">
-                <a class="page-link" th:href="@{${url}(page=${page+(-1)}, key=${key})}"
+            <li th:if="${!isFirst}" class="page-item">
+                <a class="page-link" th:href="@{${url}(page=${curPage+(-1)}, key=${key})}"
                    aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                     <span class="sr-only">Previous</span>
                 </a>
             </li>
-            <li th:if="${page} == 1" class="page-item disabled">
+            <li th:if="${isFirst}" class="page-item disabled">
                 <a class="page-link" href="#" aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                     <span class="sr-only">Previous</span>
                 </a>
             </li>
 
-            <th:block th:with="ten=${(page+(-1))/10*10}">
+            <th:block th:with="ten=${(curPage+(-1))/10*10}">
                 <th:block th:each="num : ${#numbers.sequence(ten+1, ten+10)}">
-                    <li th:if="${num} <= ${maxPage} and ${num} == ${page}" class="page-item active" aria-current="page">
+                    <li th:if="${num} <= ${totalPage} and ${num} == ${curPage}" class="page-item active" aria-current="page">
                         <a class="page-link" th:href="@{${url}(page=${num}, key=${key})}" th:text="${num}">
                             <span class="sr-only">(current)</span>
                         </a>
                     </li>
-                    <li th:if="${num} <= ${maxPage} and ${num} != ${page}" class="page-item">
+                    <li th:if="${num} <= ${totalPage} and ${num} != ${curPage}" class="page-item">
                         <a class="page-link" th:href="@{${url}(page=${num}, key=${key})}" th:text="${num}"></a>
                     </li>
                 </th:block>
             </th:block>
 
-            <li th:if="${page} < ${maxPage}" class="page-item">
-                <a class="page-link" th:href="@{${url}(page=${page+1}, key=${key})}" aria-label="Next">
+            <li th:if="${!isLast}" class="page-item">
+                <a class="page-link" th:href="@{${url}(page=${curPage+1}, key=${key})}" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                     <span class="sr-only">Next</span>
                 </a>
             </li>
-            <li th:if="${page} >= ${maxPage}" class="page-item disabled">
+            <li th:if="${isLast}" class="page-item disabled">
                 <a class="page-link" href="#" aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                     <span class="sr-only">Next</span>
