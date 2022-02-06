@@ -47,7 +47,7 @@ spring:
       hibernate:
         format_sql: false
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
 
 ---
 

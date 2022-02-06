@@ -65,9 +65,9 @@ public abstract class AccountInformationDTO {
         this.password = account.getPassword();
         this.name = account.getName();
         this.birthDate = String.valueOf(account.getBirthDate());
-        this.zipCode = account.getAddress().getZipCode();
-        this.city = account.getAddress().getCity();
-        this.street = account.getAddress().getStreet();
+        this.zipCode = (account.getAddress() != null) ? account.getAddress().getZipCode() : null;
+        this.city = (account.getAddress() != null) ?  account.getAddress().getCity() : null;
+        this.street = (account.getAddress() != null ) ? account.getAddress().getStreet() : null;
         this.email = account.getEmail();
         this.telephone = account.getTelephone();
         this.status = account.getStatus();
