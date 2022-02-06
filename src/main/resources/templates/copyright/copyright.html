@@ -106,8 +106,8 @@
               </tr>
             </tbody>
           </table>
-          <div class="d-flex justify-content-center">
-            <div th:replace="fragments/portal/pagination :: template-pagination('/copyrights/list', ${copyrightDtos}, ${key})"></div>
+          <div class="d-flex justify-content-center" th:with="hrefFormat=${T(com.web.util.StringUtil).pagingUrlFormatWithKey('/copyrights/list', key)}">
+            <div th:replace="fragments/portal/pagination :: template-pagination(${hrefFormat}, ${copyrightDtos}, ${key})"></div>
           </div>
         </div>
       </div>
