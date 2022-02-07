@@ -53,9 +53,6 @@ public class Company extends Account {
     @Column(name = "COMPANY_TYPE", nullable = false)
     private String companyType;
 
-    @Column(name = "TEMPORARY_ADDRESS", nullable = true)
-    private String temporaryAddress;
-
     @Column(name = "MILEAGE", nullable = false)
     private Long mileage;
 
@@ -71,6 +68,11 @@ public class Company extends Account {
 
 
     // additional field
+
+    @Column(name = "TEMPORARY_ADDRESS", nullable = true)
+    private String temporaryAddress;
+
+
     @Column(name = "MENTOR_PROF_RONLY", nullable = true)
     private String mentorProfessorROnly;
 

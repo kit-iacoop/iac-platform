@@ -36,8 +36,6 @@ public class BoardController {
 
         model.addAttribute("boardDtos", boardPage);
         model.addAttribute("key", key);
-        model.addAttribute("page", pageable.getPageNumber() + 1);
-        model.addAttribute("maxPage", boardPage.getTotalPages());
 
         return "board/board-list";
     }

@@ -1,11 +1,13 @@
 package com.web.dto.account;
 
+import com.domain.account.Account;
 import com.domain.account.Company;
 import com.domain.common.Address;
 import com.domain.common.State;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
+import javax.persistence.Column;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -41,6 +43,35 @@ public class CompanyInformationDTO extends AccountInformationDTO {
 //    @NotEmpty
     private String subscriptionDate;
 
+
+
+    // 부가 칼럼
+    private String temporaryAddress;
+    private String mentorProfessorROnly;
+    private String mentorProfessorDeptROnly;
+    private Boolean mentorProfessorRET;
+    private Boolean closure;
+    private String closureDate;
+
+
+    public CompanyInformationDTO(Account account) {
+        super(account);
+        Company company = (Company) account;
+        this.businessRegistrationNumber = company.getBusinessRegistrationNumber();
+        this.employeeNumber = company.getEmployeeNumber();
+        this.companyType = company.getCompanyType();
+        this.sector = company.getSector();
+        this.owner = company.getOwner();
+        this.subscriptionDate = company.getSubscriptionDate();
+        //부가 칼럼
+        this.temporaryAddress = company.getTemporaryAddress();
+        this.mentorProfessorROnly = company.getMentorProfessorROnly();
+        this.mentorProfessorDeptROnly = company.getMentorProfessorDeptROnly();
+        this.mentorProfessorRET = company.getMentorProfessorRET();
+        this.closure = company.getClosure();
+        this.closureDate = company.getClosureDate();
+
+    }
 
     public Company toEntity(){
         return Company.builder()

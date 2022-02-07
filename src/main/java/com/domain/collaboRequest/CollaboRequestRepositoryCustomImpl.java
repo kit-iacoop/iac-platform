@@ -6,7 +6,11 @@ import com.domain.collaboRequestTechnique.QCollaboRequestTechnique;
 import com.domain.common.RequestType;
 import com.domain.fieldCategory.FieldCategory;
 import com.domain.fieldCategory.QFieldCategory;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -30,8 +34,7 @@ public class CollaboRequestRepositoryCustomImpl
 
     @Override
     public Page<CollaboRequest> search(RequestQueryCondition condition, Pageable pageable) {
-
-        List<CollaboRequest> results = queryFactory
+        JPAQuery<CollaboRequest> query = queryFactory
                 .select(collaboRequest).from(collaboRequest, qcollaboRequestTechnique).join(qcollaboRequestTechnique)
                 .where(
                         eqRequestType(condition.getType()),
@@ -39,12 +42,23 @@ public class CollaboRequestRepositoryCustomImpl
                         eqIsCapstone(condition.getIsCapstone()),
                         containTitle(condition.getKey()),
                         eqCategories(condition.getFieldCategoryList())
-                ).distinct()
+                ).distinct();
+        int size = query.fetch().size();    // 이유는 모르겠지만 다음 쿼리 실행 후에는 값이 달라짐
+
+        List<CollaboRequest> results = query
+                .orderBy(sortOrder(pageable))
                 .offset(pageable.getOffset())
                 .limit(pageable.getPageSize())
                 .fetch();
 
-        return new PageImpl<>(results, pageable, results.size());
+        return new PageImpl<>(results, pageable, size);
+    }
+
+    private OrderSpecifier[] sortOrder(Pageable pageable) {
+        return pageable.getSort().stream().map(order -> new OrderSpecifier(
+                order.isAscending() ? Order.ASC : Order.DESC,
+                Expressions.path(Object.class, collaboRequest, order.getProperty())
+        )).toArray(OrderSpecifier[]::new);
     }
 
     private BooleanExpression eqRequestType(RequestType type) {

@@ -6,6 +6,8 @@ import com.web.dto.account.AccountRolesDTO;
 import com.web.dto.account.*;
 import com.web.dto.PendingCompanyDTO;
 import com.web.dto.account.CompanyInformationDTO;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,5 +40,9 @@ public interface AccountService {
     public Account registrationReject(Long accountId);
 
     Account getPendingAccountById(Long accountId);
+
+    Page<CompanyInformationDTO> findCompany(Pageable pageable);
+    Page<CompanyInformationDTO> findCompanyByKey(Pageable pageable, String name);
+    CompanyInformationDTO getCompanyById(String id);
 }
 

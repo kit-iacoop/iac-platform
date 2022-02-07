@@ -15,6 +15,8 @@ import com.web.dto.PendingCompanyDTO;
 import com.web.service.AccountService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -157,6 +159,24 @@ public class AccountServiceImpl implements AccountService {
         }
 
         return optionalAccount.get();
+    }
+
+    @Override
+    public Page<CompanyInformationDTO> findCompany(Pageable pageable) {
+        Page<Company> list = companyRepository.findAll(pageable);
+        return list.map(CompanyInformationDTO::new);
+    }
+
+    @Override
+    public Page<CompanyInformationDTO> findCompanyByKey(Pageable pageable, String name) {
+        Page<Company> list = companyRepository.findByNameContains(pageable, name);
+        return list.map(CompanyInformationDTO::new);
+    }
+
+    @Override
+    public CompanyInformationDTO getCompanyById(String id) {
+        Optional<Account> optionalAccount = accountRepository.findById(Long.valueOf(id));
+        return optionalAccount.map(CompanyInformationDTO::new).orElse(null);
     }
 
     @Transactional
