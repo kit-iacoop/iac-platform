@@ -51,6 +51,14 @@
                 $(this).show();
             });
         } 
+
+        function selectTabMenu(statusItem) {
+            var tabmenuId = $(statusItem).attr('value');
+            console.log(tabmenuId);
+            $("."+tabmenuId).load("/company/mileage/"+tabmenuId, function() {
+                $(this).show();
+            });
+        } 
     </script>
 </head>
 
@@ -335,7 +343,7 @@
                     <div class="row" id="mypage">
                         <div class="col-sm-1"><a value="/company/mypage" onclick="selectSubMenu(this)">내 정보</a></div>
                         <div class="col-sm-1"><a value="/company/mypage/update" onclick="selectSubMenu(this)">정보 수정</a></div>
-                        <div class="col-sm-1"><a value="/company/mypage/currented" onclick="selectSubMenu(this)">현행화</a></div>
+                        <div class="col-sm-1"><a value="/company/mypage/currentized" onclick="selectSubMenu(this)">현행화</a></div>
                     </div>
                 </div>
                 <!-- Begin Page Content -->
