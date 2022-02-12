@@ -106,8 +106,8 @@ public class ProjectServiceImpl implements ProjectService {
         }
         project.setProfessorList(projectProfessorList);
 
-        projectRepository.save(project);
-        return 0L;
+        Project newProject = projectRepository.save(project);
+        return newProject.getProjectId();
     }
 
     @Override
