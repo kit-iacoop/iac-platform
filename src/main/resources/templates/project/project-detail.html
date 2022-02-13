@@ -3,20 +3,19 @@
 
 <head>
     <div th:replace="fragments/portal/head :: template-head('산학 프로젝트 조회')"></div>
-    <link rel="stylesheet" href="/assets/css/form-style.css">
     <style>
-        .tab-content-container > div {
+        .tab-content {
+            flex-grow: 1;
             border: 2px solid black;
-            margin: 2rem;
+            padding: 0.5rem 1.5rem;
+        }
+
+        input[type=checkbox] {
+            margin-right: 0.5rem;
         }
 
         input[name='midFiles[]'], input[name='finalFiles[]'] {
             display: none;
-        }
-
-        div.MultiFile-label button {
-            padding-top: 0rem;
-            padding-bottom: 0.5rem;
         }
 
         .file-list {
@@ -24,10 +23,19 @@
             min-height: 8rem;
         }
 
-        div.MultiFile-label {
+        .file-list a {
+            border: none;
+        }
+
+        div.MultiFile-label, .file-item {
             border-left: 2px solid #a0a0a0;
             margin: 0.5rem;
             padding: 0.5rem;
+        }
+
+        div.MultiFile-label button {
+            padding-top: 0rem;
+            padding-bottom: 0.5rem;
         }
     </style>
 </head>
@@ -58,57 +66,110 @@
         <div class="container">
             <div class="row gy-4">
                 <div class="form-container">
-                    탭으로 구현할 예정
-                    <div>
-                        <button type="button">프로젝트 정보</button>
-                        <button type="button">중간 결과물 관리</button>
-                        <button type="button">최종 결과물 관리</button>
-                        <button type="button">매출 관리</button>
-                    </div>
-                    <div class="tab-content-container">
-                        <div>
-                            <h4>프로젝트 정보</h4>
-                            프로젝트 명   [[${projectDto.title}]](디비에 필드 없음)<br>
-                            기업   [[${projectDto.companyName}]]<br>
-                            참여 교수 리스트<br>
-                            프로젝트 기간 [[${projectDto.startDate}]] ~ [[${projectDto.endDate}]]<br>
-                            인건비   [[${projectDto.budgetDetail.humanCostRate}]]<br>
-                            연구활동비   [[${projectDto.budgetDetail.researchActivityRate}]]<br>
-                            간접비   [[${projectDto.budgetDetail.indirectCostRate}]]<br>
-                            총 예산액   [[${projectDto.budgetDetail.total}]]<br>
-                            매칭 정보<br>
-                            상담 리스트<br>
+                    <div class="d-flex align-items-start">
+                        <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                            <button class="nav-link active" id="v-pills-info-tab" data-bs-toggle="pill" data-bs-target="#v-pills-info" type="button" role="tab" aria-controls="v-pills-info" aria-selected="true">프로젝트 정보</button>
+                            <button class="nav-link" id="v-pills-mid-tab" data-bs-toggle="pill" data-bs-target="#v-pills-mid" type="button" role="tab" aria-controls="v-pills-mid" aria-selected="false">중간 결과물 관리</button>
+                            <button class="nav-link" id="v-pills-final-tab" data-bs-toggle="pill" data-bs-target="#v-pills-final" type="button" role="tab" aria-controls="v-pills-final" aria-selected="false">최종 결과물 관리</button>
+                            <button class="nav-link" id="v-pills-sales-tab" data-bs-toggle="pill" data-bs-target="#v-pills-sales" type="button" role="tab" aria-controls="v-pills-sales" aria-selected="false">매출 관리</button>
                         </div>
-                        <div>
-                            <h4>중간 결과물 관리</h4>
-                            <h5>등록된 결과물</h5>
-                            이미 등록된 파일 리스트를 보여줄 예정<br>
-                            다운로드 받을 수 있는 버튼<br>
-                            체크박스 선택 후 삭제하기 버튼
-                            <h5>결과물 추가하기</h5>
-                            <form th:action="@{/projects/list/{id}/mid-output(id=${projectDto.projectId})}" method="post" enctype="multipart/form-data">
-                                <div id="file-list-mid" class="file-list"></div>
-                                <button type="button" id="fileUploadLbl-mid" class="btn btn-outline-secondary">파일 가져오기</button>
-                                <input type="file" name="midFiles[]">
-                                <input type="submit" class="btn btn-outline-secondary" value="파일 등록">
-                            </form>
-                        </div>
-                        <div>
-                            <h4>최종 결과물 관리</h4>
-                            <h5>등록된 결과물</h5>
-                            이미 등록된 파일 리스트를 보여줄 예정<br>
-                            다운로드 받을 수 있는 버튼<br>
-                            체크박스 선택 후 삭제하기 버튼
-                            <h5>결과물 추가하기</h5>
-                            <form th:action="@{/projects/list/{id}/final-output(id=${projectDto.projectId})}" method="post" enctype="multipart/form-data">
-                                <div id="file-list-final" class="file-list"></div>
-                                <button type="button" id="fileUploadLbl-final" class="btn btn-outline-secondary">파일 가져오기</button>
-                                <input type="file" name="finalFiles[]">
-                                <input type="submit" class="btn btn-outline-secondary" value="파일 등록">
-                            </form>
-                        </div>
-                        <div>
-                            <h4>매출 관리</h4>
+                        <div class="tab-content" id="v-pills-tabContent">
+                            <div class="tab-pane fade show active" id="v-pills-info" role="tabpanel" aria-labelledby="v-pills-info-tab">
+                                <div class="d-flex">
+                                    <table class="flex-fill">
+                                        <thead>
+                                        <tr>
+                                            <td colspan="2">[[${projectDto.title}]]</td>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                        <tr>
+                                            <td>기업</td>
+                                            <td>[[${projectDto.companyName}]]</td>
+                                        </tr>
+                                        <tr>
+                                            <td>참여 교수</td>
+                                            <td>
+                                                <ul>
+                                                    <li th:each="professor : ${projectDto.projectProfessorDTOList}">
+                                                        [[${professor.professorName}]]
+                                                    </li>
+                                                </ul>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>프로젝트 기간</td>
+                                            <td>[[${T(com.web.util.DateUtil).dotStyle(projectDto.startDate)}]] ~ [[${T(com.web.util.DateUtil).dotStyle(projectDto.endDate)}]]</td>
+                                        </tr>
+                                        <tr>
+                                            <td>인건비</td>
+                                            <td>[[${projectDto.budgetDetail.humanCostRate}]] 만원</td>
+                                        </tr>
+                                        <tr>
+                                            <td>연구활동비</td>
+                                            <td>[[${projectDto.budgetDetail.researchActivityRate}]] 만원</td>
+                                        </tr>
+                                        <tr>
+                                            <td>간접비</td>
+                                            <td>[[${projectDto.budgetDetail.indirectCostRate}]] 만원</td>
+                                        </tr>
+                                        <tr>
+                                            <td>총 예산액</td>
+                                            <td>[[${projectDto.budgetDetail.total}]] 만원</td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                매칭 정보 ---<br>
+                                상담 리스트 ---<br>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-mid" role="tabpanel" aria-labelledby="v-pills-mid-tab">
+                                <div>
+                                    <h5>등록된 결과물</h5>
+                                    <form th:action method="post">
+                                        <div class="file-list">
+                                            <div class="file-item d-flex justify-content-between align-items-center">
+                                                <label>
+                                                    <input type="checkbox" class="form-check-input" name="midRemoveFiles[]" value="1">
+                                                    <span>제목없음.hwp</span>
+                                                </label>
+                                                <a class="btn btn-outline-secondary" href="#">
+                                                    <i class="bi bi-download"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <input type="submit" class="btn btn-outline-secondary" value="선택한 파일 삭제">
+                                        </div>
+                                    </form>
+                                </div>
+                                <div>
+                                    <h5>결과물 추가하기</h5>
+                                    <form th:action="@{/projects/list/{id}/mid-output(id=${projectDto.projectId})}" method="post" enctype="multipart/form-data">
+                                        <div id="upload-file-list-mid" class="file-list"></div>
+                                        <div class="d-flex">
+                                            <button type="button" id="fileUploadLbl-mid" class="btn btn-outline-secondary">파일 가져오기</button>
+                                            <input type="file" name="midFiles[]">
+                                            <input type="submit" class="btn btn-outline-secondary" value="파일 등록">
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-final" role="tabpanel" aria-labelledby="v-pills-final-tab">
+                                <h5>등록된 결과물</h5>
+                                이미 등록된 파일 리스트를 보여줄 예정<br>
+                                다운로드 받을 수 있는 버튼<br>
+                                체크박스 선택 후 삭제하기 버튼
+                                <h5>결과물 추가하기</h5>
+                                <form th:action="@{/projects/list/{id}/final-output(id=${projectDto.projectId})}" method="post" enctype="multipart/form-data">
+                                    <div id="upload-file-list-final" class="file-list"></div>
+                                    <button type="button" id="fileUploadLbl-final" class="btn btn-outline-secondary">파일 가져오기</button>
+                                    <input type="file" name="finalFiles[]">
+                                    <input type="submit" class="btn btn-outline-secondary" value="파일 등록">
+                                </form>
+                            </div>
+                            <div class="tab-pane fade" id="v-pills-sales" role="tabpanel" aria-labelledby="v-pills-sales-tab">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -127,7 +188,7 @@
         $('input[name=\'midFiles[]\']').MultiFile({
             max: 50,
             maxfile: 1024,
-            list: '#file-list-mid',
+            list: '#upload-file-list-mid',
             STRING: {
                 remove: '<button type="button" class="btn-close"></button>',
                 duplicate: '\'$file\'은(는) 중복된 파일입니다.'
@@ -137,7 +198,7 @@
         $('input[name=\'finalFiles[]\']').MultiFile({
             max: 50,
             maxfile: 1024,
-            list: '#file-list-final',
+            list: '#upload-file-list-final',
             STRING: {
                 remove: '<button type="button" class="btn-close"></button>',
                 duplicate: '\'$file\'은(는) 중복된 파일입니다.'
