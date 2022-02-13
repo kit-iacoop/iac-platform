@@ -35,6 +35,7 @@ public class ProjectDTO {
 
     public ProjectDTO(Project project) {
         this.projectId = String.valueOf(project.getProjectId());
+        this.title = project.getCollaboRequest().getTitle();
         this.companyId = String.valueOf(project.getCompany().getAccountId());
         this.companyName = project.getCompany().getName();
         this.startDate = String.valueOf(project.getStartDate());
