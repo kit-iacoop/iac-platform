@@ -21,9 +21,9 @@ public class ProjectProfessorDTO {
         this.projectProfessorId = String.valueOf(projectProfessor.getProjectProfessorId());
         this.projectId = String.valueOf(projectProfessor.getProject().getProjectId());
         this.professorId = String.valueOf(projectProfessor.getProfessor().getAccountId());
-        this.professorId = projectProfessor.getProfessor().getName();
-        this.professorId = projectProfessor.getProfessor().getDepartment();
-        this.professorId = projectProfessor.getProfessor().getUniversity().getUniversityName();
+        this.professorName = projectProfessor.getProfessor().getName();
+        this.professorDept = projectProfessor.getProfessor().getDepartment();
+        this.professorUniv = projectProfessor.getProfessor().getUniversity().getUniversityName();
     }
 
 }
