@@ -11,7 +11,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.List;
 
 @RequestMapping("projects")
@@ -40,7 +39,8 @@ public class ProjectController {
     @PostMapping("/list/{id}/mid-output")
     public String addProjectMidOutput(
             @PathVariable String id,
-            @RequestParam(name = "midFiles[]") List<MultipartFile> fileList) throws IOException {
+            @RequestParam(name = "midFiles[]", required = false) List<MultipartFile> fileList,
+            @RequestParam(name = "midRemoveFiles[]", required = false) List<String> removeFileIdList) {
 
         projectService.insertMidOutput(Long.valueOf(id), fileList);
 
@@ -50,7 +50,8 @@ public class ProjectController {
     @PostMapping("/list/{id}/final-output")
     public String addProjectFinalOutput(
             @PathVariable String id,
-            @RequestParam(name = "finalFiles[]") List<MultipartFile> fileList) throws IOException {
+            @RequestParam(name = "finalFiles[]", required = false) List<MultipartFile> fileList,
+            @RequestParam(name = "finalRemoveFiles[]", required = false) List<String> removeFileIdList) {
 
         projectService.insertFinalOutput(Long.valueOf(id), fileList);
 
