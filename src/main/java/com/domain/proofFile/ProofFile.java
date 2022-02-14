@@ -4,12 +4,15 @@ import com.domain.projectOutput.ProjectOutput;
 import com.domain.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
 @Entity
+@SuperBuilder
+
 @Table(name = "PROOF_FILE")
 public class ProofFile extends BaseTimeEntity {
     @Id
@@ -17,7 +20,7 @@ public class ProofFile extends BaseTimeEntity {
     @Column(name = "PROOF_FILE_ID", nullable = false)
     private Long proofFileId;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinColumn(name = "PROJECT_OUTPUT_ID", nullable = false)
     private ProjectOutput projectOutput;
 

@@ -6,41 +6,42 @@ import com.domain.account.ProfessorRepository;
 import com.domain.budgetDetail.BudgetDetail;
 import com.domain.collaboRequest.CollaboRequest;
 import com.domain.collaboRequest.CollaboRequestRepository;
+import com.domain.common.State;
 import com.domain.project.Project;
 import com.domain.project.ProjectRepository;
+import com.domain.projectOutput.ProjectOutput;
 import com.domain.projectProfessor.ProjectProfessor;
+import com.domain.proofFile.ProofFile;
+import com.domain.proofFile.ProofFileRepository;
 import com.web.dto.BudgetDetailDTO;
 import com.web.dto.CollaboRequestDTO;
 import com.web.dto.ProjectDTO;
 import com.web.dto.ProjectProfessorDTO;
 import com.web.service.ProjectService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class ProjectServiceImpl implements ProjectService {
 
     private final CollaboRequestRepository collaboRequestRepository;
     private final ProjectRepository projectRepository;
     private final CompanyRepository companyRepository;
     private final ProfessorRepository professorRepository;
-
-    public ProjectServiceImpl(
-            CollaboRequestRepository collaboRequestRepository,
-            ProjectRepository projectRepository, CompanyRepository companyRepository, ProfessorRepository professorRepository) {
-
-        this.collaboRequestRepository = collaboRequestRepository;
-        this.projectRepository = projectRepository;
-        this.companyRepository = companyRepository;
-        this.professorRepository = professorRepository;
-    }
+    private final ProofFileRepository proofFileRepository;
 
     @Override
     public Page<ProjectDTO> findAllProject(Pageable pageable) {
@@ -75,6 +76,20 @@ public class ProjectServiceImpl implements ProjectService {
                 .indirectCost(budgetDetailDTO.getIndirectCostRate())
                 .build();
 
+        ProjectOutput midOutput = ProjectOutput.builder()
+                .outputType("mid")
+                .description("")
+                .status(State.APPROVED)
+                .proofFileList(new ArrayList<>())
+                .build();
+
+        ProjectOutput finalOutput = ProjectOutput.builder()
+                .outputType("final")
+                .description("")
+                .status(State.PENDING)
+                .proofFileList(new ArrayList<>())
+                .build();
+
 
         Project project = Project.builder()
                 .company(request.getCompany())
@@ -88,6 +103,8 @@ public class ProjectServiceImpl implements ProjectService {
 
         request.setProjectId(project);
         budgetDetail.setProject(project);
+        midOutput.setProject(project);
+        finalOutput.setProject(project);
 
         List<ProjectProfessorDTO> projectProfessorDTOList = projectDTO.getProjectProfessorDTOList();
         List<Professor> professorList = professorRepository.findAllById(
@@ -123,5 +140,72 @@ public class ProjectServiceImpl implements ProjectService {
         return dto;
     }
 
+    @Override
+    public int insertMidOutput(Long projectId, List<MultipartFile> files) {
+        Optional<Project> byId = projectRepository.findById(projectId);
+        if (byId.isEmpty()) {
+            return 0;
+        }
+        Project project = byId.get();
+        ProjectOutput projectOutput = project.getProjectOutputList().get(0);
+        List<ProofFile> proofFileList = new ArrayList<>();
+        for (MultipartFile file : files) {
+            try {
+                if (file.getSize() > 0) {
+                    String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+                    String filePath = "/Users/lichee55/iac-platform/" + fileName;
+                    File saveFile = new File(filePath);
+                    file.transferTo(saveFile);
+                    ProofFile proofFile = ProofFile.builder()
+                            .fileName(fileName)
+                            .filePath(filePath)
+                            .fileSize(file.getSize() + " bytes")
+                            .build();
+                    proofFileList.add(proofFile);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        proofFileList.forEach(e -> {
+            e.setProjectOutput(projectOutput);
+            proofFileRepository.save(e);
+        });
+        return 1;
+    }
 
+    @Override
+    public int insertFinalOutput(Long projectId, List<MultipartFile> files) {
+        Optional<Project> byId = projectRepository.findById(projectId);
+        if (byId.isEmpty()) {
+            return 0;
+        }
+        Project project = byId.get();
+        ProjectOutput projectOutput = project.getProjectOutputList().get(1);
+        projectOutput.setStatus(State.PENDING);
+        List<ProofFile> proofFileList = new ArrayList<>();
+        for (MultipartFile file : files) {
+            try {
+                if (file.getSize() > 0) {
+                    String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+                    String filePath = "/Users/lichee55/iac-platform/" + fileName;
+                    File saveFile = new File(filePath);
+                    file.transferTo(saveFile);
+                    ProofFile proofFile = ProofFile.builder()
+                            .fileName(fileName)
+                            .filePath(filePath)
+                            .fileSize(file.getSize() + " bytes")
+                            .build();
+                    proofFileList.add(proofFile);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        proofFileList.forEach(e -> {
+            e.setProjectOutput(projectOutput);
+            proofFileRepository.save(e);
+        });
+        return 1;
+    }
 }
