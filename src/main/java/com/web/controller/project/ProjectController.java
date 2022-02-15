@@ -3,9 +3,11 @@ package com.web.controller.project;
 
 import com.web.dto.ProjectDTO;
 import com.web.service.ProjectService;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -56,6 +58,17 @@ public class ProjectController {
         projectService.insertFinalOutput(Long.valueOf(id), fileList);
 
         return "redirect:/projects/list/" + id;
+    }
+
+    @GetMapping("/list/download/{id}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable String id) {
+
+        ResponseEntity<Resource> resourceResponseEntity = projectService.downloadFile(id);
+
+        if (resourceResponseEntity.getStatusCode().is2xxSuccessful()) {
+            return resourceResponseEntity;
+        }
+        return null;
     }
 
 }
