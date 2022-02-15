@@ -73,12 +73,16 @@ public class ProjectController {
         return null;
     }
 
-    @GetMapping("/list/{id}/sales")
-    public String insertNewSales(@PathVariable String id, @RequestBody @ModelAttribute @Valid ProjectSalesHistoryDTO projectSalesHistoryDTO) {
+    @PostMapping("/list/{id}/sales")
+    public String insertNewSales(
+            @PathVariable String id,
+            @RequestPart @ModelAttribute @Valid ProjectSalesHistoryDTO projectSalesHistoryDTO,
+            @RequestPart(name = "salesFiles[]", required = false) List<MultipartFile> fileList) {
 
         System.out.println("projectSalesHistoryDTO.getProjectId() = " + projectSalesHistoryDTO.getProjectId());
         System.out.println("projectSalesHistoryDTO.getYear() = " + projectSalesHistoryDTO.getYear());
         System.out.println("projectSalesHistoryDTO.getSales() = " + projectSalesHistoryDTO.getSales());
+        fileList.forEach(System.out::println);
 
         return "redirect:/projects/list/" + id;
     }
