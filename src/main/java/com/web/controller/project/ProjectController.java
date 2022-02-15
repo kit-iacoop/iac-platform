@@ -2,6 +2,7 @@ package com.web.controller.project;
 
 
 import com.web.dto.ProjectDTO;
+import com.web.dto.ProjectSalesHistoryDTO;
 import com.web.service.ProjectService;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RequestMapping("projects")
@@ -69,6 +71,31 @@ public class ProjectController {
             return resourceResponseEntity;
         }
         return null;
+    }
+
+    @GetMapping("/list/{id}/sales")
+    public String insertNewSales(@PathVariable String id, @RequestBody @ModelAttribute @Valid ProjectSalesHistoryDTO projectSalesHistoryDTO) {
+
+        System.out.println("projectSalesHistoryDTO.getProjectId() = " + projectSalesHistoryDTO.getProjectId());
+        System.out.println("projectSalesHistoryDTO.getYear() = " + projectSalesHistoryDTO.getYear());
+        System.out.println("projectSalesHistoryDTO.getSales() = " + projectSalesHistoryDTO.getSales());
+
+        return "redirect:/projects/list/" + id;
+    }
+
+    @PostMapping("/sales/{id}/files")
+    public String addSalesProofFiles(
+            @PathVariable String id,
+            @RequestParam(name = "salesFiles[]", required = false) List<MultipartFile> fileList,
+            @RequestParam(name = "salesRemoveFiles[]", required = false) List<String> removeFileIdList) {
+
+        System.out.println("id = " + id);
+        fileList.forEach(System.out::println);
+        System.out.println("==========================================");
+        if (removeFileIdList != null)
+            removeFileIdList.forEach(System.out::println);
+
+        return "redirect:/";    // project id 가져와서 프로젝트 상세정보 화면으로 리다이렉트
     }
 
 }

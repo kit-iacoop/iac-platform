@@ -44,8 +44,24 @@
             margin: 0 1rem;
         }
 
-        input[name='midFiles[]'], input[name='finalFiles[]'], input[name='midRemoveFiles[]'], input[name='finalRemoveFiles[]'] {
+        input[type=checkbox], input[type=file] {
             display: none;
+        }
+
+        #add-info-form {
+            margin: 1rem;
+        }
+
+        #add-info-form form > * {
+            margin-right: 1.5rem;
+        }
+
+        #add-info-form form input {
+            margin-left: 0.5rem;
+        }
+
+        .input-number {
+            text-align: right;
         }
     </style>
 </head>
@@ -136,11 +152,11 @@
                             <div class="tab-pane fade" id="v-pills-mid" role="tabpanel" aria-labelledby="v-pills-mid-tab">
                                 <div>
                                     <form th:action="@{/projects/list/{id}/mid-output(id=${projectDto.projectId})}" method="post" enctype="multipart/form-data">
-                                        <div id="upload-file-list-mid" class="file-list">
+                                        <div class="file-list">
                                             <div class="file-item" th:each="fileDto : ${projectDto.outputDTOS.get(0).proofFileDTOList}">
                                                 <label>
                                                     <i class="bi bi-x-lg"></i>
-                                                    <input type="checkbox" class="form-check-input" name="midRemoveFiles[]" th:value="${fileDto.proofFileId}">
+                                                    <input type="checkbox" class="form-check-input removefiles" name="midRemoveFiles[]" th:value="${fileDto.proofFileId}">
                                                 </label>
                                                 <span>[[${#strings.substring(fileDto.fileName, 37)}]]</span>
                                                 <a th:href="@{/projects/list/download/{id}(id=${fileDto.getProofFileId()})}">
@@ -149,8 +165,8 @@
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-end">
-                                            <button type="button" id="fileUploadLbl-mid" class="btn btn-outline-secondary me-lg-2">파일 추가</button>
-                                            <input type="file" name="midFiles[]">
+                                            <button type="button" class="btn btn-outline-secondary me-lg-2 fileUploadLbl">파일 추가</button>
+                                            <input type="file" name="midFiles[]" class="multipartfiles">
                                             <input type="submit" class="btn btn-outline-secondary" value="저장">
                                         </div>
                                     </form>
@@ -159,11 +175,11 @@
                             <div class="tab-pane fade" id="v-pills-final" role="tabpanel" aria-labelledby="v-pills-final-tab">
                                 <div>
                                     <form th:action="@{/projects/list/{id}/final-output(id=${projectDto.projectId})}" method="post" enctype="multipart/form-data">
-                                        <div id="upload-file-list-final" class="file-list">
+                                        <div class="file-list">
                                             <div class="file-item" th:each="fileDto : ${projectDto.outputDTOS.get(1).proofFileDTOList}">
                                                 <label>
                                                     <i class="bi bi-x-lg"></i>
-                                                    <input type="checkbox" class="form-check-input" name="finalRemoveFiles[]" th:value="${fileDto.proofFileId}">
+                                                    <input type="checkbox" class="form-check-input removefiles" name="finalRemoveFiles[]" th:value="${fileDto.proofFileId}">
                                                 </label>
                                                 <span>[[${#strings.substring(fileDto.fileName, 37)}]]</span>
                                                 <a th:href="${fileDto.filePath}">
@@ -172,14 +188,64 @@
                                             </div>
                                         </div>
                                         <div class="d-flex justify-content-end">
-                                            <button type="button" id="fileUploadLbl-final" class="btn btn-outline-secondary me-lg-2">파일 추가</button>
-                                            <input type="file" name="finalFiles[]">
+                                            <button type="button" class="btn btn-outline-secondary me-lg-2 fileUploadLbl">파일 추가</button>
+                                            <input type="file" name="finalFiles[]" class="multipartfiles">
                                             <input type="submit" class="btn btn-outline-secondary" value="저장">
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                            <div class="tab-pane fade" id="v-pills-sales" role="tabpanel" aria-labelledby="v-pills-sales-tab"></div>
+                            <div class="tab-pane fade" id="v-pills-sales" role="tabpanel" aria-labelledby="v-pills-sales-tab">
+                                <div>매출 변화 꺾은선 그래프로 그릴 예정</div>
+                                <div id="add-info-form">
+                                    <h5>연매출 정보 추가</h5>
+                                    <form th:action="@{/projects/list/{id}/sales(id=${projectDto.projectId})}">
+                                        <input type="hidden" name="projectId" th:value="${projectDto.projectId}">
+                                        <label>
+                                            연도
+                                            <input type="text" name="year" required>
+                                        </label>
+                                        <label>
+                                            매출액
+                                            <input type="text" name="sales" class="input-number" required> 만원
+                                        </label>
+                                        <input type="submit" value="추가">
+                                    </form>
+                                </div>
+                                <div class="accordion" id="accordionExample">
+                                    <div class="accordion-item" th:each="salesDto : ${projectDto.projectSalesHistoryDTOList}">
+                                        <h2 class="accordion-header" th:id="|heading${salesDto.projectSalesHistoryId}|">
+                                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" th:attr="data-bs-target=${'#collapse' + salesDto.projectSalesHistoryId}, aria-controls=${'collapse' + salesDto.projectSalesHistoryId}" aria-expanded="false">
+                                                [[${salesDto.year}]]년 - [[${salesDto.sales}]]만원
+                                            </button>
+                                        </h2>
+                                        <div th:id="|collapse${salesDto.projectSalesHistoryId}|" class="accordion-collapse collapse" th:attr="aria-labelledby=${'heading' + salesDto.projectSalesHistoryId}" data-bs-parent="#accordionExample">
+                                            <div class="accordion-body">
+                                                <h5>증빙 자료</h5>
+                                                <form th:action="@{/projects/sales/{id}/files(id=${salesDto.projectSalesHistoryId})}" method="post" enctype="multipart/form-data">
+                                                    <div class="file-list">
+                                                        <div class="file-item" th:each="fileDto : ${salesDto.proofFileDTOList}">
+                                                            <label>
+                                                                <i class="bi bi-x-lg"></i>
+                                                                <input type="checkbox" class="form-check-input removefiles" name="salesRemoveFiles[]" th:value="${fileDto.proofFileId}">
+                                                            </label>
+                                                            <span>[[${#strings.substring(fileDto.fileName, 37)}]]</span>
+                                                            <a th:href="@{/projects/list/download/{id}(id=${fileDto.getProofFileId()})}">
+                                                                <i class="bi bi-download"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="d-flex justify-content-end">
+                                                        <button type="button" class="btn btn-outline-secondary me-lg-2 fileUploadLbl">파일 추가</button>
+                                                        <input type="file" name="salesFiles[]" class="multipartfiles">
+                                                        <input type="submit" class="btn btn-outline-secondary" value="저장">
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -195,45 +261,26 @@
 <script src="https://cdn.jsdelivr.net/npm/jquery-multifile@2.2.2/jquery.MultiFile.min.js" type="text/javascript"></script>
 <script>
     $(function() {
-        $('input[name=\'midFiles[]\']').MultiFile({
-            max: 50,
-            maxfile: 1024,
-            list: '#upload-file-list-mid',
-            STRING: {
-                remove: '<i class="bi bi-x-lg"></i>',
-                duplicate: '\'$file\'은(는) 중복된 파일입니다.'
-            }
+        $('.multipartfiles').each(function (idx, item) {
+            $(item).MultiFile({
+                max: 50,
+                maxfile: 1024,
+                list: $(item).parent().prev(),
+                STRING: {
+                    remove: '<i class="bi bi-x-lg"></i>',
+                    duplicate: '\'$file\'은(는) 중복된 파일입니다.'
+                }
+            });
         });
 
-        $('input[name=\'finalFiles[]\']').MultiFile({
-            max: 50,
-            maxfile: 1024,
-            list: '#upload-file-list-final',
-            STRING: {
-                remove: '<i class="bi bi-x-lg"></i>',
-                duplicate: '\'$file\'은(는) 중복된 파일입니다.'
-            }
-        });
-
-        $('#fileUploadLbl-mid').on('click', function () {
-            $('input[name=\'midFiles[]\']').each(function (idx, item) {
+        $('.fileUploadLbl').on('click', function () {
+            $(this).next().find('input[type=file]').each(function (idx, item) {
                 if (!$(item).attr('style'))
                     $(item).click();
             });
         });
 
-        $('#fileUploadLbl-final').on('click', function () {
-            $('input[name=\'finalFiles[]\']').each(function (idx, item) {
-                if (!$(item).attr('style'))
-                    $(item).click();
-            });
-        });
-
-        $('input[name=\'midRemoveFiles[]\']').on('change', function () {
-            $(this).parent().parent().hide();
-        });
-
-        $('input[name=\'finalRemoveFiles[]\']').on('change', function () {
+        $('.removefiles').on('change', function () {
             $(this).parent().parent().hide();
         });
     });
