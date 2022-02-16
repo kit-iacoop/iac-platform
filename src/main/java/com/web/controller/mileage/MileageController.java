@@ -41,14 +41,13 @@ public class MileageController {
     public ModelAndView mileageHistory(ModelAndView mav, @ModelAttribute @Validated QueryOptionDTO queryOptionDTO){
 
         List<MileageHistoryDTO> dtos = companyMileageService.findAllHistoryDTOByCompanyIdAndDOption(common.getAccountContext().getAccount().getAccountId(), queryOptionDTO);
-
         mav.addObject("mileageHistoryDTOs", dtos);
         mav.setViewName("company/industry-cooperation/project/activity-proof");
 
         return mav;
     }
 
-    @GetMapping("/officer/mileage/screening")
+    @GetMapping(path={"/officer/mileage/screening", "/officer/project/first"})
     public ModelAndView mileageScreening(ModelAndView mav, @ModelAttribute @Validated QueryOptionDTO queryOptionDTO){
 
         List<MileageHistoryDTO> dtos = companyMileageService.findAllHistoryDTOWithDOption(queryOptionDTO);
