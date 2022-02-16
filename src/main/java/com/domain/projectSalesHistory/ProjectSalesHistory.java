@@ -6,6 +6,7 @@ import com.domain.common.BaseTimeEntity;
 import com.domain.common.State;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Entity
+@SuperBuilder
 @Table(name = "PROJECT_SALES_HISTORY")
 public class ProjectSalesHistory extends BaseTimeEntity {
     @Id
@@ -36,7 +38,7 @@ public class ProjectSalesHistory extends BaseTimeEntity {
     @Column(name = "STATUS", nullable = false)
     private State status;
 
-    @OneToMany
+    @OneToMany(mappedBy = "projectSalesHistory", cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<SalesHistoryProofFile> proofFileList = new ArrayList<>();
 
     public void setProject(Project projectId) {

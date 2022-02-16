@@ -1,6 +1,7 @@
 package com.web.service;
 
 import com.web.dto.ProjectDTO;
+import com.web.dto.ProjectSalesHistoryDTO;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -23,4 +24,6 @@ public interface ProjectService {
     int insertFinalOutput(Long projectId, List<MultipartFile> files);
 
     ResponseEntity<Resource> downloadFile(String id);
+
+    int insertSales(ProjectSalesHistoryDTO projectSalesHistoryDTO, List<MultipartFile> fileList);
 }

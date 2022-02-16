@@ -79,10 +79,12 @@ public class ProjectController {
             @RequestPart @ModelAttribute @Valid ProjectSalesHistoryDTO projectSalesHistoryDTO,
             @RequestPart(name = "salesFiles[]", required = false) List<MultipartFile> fileList) {
 
-        System.out.println("projectSalesHistoryDTO.getProjectId() = " + projectSalesHistoryDTO.getProjectId());
-        System.out.println("projectSalesHistoryDTO.getYear() = " + projectSalesHistoryDTO.getYear());
-        System.out.println("projectSalesHistoryDTO.getSales() = " + projectSalesHistoryDTO.getSales());
-        fileList.forEach(System.out::println);
+//        System.out.println("projectSalesHistoryDTO.getProjectId() = " + projectSalesHistoryDTO.getProjectId());
+//        System.out.println("projectSalesHistoryDTO.getYear() = " + projectSalesHistoryDTO.getYear());
+//        System.out.println("projectSalesHistoryDTO.getSales() = " + projectSalesHistoryDTO.getSales());
+//        fileList.forEach(System.out::println);
+
+        projectService.insertSales(projectSalesHistoryDTO, fileList);
 
         return "redirect:/projects/list/" + id;
     }

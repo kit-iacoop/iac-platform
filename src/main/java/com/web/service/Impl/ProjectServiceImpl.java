@@ -11,12 +11,13 @@ import com.domain.project.Project;
 import com.domain.project.ProjectRepository;
 import com.domain.projectOutput.ProjectOutput;
 import com.domain.projectProfessor.ProjectProfessor;
+import com.domain.projectSalesHistory.ProjectSalesHistory;
+import com.domain.projectSalesHistory.ProjectSalesHistoryRepository;
 import com.domain.proofFile.ProofFile;
 import com.domain.proofFile.ProofFileRepository;
-import com.web.dto.BudgetDetailDTO;
-import com.web.dto.CollaboRequestDTO;
-import com.web.dto.ProjectDTO;
-import com.web.dto.ProjectProfessorDTO;
+import com.domain.salesHistoryProofFile.SalesHistoryProofFile;
+import com.domain.salesHistoryProofFile.SalesHistoryProofFileRepository;
+import com.web.dto.*;
 import com.web.service.ProjectService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.InputStreamResource;
@@ -52,6 +53,8 @@ public class ProjectServiceImpl implements ProjectService {
     private final CompanyRepository companyRepository;
     private final ProfessorRepository professorRepository;
     private final ProofFileRepository proofFileRepository;
+    private final ProjectSalesHistoryRepository projectSalesHistoryRepository;
+    private final SalesHistoryProofFileRepository salesHistoryProofFileRepository;
 
     @Override
     public Page<ProjectDTO> findAllProject(Pageable pageable) {
@@ -240,5 +243,50 @@ public class ProjectServiceImpl implements ProjectService {
             e.printStackTrace();
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    }
+
+    @Override
+    public int insertSales(ProjectSalesHistoryDTO projectSalesHistoryDTO, List<MultipartFile> fileList) {
+        Optional<Project> byId = projectRepository.findById(Long.valueOf(projectSalesHistoryDTO.getProjectId()));
+        if (byId.isEmpty()) {
+            return 0;
+        }
+        Project project = byId.get();
+        ProjectSalesHistory projectSalesHistory = ProjectSalesHistory.builder()
+                .year(projectSalesHistoryDTO.getYear())
+                .sales(projectSalesHistoryDTO.getSales())
+                .status(State.PENDING)
+                .proofFileList(new ArrayList<>())
+                .build();
+        projectSalesHistory.setProject(project);
+
+        projectSalesHistoryRepository.save(projectSalesHistory);
+
+        List<SalesHistoryProofFile> historyProofFiles = new ArrayList<>();
+        for (MultipartFile file : fileList) {
+            try {
+                if (file.getSize() > 0) {
+                    String fileName = UUID.randomUUID() + "_" + file.getOriginalFilename();
+                    String filePath = "/Users/lichee55/iac-platform/" + fileName;
+                    File saveFile = new File(filePath);
+                    file.transferTo(saveFile);
+                    SalesHistoryProofFile proofFile = SalesHistoryProofFile.builder()
+                            .fileName(fileName)
+                            .filePath(filePath)
+                            .fileSize(file.getSize() + " bytes")
+                            .build();
+                    historyProofFiles.add(proofFile);
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        historyProofFiles.forEach(e -> {
+            e.setProjectSalesHistory(projectSalesHistory);
+            salesHistoryProofFileRepository.save(e);
+        });
+
+
+        return 0;
     }
 }

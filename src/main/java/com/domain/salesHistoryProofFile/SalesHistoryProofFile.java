@@ -4,11 +4,13 @@ import com.domain.projectSalesHistory.ProjectSalesHistory;
 import com.domain.common.BaseTimeEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 
 @NoArgsConstructor
 @Getter
+@SuperBuilder
 @Entity
 @Table(name = "SALES_HISTORY_PROOF_FILE")
 public class SalesHistoryProofFile extends BaseTimeEntity {
@@ -17,7 +19,7 @@ public class SalesHistoryProofFile extends BaseTimeEntity {
     @Column(name = "SALES_HISTORY_PROOF_FILE_ID", nullable = false)
     private Long salesHistoryProofFileId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PROJECT_SALES_HISTORY_ID", nullable = false)
     private ProjectSalesHistory projectSalesHistory;
 
