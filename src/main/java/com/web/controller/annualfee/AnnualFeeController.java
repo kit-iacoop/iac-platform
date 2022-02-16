@@ -38,7 +38,7 @@ public class AnnualFeeController {
     @Autowired
     private GradePolicyService gradePolicyService;
 
-    @GetMapping("/company/annual-fee/payment-application")
+    @GetMapping(path={"/company/annual-fee/payment-application", "/company/annual-fee/first"})
     public ModelAndView paymentApplication(ModelAndView mav){
 
         mav.addObject("accountDTO", common.getAccount());

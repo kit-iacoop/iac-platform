@@ -111,7 +111,7 @@ public class AccountController {
 
 
 
-    @GetMapping(path = {"officer/mypage", "company/mypage", "professor/mypage"})
+    @GetMapping(path = {"officer/mypage", "company/mypage", "professor/mypage", "company/mypage/first"})
     public ModelAndView mypage(HttpServletRequest req, ModelAndView mav){
 
         Account account = ((AccountContext)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccount();

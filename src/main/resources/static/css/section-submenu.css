@@ -2,15 +2,32 @@
 #mypage, #industry-cooperation, #family-company, 
 #project, #share, #mileage-point, #annual-fee{
     /* background-color: #8ea5eb; */
-    background-color: #7588e6;
+    background-color: #106eea;
     padding: 1.5rem;
-    color: white;
+    color: #ffffff;
 }
+
 #mypage .col-sm-1 , #industry-cooperation .col-sm-1,
 #family-company .col-sm-1, #project .col-sm-1,
 #share .col-sm-1, #mileage-point .col-sm-1,
 #annual-fee .col-sm-1 {
     text-align: center;
-    margin-left: 1rem;
     white-space: pre;
+    /* border-right: solid 1.5px white; */
 }
+
+.col-sm-1 a:hover {
+    font-weight: bold;
+}
+
+.col-sm-1 a:after {/*after 가상요소*/
+    display:block;/*a요소를 블록 요소라고 선언*/
+    content: '';
+    border-bottom: solid 2px #fff;
+    transform: scaleX(0);/*크기를 0으로 줌으로써 평상시엔 밑줄 없음*/
+    transition: transform 250ms ease-in-out; /*변형 방식*/
+ }
+
+.col-sm-1 a:hover:after {
+    transform: scaleX(1);/*a 속성에 hover시 기존 크기로*/
+ }
