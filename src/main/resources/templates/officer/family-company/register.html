@@ -9,20 +9,6 @@
         <script th:inline="javascript">
             function showPopup(accountId) {
                 window.open("/officer/family-company/screen/detail/" + accountId, "디테일", "width=400, height=300, left=100, top=50");
-
-                // $.ajax({
-                //     url: "/officer/menu",
-                //     method: "GET",
-                //     dataType: "html",
-                //     success: eventSuccess,
-                //     error: function(xhr, status, error) {
-                //         alert(error);
-                //     }
-                // });
-
-                // function eventSuccess(data) {
-                //     w.location.href = "officer/family-company/screen/detail/" + accountId;
-                // }
             }
 
             function batchAccpet() {
@@ -41,15 +27,16 @@
     </head>
     <body>
         <section>
-                <div class="task-contents">
-                    <form method="post">
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="form-container">
                         <div>
                             <select>
                                 <option checked>선택</option>
                                 <option>승인</option>
                                 <option>대기</option>
                             </select>
-                            <table>
+                            <table class="table">
                                 <thead>
                                 <tr>
                                     <th scope="col" class=""><span>선택</span></th>
@@ -69,7 +56,8 @@
                             </table>
                         </div>
                         <button type="submit" onclick="batchAccpet()">일괄승인</button>
-                    </form>
+                    </div>
+                </div>
             </div>
         </section>
     </body>

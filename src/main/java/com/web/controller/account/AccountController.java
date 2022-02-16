@@ -70,7 +70,7 @@ public class AccountController {
         return "register/success";
     }
 
-    @GetMapping("officer/family-company/screen")
+    @GetMapping(path={"officer/family-company/screen", "officer/family-company/first"})
     public ModelAndView companyRegistrationScreen(ModelAndView mav) {
 
         mav.addObject("companyDtos", accountService.getAllPendingCompanies());
@@ -111,7 +111,7 @@ public class AccountController {
 
 
 
-    @GetMapping(path = {"officer/mypage", "company/mypage", "professor/mypage", "company/mypage/first"})
+    @GetMapping(path = {"officer/mypage", "company/mypage", "professor/mypage", "company/mypage/first", "officer/mypage/first"})
     public ModelAndView mypage(HttpServletRequest req, ModelAndView mav){
 
         Account account = ((AccountContext)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAccount();

@@ -6,16 +6,158 @@
         <link href="/css/mypage.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <section>
-            <div class="task-contents">
-                <th:block th:replace="fragments/mypage/common-info-inquire :: commonInfoInquireFragment"></th:block>
-                <div class="member-info">
-                    <label>대학</label>
-                    <div>[[${account.university}]]</div>
+        <section class="mypage-table">
+            <div class="container">
+                <div class="row gy-4" id="company-infomation">
+                        <div class="table-container" id="inquire-table">
+                            <table id="member-info" class="table">
+                                <th:block th:replace="fragments/mypage/common-info-inquire :: commonInfoInquireFragment"></th:block>
+                                <tr>
+                                    <th>대학</th>
+                                    <td>[[${account.university}]]</td>
+                                </tr>
+                                <tr>
+                                    <th>사무실</th>
+                                    <td>[[${account.officeLocation}]]</td>
+                                </tr>
+                            </table>
+                        </div>
                 </div>
-                <div class="member-info">
-                    <label>사무실</label>
-                    <div>[[${account.officeLocation}]]</div>
+            </div>
+            <div class="container">
+                <div class="row gy-4" id="company-mileage">
+                    <div class="table-container" id="my-mileage-point">
+                        <div id="counts" class="counts">
+                            <div class="container" id="count-boxes">
+                              <div class="countbox-wrapper" id="mileage">
+                                  <div class="count-box">
+                                    <i class="bi bi-emoji-smile"></i>
+                                    <span data-purecounter-start="0" th:data-purecounter-end="500" data-purecounter-duration="0"
+                                      class="purecounter">500</span>
+                                    <p>마일리지</p>
+                                  </div>
+                              </div>
+                              <div class="countbox-wrapper" id="point">
+                                <div class="count-box">
+                                    <i class="fas fa-coins"></i>
+                                  <span data-purecounter-start="0" th:data-purecounter-end="300" data-purecounter-duration="0"
+                                    class="purecounter">300</span>
+                                  <p>포인트</p>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="table-container" id="mileage-history">
+                        <div class="search-area">
+                            <div class="input-search">
+                                <div class="activity-search">
+                                    <input type="text" placeholder="활동명"/>
+                                </div>
+                                <div class="mileage-date-search">
+                                    <input type="date"/> ~ <input type="date"/>
+                                    <button id="search-btn">검색</button>
+                                </div>
+                            </div>
+
+                            <div class="select-search">
+                                <select>
+                                    <option id="mileage-selected" selected>마일리지</option>
+                                    <option id="point-selected">포인트</option>
+                                </select>
+                                <select>
+                                    <option id="all" selected>전체</option>
+                                    <option id="save">적립</option>
+                                    <option id="use">사용</option>
+                                </select>
+                            </div>
+                        </div>
+                        <br>
+                        <table id="mileage-history" class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class=""><span>날짜</span></th>
+                                    <th scope="col" class=""><span>사용내역</span></th>
+                                    <th scope="col" class=""><span>마일리지</span></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td scope="col" class="">2022-02-03</td>
+                                    <td scope="col" class=""><span>활동 B</span></td>
+                                    <td scope="col" class=""><span>+5</span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="col" class="">2022-02-01</td>
+                                    <td scope="col" class=""><span>연회비 납부</span></td>
+                                    <td scope="col" class=""><span>-1000</span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="col" class="">2022-01-31</td>
+                                    <td scope="col" class=""><span>활동 A</span></td>
+                                    <td scope="col" class=""><span>+10</span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="col" class="">2022-01-15</td>
+                                    <td scope="col" class=""><span>활동 C</span></td>
+                                    <td scope="col" class=""><span>+7</span></td>
+                                </tr>
+                                <tr>
+                                    <td scope="col" class="">2022-01-08</td>
+                                    <td scope="col" class=""><span>활동 A</span></td>
+                                    <td scope="col" class=""><span>+10</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="d-flex justify-content-center">
+                            <nav>
+                                <ul class="pagination">
+                                    <li th:if="${page} > 1" class="page-item">
+                                        <a class="page-link" th:href="@{/boards/list(page=${page+(-1)}, key=${key})}"
+                                           aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+                                    <li th:if="${page} == 1" class="page-item disabled">
+                                        <a class="page-link" href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                            <span class="sr-only">Previous</span>
+                                        </a>
+                                    </li>
+        
+                                    <th:block th:with="ten=${(page+(-1))/10*10}">
+                                        <th:block th:each="num : ${#numbers.sequence(ten+1, ten+10)}">
+                                            <li th:if="${num} <= ${maxPage} and ${num} == ${page}" class="page-item active"
+                                                aria-current="page">
+                                                <a class="page-link"
+                                                   th:text="${num}"><span
+                                                        class="sr-only">(current)</span></a>
+                                            </li>
+                                            <li th:if="${num} <= ${maxPage} and ${num} != ${page}" class="page-item"><a
+                                                    class="page-link" th:text="${num}"></a>
+                                            </li>
+                                        </th:block>
+                                    </th:block>
+        
+                                    <li th:if="${page} < ${maxPage}" class="page-item">
+                                        <a class="page-link"
+                                           aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                    <li th:if="${page} >= ${maxPage}" class="page-item disabled">
+                                        <a class="page-link" href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>

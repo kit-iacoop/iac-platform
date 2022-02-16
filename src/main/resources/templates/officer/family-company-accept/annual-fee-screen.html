@@ -1,50 +1,59 @@
-<div class="search">
-    <div class="company-name-search">
-        <input type="text" id="company-name" placeholder="회사명">
+<section>
+    <div class="container">
+        <div class="row gy-4">
+            <div class="form-container">
+                <div class="search">
+                    <div class="company-name-search">
+                        <input type="text" id="company-name" placeholder="회사명">
+                    </div>
+                    <div class="date-search">
+                        <input id="start-day" type="date"> ~ <input id="end-day" type="date">
+                        <button onclick="getRequest()">검색</button>
+                    </div>
+                    <div class="state-search">
+                        <select id="state" onchange="selectGetRequest(this.value);">
+                            <option value=>전체</option>
+                            <option value="APPROVED">승인</option>
+                            <option value="REJECTED">거절</option>
+                            <option value="PENDING">대기</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <table id="result" class="table">
+                    <thaed>
+                        <tr>
+                            <th scope="col" class=""><span>선택</span></th>
+                            <th scope="col" class=""><span>년도</span></th>
+                            <th scope="col" class=""><span>등급</span></th>
+                            <th scope="col" class=""><span>회사</span></th>
+                            <th scope="col" class=""><span>금액</span></th>
+                            <th scope="col" class=""><span>사용포인트</span></th>
+                            <th scope="col" class=""><span>상태</span></th>
+                            <th scope="col" class=""><span>승인일</span></th>
+                        </tr>
+                    </thaed>
+                    <tbody>
+                        <tr th:each="dto : ${annualFeeDTOs}">
+                            <td><input type="checkbox" name="checkedValue" th:value="${dto.annualFeeId}"/></td>
+                            <td th:text="${dto.year}"></td>
+                            <td th:text="${dto.grade}"></td>
+                            <td th:text="${dto.companyName}"></td>
+                            <td th:text="${dto.cash}"></td>
+                            <td th:text="${dto.point}"></td>
+                            <td th:text="${dto.paymentStatus}"></td>
+                            <td th:text="${#temporals.formatISO(dto.confirmDate)}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button onclick="postRequest('/accept')">승인</button>
+                <button onclick="postRequest('/reject')">거절</button>
+            </div>
+        </div>
     </div>
-    <div class="date-search">
-        <input id="start-day" type="date"> ~ <input id="end-day" type="date">
-        <button onclick="getRequest()">검색</button>
-    </div>
-    <div class="state-search">
-        <select id="state" onchange="selectGetRequest(this.value);">
-            <option value=>전체</option>
-            <option value="APPROVED">승인</option>
-            <option value="REJECTED">거절</option>
-            <option value="PENDING">대기</option>
-        </select>
-    </div>
-</div>
+</section>
 
-<table id="result">
-    <thaed>
-        <tr>
-            <th scope="col" class=""><span>선택</span></th>
-            <th scope="col" class=""><span>년도</span></th>
-            <th scope="col" class=""><span>등급</span></th>
-            <th scope="col" class=""><span>회사</span></th>
-            <th scope="col" class=""><span>금액</span></th>
-            <th scope="col" class=""><span>사용포인트</span></th>
-            <th scope="col" class=""><span>상태</span></th>
-            <th scope="col" class=""><span>승인일</span></th>
-        </tr>
-    </thaed>
-    <tbody>
-        <tr th:each="dto : ${annualFeeDTOs}">
-            <td><input type="checkbox" name="checkedValue" th:value="${dto.annualFeeId}"/></td>
-            <td th:text="${dto.year}"></td>
-            <td th:text="${dto.grade}"></td>
-            <td th:text="${dto.companyName}"></td>
-            <td th:text="${dto.cash}"></td>
-            <td th:text="${dto.point}"></td>
-            <td th:text="${dto.paymentStatus}"></td>
-            <td th:text="${#temporals.formatISO(dto.confirmDate)}"></td>
-        </tr>
-    </tbody>
-</table>
 
-<button onclick="postRequest('/accept')">승인</button>
-<button onclick="postRequest('/reject')">거절</button>
 
 <script src="/js/jquery.js"></script>
 <script th:inline="javascript">
