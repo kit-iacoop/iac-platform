@@ -93,6 +93,10 @@ spring:
   thymeleaf:
     cache: false
 
+  servlet:
+    multipart:
+      location: D:\multipart
+
 server:
   port: 8081
 

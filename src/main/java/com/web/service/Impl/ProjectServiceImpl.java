@@ -19,13 +19,23 @@ import com.web.dto.ProjectDTO;
 import com.web.dto.ProjectProfessorDTO;
 import com.web.service.ProjectService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ContentDisposition;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -207,5 +217,28 @@ public class ProjectServiceImpl implements ProjectService {
             proofFileRepository.save(e);
         });
         return 1;
+    }
+
+    @Override
+    public ResponseEntity<Resource> downloadFile(String id) {
+        try {
+            Optional<ProofFile> byId = proofFileRepository.findById(Long.valueOf(id));
+            if (byId.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
+            ProofFile proofFile = byId.get();
+            Path path = Paths.get(proofFile.getFilePath());
+            String contentType = Files.probeContentType(path);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentDisposition(ContentDisposition.builder("attachment").filename(proofFile.getFileName(), StandardCharsets.UTF_8).build());
+            headers.add(HttpHeaders.CONTENT_TYPE, contentType);
+
+            Resource resource = new InputStreamResource(Files.newInputStream(path));
+            return new ResponseEntity<>(resource, headers, HttpStatus.OK);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }
