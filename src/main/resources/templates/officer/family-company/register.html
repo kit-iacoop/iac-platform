@@ -8,7 +8,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script th:inline="javascript">
             function showPopup(accountId) {
-                window.open("/officer/family-company/screen/detail/" + accountId, "디테일", "width=400, height=300, left=100, top=50");
+                window.open("/officer/family-company/screen/detail/" + accountId, "디테일", "width=800, height=600, left=100, top=50");
             }
 
             function batchAccpet() {
@@ -38,21 +38,25 @@
                             </select>
                             <table class="table">
                                 <thead>
-                                <tr>
-                                    <th scope="col" class=""><span>선택</span></th>
-                                    <th scope="col" class=""><span>구분</span></th>
-                                    <th scope="col" class=""><span>업종</span></th>
-                                    <th scope="col" class=""><span>회사명</span></th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr th:each="dto : ${companyDtos}">
-                                    <td><input type="checkbox" name="checkedValue" value="${dto.accountId}"/></td>
-                                    <td th:text="${dto.companyType}"></td>
-                                    <td th:text="${dto.sector}"></td>
-                                    <td><a th:onclick="|showPopup('${dto.accountId}')|" th:text="${dto.name}"></a></td>
-                                </tr>
-                                </tbody>
+                                    <tr>
+                                        <th scope="col" class=""><span>선택</span></th>
+                                        <th scope="col" class=""><span>구분</span></th>
+                                        <th scope="col" class=""><span>업종</span></th>
+                                        <th scope="col" class=""><span>회사명</span></th>
+                                        <th scope="col" class=""><span>상세보기</span></th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="dto : ${companyDtos}">
+                                        <td><input type="checkbox" name="checkedValue" value="${dto.accountId}"/></td>
+                                        <td th:text="${dto.companyType}"></td>
+                                        <td th:text="${dto.sector}"></td>
+                                        <td th:text="${dto.name}"></td>
+                                        <td>
+                                            <button th:onclick="|showPopup('${dto.accountId}')|">더보기</button>
+                                        </td>
+                                    </tr>
+                                    </tbody>
                             </table>
                         </div>
                         <button type="submit" onclick="batchAccpet()">일괄승인</button>
