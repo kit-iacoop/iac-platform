@@ -6,25 +6,30 @@
         <link href="/css/mypage.css" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <section>
-            <form th:action="@{/professor/mypage/update}" th:object="${account}" method="post">
-                <div class="task-contents">
-                        <th:block th:replace="fragments/mypage/common-info-update :: commonInfoUpdateFragment"></th:block>
-                        <div class="member-info">
-                            <label>대학</label>
-                            <input type="text" class="update-info" name="member_university" placeholder="" th:field="*{university}">
-                        </div>
-                        <div class="member-info">
-                            <label>학과</label>
-                            <input type="text" class="update-info" name="member_department" placeholder="" th:field="*{department}">
-                        </div>
-                        <div class="member-info">
-                            <label>사무실</label>
-                            <input type="text" class="update-info" name="member_officeLocation" placeholder="" th:field="*{officeLocation}">
-                        </div>
-                    <input type="submit" name value="수정" title="수정">
+        <section class="mypage-table">
+            <div class="container">
+                <div class="row gy-4">
+                    <div class="form-container">
+                        <form th:action="@{/professor/mypage/update}" th:object="${account}" method="post">
+                        <table id="update-info" class="table">
+                            <th:block th:replace="fragments/mypage/common-info-update :: commonInfoUpdateFragment"></th:block>
+                            <tr>
+                                <th>대학</th>
+                                <td><input type="text" class="update-info" name="member_university" placeholder="" th:field="*{university}"></td>
+                            <tr>
+                                <th>학과</th>
+                                <td><input type="text" class="update-info" name="member_department" placeholder="" th:field="*{department}"></td>
+                            </tr>
+                            <tr>
+                                <th>사무실</th>
+                                <td><input type="text" class="update-info" name="member_officeLocation" placeholder="" th:field="*{officeLocation}"></td>
+                            </tr>
+                        </table>         
+                        <input type="submit" name value="수정" title="수정">
+                        </form>
+                    </div>
                 </div>
-            </form>
+            </div>
         </section>
     </body>
 </html>

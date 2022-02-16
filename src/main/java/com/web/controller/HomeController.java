@@ -69,6 +69,11 @@ public class HomeController {
         return "/officer/menu";
     }
 
+    @GetMapping("/professor/menu")
+    public String menuForP() {
+        return "/professor/menu";
+    }
+
     @GetMapping("/company/industry-cooperation/project/submenu")
     public String submenuForC() {
         return "company/industry-cooperation/project/submenu";
