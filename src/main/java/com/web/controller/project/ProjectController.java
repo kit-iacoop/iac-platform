@@ -29,7 +29,7 @@ public class ProjectController {
     @GetMapping("/list")
     public String projectList(@PageableDefault Pageable pageable, Model model) {
         Page<ProjectDTO> allProject = projectService.findAllProject(pageable);
-
+        model.addAttribute("projectDtos", allProject);
         return "project/project-list";
     }
 
