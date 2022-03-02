@@ -19,6 +19,11 @@
             font-size: 2rem;
         }
 
+        ul {
+            padding-left: 1rem;
+            list-style-type: circle;
+        }
+
         .file-list {
             margin: 1rem;
             border: 1px solid #c9c9c9;
@@ -49,7 +54,21 @@
         }
 
         #add-info-form {
-            margin: 1rem;
+            margin-top: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        #addSales-heading button {
+            border: 1px solid rgba(0,0,0,.125);
+            border-radius: calc(0.25rem - 1px);
+        }
+
+        #addSales-heading button:not(.collapsed) {
+            box-shadow: none;
+        }
+
+        #addSales-heading button:focus {
+            box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 25%);
         }
 
         #add-info-form label {
@@ -66,6 +85,10 @@
 
         #add-info-form h5 {
             margin-bottom: 0.75rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
         }
 
         #add-info-form h6 {
@@ -211,25 +234,33 @@
                             <div class="tab-pane fade" id="v-pills-sales" role="tabpanel" aria-labelledby="v-pills-sales-tab">
                                 <div>매출 변화 꺾은선 그래프로 그릴 예정</div>
                                 <div id="add-info-form">
-                                    <h5>연매출 정보 추가</h5>
-                                    <form th:action="@{/projects/list/{id}/sales(id=${projectDto.projectId})}" method="post" enctype="multipart/form-data">
-                                        <input type="hidden" name="projectId" th:value="${projectDto.projectId}">
-                                        <label>
-                                            연도
-                                            <input type="text" name="year" required>
-                                        </label>
-                                        <label>
-                                            매출액
-                                            <input type="text" name="sales" class="input-number" required> 만원
-                                        </label>
-                                        <h6>증빙 자료</h6>
-                                        <div class="file-list"></div>
-                                        <div class="d-flex justify-content-end">
-                                            <button type="button" class="btn btn-outline-secondary me-lg-2 fileUploadLbl">파일 추가</button>
-                                            <input type="file" name="salesFiles[]" class="multipartfiles">
-                                            <input type="submit" class="btn btn-outline-secondary" value="저장">
+                                    <h5 id="addSales-heading">
+                                        <button class="collapsed accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#addSales-collapse" aria-expanded="false" aria-controls="addSales-collapse">
+                                            연매출 정보 추가하기
+                                        </button>
+                                    </h5>
+                                    <div id="addSales-collapse" class="collapse" aria-labelledby="addSales-heading">
+                                        <div class="card card-body">
+                                            <form th:action="@{/projects/list/{id}/sales(id=${projectDto.projectId})}" method="post" enctype="multipart/form-data">
+                                                <input type="hidden" name="projectId" th:value="${projectDto.projectId}">
+                                                <label>
+                                                    연도
+                                                    <input type="text" name="year" required>
+                                                </label>
+                                                <label>
+                                                    매출액
+                                                    <input type="text" name="sales" class="input-number" required> 만원
+                                                </label>
+                                                <h6>증빙 자료</h6>
+                                                <div class="file-list"></div>
+                                                <div class="d-flex justify-content-end">
+                                                    <button type="button" class="btn btn-outline-secondary me-lg-2 fileUploadLbl">파일 추가</button>
+                                                    <input type="file" name="salesFiles[]" class="multipartfiles">
+                                                    <input type="submit" class="btn btn-outline-secondary" value="저장">
+                                                </div>
+                                            </form>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
                                 <div class="accordion" id="accordionExample">
                                     <div class="accordion-item" th:each="salesDto : ${projectDto.projectSalesHistoryDTOList}">
